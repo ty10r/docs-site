@@ -7,9 +7,13 @@
 ifndef::env-github[:icons: font]
 ifdef::env-github[]
 :important-caption: :exclamation:
+:warning-caption: :warning:
 endif::[]
 // URIs
-:uri-repo: https://github.com/ede65566-docs-migration/docs-site
+:uri-org: https://github.com/ede65566-docs-migration
+:uri-repo: {uri-org}/docs-site
+:uri-ci: https://travis-ci.org/ede65566-docs-migration/docs-site
+:uri-site: https://ede65566-docs-migration.github.io/docs-site/mule-runtime/3.8
 :uri-git: https://git-scm.com
 :uri-git-dl: {uri-git}/downloads
 :uri-node: https://nodejs.org
@@ -20,6 +24,7 @@ endif::[]
 :uri-site-generator: https://gitlab.com/opendevise-projects/opendevise-site-generator-express
 :uri-theme-designer-guide: https://github.com/opendevise/mulesoft-docs-theme-default/blob/master/README.adoc
 :uri-theme-user-guide: https://gitlab.com/opendevise-projects/opendevise-site-generator-express/blob/master/docs/theme-user-guide.adoc
+:uri-travis-ci: https://travis-ci.org
 :uri-yarn: https://yarnpkg.com
 
 This repository hosts the playbook project for generating the new MuleSoft Documentation site ("`docs site`").
@@ -39,6 +44,12 @@ This document describes the following:
 * [x] How to execute the site generator.
 * [x] How to preview the generated site locally.
 * [x] How the CI server is configured to publish the site files.
+
+.Pertinent locations
+* {uri-repo}[Site playbook repository] (docs-site)
+* {uri-org}[Content repositories] (ede65566-docs-migration)
+* {uri-ci}[Travis CI job]
+* {uri-site}[Published site]
 
 == Prerequisites
 
@@ -149,7 +160,7 @@ Let's look at what's in this playbook, then move on to generating the site.
 The playbook tells the site generator the following:
 
 * [x] Which content repositories and branches to feed into the generator.
-* [x] Which theme bundle to use to structure and style the pages.
+* [x] Which theme bundle to use to arrange and style the pages.
 * [x] The path to aspect navigation domains (navigation which is not linked to a given component).
 * [x] The URL of the published site (used for canonical URLs and URLs in the sitemap).
 
@@ -215,16 +226,220 @@ Details about how the theme is created, bundled, published, and consumed can be 
 
 == Generating the Site
 
+Now that you've told the generator which content to use and what page theme to apply to that content, it's time to run it.
+
+To run the site, you'll invoke the site generator using yarn:
+
+ $ yarn run generator
+
+When generation is complete, you will see a URL in the console (specific to your machine) that you can use to preview the site locally in a browser.
+
+[.output]
+....
+yarn run v0.27.5
+$ node -r opendevise-site-generator-express -e ''
 ...
+Finished in 0:01:46
+Site can be viewed at file:///home/user/projects/docs-site/build/site
+Done in 106.89s.
+....
+
+What happens in the `\...` is explained in the next section.
 
 == The Generator Pipeline
 
-...
+When the generator runs, it performs the following steps:
+
+. Fetches the content repositories using git (via nodegit).
+. Resolves and downloads the theme bundle using the GitHub API.
+. Locates and reads all AsciiDoc files.
+. Locates and reads all navigation files.
+. Converts AsciiDoc files to embeddable HTML.
+. Wraps the embeddable HTML in the page template and adds the navigation tree, which is also converted to HTML.
+. Reads asset files (images, attachments, and theme resources).
+. Writes all site files to [.path]_build/site_.
+
+The following sections describe a few of these steps in more detail.
+
+//Q: Should we add a section dedicated to the vinyl collection?
+
+=== Content Fetching
+
+The first step in the site generator--probably the most important--is the fetching of the content.
+This is the step that makes this site generator so versatile.
+Here's how it works.
+
+The list of repositories is read from the playbook ([.path]_site.yml_).
+The site generator then uses git (via nodegit) to clone these repositories.
+The cloned repositories are stored under [.path]_build/sources_ (though this may be changed to [.path]_build/content_ in the future).
+Currently, the repositories are cloned bare, which means you won't actually see any files inside these directories aside from the [.path]_.git_ folder.
+
+The generator then iterates over all the branches in these repositories and, using information from the playbook, decides which ones it will use.
+It then scans those branches and puts the files into a vinyl collection, which is an in-memory collection of virtual file objects.
+It associates each file in a branch with the component name and version defined in the [.path]_component.yml_ at the root of the branch.
+As such, the repository name and branch name don't matter once the file is read.
+
+The rest of the pipeline interfaces only with this virtual file collection, not the git repositories, thus abstracting away the details of each file's origin.
+However, the virtual files do still retain some metadata about each file provided by the git repository.
+
+=== Theme Loading
+
+As described in the {uri-theme-designer-guide}[Theme Designer Guide], each theme bundle is stored as a zip attached to a release in the GitHub repository that hosts the theme.
+The generator resolves the latest release of the theme (or, in the future, the specific version specified in the playbook). 
+It then downloads the theme bundle attached to that release.
+Next, it extracts this zip file and adds the file contents to the vinyl collection previously described.
+From that point forward, the pipeline interfaces only with the theme files in the virtual file collection, thus abstracting away the details of the theme's origin.
+
+The theme provides both the design assets (e.g., CSS, fonts, shared images) as well as the template(s) for the pages.
+The site generator reads each AsciiDoc document, collects metadata from the document header, converts the document to embeddable HTML, then passes all the information to the template in the form of a page model.
+The template then arranges the information and emits a standalone HTML page.
+That page is put back into the virtual file collection in place of the AsciiDoc file, now ready to be written to disk as a page in the site.
+
+//Q: add a section to explain sitemap generation?
 
 == CI Hookup
 
-...
+With the files now sitting in [.path]_build/site_, all that's left is to publish them.
+This project contains configuration for a {uri-ci}[Travis CI job] that publishes the files in [.path]_build/site_ to GitHub Pages.
+Let's look at how that works.
 
-== Wrapup
+.Disclaimer
+IMPORTANT: It's important to emphasize that the site generator is not coupled to Travis or the Travis CI job described here.
+The Travis CI job described here simply demonstrates the intent of what needs to happen.
+Any CI tool that can publish the files in [.path]_build/site_ can be used instead.
 
-...
+{uri-travis-ci}[Travis CI] (herein Travis) is a continuous integration and automation server designed to tightly integrate with GitHub repositories.
+By default, every branch (including pull request branches) of every GitHub repository automatically has a job in Travis associated with it.
+All you have to do is flip a switch to enable this integration.
+
+//TODO screenshot
+That switch is controlled on the Travis accounts page.
+You sign in to Travis using your GitHub credentials and it syncs the repositories automatically.
+You just scroll down to the repository you're interested in and flip the switch.
+It's that easy.
+
+With Travis activated, every push to the repository triggers a build.
+But how does Travis know what to run?
+That's the roll of [.path]_.travis.yml_.
+
+Each branch of the repository you intend to use with Travis should have a [.path]_.travis.yml_ configuration file.
+This file tells the Travis job what infrastructure to use and what to build.
+The default Travis infrastructure is based on Ubuntu (Trusty).
+Layered on top of is dedicated language support that allows you to run your job on a specific version of a language (e.g., Node 7 or Ruby 2.4).
+
+If you look at the [.path]_.travis.yml_ file in this repository, you'll see we're using Node 7 on Ubuntu Trusty.
+
+[source,yaml]
+----
+dist: trusty
+# ...
+language: node_js
+node_js: 7
+cache: yarn
+----
+
+You'll also see a few lines deal with packages.
+It so happens that the Ubuntu Trusty image needs an additional package (installed using apt-get) in order to use nodegit.
+This is described using the following lines of configuration:
+
+[source,yaml]
+----
+addons:
+  apt:
+    sources: [ ubuntu-toolchain-r-test ]
+    packages: [ libstdc++-4.9-dev ]
+----
+
+The environment is all set.
+What comes next are instructions for how to initialize and run the site generator.
+
+We don't have to tell Travis which repositroy to clone.
+It already knows that.
+But we can configure how it clones.
+Here, we tell it to only clone at a depth of 10, which speeds up the clone and prevents it from taking unnecessary branches.
+
+[source,yaml]
+----
+git:
+  depth: 10
+----
+
+Once the repository is cloned, the CI job has to perform the same steps that were described above to run the generator.
+Specifically, it:
+
+. Installs Yarn globally:
++
+[source,yaml]
+----
+before_install: npm install -g yarn
+----
+
+. Runs `yarn install` (a step implied by enabling the Yarn cache):
++
+[source,yaml]
+----
+cache: yarn
+----
++
+Subsequent job runs will be accelerated by the use of the Yarn cache, a built-in feature of Travis.
+
+. Executes the site generator:
++
+[source,yaml]
+----
+script: yarn run generator
+----
+
+All that remains now is publishing the files in [.path]_build/site_ to GitHub Pages.
+Travis provides native integration with GitHub Pages.
+All you have to do is tell Travis to use it.
+That's where the deploy section comes in:
+
+[source,yaml]
+----
+before_deploy: touch build/site/.nojekyll
+deploy:
+  provider: pages
+  local_dir: build/site
+  project_name: MuleSoft Docs Site
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
+----
+
+First, we have to touch the [.path]_.nojekyll_ file so that GitHub Pages doesn't do any sort of extra processing of our files.
+Next, we activate the GitHub Pages deployment provider (named "`pages`").
+We tell it to:
+
+* only run on the master branch,
+* where to find the files to publish ([.path]_build/site_),
+* not to cleanup these files before publishing (for obvious reasons), and
+* which access token to use to write to the git repository.
+
+The token is passed as an environment variable, which we'll get to next.
+The files get written to the gh-pages branch of the GitHub repository on which it is running (although this is configurable).
+
+The GITHUB_TOKEN environment variable is configured on the Travis configuration page for this repository.
+It gets stored as a _secure_ variable, which means that it's encrypted and not visible in the build logs.
+This environment variable gets passed to all builds in the same repository.
+The token represents the credentials for the user who will push the commit to the gh-pages branch.
+It is also used by the site generator when resolving the latest theme release.
+
+Once published to GitHub Pages, the site is available at {uri-site}.
+
+== Recap
+
+This repository hosts the playbook project for generating the new docs site.
+It only contains configuration.
+The rest is fetched automatically.
+
+The site generator requires Node 7 to run.
+Yarn is used to download and execute the site generator software.
+Node and Yarn are the only software packages required.
+All other tasks are handled by the site generator.
+
+The site generator uses information in the playbook (i.e., [.path]_site.yml_) to fetch the content and the theme used to arrange and style those pages.
+The site files get written to [.path]_build/site_.
+The site can be previewed locally out of this location.
+Finally, a Travis CI job is used to publish those files to GitHub Pages, where they become available at {uri-site}.
