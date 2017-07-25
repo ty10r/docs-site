@@ -1,0 +1,230 @@
+= MuleSoft Docs Site
+// Settings
+:toc:
+:toc-title: Contents
+:idprefix:
+:idseparator: -
+ifndef::env-github[:icons: font]
+ifdef::env-github[]
+:important-caption: :exclamation:
+endif::[]
+// URIs
+:uri-repo: https://github.com/ede65566-docs-migration/docs-site
+:uri-git: https://git-scm.com
+:uri-git-dl: {uri-git}/downloads
+:uri-node: https://nodejs.org
+:uri-nodegit: http://www.nodegit.org/
+:uri-nodegit-dev: http://www.nodegit.org/guides/install/from-source
+:uri-nvm: https://github.com/creationix/nvm
+:uri-nvm-install: {uri-nvm}#installation
+:uri-site-generator: https://gitlab.com/opendevise-projects/opendevise-site-generator-express
+:uri-theme-designer-guide: https://github.com/opendevise/mulesoft-docs-theme-default/blob/master/README.adoc
+:uri-theme-user-guide: https://gitlab.com/opendevise-projects/opendevise-site-generator-express/blob/master/docs/theme-user-guide.adoc
+:uri-yarn: https://yarnpkg.com
+
+This repository hosts the playbook project for generating the new MuleSoft Documentation site ("`docs site`").
+It's strictly a configuration as code repository.
+That means it does not contain any software, nor does it contain any content.
+Instead, it provides instructions for fetching the software and the content it needs and for executing the main script to generate the site files.
+It also includes CI configuration for running the generator and publishing the output files to a web server.
+
+.Disclaimer
+WARNING: At the moment, this repository is intended to be used for testing the new site generator pipeline.
+Therefore, the files generated out of it should only be published to a testing environment.
+
+This document describes the following:
+
+* [x] What prerequisites are needed to bootstrap the site generator.
+* [x] How to configure the site generator using the playbook (i.e., configuration file).
+* [x] How to execute the site generator.
+* [x] How to preview the generated site locally.
+* [x] How the CI server is configured to publish the site files.
+
+== Prerequisites
+
+The site generator is built entirely atop {uri-node}[Node.js] (herein Node) (command: `node`). 
+Therefore, to generate the site, the only software you need on your machine is Node and any system libraries (such as a C compiler) that Node requires in order to install certain Node-based dependencies.
+
+=== Node 7
+
+You must have Node 7 (7.9.0 or better) installed.
+Please choose the latest Node 7 release, if possible.
+
+While you can install Node from the official packages, we strongly recommend using {uri-nvm}[nvm] (Node Version Manager) to install and manage Node.
+Follow the {uri-nvm-install}[nvm installation instructions] to set up nvm on your machine.
+
+Once you've installed nvm, open a new terminal and install Node 7 using:
+
+ $ nvm install 7
+
+You can switch to this version of Node at any time using:
+
+ $ nvm use 7
+
+To configure Node 7 as the default for any new terminal, define the default alias as follows:
+
+ $ nvm alias default 7
+
+Always verify the version your using is Node 7 (7.9.0 or better) using:
+
+ $ node --version
+
+NOTE: Many CI environments, such as Travis CI, use nvm to install the version of Node used for the build job.
+Therefore, by using nvm, you more closely align your setup with the environment that will be used to generate and publish the site.
+
+Despite that fact that Node is required, you won't use it directly.
+Instead, you'll interface with Node using a package manager and script runner built on top of it named Yarn.
+
+=== Yarn
+
+{uri-yarn}[Yarn] (command: `yarn`) is the preferred package manager and script runner for the Node ecosystem.
+
+You'll need to use the `npm` command (part of Node) to install Yarn, though this is the last time you'll use the `npm` command.
+You should install Yarn globally (which resolves to a location in your user directory if you're using nvm) using:
+
+ $ npm install -g yarn
+
+Verify Yarn is installed by checking the version:
+
+ $ yarn --version
+
+If you see a version, you are all set.
+
+=== git
+
+You need {uri-git}[git] (command: `git`) to pull down the project and push updates to it.
+
+First, check if you have git installed.
+
+ $ git --version
+
+If not, {uri-git-dl}[download and install] the git package for your system.
+
+==== nodegit
+
+Although the site generator interfaces with git repositories, it does not itself require the git command to be available on your system.
+Instead, it interacts with git repositories using {uri-nodegit}[nodegit] (JavaScript bindings for libgit2).
+Since nodegit is pulled in as a dependency by Yarn, there's no need to worry about installing it.
+
+However, in order for Yarn to install nodegit, you most likely need to have development tools (i.e., a C compiler) installed on your machine.
+Details about how to get these libraries can be found in the *Installing Dependencies* section of the page {uri-nodegit-dev}[Building nodegit from source].
+Though, if you've already been using your machine for development, you probably already have these tools installed.
+
+Now that you have Node and Yarn installed, you're ready to clone and initialize the playbook project.
+
+== Setting Up the Project
+
+The next step is to fetch the playbook project and initialize it.
+
+=== Fetch
+
+To start, clone the theme project using git:
+
+[subs=attributes+]
+ $ git clone --single-branch {uri-repo} &&
+   cd "`basename $_`"
+
+Next, you'll need to initialize the project (using Yarn).
+
+=== Initialize
+
+Initializing the project essentially means downloading and installing the dependencies (i.e., required software) for the project.
+That's the job of Yarn.
+
+In your terminal, execute the following command (while inside the project folder):
+
+ $ yarn install
+
+The install command uses dependency information defined in [.path]_package.json_ and [.path]_yarn.lock_ to resolve dependencies, which Yarn then installs inside the project under the [.path]_node_modules_ folder.
+
+The playbook project only has one top-level dependency, which is opendevise-site-generator-express.
+The {uri-site-generator}[opendevise-site-generator-express] dependency supplies the main site generator software.
+It's preconfigured to generate a documentation site based on the <<Playbook,playbook>> defined in this project.
+The site generator has it's own transitive dependencies, of course, but those get fetched automatically by Yarn.
+
+Let's look at what's in this playbook, then move on to generating the site.
+
+== Playbook
+
+The playbook tells the site generator the following:
+
+* [x] Which content repositories and branches to feed into the generator.
+* [x] Which theme bundle to use to structure and style the pages.
+* [x] The path to aspect navigation domains (navigation which is not linked to a given component).
+* [x] The URL of the published site (used for canonical URLs and URLs in the sitemap).
+
+The playbook is the file _site.yml_ at the root of the project.
+It is written in YAML, which is a popular configuration language used for configuring automated tasks.
+The site generator automatically detects and uses this file (unless you instruct it to use a different file).
+
+Here's the contents of the playbook:
+
+[source,yaml]
+----
+site:
+  url: https://ede65566-docs-migration.github.io/docs-site
+content:
+- repository: https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs.git
+- repository: https://github.com/ede65566-docs-migration/anypoint-platform-docs.git
+  branches: master
+- repository: https://github.com/ede65566-docs-migration/anypoint-studio-docs.git
+- repository: https://github.com/ede65566-docs-migration/apikit-docs.git
+- repository: https://github.com/ede65566-docs-migration/mule-management-console-docs.git
+- repository: https://github.com/ede65566-docs-migration/mule-runtime-docs.git
+  branches:
+  - v3.8
+  - v3.7
+- repository: https://github.com/ede65566-docs-migration/munit-docs.git
+- repository: https://github.com/ede65566-docs-migration/release-notes-docs.git
+- repository: https://github.com/ede65566-docs-migration/runtime-manager-agent-docs.git
+- repository: https://github.com/ede65566-docs-migration/solutions-docs.git
+- repository: https://github.com/ede65566-docs-migration/tcat-server-docs.git
+theme:
+  repository: https://github.com/opendevise/mulesoft-docs-theme-default
+nav:
+- nav/tutorials.adoc
+----
+
+The content key is likely the one you'll tune most often.
+It contains an array of repository specifications.
+At a minimum, you can specify the location of a (public) repository using the repository key.
+The site generator will then scan and use every branch in that repository that begins with "`v`" or matches "`master`".
+
+If you want to limit the branches that are selected, you can specify an array of branch patterns using the branches key.
+Each pattern is either an exact branch name or a shell glob pattern such as as `v3.*`.
+If the pattern starts with a `!` character, then it is negated. 
+This is how you can deselect branches following the use of a glob.
+
+For example, let's say you want to include all 3.x versions except for 3.2.
+You'd use the following branches specification:
+
+[source,yaml]
+----
+branches:
+- v3.*
+- !v3.2
+----
+
+The name of the branch doesn't actually get used by the site generator once it's fetched.
+Inside each branch is a [.path]_component.yml_ file.
+That file defines the version of the component (i.e., the documentation version).
+Thus, you can have more than one branch that provides the same version of the documentation, which you can then toggle between by configuring the branch filter in the playbook.
+
+The theme is configured by pointing to the repository that hosts the theme.
+Details about how the theme is created, bundled, published, and consumed can be found in the {uri-theme-designer-guide}[Theme Designer Guide] and the {uri-theme-user-guide}[Theme User Guide].
+
+== Generating the Site
+
+...
+
+== The Generator Pipeline
+
+...
+
+== CI Hookup
+
+...
+
+== Wrapup
+
+...
