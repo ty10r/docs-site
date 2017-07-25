@@ -1,12 +1,18 @@
-dist: trusty
 sudo: false
+dist: precise
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - libstdc++-4.9-dev
 git:
   depth: 10
 language: node_js
 node_js: 7
 cache: yarn
 before_install: npm install -g yarn
-script: yarn run site
+script: yarn run generate
 deploy:
   provider: pages
   local_dir: build/site
