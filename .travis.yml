@@ -1,11 +1,9 @@
 sudo: false
-dist: precise
+dist: trusty
 addons:
   apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - libstdc++-4.9-dev
+    sources: [ ubuntu-toolchain-r-test ]
+    packages: [ libstdc++-4.9-dev ]
 git:
   depth: 10
 language: node_js
@@ -13,6 +11,7 @@ node_js: 7
 cache: yarn
 before_install: npm install -g yarn
 script: yarn run generate
+before_deploy: touch build/site/.nojekyll
 deploy:
   provider: pages
   local_dir: build/site
