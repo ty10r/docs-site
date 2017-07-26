@@ -1,4 +1,5 @@
 // TODO
+// - subsequent runs
 // - document aspect navigation configuration
 = MuleSoft Docs Site
 // Settings
@@ -39,7 +40,7 @@ That means it does not contain any software, nor does it contain any content.
 Instead, it instructs an automated tool how to fetch the software and content it needs and, subsequntly, how to generate the site files.
 The repository also includes CI configuration for running the generator and publishing the output files to a web server.
 
-.Disclaimer
+._Disclaimer_
 WARNING: At the moment, this repository is intended to be used for testing the new site generator pipeline.
 Therefore, the files generated from it should only be published to a testing environment.
 
@@ -275,6 +276,7 @@ You invoke the site generator using Yarn:
 
 When generation is complete, you'll see a URL in the console that is specific to your machine.
 You can follow this URL to preview the site locally in your browser.
+You do not need to publish the site to a server in order to preview it.
 
 [.output]
 ....
@@ -345,7 +347,7 @@ With the files now sitting in [.path]_build/site_, all that's left is to publish
 This project contains configuration for a {uri-ci}[Travis CI job] that publishes the files in [.path]_build/site_ to GitHub Pages.
 Let's look at how that works.
 
-.Disclaimer
+._Disclaimer_
 IMPORTANT: It's important to emphasize that the site generator is not coupled to Travis or the Travis CI job described here.
 The Travis CI job described here simply demonstrates the intent of what needs to happen.
 Any CI tool that can publish the files in [.path]_build/site_ can be used instead.
@@ -462,6 +464,7 @@ We tell it to:
 The token is passed as an environment variable, which we'll get to next.
 The files get written to the gh-pages branch of the GitHub repository on which it is running (although this is configurable).
 
+//TODO screenshot
 The GITHUB_TOKEN environment variable is configured on the Travis configuration page for this repository.
 It gets stored as a _secure_ variable, which means that it's encrypted and not visible in the build logs.
 This environment variable gets passed to all builds in the same repository.
