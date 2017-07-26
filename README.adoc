@@ -193,7 +193,7 @@ The playbook tells the site generator the following:
 
 * [x] Which content repositories and branches to feed into the generator.
 * [x] Which theme bundle to use to arrange and style the pages.
-* [x] The path to aspect navigation domains (navigation which is not linked to a given component).
+* [x] The path to aspect navigation domains (navigation which is not linked to any given component).
 * [x] The URL of the published site (used for canonical URLs and URLs in the sitemap).
 
 The playbook is the file _site.yml_ at the root of the project.
@@ -250,8 +250,16 @@ branches:
 
 The name of the branch doesn't actually get used by the site generator once it's fetched.
 Inside each branch is a [.path]_component.yml_ file.
-That file defines the version of the component (i.e., the documentation version).
-Thus, you can have more than one branch that provides the same version of the documentation, which you can then toggle between by configuring the branch filter in the playbook.
+That file defines the name and version of the component (i.e., the documentation version).
+For example, here's the [.path]_component.yml_ file in the v3.8 branch of the mule-runtime repository:
+
+[source,yaml]
+----
+name: mule-runtime
+version: '3.8'
+----
+
+This decoupling allows you to have more than one branch that provides the same version of a documentation component, which you can then toggle between by configuring the branch filter in the playbook.
 
 The theme is configured by pointing to the repository that hosts the theme.
 Details about how the theme is created, bundled, published, and consumed can be found in the {uri-theme-designer-guide}[Theme Designer Guide] and the {uri-theme-user-guide}[Theme User Guide].
