@@ -1,3 +1,5 @@
+// TODO
+// - document aspect navigation configuration
 = MuleSoft Docs Site
 // Settings
 :toc:
@@ -12,8 +14,10 @@ endif::[]
 // URIs
 :uri-org: https://github.com/ede65566-docs-migration
 :uri-repo: {uri-org}/docs-site
+:uri-theme-repo: https://github.com/opendevise/mulesoft-docs-theme-default
 :uri-ci: https://travis-ci.org/ede65566-docs-migration/docs-site
-:uri-site: https://ede65566-docs-migration.github.io/docs-site/mule-runtime/3.8
+:uri-site-root: https://ede65566-docs-migration.github.io/docs-site
+:uri-site: {uri-site-root}/mule-runtime/3.8
 :uri-git: https://git-scm.com
 :uri-git-dl: {uri-git}/downloads
 :uri-node: https://nodejs.org
@@ -22,7 +26,7 @@ endif::[]
 :uri-nvm: https://github.com/creationix/nvm
 :uri-nvm-install: {uri-nvm}#installation
 :uri-site-generator: https://gitlab.com/opendevise-projects/opendevise-site-generator-express
-:uri-theme-designer-guide: https://github.com/opendevise/mulesoft-docs-theme-default/blob/master/README.adoc
+:uri-theme-designer-guide: {uri-theme-repo}/blob/master/README.adoc
 :uri-theme-user-guide: https://gitlab.com/opendevise-projects/opendevise-site-generator-express/blob/master/docs/theme-user-guide.adoc
 :uri-travis-ci: https://travis-ci.org
 :uri-yarn: https://yarnpkg.com
@@ -30,12 +34,12 @@ endif::[]
 This repository hosts the playbook project for generating the new MuleSoft Documentation site ("`docs site`").
 It's strictly a configuration as code repository.
 That means it does not contain any software, nor does it contain any content.
-Instead, it provides instructions for fetching the software and the content it needs and for executing the main script to generate the site files.
+Instead, it provides instructions for fetching the software and the content it needs and executing the main script to generate the site files.
 It also includes CI configuration for running the generator and publishing the output files to a web server.
 
 .Disclaimer
 WARNING: At the moment, this repository is intended to be used for testing the new site generator pipeline.
-Therefore, the files generated out of it should only be published to a testing environment.
+Therefore, the files generated from it should only be published to a testing environment.
 
 This document describes the following:
 
@@ -48,8 +52,26 @@ This document describes the following:
 .Pertinent locations
 * {uri-repo}[Site playbook repository] (docs-site)
 * {uri-org}[Content repositories] (ede65566-docs-migration)
+* {uri-theme-repo}[Default theme repository]
 * {uri-ci}[Travis CI job]
 * {uri-site}[Published site]
+
+== Overview
+
+The content repositories, the theme repository, the site generator, and the site playbook project are all discrete units in this system.
+The site playbook project--this repository--coordinates the other three to produce the site.
+
+The separation of these units is done to keep the logic and configuration separate from the content.
+The content repositories are just content.
+They can be enlisted into the site generation as needed (per branch), which allows content branches to be easily reused, replaced, deferred, or archived.
+This is a sharp contrast with the previous system, which intermixes all of these concerns, making the site difficult to manage, maintain, and enhance.
+
+As much as possible, the site generator takes on the ancillary work previously handled by the (Gradle) build.
+For example, it automatically fetches the content repositories as well as the theme used to make the pages.
+This is a good thing.
+By handling these tasks, it makes this system more CI-friendly, allowing the CI job to focus on preparing the build environment and publishing the output.
+
+In this guide, you'll learn about how these units get joined together to produce the site.
 
 == Prerequisites
 
@@ -159,12 +181,12 @@ This dependency is defined in [.path]_package.json_:
 ----
 
 The {uri-site-generator}[opendevise-site-generator-express] dependency supplies the main site generator software.
-It's preconfigured to generate a documentation site based on the <<Playbook,playbook>> defined in this project.
+It's preconfigured to generate a documentation site based on <<The Playbook,the playbook>> defined in this project.
 The site generator has it's own transitive dependencies, of course, but those get fetched automatically by Yarn.
 
 Let's look at what information the playbook provides, then move on to how to generate the site.
 
-== Playbook
+== The Playbook
 
 The playbook tells the site generator the following:
 
@@ -179,10 +201,10 @@ The site generator automatically detects and uses this file (unless you instruct
 
 Here's the contents of the playbook:
 
-[source,yaml]
+[source,yaml,subs=attributes+]
 ----
 site:
-  url: https://ede65566-docs-migration.github.io/docs-site
+  url: {uri-site-root}
 content:
 - repository: https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs.git
 - repository: https://github.com/ede65566-docs-migration/anypoint-platform-docs.git
@@ -200,7 +222,7 @@ content:
 - repository: https://github.com/ede65566-docs-migration/solutions-docs.git
 - repository: https://github.com/ede65566-docs-migration/tcat-server-docs.git
 theme:
-  repository: https://github.com/opendevise/mulesoft-docs-theme-default
+  repository: {uri-theme-repo}
 nav:
 - nav/tutorials.adoc
 ----
