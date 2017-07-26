@@ -29,7 +29,8 @@ endif::[]
 :uri-site-generator: https://gitlab.com/opendevise-projects/opendevise-site-generator-express
 :uri-theme-designer-guide: {uri-theme-repo}/blob/master/README.adoc
 :uri-theme-user-guide: https://gitlab.com/opendevise-projects/opendevise-site-generator-express/blob/master/docs/theme-user-guide.adoc
-:uri-travis-ci: https://travis-ci.org
+:uri-travis: https://travis-ci.org
+:uri-travis-pages: https://docs.travis-ci.com/user/deployment/pages/
 :uri-yarn: https://yarnpkg.com
 
 This repository hosts the playbook project for generating the new MuleSoft Documentation site ("`docs site`").
@@ -349,7 +350,7 @@ IMPORTANT: It's important to emphasize that the site generator is not coupled to
 The Travis CI job described here simply demonstrates the intent of what needs to happen.
 Any CI tool that can publish the files in [.path]_build/site_ can be used instead.
 
-{uri-travis-ci}[Travis CI] (herein Travis) is a continuous integration and automation server designed to tightly integrate with GitHub repositories.
+{uri-travis}[Travis CI] (herein Travis) is a continuous integration and automation server designed to tightly integrate with GitHub repositories.
 By default, every branch (including pull request branches) of every GitHub repository automatically has a job in Travis associated with it.
 All you have to do is flip a switch to enable this integration.
 
@@ -422,7 +423,7 @@ before_install: npm install -g yarn
 cache: yarn
 ----
 +
-Subsequent job runs will be accelerated by the use of the Yarn cache, a built-in feature of Travis.
+(Subsequent job runs will be accelerated by the use of the Yarn cache, a built-in feature of Travis).
 
 . Executes the site generator:
 +
@@ -431,10 +432,10 @@ Subsequent job runs will be accelerated by the use of the Yarn cache, a built-in
 script: yarn run generator
 ----
 
-All that remains now is publishing the files in [.path]_build/site_ to GitHub Pages.
-Travis provides native integration with GitHub Pages.
+All that remains now is to publish the files in [.path]_build/site_ to GitHub Pages.
+Travis provides {uri-travis-pages}[native support for publishing to GitHub Pages].
 All you have to do is tell Travis to use it.
-That's where the deploy section comes in:
+That's where the deploy section of [.path]_.travis.yml_ comes in:
 
 [source,yaml]
 ----
