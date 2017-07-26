@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="studio, anypoint, esb, transform, transformer, format, aggregate, rename, split, filter convert, xml, json, csv, pojo, java object, metadata, dataweave, data weave, datamapper, dwl, dfl, dw, output structure, input structure, map, mapping">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-studio/5/using-dataweave-in-studio.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Using DataWeave in Studio // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Studio</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="setting-up-your-development-environment.html">Development Environment Setup</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="hardware-and-software-requirements.html">Hardware and Software Requirements</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="download-and-launch-anypoint-studio.html">Download and Launch Anypoint Studio</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="install-update-items-in-studio.html">Installing Extensions</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="install-update-items-in-studio.html">Studio Update Sites</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="mule-runtime/adding-community-runtime.html">Installing Community Edition of Mule Runtime</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="install-studio-gw.html">Installing API Gateway Runtime</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="maven/using-maven-in-anypoint-studio.html">Using Maven in Studio</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="maven/maven-support-in-anypoint-studio.html">Maven Support in Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="maven/building-a-mule-application-with-maven-in-studio.html">Building Mule Applications with Maven in Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="maven/enabling-maven-support-for-a-studio-project.html">Enabling Maven Support on Studio Projects</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="maven/importing-a-maven-project-into-studio.html">Importing Maven Projects</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="studio-in-eclipse.html">Studio in Eclipse</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="using-subversion-with-studio.html">Using Subversion</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="basic-studio-tutorial.html">Basic Studio Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="anypoint-studio-features.html">Studio Reference</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="datasense/datasense.html">DataSense</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="testing-connections.html">Testing Connections</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="using-perceptive-flow-design.html">Using Perceptive Flow Design</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datasense/datasense-enabled-connectors.html">DataSense-enabled Connectors</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datasense/using-the-datasense-explorer.html">Using the DataSense Explorer</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datasense/datasense-query-editor.html">DataSense Query Editor</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datasense/datasense-query-language.html">DataSense Query Language</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="using-dataweave-in-studio.html">DataWeave</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="studio-visual-debugger.html">Studio Visual Debugger</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="import-export-projects-studio.html">Importing and Exporting</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="mule-runtime/changing-runtimes-in-studio.html">Changing Runtimes in Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="keyboard-shortcuts-in-studio.html">Keyboard Shortcuts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-source-attachments-to-studio.html">Adding Source Attachments to Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="mule-runtime/starting-the-runtime-in-cluster-mode-in-studio.html">Starting the Runtime in Cluster Mode in Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="datamapper/datamapper-user-guide-and-reference.html">DataMapper (Deprecated)</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper/datamapper-concepts.html">DataMapper Concepts</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper/datamapper-visual-reference.html">DataMapper Visual Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="datamapper/defining-datamapper-input-and-output-metadata.html">Defining DataMapper Input and Output Metadata</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="defining-metadata-using-edit-fields.html">Defining Metadata Using Edit Fields</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="pojo-class-bindings-and-factory-classes.html">POJO Class Bindings and Factory Classes</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="building-a-mapping-flow-in-the-graphical-mapping-editor.html">Building a Mapping Flow in the Graphical Mapping Editor</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="mapping-flow-input-and-output-properties.html">Mapping Flow Input and Output Properties</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper/datamapper-input-error-policy-for-bad-input-data.html">DataMapper Input Error Policy for Bad Input Data</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper/using-datamapper-lookup-tables.html">Using DataMapper Lookup Tables</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper/streaming-data-processing-with-datamapper.html">Streaming Data Processing with DataMapper</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="updating-metadata-in-an-existing-mapping.html">Updating Metadata in an Existing Mapping</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="mapping-elements-inside-lists.html">Mapping Elements Inside Lists</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper/previewing-datamapper-results-on-sample-data.html">Previewing DataMapper Results on Sample Data</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper/datamapper-examples.html">DataMapper Examples</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="datamapper/datamapper-supplemental-topics.html">DataMapper Supplemental Topics</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="choosing-mel-or-ctl2-as-scripting-engine.html">Choosing MEL or CTL2 as Scripting Engine</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper/datamapper-fixed-width-input-format.html">DataMapper Fixed Width Input Format</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper/datamapper-flat-to-structured-and-structured-to-flat-mapping.html">DataMapper Flat-to-Structured and Structured-to-Flat Mapping</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper/including-the-datamapper-plugin.html">Including the DataMapper Plugin</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Using DataWeave in Studio</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-studio-docs/edit/v5/modules/ROOT/content/using-dataweave-in-studio.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Using DataWeave in Studio</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><mark><strong><em>Enterprise</em></strong></mark></p>
+</div>
+<div class="paragraph">
+<p>DataWeave is Mule&#8217;s most powerful and versatile tool for transforming data. The <strong>Transform Message</strong> component carries out a transformation of your Mule message that follows a transform script, this transform script can be <a href="../../mule-runtime/3.7/dataweave/dataweave-reference-documentation.html">explicitly written in DataWeave code</a> or you can use the UI to build it implicitly through dragging and dropping elements. DataWeave fully supports DataSense, allowing you to leverage metadata from connectors, schemas and sample documents to more easily design your transformations. DataSense provides content assist while you are coding and scaffolds and auto generates lines of code form actions performed in the UI. The <strong>Transform Message</strong> component offers you a preview of your output that is built on sample data and is updated in real time as you make changes to your transform, so that you can be sure of what you&#8217;ll be getting out of the other end.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you have projects that are built with the deprecated <a href="datamapper/datamapper-user-guide-and-reference.html">DataMapper</a>, a migration tool is now included in Studio, which assists in converting a DataMapper map into DataWeave: Right click on a DataMapper, select <strong>Migrate to DataWeave</strong>, and follow the instructions.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dw-migrator-script.png" alt="dw migrator">
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-the-dataweave-transformer"><a class="anchor" href="#using-the-dataweave-transformer"></a>Using the DataWeave Transformer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In Anypoint Studio, place a <strong>Transform Message</strong> element in a flow to create transforms using the DataWeave language. The editor helps you do this by offering a drag and drop UI, intelligent autocomplete suggestions, and an output preview that is updated in real time as you make changes. This generates a <strong><code>.dwl</code></strong> transformation file (or several of them) that stores your code and is packaged with your Mule application.</p>
+</div>
+<div class="paragraph">
+<p>When adding a <strong>Transform Message</strong> element to a Mule Flow, it takes the elements from the incoming Mule Message as its inputs. It then performs the necessary actions to produce a Mule message as output for the next element in the flow.</p>
+</div>
+<div class="paragraph">
+<p>If you click on an instance of the Transform Message element in your flow, its properties editor will be displayed:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dw-new-mapping.png" alt="new weave">
+</div>
+</div>
+<div class="paragraph">
+<p>Note that by default the properties editor of the <strong>Transform Message</strong> element displays two main regions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On the left: is the graphical UI, which exposes the input and output structures. The mappings between input and output fields are represented through lines drawn from one side to the other. You can easily click and drag one field onto another to map these.</p>
+</li>
+<li>
+<p>On the right: the DataWeave code editor. This allows you to leverage the full power of DataWeave syntax, which includes many tools that allow you to aggregate, normalize, group, join, partition, pivot and filter. See the <a href="../../mule-runtime/3.7/dataweave/dataweave-reference-documentation.html">DataWeave reference documentation</a> for a complete guide on the DataWeave language syntax.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Both regions represent the same transform in different ways, and any changes done to one representation are matched in real time by the other one.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+When creating a new transformation, it&#8217;s a lot easier if you first add and configure any other elements on your flow that expose metadata. In this way, this metadata that other message processors expose to Studio is displayed in the input and output structures, which you can use to build out the DataWeave code through the UI.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="the-dataweave-text-editor-ui"><a class="anchor" href="#the-dataweave-text-editor-ui"></a>The DataWeave Text Editor UI</h3>
+<div class="paragraph">
+<p>In this section, you write the actual <a href="../../mule-runtime/3.7/dataweave/dataweave-reference-documentation.html">DataWeave</a> code that carries out the transform. Sometimes, all you need to do can be automatically built by dragging elements in the GUI, other times you may want to carry out more complex operations that involve aggregation, filtering, calculations, defining custom functions, etc and there you must write this out in DataWeave code.</p>
+</div>
+<div class="sect3">
+<h4 id="directives-in-studio"><a class="anchor" href="#directives-in-studio"></a>Directives in Studio</h4>
+<div class="paragraph">
+<p>Although DataWeave as a language supports adding input directives and naming these by any name you like, when using DataWeave in Anypoint Studio, it&#8217;s not necessary to declare any input directives for any of the components of the Mule Message that arrives to the DataWeave transformer (Payload, flow variables and input/outbound properties) nor for any system variables. These are already implicitly recognized as inputs and can be referenced anywhere in the DataWeave body without a need to include them in the header, their type is known from Mule metadata.</p>
+</div>
+<div class="paragraph">
+<p>If your transform outputs XML data, a namespace directive will be automatically added to your DataWeave header section, defining a default name for it. This namespace is then referenced in the body too.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>%dw 1.0
+%output application/xml
+%namespace ns0 http://mulesoft.org/tshirt-service</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For further reference about writing DataWeave code, see <a href="../../mule-runtime/3.7/dataweave/dataweave-reference-documentation.html">DataWeave Language Reference</a></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="the-graphical-ui"><a class="anchor" href="#the-graphical-ui"></a>The Graphical UI</h3>
+<div class="paragraph">
+<p>Two tree views show the known metadata contents of the incoming and the outgoing Mule Messages, allowing you to explore them and know what data is available for using as an input and where it can fit into, and how to reference each of these parts.</p>
+</div>
+<div class="paragraph">
+<p>You can simplify or hide the graphical UI if you wish by clicking the icons on the top right to select between the different views for this properties editor:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dw-buttons.png" alt="buttons">
+</div>
+</div>
+<div class="paragraph">
+<p>By simple interactions with the graphical UI, you can intuitively build out much of your DataWeave code, often this is all you really need to do.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Drag an element on the input structure over to another on the output structure. This will cast a line that joins them and also add a line to the DataWeave code that describes this mapping.</p>
+</li>
+<li>
+<p>Double click on an output field to add it into the DataWeave code with a static value. This will add an <code>Fx</code> icon next to it, as well as a line to the DataWeave code that assigns a default null value to the field. You can then change this value in the code to whatever you want.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dw-click.png" alt="click">
+</div>
+</div>
+</li>
+<li>
+<p>Select an element to have its corresponding line in the DataWeave code hightlighted. This is very helpful when dealing with large transforms.</p>
+</li>
+<li>
+<p>If an input field is mapped to two or more output fields, you can right-click it and then select which of the multiple outputs you want to highlight in the DataWeave code.</p>
+</li>
+<li>
+<p>Type a name in the search boxes at the top of the input and output structures to display only fields that match your search. This is particularly useful when dealing with large data structures with many nested elements.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-input-structure"><a class="anchor" href="#defining-input-structure"></a>Defining Input Structure</h3>
+<div class="paragraph">
+<p>If the other elements in your Mule flow expose metadata about their input and output, then this information will already be available to the <strong>Transform Message</strong> component. If they don&#8217;t, you can configure these elements so that they expose this information by editing their <strong>Metadata</strong> tab. For example, you can configure an HTTP connector and assign it a JSON sample file so that this sample&#8217;s structure is exposed as metadata that your Transform Message component can read.</p>
+</div>
+<div class="paragraph">
+<p>If the Mule flow doesn&#8217;t expose Metadata about the elements you need from the incoming message, you can also manually specify it directly in the input section of your Tranform Message component. If a metadata definition is missing, a notification will advise you to provide one, otherwise you can also right-click your input and select <strong>Set Metadata</strong>.</p>
+</div>
+<div class="paragraph">
+<p>You can select an existing metadata type, this may save you several steps:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dw-define-type1.png" alt="define type">
+</div>
+</div>
+<div class="paragraph">
+<p>Or you can also build your metadata freely using an editor:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dw-define-type2.png" alt="define type">
+</div>
+</div>
+<div class="paragraph">
+<p>This sample data is used together with your DataWeave code to produce a sample output in the output section, which gets updated in real time as you make changes.</p>
+</div>
+<div class="paragraph">
+<p>You can then define the data structure manually by writing or pasting a sample into the newly created tab.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/input-payload-2.png" alt="input payload 2">
+</div>
+</div>
+<div class="paragraph">
+<p>You can also click the <strong>rescafold button</strong> to have your sample data overwritten by an empty scaffolding structure based on the metadata.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/input-payload-rescafold.png" alt="rescafold">
+</div>
+</div>
+<div class="paragraph">
+<p>When the input is of JSON or XML types, the sample input contains plain XML or JSON code. When the input is of type POJO or DataWeave, the sample input is written in DataWeave for more simplicity. In these cases the sample DataWeave code is merely a way to display the sample data, not a transformation in itself.</p>
+</div>
+<div class="paragraph">
+<p>If your metadata is missing any variables, inbound properties, outbound properties, session variables or record variables that you know will exist in the incoming mule message, you can manually add these too in the editor. Just right-click on one of these categories in the input section of the properties editor and select <strong>Add Flow Variable</strong>, <strong>Add Inbound Property</strong> or whatever the element you want to add may be.</p>
+</div>
+<div class="sect3">
+<h4 id="explicitly-defining-a-mime-type"><a class="anchor" href="#explicitly-defining-a-mime-type"></a>Explicitly Defining a MIME Type</h4>
+<div class="paragraph">
+<p>By default, DataWeave should be able to recognize the type of an input from the metadata. If you must explicitly define an input payload type, use the <code>mimeType</code> attribute in an XML tag as in the example below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dw:transform-message doc:name="Transform Message"&gt;
+	&lt;dw:input-payload mimeType="text/json" /&gt;
+	&lt;dw:set-payload&gt;
+	&lt;![CDATA[%dw 1.0
+	%output application/java
+	---
+	{
+		// YOUR DW SCRIPT
+	}
+	]]&gt;
+	&lt;/dw:set-payload&gt;
+&lt;/dw:transform-message&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you do not provide this attribute, DataWeave will try to read the payload MIME type from the metadata.
+If it is undeclared or not understood it will default to 'application/java', a warning will be logged.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuring-the-csv-reader"><a class="anchor" href="#configuring-the-csv-reader"></a>Configuring the CSV Reader</h4>
+<div class="paragraph">
+<p>Some input formats, like CSV, allow you to define a reader with specific properties that make DataWeave parse inputs differently.</p>
+</div>
+<div class="paragraph">
+<p>You can assign any special character as the indicator for separating fields, toggling quotes, or escaping quotes. Make sure you know what special characters are being used in your input, so that DataWeave can interpret it correctly.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/edit-input-reader2.png" alt="edit input reader2">
+</div>
+</div>
+<div class="paragraph">
+<p>When defining an input of type CSV, there are a few optional parameters you can add to the input directive to customize how the data will be parsed.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>header</code>: boolean that defines if the first line in the data contains headers</p>
+</li>
+<li>
+<p><code>separator</code>: character that separates fields, <code>','</code> by default</p>
+</li>
+<li>
+<p><code>quote</code>: character that defines quoted text, <code>" "</code> by default</p>
+</li>
+<li>
+<p><code>escape</code>: character that escapes quotes, <code>/</code> by default</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When <code>header=true</code> you can then access the fields within the input anywhere by name. Ex: <code>in0.userName</code>.</p>
+</div>
+<div class="paragraph">
+<p>When <code>header=false</code> you must access the fields by index, referencing first the entry and then the field, Ex: <code>in0[107][2]</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can set these propertes by either editing the XML code or via the UI:</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor" class="discrete view">Studio Visual Editor</h3>
+<div class="paragraph">
+<p>In Anypoint Studio, there are two ways to set this up. You can either set the parameters of the CSV input through the Transform Message component itself or by setting it up on the component of your Mule flow that actually brings this information in.</p>
+</div>
+<div class="paragraph">
+<p>On the Transform Message component, left-click on the element in the input structure and select <strong>Reader Configuration</strong>.</p>
+</div>
+<div class="paragraph">
+<p>+
+image::dw-reader-configuration.png[reader]</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This option won&#8217;t be available if the type of the input doesn&#8217;t allow for this kind of configuration. If the payload is of type <code>unknown</code>, you must change its type first. Do this by configuring the elements that come prior to your Transform Data element in the flow, for example configuring an HTTP Listener Connector&#8217;s Metadata tab so that it explicitly declares that it outputs CSV data.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>On the component that brings the input into the flow (eg: an HTTP Connector, FTP Connector, etc), select it, pick the <code>Metadata</code> tab, and click <code>Add Metadata</code> to provide the details about the incoming data structure.</p>
+</div>
+<h3 id="xml-editor" class="discrete view">XML Editor</h3>
+<div class="paragraph">
+<p>In the XML editor, if you want to parse CSV inputs with custom modifiers, you must set these up as child elements of the DataWeave component, like in the example below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dw:input-payload doc:sample="list_csv.csv" mimeType="text/csv" &gt;
+    &lt;dw:reader-property name="separator" value="|"/&gt;
+    &lt;dw:reader-property name="header" value="false"/&gt;
+&lt;/dw:input-payload&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">	 &lt;dw:transform-message metadata:id="33a08359-5085-47d3-aa5f-c7dd98bb9c61"
+	 			doc:name="Transform Message"&gt;
+ 			&lt;dw:input-payload&gt;
+ 			    &lt;!-- Boolean that defines if the first line in the data contains headers --&gt;
+ 				&lt;dw:reader-property name="header" value="false" /&gt;
+ 				&lt;!-- Character that separates fields, `','` by default --&gt;
+ 				&lt;dw:reader-property name="separator" value="," /&gt;
+ 				&lt;!-- Character that defines quoted text, `" "` by default --&gt;
+ 				&lt;dw:reader-property name="quote" value="&amp;quot;" /&gt;
+ 				&lt;!-- Character that escapes quotes, `\` by default --&gt;
+ 				&lt;dw:reader-property name="escape" value="\" /&gt;
+ 			&lt;/dw:input-payload&gt;
+ 			&lt;dw:set-payload&gt;
+                &lt;![CDATA[
+                    %dw 1.0
+                    %output application/java
+                    ---
+                    // Your transformation script goes here
+                ]]&gt;
+            &lt;/dw:set-payload&gt;
+     &lt;/dw:transform-message&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+CSV inputs with multiple lines in their headers are not supported by DataWeave
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="the-preview-section"><a class="anchor" href="#the-preview-section"></a>The Preview Section</h3>
+<div class="paragraph">
+<p>You can enable the preview section by clicking on the <strong>Preview</strong> button on the top-right of the editor.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dw-buttons.png" alt="buttons">
+</div>
+</div>
+<div class="paragraph">
+<p>This section presents a sample output, built by taking the sample input you provide and transforming it through the DataWeave transform. As you make changes in the DataWeave code, notice how the output data structure changes.  If your transformer has multiple outputs, the <strong>Preview</strong> section will display the one corresponding to the currently selected transform.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="viewing-errors"><a class="anchor" href="#viewing-errors"></a>Viewing Errors</h3>
+<div class="paragraph">
+<p>For your DataWeave code&#8217;s syntax to be evaluated, you must have the <strong>Preview Section</strong> enabled. With this enabled, any syntax errors are marked. Above your DataWeave code, an additional error notification can be opened to display further detail.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dw-errors.png" alt="errors">
+</div>
+</div>
+<div class="paragraph">
+<p>If you click this notification, a window opens detailing each error in your code and its cause.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dw-errors2.png" alt="errors">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="handling-multiple-outputs"><a class="anchor" href="#handling-multiple-outputs"></a>Handling Multiple Outputs</h3>
+<div class="paragraph">
+<p>A single Transform Message element can give shape to several different components of the output Mule message. Each of these output components must be defined in a separate <code>.dwl</code> file, written out in a separate tab of the Transform section. For example in one tab you may be defining the payload contents, in another those of an outbound property, and these will both be parts of the same output Mule message.</p>
+</div>
+<div class="paragraph">
+<p>To add a new output, open the dropdown menu above your DataWeave code, that should say <strong>Payload</strong> by default.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dw-multiple-outputs-first.png" alt="multiple outputs">
+</div>
+</div>
+<div class="paragraph">
+<p>Then select <strong>Add New Target</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dw-new-target.png" alt="new target">
+</div>
+</div>
+<div class="paragraph">
+<p>Then you must specify where in the output Mule message to place the output of this new DataWeave transform. In case you&#8217;re creating a new variable or property, you must also set a name for it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dw-new-variable.png" alt="new variable">
+</div>
+</div>
+<div class="paragraph">
+<p>In Studio&#8217;s XML editor you can do the same by adding multiple child elements inside the <code>dw:transform-message</code> component.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dw:transform-message&gt;
+	&lt;dw:set-payload resource="classpath:path/transform.dwl"/&gt;
+	&lt;dw:set-variable variableName="myVariable" resource="classpath:path/transform.dwl"/&gt;
+	&lt;dw:set-session-variable variableName="mySessionVariable" resource="classpath:path/transform.dwl"/&gt;
+&lt;/dw:transform-message&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="keeping-your-dataweave-code-in-a-separate-file"><a class="anchor" href="#keeping-your-dataweave-code-in-a-separate-file"></a>Keeping your DataWeave code in a separate file</h3>
+<div class="paragraph">
+<p>By default, DataWeave code is expressed inline within your Mule XML file. If you wish to keep it in a separate file and have your XML reference this file, you can easily do this from the DataWeave UI.
+In order to export the DataWeave code to a .dwl file, you need to do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Click on the dropdown menu above the DataWeave code that defines the output, which should say 'Payload' by default</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dataweave-externalfile1.png" alt="external file1">
+</div>
+</div>
+</li>
+<li>
+<p>Select 'Edit current target'</p>
+</li>
+<li>
+<p>Select the 'File' radio button</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dataweave-externalfile2.png" alt="external file 2">
+</div>
+</div>
+</li>
+<li>
+<p>Type a name for your <code>.dwl</code> file</p>
+</li>
+<li>
+<p>Click OK</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A file will be created under the 'src/main/resources' folder in your project containing your DataWeave code.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-dataweave-language-elsewhere"><a class="anchor" href="#using-dataweave-language-elsewhere"></a>Using DataWeave Language Elsewhere</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All components in Mule that support <a href="../../mule-runtime/3.7/mel/mule-expression-language-mel.html">Mule Expression Language</a> also support expressions written in DataWeave Language. To invoke an expression written in DataWeave language, simply invoke the <code>dw()</code> function, the expression will return whatever the transform outputs.</p>
+</div>
+<div class="paragraph">
+<p>DataWeave expressions defined within this function work just as those defined within a Transform Message element, the only difference is that the output is returned into the expression&#8217;s result, wherever it may be.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The DataWeave expression that you write in this function must be enclosed in "quotation marks"
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For example, you can define a custom object and populate it with elements from the payload:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>dw("myobject:{id:payload.accountid, user:payload.user}")</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That same expression could be added inside a Logger, within a MEL expression, to print out its result:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>#[dw("myobject:{id:payload.accountid, user:payload.user}")]</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="calling-global-mel-functions-from-dataweave-code"><a class="anchor" href="#calling-global-mel-functions-from-dataweave-code"></a>Calling Global MEL Functions from DataWeave Code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you define a global <a href="../../mule-runtime/3.7/mel/mule-expression-language-mel.html">Mule Expression Language</a> (MEL) function in your Mule project, you can then invoke it anywhere in your DataWeave code, without need for any special syntax.</p>
+</div>
+<div class="paragraph">
+<p>To create one such global function, you must edit your Mule project&#8217;s XML file and enclose any functions that you wish to define in the following set of tags, which must be placed in the global elements section, before any of the flows are defined.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;configuration doc:name="Configuration"&gt;
+     &lt;expression-language&gt;
+         &lt;global-functions&gt;
+
+         &lt;/global-functions&gt;
+     &lt;/expression-language&gt;
+ &lt;/configuration&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this space you can use any MEL expression to define custom functions, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;configuration doc:name="Configuration"&gt;
+     &lt;expression-language&gt;
+         &lt;global-functions&gt;
+             def newUser() {
+                 return ["name" : "mariano"]
+             }
+             def upperName(user) {
+                 return user.name.toUpperCase()
+             }
+         &lt;/global-functions&gt;
+     &lt;/expression-language&gt;
+ &lt;/configuration&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With that in place, in the DataWeave code of your Transform Message element you can just refer to these functions. Note that the inputs and outputs of these functions can even be objects and arrays.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-ruby hljs" data-lang="ruby">%dw 1.0
+%output application/json
+---
+{
+  "foo" :  newUser(),
+  "bar":  upperName(newUser())
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Even with these external functions in place, you should be able to preview the output of this transform, updated in real time as you edit it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../../mule-runtime/3.7/dataweave/dataweave-reference-documentation.html">DataWeave Reference Documentation</a></p>
+</li>
+<li>
+<p><a href="../../mule-runtime/3.7/dataweave/dataweave-tutorial.html">DataWeave Tutorial</a></p>
+</li>
+<li>
+<p><a href="../../mule-runtime/3.7/dataweave/dataweave-examples.html">DataWeave Examples</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

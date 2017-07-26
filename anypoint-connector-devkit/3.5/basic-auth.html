@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-connector-devkit/3.5/basic-auth.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Basic Auth // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="setup.html">Setup</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-your-dev-environment.html">Setting Up Your Development Environment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-your-api-access.html">Setting up your API access</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="authentication.html">Authentication</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="basic-auth.html">Basic Auth</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="oauth-v1.html">OAuth V1</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="oauth-v2.html">OAuth V2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="authentication-methods.html">Authentication Method</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="defining-attributes-operations-and-data-model.html">Defining Attributes Operations and Data Model</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-message-sources.html">Defining Message Sources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-message-processors.html">Creating Message Processors</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-connector-attributes.html">Defining Connector Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="complex-data-types-attributes.html">Complex Data Types Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense.html">Adding DataSense</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense-query-language.html">Adding DataSense Query Language</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-query-pagination-support.html">Adding Query Pagination Support</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="building-a-batch-enabled-connector.html">Building a Batch Enabled Connector</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-and-testing-your-connector-in-studio.html">Installing and Testing Your Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-reference-documentation.html">Creating Reference Documentation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="packaging-your-connector-for-release.html">Packaging Your Connector for Release</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="implementing-a-rest-connector.html">Implementing a REST Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="annotation-reference.html">Annotation Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="anypoint-connector-examples.html">Anypoint Connector Examples</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="barn-connector.html">Barn Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-using-a-java-client-library.html">Creating a Connector Using a Java Client Library</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-soap-service-via-cxf-client.html">Creating a Connector for a SOAP Service Via CXF Client</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-restful-api-using-jersey.html">Creating a Connector for a RESTful API Using Jersey</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-restful-api-using-restcall-annotations.html">Creating a Connector for a RESTful API using @RESTCall Annotations</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Basic Auth</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs/edit/v3.5/modules/ROOT/content/basic-auth.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Basic Auth</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Basic Auth refers to the classic authentication method, where in order to authenticate with your API users simply provide the Anypoint&#8482; Connector their username and password. This is also the scheme you want to use if your API relies on Basic Auth, using atypical values for the username and password. For instance, an API that uses a security token on top of the username and password would still use Basic Auth for its connecting applications.</p>
+</div>
+<div class="paragraph">
+<p>The Anypoint DevKit Basic Auth framework provides multi-tenancy capabilities for a connector (managing multiple simultaneous connections with different credentials for a given connector within your application), as well as connection pooling and instance pooling. These benefits are available for most authentication schemes other than OAuth, and for APIs that do not require authentication.</p>
+</div>
+<div class="paragraph">
+<p>This document describes the benefits of using the Basic Auth framework, the Java annotations through which it is exposed, and how to implement Basic Auth support in your own connector to authenticate with your API. Examples in this discussion show the use of Basic Authentication with basic username/password authentication, but they can easily be generalized to other non-OAuth protocols.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/5-package.png" alt="5 package">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assumptions"><a class="anchor" href="#assumptions"></a>Assumptions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes you are familiar with the <a href="index.html">Anypoint Connector DevKit</a>, have already <a href="creating-an-anypoint-connector-project.html">created a connector project</a>, and are ready to implement authentication on your connector. Further, it assumes you are familiar with the various <a href="authentication-methods.html">authentication methods</a>, have compared the different <a href="authentication.html">authentication support options in Devkit</a>, and chosen Basic Authentication to connect to your API.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-basic-authentication"><a class="anchor" href="#about-basic-authentication"></a>About Basic Authentication</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Anypoint DevKit&#8217;s Basic Auth framework provides the following benefits with minimal effort on the part of the connector developer:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Transparent multitenancy – a Mule application can open many connections to a single target, using different credentials to connect on behalf of many users simultaneously</p>
+</li>
+<li>
+<p>Connection pooling –  automated management of a pool of instances of the connector class, to manage connection resources effectively</p>
+</li>
+<li>
+<p>The ability to automatically invalidate connections on exceptions, and to reconnect as needed</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Anypoint DevKit makes it easy to add Basic Authentication functionality to connectors by applying annotations at the @Connector class level.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Connection Management Framework and Authentication Protocols</strong></p>
+</div>
+<div class="paragraph">
+<p>The Basic Auth framework can be used in conjunction with most authentication protocols, such as basic username/password authentication (most common), SAML, Kerberos, LDAP and NTLM.</p>
+</div>
+<div class="paragraph">
+<p>However, you cannot use the Basic Authentication framework with connectors that use OAuth authentication; the framework does not support the "OAuth dance" or the management of OAuth tokens.</p>
+</div>
+<div class="paragraph">
+<p>OAuth-based authentication in DevKit provides functionality comparable to the Basic Authentication, if you use the OAuth-related annotations. See <a href="oauth-v1.html">OAuth V1</a> and <a href="oauth-v2.html">OAuth V2</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="basic-auth-annotations-in-devkit"><a class="anchor" href="#basic-auth-annotations-in-devkit"></a>Basic Auth Annotations in DevKit</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use Basic Authentication in a connector, define and annotate the following methods in the @Connector class:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>@Connect method</code> - Creates a connection</p>
+</li>
+<li>
+<p><code>@Disconnect method</code> - Explicitly closes a connection</p>
+</li>
+<li>
+<p><code>@ValidateConnection method</code> - Returns true if a connection is still valid, <code>false</code> otherwise</p>
+</li>
+<li>
+<p><code>@ConnectionIdentifier method</code> - Returns a prefix used in generating unique identifies for connector instances in the connection pool</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Also available is an <code>@InvalidateConnectionOn</code> method for when an API operation encounters an exception due to a lost connection.</p>
+</div>
+<div class="paragraph">
+<p>The specific implementation of these methods depends on the target.</p>
+</div>
+<div class="paragraph">
+<p>Because Basic Authentication is such a useful and fundamental feature, the generated code skeleton includes placeholder methods with the Basic Authentication annotations already applied:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">Skeleton Connector with Connection Management Annotated Methods</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/**
+* Connect
+*
+* @param username A username
+* @param password A password
+* @throws ConnectionException
+*/
+@Connect public void connect(@ConnectionKey String username, String password)
+    throws ConnectionException
+{
+
+    /**
+    * CODE FOR ESTABLISHING A CONNECTION GOES HERE
+    */
+}
+
+/**
+* Disconnect
+*/
+@Disconnect
+public void disconnect()
+{
+
+    /**
+    * CODE FOR CLOSING A CONNECTION GOES HERE
+    */
+}
+
+/**
+* Validate Connection
+*/
+@ValidateConnection
+public boolean isConnected()
+{
+    //CHECK IF THE CONNECTION IS OPEN
+}
+
+/**
+* Connection identifier
+*/
+@ConnectionIdentifier
+public String connectionId()
+{
+    return "001";
+}</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+When developing your connector, make sure to incorporate connection logic that pertains to your connector.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The methods are called automatically as needed by the Anypoint DevKit framework; you never call them directly from your code.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="connect-method"><a class="anchor" href="#connect-method"></a>@Connect Method</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This method designates which method inside an <code>@Connector</code> class is responsible for creating a connection to the target. The <code>@Connect</code> method is called automatically by Mule when the connector starts up, or if the connection to the API has been lost and must be reestablished. When this method finishes, if authentication is successful, the connector instance is ready to make requests to the API.</p>
+</div>
+<div class="paragraph">
+<p>A method annotated with <code>@Connect</code> must:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Be <code>public</code></p>
+</li>
+<li>
+<p>Throw <code>org.mule.api.ConnectionException</code> (and no other exceptions)</p>
+</li>
+<li>
+<p>Have a <code>void</code> return type</p>
+</li>
+<li>
+<p>If automatic Basic Authentication is used, have exactly one method annotated <code>@Connect</code>; otherwise compilation fails</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The specific code that implements the actual connection depends on the API. Here is an example implementation of a <code>@Connect</code> method:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">Connect method for salesforce connector</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connect
+public void connect(@ConnectionKey String username, String password)
+throws ConnectionException
+{
+   ConnectorConfig config = new ConnectorConfig();
+   config.setUsername(username);
+   config.setPassword(password);
+   try
+   {
+      connection = com.mycompany.ws.Connector.newConnection(config);
+   }
+   catch (com.mycompany.ws.ConnectionException e)
+   {
+      throw new org.mule.api.ConnectionException(ConnectionExceptionCode.UNKNOWN, null, e.getMessage(), e);
+   }
+}</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The parameters required by this method are the credentials needed for authentication, in this case username and password. Since this method is annotated with <code>@Connect</code>, Anypoint DevKit makes these parameters available both in the configuration element for this connector (as occurs with <code>@Configurable</code> fields), as well as in the message processor whenever it is dragged into a flow. Specified credentials override those that are set in the configuration element.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="connectionkey-and-connection-pooling"><a class="anchor" href="#connectionkey-and-connection-pooling"></a>@ConnectionKey and Connection Pooling</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The username parameter is annotated with <code>@ConnectionKey</code>. If pools are enabled (see <a href="#">Connection Pooling</a> below), Mule keeps a pool of simultaneous connections which are used as needed to make calls. The <code>@ConnectionKey</code> annotation marks that this field is used as the key for this particular connection within the connection pool, so once a connection for this username has been created and added to the pool, it will be reused rather than recreated for each request.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Choosing a Connection Key</strong></p>
+</div>
+<div class="paragraph">
+<p>For username and password authentication, the username is the obvious choice for <code>@ConnectionKey</code>. For other protocols, identify the value that is most obviously associated with different users and access privileges that connect to your service, and use this value as your <code>@ConnectionKey</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In the example above, the <code>@Connect</code> method first creates a <code>ConnectorConfig</code> object (a Salesforce type that holds connection configuration information), then loads the username and password values into the object. This object is used as the argument to the static <code>newConnection()</code> call, which returns a <code>PartnerConnection</code> if successful. If the authentication fails (for example because of invalid login information) the code catches the Salesforce typed exception and throws a new exception containing the same information but labeled as the correct Mule exception type.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note the use of the fully qualified name for the Salesforce Connector class (on which you call <code>newConnection(config)</code>) rather than importing the class. This is because DevKit also imports a class called <code>Connector</code>, which causes an import conflict.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+For clients where no authentication is used, you must still supply a <code>@ConnectionKey</code> field. An invented username is one possibility; see <a href="creating-a-connector-for-a-soap-service-via-cxf-client.html">Creating a Connector for a SOAP Service Via CXF Client</a> for such an implementation.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="disconnect-method"><a class="anchor" href="#disconnect-method"></a>@Disconnect Method</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This annotation indicates the method inside a <code>@Connector</code> class that is responsible for disposal of a connection. This method is called when the connector is shut down or the connection is explicitly terminated.</p>
+</div>
+<div class="paragraph">
+<p>A method annotated with <code>@Disconnect</code> must:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Be <code>public</code></p>
+</li>
+<li>
+<p>Take no input parameters</p>
+</li>
+<li>
+<p>Have a <code>void</code> return type</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If Basic Authentication is used, the <code>@Connector</code> class must have exactly one annotated <code>@Disconnect</code> method; otherwise compilation fails.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Disconnect
+public void disconnect()
+{
+   if (connection != null)
+   {
+       try
+         {
+         connection.logout();
+         }
+      catch (ConnectionException e)
+         {
+         e.printStackTrace();
+         }
+      finally
+         {
+         connection = null;
+         }
+   }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the connector currently has a connection open, this code calls <code>connection.logout()</code>,  a client method that explicitly de-authenticates and closes the connection. The <code>finally</code> block ensures that, if the logout fails for any reason, the connection is still set to null, so the connector does not again try to reference that connector instance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="validateconnection-method"><a class="anchor" href="#validateconnection-method"></a>@ValidateConnection Method</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This method is called by Mule to check whether the connection is actually open or not.</p>
+</div>
+<div class="paragraph">
+<p>A method annotated with <code>@ValidateConnection</code> must:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Be <code>public</code></p>
+</li>
+<li>
+<p>Take no input parameters</p>
+</li>
+<li>
+<p>Return <code>boolean</code> or <code>java.lang.Boolean</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Only one method on a <code>@Connector</code> class can be annotated with <code>@ValidateConnection</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ValidateConnection
+public boolean isConnected()
+{
+return connection != null;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, in order to determine whether the connection is active the code simply checks if the connection parameter is null. A different implementation may be required for other connectors, depending on the protocol.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="connectionidentifier-method"><a class="anchor" href="#connectionidentifier-method"></a>@ConnectionIdentifier Method</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This annotation identifies a method inside a <code>@Connector</code> class that returns a unique identifier for the connection, used for logging and debugging.</p>
+</div>
+<div class="paragraph">
+<p>A method annotated with <code>@ConnectionIdentifier</code> must:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Be <code>public</code></p>
+</li>
+<li>
+<p>Not be <code>static</code></p>
+</li>
+<li>
+<p>Not take arguments</p>
+</li>
+<li>
+<p>Return <code>java.lang.String</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A @Connector class that uses Basic Authentication must have exactly one method annotated <code>@ConnectionIdentifier</code>; otherwise compilation will fail.</p>
+</div>
+<div class="paragraph">
+<p>This code returns the connection SessionId as an identifier (if available). The SessionHeader object in this case contains header information about the current connection to the API, including the session ID.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ConnectionIdentifier
+   public String connectionId() {
+    if (connection != null){
+     return connection.getSessionHeader().getSessionId();
+    } else {
+     return null;
+    }
+   }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="reconnecton-annotation"><a class="anchor" href="#reconnecton-annotation"></a>@ReconnectOn Annotation</h2>
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This annotation deprecates <code>@InvalidateConnectionOn</code> annotation. It now receives a list of exceptions instead of just a single exception, and can be used at both the class and processor levels.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This annotation is used for exception handling related to connections. It can be used at a class level (annotated with the <code>@Connector</code> annotation) or at a method level (annotated with <code>@Processor</code> annotation). If the Connector or Processor throws an exception of this class, <code>@ReconnectOn</code> automatically invalidates the connection. <code>@ReconnectOn</code> receives a list containing the classes of the exceptions to be caught (see below for an example). When an exception occurs, `@ReconnectOn&#8217;s behavior is based on the configured reconnection strategy. See <a href="../../mule-runtime/3.5/mule-configuration/configuring-reconnection-strategies.html">Configuring Reconnection Strategies</a> for more details.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Processor
+@ReconnectOn(exceptions = {InvalidSessionFault.class, PasswordChangedException.class})
+public void myOperation(@Optional String source,
+                        @Optional Object destination) throws InvalidSessionFault, PasswordChangedException, InvalidParameterException
+{
+    /**
+    * CODE FOR MY OPERATION
+    */
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="connection-pooling"><a class="anchor" href="#connection-pooling"></a>Connection Pooling</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can allow users of your connector to use a pool of simultaneous connections instead of sharing a single instance to process messages.</p>
+</div>
+<div class="paragraph">
+<p>Connectors that implement pools are each assigned a pool component, which contains multiple instances of the connector to handle simultaneous requests. A connector&#8217;s configuration pooling profile configures its component pool.</p>
+</div>
+<div class="paragraph">
+<p>If you set the <code>poolable</code> annotation parameter to <code>true</code>, the generated schema will include additional configuration elements.</p>
+</div>
+<div class="sect2">
+<h3 id="example"><a class="anchor" href="#example"></a>Example</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">Connector</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name = "myconnector", poolable = true)
+public class MyConnector
+{
+    /**
+    * CODE
+    */
+}</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>In the corresponding XML, the <code>pooling-config</code> element is nested inside the <code>config</code> element. Notice that there is no need to provide any custom Java code to handle the pool, all that is needed is to provide a few parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">XML</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mymodule:config&gt;
+    &lt;mymodule:pooling-profile maxActive="10" maxIdle="5"
+        initialisationPolicy="INITIALISE_ALL"
+        exhaustedAction="WHEN_EXHAUSTED_FAIL" maxWait="60"/&gt;
+&lt;/mymodule:config&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following table lists <code>pooling-profile</code> parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxActive</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required. Controls the maximum number of Mule components that can be borrowed from a session at once. A negative value means no limit. When <code>maxActive</code> is exceeded, the pool is said to be exhausted.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxIdle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required. Controls the maximum number of Mule components that can sit idle in the pool at once. A negative value means no limit.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">initialisationPolicy</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Optional. Determines how components in a pool should be initialized. Possible values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>INITIALISE_NONE</code> (does not load any components into the pool on startup)</p>
+</li>
+<li>
+<p><code>INITIALISE_ONE</code> (loads one initial component into the pool on startup)</p>
+</li>
+<li>
+<p><code>INITIALISE_ALL</code> (loads all components in the pool on startup).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The default value is <code>INITIALISE_ONE</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">exhaustedAction</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Optional. Specifies the behavior of the Mule component pool when the pool is exhausted. Its possible values are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>WHEN_EXHAUSTED_FAIL</code> (throw a NoSuchElementException)</p>
+</li>
+<li>
+<p><code>WHEN_EXHAUSTED_WAIT</code> (block by invoking Object.wait(long) until a new or idle object is available)</p>
+</li>
+<li>
+<p><code>WHEN_EXHAUSTED_GROW</code> (create a new Mule instance and return it, invalidating maxActive).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If a positive maxWait value is supplied, it blocks for at most that many milliseconds, after which a <code>NoSuchElementException</code> is thrown. If <code>maxWait</code> is a negative value, it blocks indefinitely.</p>
+</div>
+<div class="paragraph">
+<p>The default value is <code>WHEN_EXHAUSTED_GROW</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxWait</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required. Specifies the number of milliseconds to wait for a pooled component to become available when the pool is exhausted and the exhaustedAction is set to <code>WHEN_EXHAUSTED_WAIT</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>NEXT</strong>: Continue to <a href="defining-attributes-operations-and-data-model.html">Defining Attributes Operations and Data Model</a> for your connector.</p>
+</li>
+<li>
+<p>See the <a href="creating-a-connector-for-a-soap-service-via-cxf-client.html">Creating a Connector for a SOAP Service Via CXF Client</a> example to see the Basic Authentication annotations in a fully working example.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/mule-management-console/3.4/upgrading-from-mmc-3.4.1-for-ms-sql-server-to-mmc-3.4.2-for-ms-sql-server.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Upgrading from MMC 3.4.1 for MS-SQL Server to MMC 3.4.2 for MS-SQL Server // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Mule Management Console</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-the-trial-version-of-mmc.html">Installing the Trial Version of MMC</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-the-production-version-of-mmc.html">Installing the Production Version of MMC</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="upgrading-the-management-console.html">Upgrading the Management Console</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="installing-or-upgrading-mule-management-console-3.4.2.html">Installing or Upgrading Mule Management Console 3.4.2</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="upgrading-to-mmc-3.4.2-with-an-external-database.html">Upgrading to MMC 3.4.2 with an External Database</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="upgrading-to-mmc-3.4.2-with-ldap.html">Upgrading to MMC 3.4.2 with LDAP</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="upgrading-from-mmc-3.4.1-for-ms-sql-server-to-mmc-3.4.2-for-ms-sql-server.html">Upgrading from MMC 3.4.1 for MS-SQL Server to MMC 3.4.2 for MS-SQL Server</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="orientation-to-the-console.html">Orientation to the Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mmc-walkthrough.html">MMC Walkthrough</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="setting-up-mmc.html">Setting Up MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-mmc-mule-esb-communications.html">Setting Up MMC-Mule ESB Communications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="persisting-mmc-data-on-external-databases.html">Persisting MMC Data On External Databases</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-oracle.html">Persisting MMC Data to Oracle</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-postgresql.html">Persisting MMC Data to PostgreSQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-mysql.html">Persisting MMC Data to MySQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-ms-sql-server.html">Persisting MMC Data to MS SQL Server</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="persisting-mmc-data-on-external-databases-in-mmc-3.4.2.html">Persisting MMC Data On External Databases in MMC 3.4.2</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="configuring-mmc-3.4.2-for-external-databases-quick-reference.html">Configuring MMC 3.4.2 for External Databases - Quick Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-postgresql.html">Persisting MMC 3.4.2 Data to PostgreSQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-mysql.html">Persisting MMC 3.4.2 Data to MySQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-oracle.html">Persisting MMC 3.4.2 Data to Oracle</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-ms-sql-server.html">Persisting MMC 3.4.2 Data to MS SQL Server</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="encrypting-the-mmc-tracking-database-password.html">Encrypting the MMC Tracking Database Password</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="encrypting-ldap-and-database-passwords-in-mmc-3.4.2.html">Encrypting LDAP and Database Passwords in MMC 3.4.2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-mmc-users-and-roles.html">Managing MMC Users and Roles</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-in-mmc.html">Setting Up and Managing Users in MMC</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="encrypting-mmc-user-passwords.html">Encrypting MMC User Passwords</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-via-ldap.html">Setting Up and Managing Users via LDAP</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="encrypting-the-mmc-ldap-password.html">Encrypting the MMC LDAP Password</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="architecture-of-the-mule-management-console.html">Architecture of the Mule Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-mule-servers-clusters-and-groups.html">Managing Mule Servers Clusters and Groups</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-alerts.html">Viewing Server Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-system-memory.html">Viewing System Memory</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-threads.html">Viewing Threads</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-pools.html">Viewing Server Pools</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="working-with-the-server-configuration-files.html">Working with the Server Configuration Files</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-properties.html">Viewing Server Properties</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-os-resources.html">Viewing Server OS Resources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-jmx-information.html">Viewing JMX Information</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="editing-server-settings.html">Editing Server Settings</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-server-metrics-dashboard.html">Customizing Server Metrics Dashboard</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="troubleshooting-tips.html">Troubleshooting Tips</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-and-debugging-applications.html">Monitoring and Debugging Applications</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-flows.html">Tracking Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="analyzing-message-flows.html">Analyzing Message Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-message-processing.html">Debugging Message Processing</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-the-loan-broker-example-application.html">Debugging the Loan Broker Example Application</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="adding-and-managing-alerts-and-slas.html">Adding and Managing Alerts and SLAs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="defining-slas-and-alerts.html">Defining SLAs and Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-alert-destinations-and-notifications.html">Setting Up Alert Destinations and Notifications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="analyzing-business-events.html">Analyzing Business Events</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-and-querying-business-events.html">Tracking and Querying Business Events</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="business-events-use-cases.html">Business Events Use Cases</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="managing-mule-high-availability-ha-clusters.html">Managing Mule High Availability (HA) Clusters</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="configuring-mule-ha-clustering.html">Configuring Mule HA Clustering</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-or-disbanding-a-cluster.html">Creating or Disbanding a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="deploying-redeploying-or-undeploying-an-application-to-or-from-a-cluster.html">Deploying, Redeploying, or Undeploying an Application To or From a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="dynamically-adding-or-removing-nodes-in-a-cluster.html">Dynamically Adding or Removing Nodes in a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="monitoring-a-cluster.html">Monitoring a Cluster</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="accessing-server-logs.html">Accessing Server Logs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="audit-logs.html">Audit Logs</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="automating-tasks-using-scripts.html">Automating Tasks Using Scripts</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="customizing-the-dashboard.html">Customizing the Dashboard</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-management-console-for-performance-tuning.html">Using the Management Console for Performance Tuning</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-flows.html">Working with Flows</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="maintaining-the-server-application-repository.html">Maintaining the Server Application Repository</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="analyzing-flow-processing-and-payloads.html">Analyzing Flow Processing and Payloads</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-management-console-api.html">Using the Management Console API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="rest-api-reference.html">REST API Reference</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="clusters.html">Clusters</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="deployments.html">Deployments</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="repository-of-applications.html">Repository of Applications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="server-groups.html">Server Groups</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="servers.html">Servers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="user-groups.html">User Groups</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Upgrading from MMC 3.4.1 for MS-SQL Server to MMC 3.4.2 for MS-SQL Server</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/mule-management-console-docs/edit/v3.4/modules/ROOT/content/upgrading-from-mmc-3.4.1-for-ms-sql-server-to-mmc-3.4.2-for-ms-sql-server.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Upgrading from MMC 3.4.1 for MS-SQL Server to MMC 3.4.2 for MS-SQL Server</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong><em>MMC Version 3.4.2 and Later</em></strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="anchor" href="#overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MMC version 3.4.1 for MS-SQL Server allows you to <a href="persisting-mmc-data-to-ms-sql-server.html">persist MMC data to MS SQL Server</a> instead of on MMC&#8217;s default internal databases. Users of this version of MMC should upgrade to MMC 3.4.2 for MS-SQL Server.</p>
+</div>
+<div class="paragraph">
+<p>Upgrading to MMC 3.4.2 patched for MS-SQL Server requires that you run a migration script on MS-SQL Server. Optionally, you can also run an additional script to drop indexes not used in MMC 3.4.2. This page describes the procedure for running both scripts.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Before running MMC 3.4.2, you will also need to perform the steps described in <a href="upgrading-to-mmc-3.4.2-with-an-external-database.html">Upgrading to MMC 3.4.2 with an External Database</a>. Additionally, if your current MMC installation uses LDAP for user authentication, you must complete the steps described in <a href="upgrading-to-mmc-3.4.2-with-ldap.html">Upgrading to MMC 3.4.2 with LDAP</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="downloading-the-mmc-3-4-2-war-file"><a class="anchor" href="#downloading-the-mmc-3-4-2-war-file"></a>Downloading the MMC 3.4.2 .war File</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From the Customer Portal, download the file <code>mmc-console-sqlserver-3.4.2.war</code>.</p>
+</div>
+<div class="paragraph">
+<p>After downloading, expand the MMC 3.4.2 .war file, but do not run MMC 3.4.2.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="downloading-the-migration-sql-scripts"><a class="anchor" href="#downloading-the-migration-sql-scripts"></a>Downloading the Migration SQL Scripts</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">migration script for copy-paste</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">USE [MMC_PERSISTENCY]
+GO
+CREATE TABLE [dbo].[OPENJPA_SEQUENCE_TABLE](
+    [ID] [tinyint] NOT NULL,
+    [SEQUENCE_VALUE] [bigint] NULL,
+PRIMARY KEY CLUSTERED
+(
+    [ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+INSERT INTO [dbo].[OPENJPA_SEQUENCE_TABLE]
+SELECT 0, SEQUENCE_VALUE FROM [dbo].[OPENJPA_SEQUENCES_TABLE] WHERE ID = 'EVENTS'
+GO
+/* VERIFY SEQUENCE_VALUE IN OPENJPA_SEQUENCE_TABLE IS THE SAME AS SEQUENCE_VALUE IN OPENJPA_SEQUENCES_VALUE */
+/* THEN DROP OLD TABLE */
+DROP TABLE [dbo].[OPENJPA_SEQUENCES_TABLE]
+GO</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">optional drop indexes script for copy-paste</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">USE [MMC_PERSISTENCY]
+DROP INDEX [EVENT_PROPERTIES].[e_properties_value]
+GO
+DROP INDEX [EVENTS].[e_flow_name]
+GO
+DROP INDEX [EVENTS].[e_message_id]
+GO
+DROP INDEX [EVENTS].[e_server_id]
+GO
+DROP INDEX [EVENTS].[e_server_name]
+GO
+DROP INDEX [EVENTS].[e_timestamp]
+GO
+DROP INDEX [EVENTS].[e_type]
+GO
+DROP INDEX [EVENTS].[events_name]
+GO
+DROP INDEX [TRANSACTION_SUMMARIES].[t_s_processing_time]
+GO
+DROP INDEX [TRANSACTION_SUMMARIES].[t_s_status_ordinal]
+GO</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-the-scripts-on-ms-sql-server"><a class="anchor" href="#running-the-scripts-on-ms-sql-server"></a>Running the Scripts on MS-SQL Server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before running the scripts, follow these steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure that no instance of MMC is connected to the MS-SQL Server – in other words, make sure that you have stopped your MMC 3.4.1, and that MMC 3.4.2 is not started, or not connected to the database on the MS-SQL Server</p>
+</li>
+<li>
+<p>In the MMC tracking (Business Events) database, back up the current value of the <code>SEQUENCE_TABLE</code> field (located in the only row of <code>OPENJPA_SEQUENCES_TABLE</code>)</p>
+</li>
+<li>
+<p>Both scripts use the database <code>MMC_PERSISTENCY</code>. If your database for MMC data has a different name, modify the name in the scripts by following these steps:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Locate the statement <code>USE [MMC_PERSISTENCY]</code>.</p>
+</li>
+<li>
+<p>Replace <code>MMC_PERSISTENCY</code> with the name of your database.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>After completing the above steps, run the migration script <code>sqlServerCustomersMigrate_341_to_342.sql</code> up to the following statement:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">SELECT 0, SEQUENCE_VALUE FROM [dbo].[OPENJPA_SEQUENCES_TABLE] WHERE ID = 'EVENTS'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After running the above statement, verify that <code>SEQUENCE_VALUE</code> in <code>OPENJPA_SEQUENCE_TABLE</code> is the same as <code>SEQUENCE_VALUE</code> in <code>OPENJPA_SEQUENCES_TABLE</code>. After this, run the rest of the script.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you have run MMC 3.4.2 connected to MS-SQL Server before running the migration script, and <code>OPENJPA_SEQUENCE_TABLE</code> already exists, you can run the migration script if you skip the table creation statements and run from the <code>INSERT INTO</code> statement.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Read an overview of <a href="configuring-mmc-3.4.2-for-external-databases-quick-reference.html">configuring MMC for external databases</a>, which includes links to detailed instructions for each supported database server.</p>
+</li>
+<li>
+<p>Read the configuration details for <a href="persisting-mmc-3.4.2-data-to-ms-sql-server.html">Persisting MMC 3.4.2 Data to MS SQL Server</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

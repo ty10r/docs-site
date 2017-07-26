@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="release notes, connectors, mllp, transport">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/solutions/healthcare-toolkit/mllp-connector.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>HL7 MLLP Connector // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../anypoint-b2b.html">Anypoint B2B</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">TRADACOMS EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDI Schema Language Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/index.html">Anypoint Partner Manager</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/key-concepts.html">Key Concepts</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/b2b-transaction-processing-framework.html">B2B Transaction-Processing Framework</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/resolution-processes.html">Resolution Processes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/tracking.html">Tracking</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/examples.html">Examples</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/transaction-monitoring.html">Transaction Monitoring</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/central-pane-elements.html">Central Pane Elements</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/tracking-scenarios.html">Tracking Scenarios</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/partner-configuration.html">Partner Configuration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/company-information.html">Company Information</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/identifiers.html">Identifiers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/on-hold-inactive.html">On-Hold/Inactive</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">Certificate</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/csv-settings.html">CSV Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/document-types.html">Document Types</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/endpoints.html">Endpoints</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/maps.html">Maps</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/channels.html">Channels</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/routes.html">Routes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/partner-conversations.html">Partner Conversations</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/rosettanet-pips.html">RosettaNet PIPs</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/rosettanet-agreements.html">RosettaNet Agreements</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/administration.html">Administration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/environments.html">Environments</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/error-codes.html">Error Codes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/security.html">Security</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/lookup-tables.html">Lookup Tables</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/walkthroughs.html">Walkthroughs</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/ftps-and-edi-x12-purchase-order-walkthrough.html">FTPS and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/transaction-tracking-walkthrough.html">Transaction Tracking Walkthrough</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/anypoint-partner-manager-api.html">Anypoint Partner Manager API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/glossary.html">Glossary</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/partner-manager-connector.html">Partner Manager Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/ftps-connector.html">FTPS Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">EDI X12 Order Processing Example</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/supported-edi-document-types.html">Supported EDI Document Types</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../getting-started/index.html">Getting Started with Anypoint Platform</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../getting-started/design-an-api.html">To Design an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../getting-started/implement-and-test-api.html">To Implement and Test an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../getting-started/sync-api.html">To Sync an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../anypoint-platform/exchange/index.html">Anypoint Exchange</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../anypoint-platform/exchange/exchange-faq.html">Anypoint Exchange FAQ</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../getting-started/build-a-hello-world-application.html">Tutorial: Creating a Mule App</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../getting-started/anypoint-connector.html">Anypoint Connector Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../mule-runtime/3.8/messages/mule-message.html">How to Work with a Mule Message</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../getting-started/content-based-routing.html">How to Route Mule Messages Using a Switch Statement</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../anypoint-platform/cloudhub/deploy-to-cloudhub.html">Deploy to CloudHub</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Healthcare Toolkit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="hl7/hl7-edi.html">HL7 EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mllp-connector.html">HL7 MLLP</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="connector-testpanel.html">Connector Testing with TestPanel</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">HL7 MLLP Connector</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/solutions-docs/edit/master/modules/healthcare-toolkit/content/mllp-connector.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>HL7 MLLP Connector</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Release Notes:</strong> <a href="https://example.com/tbd">MLLP Release Notes</a></p>
+</div>
+<div class="paragraph">
+<p>The Mule HL7 MLLP transport provides connectivity and parsing functionality for HL7 MLLP messages.</p>
+</div>
+<div class="paragraph">
+<p>Read through this user guide to understand how to set up and configure a basic flow using the connector. Track feature additions, compatibility, limitations, and API version updates with each release of the connector using the <a href="https://example.com/tbd">HL7 MLLP Connector Release Notes</a>.</p>
+</div>
+<div class="paragraph">
+<p>MuleSoft maintains this connector under the <a href="../../mule-runtime/3.8/connectors/anypoint-connectors.html#connector-categories"><em>Premium</em></a> support policy.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes that you are familiar with Mule,
+<a href="../../mule-runtime/3.8/connectors/anypoint-connectors.html">Anypoint Connectors</a>, and
+<a href="../../anypoint-studio/6/index.html">Anypoint Studio</a>. To increase your familiarity with Studio, consider completing the
+<a href="../../anypoint-studio/6/basic-studio-tutorial.html">Basic Studio Tutorial</a>. This page requires some basic knowledge of
+<a href="../../mule-runtime/3.8/mule-concepts.html">Key Concepts</a>,
+<a href="../../mule-runtime/3.8/flows/elements-in-a-mule-flow.html">Elements in a Mule Flow</a>, and
+<a href="../../mule-runtime/3.8/mule-configuration/global-elements.html">Global Elements</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="hardware-and-software-requirements"><a class="anchor" href="#hardware-and-software-requirements"></a>Hardware and Software Requirements</h3>
+<div class="paragraph">
+<p>For hardware and software requirements, see the <a href="../../mule-runtime/3.8/install/hardware-and-software-requirements.html">Hardware and Software Requirements</a> page.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="compatibility"><a class="anchor" href="#compatibility"></a>Compatibility</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Software</th>
+<th class="tableblock halign-left valign-top">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Mule Runtime</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.7 and later</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Java</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-hl7-mllp-connector"><a class="anchor" href="#installing-hl7-mllp-connector"></a>Installing HL7 MLLP Connector</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To install:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In <a href="https://www.mulesoft.com/platform/studio">Anypoint Studio</a>, click <strong>Help</strong> &gt; <strong>Install New Software</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Work With</strong> field of the <strong>Install</strong> wizard, use the drop-down menu to click: <strong>Anypoint Connectors Update Site</strong></p>
+</li>
+<li>
+<p>Expand <strong>Premium</strong> and check <strong>Mule MLLP Transport</strong>. Click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Next</strong> to confirm the installation details.</p>
+</li>
+<li>
+<p>Click <strong>I accept the terms of the license agreement</strong>, then click <strong>Finish</strong>.</p>
+</li>
+<li>
+<p>After installation finishes, the installer asks you to restart Studio. Click <strong>Yes</strong> to restart. After Studio restarts, type `MLLP' in the palette search to quickly find the HL7 MLLP building block.</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="upgrading-from-an-older-version"><a class="anchor" href="#upgrading-from-an-older-version"></a>Upgrading from an Older Version</h3>
+<div class="paragraph">
+<p>If you’re currently using an older version of the connector, a small popup appears in the bottom right corner of Anypoint Studio with an "Updates Available" message.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the popup and check for available updates.</p>
+</li>
+<li>
+<p>Click the Connector version checkbox and click <strong>Next</strong> and follow the instructions provided by the user interface.</p>
+</li>
+<li>
+<p><strong>Restart</strong> Studio when prompted.</p>
+</li>
+<li>
+<p>After restarting, when creating a flow and using the connector, if you have several versions of the connector installed, you may be asked which version you would like to use. Choose the version you would like to use.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Additionally, we recommend that you keep Studio up to date with its latest version.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-the-connector-global-element"><a class="anchor" href="#configuring-the-connector-global-element"></a>Configuring the Connector Global Element</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Follow the steps below to create an HL7 MLLP global element:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the <strong>Global Elements</strong> tab at the base of the canvas.</p>
+</li>
+<li>
+<p>On the Global Mule Configuration Elements screen, click <strong>Create</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Choose Global Type wizard</strong>, expand <strong>Connector Endpoints</strong>, and then select <strong>HL7 MLLP: Configuration</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The HL7 MLLP endpoint creates a channel to receive or send messages over HL7 MLLP and allows Mule applications to send and receive messages on specified ports.</p>
+</div>
+<div class="paragraph">
+<p>A HL7 MLLP endpoint placed at the beginning of a flow is automatically configured as an inbound endpoint while an endpoint placed in the middle or the end of a flow will act as an outbound endpoint.</p>
+</div>
+<div class="paragraph">
+<p>The HL7 MLLP endpoint configuration is explained in this section.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>General tab</strong></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mllp-general.png" alt="HL7 MLLP General Tab">
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Display Name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the building block as it appears in the flow.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Host</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the host to which the endpoint must connect.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Port</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port number for the connection.</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>Advanced tab</strong></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mllp-advanced.png" alt="HL7 MLLP Advanced Tab">
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Address</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The complete URI location of the host to which the Endpoint must connect. This parameter is mutually exclusive of the other following parameters:</p>
+<p class="tableblock">* Host
+* Port
+* Endpoint Reference.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Response Timeout</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The timeout for a response, in milliseconds.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Exchange Patterns</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Select between two possible exchange patterns.</p>
+<p class="tableblock">* <strong>one-way:</strong> An inbound endpoint only receives data and does not send anything back to the originating application. An outbound endpoint only sends data.
+* <strong>request-response:</strong> Allows two-way communication between the endpoint and the external application</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>References tab</strong></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mllp-references.png" alt="HL7 MLLP References Tab">
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Connector Reference</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">References an HL7 MLLP connector configured as a global element.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Endpoint Reference</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows you to reference an HL7 MLLP endpoint configured as a global element. This parameter is mutually exclusive with the other parameters shown below:</p>
+<p class="tableblock">* Host (General tab)
+* Port (General tab)
+* Address (Advanced tab).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Global Transformers (Request section)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add transformers that the endpoint applies to information it receives. Use the "Add" icon next to the Global Transformers field to select transformers to add.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Global Transformers (Response section)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add transformers that the endpoint applies to information it receives. Use the "Add" icon next to the Global Transformers field to select transformers to add.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Transformers to be applied (Request and Response sections)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the "Edit" icons to edit, re-order or remove selected transformers.</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-the-connector"><a class="anchor" href="#using-the-connector"></a>Using the Connector</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>HL7 MLLP transport supports send and receive HL7 MLLP messages.</p>
+</div>
+<div class="sect2">
+<h3 id="hl7-mllp-namespace-and-schema"><a class="anchor" href="#hl7-mllp-namespace-and-schema"></a>HL7 MLLP Namespace and Schema</h3>
+<div class="paragraph">
+<p>When designing your application in Studio, the act of dragging the connector from the palette onto the Anypoint Studio canvas should automatically populate the XML code with the connector <strong>namespace</strong> and <strong>schema location</strong>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Namespace:</strong> <code><a href="http://www.mulesoft.org/schema/mule/connector" class="bare">http://www.mulesoft.org/schema/mule/connector</a></code></p>
+</li>
+<li>
+<p><strong>Schema Location:</strong> <code><a href="http://www.mulesoft.org/schema/mule/connector/current/mule-connector.xsd" class="bare">http://www.mulesoft.org/schema/mule/connector/current/mule-connector.xsd</a></code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you are manually coding the Mule application in Studio&#8217;s XML editor or other text editor, define the namespace and schema location in the header of your <strong>Configuration XML</strong>, inside the <code>&lt;mule&gt;</code> tag.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mule xmlns:mllp="http://www.mulesoft.org/schema/mule/mllp" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/mllp http://www.mulesoft.org/schema/mule/mllp/current/mule-mllp.xsd"&gt;
+          &lt;!-- put your global configuration elements and flows here --&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-the-connector-in-a-mavenized-mule-app"><a class="anchor" href="#using-the-connector-in-a-mavenized-mule-app"></a>Using the Connector in a Mavenized Mule App</h3>
+<div class="paragraph">
+<p>If you are coding a Mavenized Mule application, this XML snippet must be included in your <code>pom.xml</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;com.mulesoft.mule.transport&lt;/groupId&gt;
+  &lt;artifactId&gt;mule-transport-mllp&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="demo-mule-applications-using-connector"><a class="anchor" href="#demo-mule-applications-using-connector"></a>Demo Mule Applications Using Connector</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="example-use-case-visual-editor"><a class="anchor" href="#example-use-case-visual-editor"></a>Example Use Case - Visual Editor</h3>
+<div class="paragraph">
+<p>This section shows the usage of HL7 MLLP as an inbound and outbound endpoint.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mllp-use-case.png" alt="mllp use case">
+</div>
+</div>
+<div class="sect3">
+<h4 id="send-receive-hl7-mllp-message"><a class="anchor" href="#send-receive-hl7-mllp-message"></a>Send-Receive HL7 MLLP Message</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Drag a <strong>HTTP connector</strong> onto the canvas and configure the following parameters:</p>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connector Configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP_Listener_Configuration</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/send</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Drag a <strong>HL7 MLLP</strong> component next to the HTTP endpoint.</p>
+</li>
+<li>
+<p>Configure HL7 MLLP with the following values in <strong>General</strong> tab:</p>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5004</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Drag a <strong>Set Payload</strong> component before HL7 MLLP transport and set a HL7 message:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;set-payload value="#[&amp;quot;MSH|^~\\&amp;amp;|system1|W|system2|UHN|200105231927||ADT^A01^ADT_A01|22139243|P|2.4\rEVN|A01|200105231927|\rPID||9999999999^^|2216506^||Duck^Donald^^^MR.^MR.||19720227|M|||123 Foo ST.^^TORONTO^ON^M6G 3E6^CA^H^~123 Foo ST.^^TORONTO^ON^M6G 3E6^CA^M^|1811|(416)111-1111||E^ ENGLISH|S| PATIENT DID NOT INDICATE|211004554^||||||||||||\rPV1|||ZFAST TRACK^WAITING^13|E^EMERGENCY||369^6^13^U EM EMERGENCY DEPARTMENT^ZFAST TRACK WAITING^FT WAIT 13^FTWAIT13^FT WAITING^FTWAIT13|^MOUSE^MICKEY^M^^DR.^MD|||SUR||||||||I|211004554^||||||||||||||||||||W|||||200105231927|||||\rPV2||F|^R/O APPENDICIAL ABSCESS|||||||||||||||||||||||||\rIN1|1||001001|  OHIP||||||||||||^^^^^|||^^^^^^M^|||||||||||||||||||||||||^^^^^^M^|||||\rACC|&amp;quot;]" doc:name="Set Payload"/&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create another flow, and set HL7 MLLP as inbound-endpoint.</p>
+</li>
+<li>
+<p>Configure HL7 MLLP with the following values in <strong>General</strong> tab:</p>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5004</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>Deploy</strong> the application, open a web browser and make a request to the URL <strong><a href="http://localhost:8081/send" class="bare">http://localhost:8081/send</a></strong>.</p>
+</li>
+<li>
+<p>You should receive the message as response:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">MSH|^~\&amp;|system1|W|system2|UHN|200105231927||ADT^A01^ADT_A01|22139243|P|2.4
+EVN|A01|200105231927|
+PID||9999999999^^|2216506^||Duck^Donald^^^MR.^MR.||19720227|M|||123 Foo ST.^^TORONTO^ON^M6G 3E6^CA^H^~123 Foo ST.^^TORONTO^ON^M6G 3E6^CA^M^|1811|(416)111-1111||E^ ENGLISH|S| PATIENT DID NOT INDICATE|211004554^||||||||||||
+PV1|||ZFAST TRACK^WAITING^13|E^EMERGENCY||369^6^13^U EM EMERGENCY DEPARTMENT^ZFAST TRACK WAITING^FT WAIT 13^FTWAIT13^FT WAITING^FTWAIT13|^MOUSE^MICKEY^M^^DR.^MD|||SUR||||||||I|211004554^||||||||||||||||||||W|||||200105231927|||||
+PV2||F|^R/O APPENDICIAL ABSCESS|||||||||||||||||||||||||
+IN1|1||001001|  OHIP||||||||||||^^^^^|||^^^^^^M^|||||||||||||||||||||||||^^^^^^M^|||||
+ACC|</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="example-use-case-xml"><a class="anchor" href="#example-use-case-xml"></a>Example Use Case - XML</h3>
+<div class="paragraph">
+<p>Paste this into Anypoint Studio to interact with the example use case application discussed in this guide.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
+xmlns:http="http://www.mulesoft.org/schema/mule/http"
+xmlns:mllp="http://www.mulesoft.org/schema/mule/mllp"
+xmlns="http://www.mulesoft.org/schema/mule/core"
+xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+xmlns:spring="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core
+http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/mllp
+http://www.mulesoft.org/schema/mule/mllp/current/mule-mllp.xsd
+http://www.mulesoft.org/schema/mule/http
+http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking
+http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd"&gt;
+    &lt;http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/&gt;
+    &lt;flow name="mllp-outbound-endpoint"&gt;
+        &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/send" doc:name="HTTP"/&gt;
+        &lt;set-payload value="#[&amp;quot;MSH|^~\\&amp;amp;|system1|W|system2|UHN|200105231927||ADT^A01^ADT_A01|22139243|P|2.4\rEVN|A01|200105231927|\rPID||9999999999^^|2216506^||Duck^Donald^^^MR.^MR.||19720227|M|||123 Foo ST.^^TORONTO^ON^M6G 3E6^CA^H^~123 Foo ST.^^TORONTO^ON^M6G 3E6^CA^M^|1811|(416)111-1111||E^ ENGLISH|S| PATIENT DID NOT INDICATE|211004554^||||||||||||\rPV1|||ZFAST TRACK^WAITING^13|E^EMERGENCY||369^6^13^U EM EMERGENCY DEPARTMENT^ZFAST TRACK WAITING^FT WAIT 13^FTWAIT13^FT WAITING^FTWAIT13|^MOUSE^MICKEY^M^^DR.^MD|||SUR||||||||I|211004554^||||||||||||||||||||W|||||200105231927|||||\rPV2||F|^R/O APPENDICIAL ABSCESS|||||||||||||||||||||||||\rIN1|1||001001|  OHIP||||||||||||^^^^^|||^^^^^^M^|||||||||||||||||||||||||^^^^^^M^|||||\rACC|&amp;quot;]" doc:name="Set Payload"/&gt;
+        &lt;mllp:outbound-endpoint host="localhost" port="5004" responseTimeout="10000" exchange-pattern="request-response" doc:name="HL7 MLLP"/&gt;
+    &lt;/flow&gt;
+    &lt;flow name="mllp-inbound-endpoint"&gt;
+        &lt;mllp:inbound-endpoint host="localhost" port="5004" responseTimeout="10000" exchange-pattern="request-response" doc:name="HL7 MLLP"/&gt;
+        &lt;logger message="#[payload]" level="INFO" doc:name="Logger"/&gt;
+    &lt;/flow&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources"><a class="anchor" href="#resources"></a>Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Access the <a href="https://example.com/tbd">HL7 MLLP Connector Release Notes</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

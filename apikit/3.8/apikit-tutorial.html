@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="apikit, raml, gateway, tutorial, api, rest">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/apikit/3.8/apikit-tutorial.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Simple REST API Tutorial // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">APIkit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-tutorial.html">Simple REST API Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-tutorial-jsonplaceholder.html">Consuming a Web Service Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-for-soap.html">SOAP Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-using.html">Using APIkit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="walkthrough-deploy-to-runtime.html">Deploying an APIkit Project</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-an-odata-api-with-apikit.html">Creating an OData API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-odata-extension-reference.html">APIkit OData Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-an-apikit-project-with-maven.html">Creating an APIkit Project with Maven</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-basic-anatomy.html">APIkit Anatomy</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-reference.html">APIkit Reference</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Simple REST API Tutorial</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/apikit-docs/edit/v3.8/modules/ROOT/content/apikit-tutorial.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Simple REST API Tutorial</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial shows you how to build and deploy an APIkit project that imports a RAML. You run the API in Anypoint Studio, use APIkit Console to simulate calls to the API, prepare the project for deployment, deploy the project to Anypoint Platform, and apply a policy to the API.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Studio 6.0 or later is recommended for this tutorial. If you use Studio 5.x, install API Gateway Runtime 2.2.0 and expect minor differences, mainly in the UI.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scenario"><a class="anchor" href="#scenario"></a>Scenario</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A vending machine provider, SnackVendor, that needs to track the contents of all the vending machines deployed in the state of California. To better manage resources, SnackVendor wants to send drivers to replenish the stock only of the vending machines that are running low on content. The API required to address this scenario covers two main tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Updating vending machine data: to update the central database on each sale</p>
+</li>
+<li>
+<p>Tracking inventory: to find out if a machine is low on stock</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-a-new-project"><a class="anchor" href="#creating-a-new-project"></a>Creating a New Project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To create a new project:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download the example <a href="./_attachments/api.raml">api.raml</a> file to your local drive.</p>
+</li>
+<li>
+<p>Under the <strong>File</strong> menu, select <strong>New</strong> &gt; <strong>Mule Project</strong>.</p>
+</li>
+<li>
+<p>In the <strong>New Mule Project</strong> wizard, enter a <strong>Name</strong>, myproject for example, <strong>Mule Runtime 3.8.0</strong>.</p>
+</li>
+<li>
+<p>Check <strong>Add APIkit components</strong>. In the <strong>RAML file</strong> field, browse to and select the downloaded <code>api.raml</code> file.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikit-tutorial-3e0e4.png" alt="apikit tutorial 3e0e4" width="600" height="633">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Finish</strong>.</p>
+<div class="paragraph">
+<p>Studio launches the new project and generates a <strong>Main flow</strong> with an HTTP Listener, an APIkit Router, and reference to the APIkit exception strategy mappings. <a href="apikit-basic-anatomy.html#backend-flows">Backend flows</a> also appear. The RAML file you imported resides <code>src/main/api</code>.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-and-testing-the-project"><a class="anchor" href="#running-and-testing-the-project"></a>Running and Testing the Project</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right-click the project name in the <strong>Project Explorer</strong>, then select <strong>Run As</strong> &gt; <strong>Mule Application</strong>.</p>
+<div class="paragraph">
+<p>The <strong>APIkit Console</strong> appears below the canvas, displaying the resource-action pairs exposed by the API.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikitconsole-tutorial.png" alt="APIkitconsole-tutorial">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Introduction</strong> under <strong>DOCUMENTATION</strong> to view the API description.</p>
+<div class="paragraph">
+<p>The main <strong>Introduction</strong> title and sentence map to the contents of <code>documentation</code> in the root section of the RAML file.</p>
+</div>
+</li>
+<li>
+<p>Click <code>/machines</code> to expand the section. Expand <code>GET: /machines</code>, then click the tab labeled <strong>Try It</strong>.</p>
+</li>
+<li>
+<p>Click the <strong>GET</strong> button to send a test call to GET a list of machines.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikitt-get.png" alt="apikitt get">
+</div>
+</div>
+</li>
+<li>
+<p>The API returns a list of machines.</p>
+<div class="paragraph">
+<p>The output is the payload set on the message by the <code>get:/machines:apiConfig</code> flow.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "count": 3,
+  "machines": [
+    {
+      "id": "ZX4102",
+      "location": "Starbuck's, 442 Geary Street, San Francisco, CA 94102"
+    },
+    {
+      "id": "ZX5322",
+      "location": "Starbuck's, 462 Powell Street, San Francisco, CA 94102"
+    },
+    {
+      "id": "ZX6792",
+      "location": "Cafe La Taza, 470 Post Street, San Francisco, CA 94102"
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-logic-to-the-project"><a class="anchor" href="#adding-logic-to-the-project"></a>Adding Logic to the Project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For example purposes, add over-simplified logic to the project to use later in API Manager. Unlike the APIkit-generated flows, the flow you create during this procedure returns a result, a payload message, when you call the API from a browser.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Drag an <strong>HTTP</strong> component to the canvas.</p>
+<div class="paragraph">
+<p>Studio creates a flow named apiFlow by default.</p>
+</div>
+</li>
+<li>
+<p>In the apiflow, select the <strong>HTTP connector</strong> to open its properties editor.</p>
+</li>
+<li>
+<p>Click <span class="image"><img src="./_images/edit-16x16.gif" alt="Edit-16x16"></span> to edit the Connector Configuration global configuration element.</p>
+</li>
+<li>
+<p>Change the value of the <strong>Base Path</strong> as follows:</p>
+<div class="paragraph">
+<p><code>remote-vending</code></p>
+</div>
+</li>
+<li>
+<p>Click OK.</p>
+</li>
+<li>
+<p>In the properties editor, change the <strong>Path</strong> setting from <code>/</code> to <code>/test-policy</code>.</p>
+</li>
+<li>
+<p>Drag a <strong>Set Payload</strong> component to the process area of apiFlow.</p>
+</li>
+<li>
+<p>Set the <strong>Value</strong> of the payload to <code>test policy</code>.</p>
+</li>
+<li>
+<p><strong>Save</strong> the changes.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploying-the-project-to-anypoint-platform"><a class="anchor" href="#deploying-the-project-to-anypoint-platform"></a>Deploying the Project to Anypoint Platform</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In Studio, you prepare the API for auto-discovery. You need to set multiple auto-discovery global elements, one for each flow to which you want to direct requests. In the auto-discovery global configuration, you select a drop-down containing the names of a flow in the project.</p>
+</div>
+<div class="paragraph">
+<p>Finally, you run the project as a Mule application. Studio deploys the flows as individual APIs to Anypoint Platform, and registers the APIs with API Manager. After registering the APIs, you can apply policies and perform <a href="../../anypoint-platform/api-manager/index.html">other API management tasks</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>To deploy an APIkit project to Anypoint Platform</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In Studio, select Anypoint Studio &gt; Preferences &gt; Anypoint Studio &gt; Anypoint Platform for APIs, and enter your client ID and client secret as described on the <a href="../../anypoint-platform/api-manager/api-auto-discovery.html">auto-discovery page</a>.</p>
+</li>
+<li>
+<p>In the <strong>Global Elements</strong> dialog, configure auto-discovery by entering settings for a global element as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>API Name: vending</p>
+</li>
+<li>
+<p>API Version: 1.0development</p>
+</li>
+<li>
+<p>Flow Name: api-main</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enter auto-discovery settings for a second global element as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>API Name: test-policy</p>
+</li>
+<li>
+<p>API Version: 1.0development</p>
+</li>
+<li>
+<p>Flow Name: apiFlow</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>In Project Explorer, right-click the APIkit project name, and select <strong>Run As</strong> &gt; <strong>Mule Application</strong>.</p>
+<div class="paragraph">
+<p>Studio connects to API Manager in API Platform. The Studio console indicates that the project is deployed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>INFO  2016-08-20 12:54:28,564 [main] com.mulesoft.module.client.autodiscovery.AutoDiscoveryDeploymentListener: Successfully created API named vending with version 1.0development
+INFO  2016-08-20 12:54:28,774 [main] com.mulesoft.module.client.autodiscovery.
+...
+AutoDiscoveryDeploymentListener: Successfully registered source http://192.168.1.127:8081/remote-vending/test-policy to API test-policy with version 1.0development
+...</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Sign into Anypoint Platform, or if you are already signed in, refresh the browser.</p>
+</li>
+<li>
+<p>Go to API Manager.</p>
+<div class="paragraph">
+<p>The vending and test-policy APIs appear in API Manager.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Using the implementation URI, you can now simulate calls to the API using API Console. For example:</p>
+</div>
+<div class="paragraph">
+<p><code><a href="http://192.168.127:8081/console" class="bare">http://192.168.127:8081/console</a></code></p>
+</div>
+<div class="paragraph">
+<p>You can also apply policies to the APIs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="applying-a-policy"><a class="anchor" href="#applying-a-policy"></a>Applying a Policy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can apply the rate limiting policy to limit the number of requests to an API within a period of time.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click <code>1.0development</code> to go to the API version details for the vending API.</p>
+<div class="paragraph">
+<p>The API version details page for the vending API appears.</p>
+</div>
+</li>
+<li>
+<p>On the Policies tab, scroll down to the rate limiting policy, and click <strong>Apply</strong>.</p>
+<div class="paragraph">
+<p>The <strong>Apply "Rate limiting" policy</strong> dialog appears.</p>
+</div>
+</li>
+<li>
+<p><a href="../../anypoint-platform/api-manager/rate-limiting-and-throttling.html#rate-limiting">Configure the policy</a>. For example, configure rate limiting to 3 requests per minute.</p>
+</li>
+<li>
+<p>Click <strong>Apply</strong>.</p>
+</li>
+<li>
+<p>Click <code>1.0development</code> to go to the API version details for the test-policy API.</p>
+</li>
+<li>
+<p>Apply the rate limiting policy to the test-policy API.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="testing-the-policy"><a class="anchor" href="#testing-the-policy"></a>Testing the Policy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To test the policy:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the 1.0development version of the vending API.</p>
+<div class="paragraph">
+<p>The API version details page for the vending API appears.</p>
+</div>
+</li>
+<li>
+<p>In the <strong>Status</strong> section click <strong>Configure endpoint</strong>.</p>
+<div class="paragraph">
+<p>The Configure endpoint dialog shows that the auto-discovery process deployed the API to a basic endpoint. The implementation URI shows the URL of the endpoint, which contains your local IP address.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikit-tutorial-d664e.png" alt="apikit tutorial d664e">
+</div>
+</div>
+</li>
+<li>
+<p>In a browser, go to the IP address and port shown in the implementation URI. For example:</p>
+<div class="paragraph">
+<p><code><a href="http://192.168.1.127:8081/remote-vending/api/*" class="bare">http://192.168.1.127:8081/remote-vending/api/*</a></code></p>
+</div>
+<div class="paragraph">
+<p>The following message appears because you added no logic other than APIkit simulation logic to the flow used by the vending API:</p>
+</div>
+<div class="paragraph">
+<p><code>{ "message": "Resource not found" }</code></p>
+</div>
+</li>
+<li>
+<p>Refresh the browser three times.</p>
+<div class="paragraph">
+<p>The rate limiting policy is enforced, as indicated by the output:</p>
+</div>
+<div class="paragraph">
+<p><code>API calls exceeded</code></p>
+</div>
+</li>
+<li>
+<p>In a browser, go to the implementation URI for the test-policy API. For example:</p>
+<div class="paragraph">
+<p><code><a href="http://192.168.1.127:8081/remote-vending/test-policy" class="bare">http://192.168.1.127:8081/remote-vending/test-policy</a></code></p>
+</div>
+<div class="paragraph">
+<p><code>test policy</code> appears.</p>
+</div>
+</li>
+<li>
+<p>Refresh the browser three times.</p>
+<div class="paragraph">
+<p>The rate limiting policy is enforced, as indicated by the output:</p>
+</div>
+<div class="paragraph">
+<p><code>API calls exceeded</code></p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

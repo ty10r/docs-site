@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="release notes">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/solutions/migration/mule-runtime/1.x-to-2.0-migration-guide.html">
+  <link rel="stylesheet" href="../../../_theme/stylesheets/theme.css">
+  <title>Migrating Mule 1.x to 2.0 // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../../anypoint-b2b.html">Anypoint B2B</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">TRADACOMS EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDI Schema Language Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/index.html">Anypoint Partner Manager</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/key-concepts.html">Key Concepts</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/b2b-transaction-processing-framework.html">B2B Transaction-Processing Framework</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/resolution-processes.html">Resolution Processes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/tracking.html">Tracking</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/examples.html">Examples</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/transaction-monitoring.html">Transaction Monitoring</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/central-pane-elements.html">Central Pane Elements</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/tracking-scenarios.html">Tracking Scenarios</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/partner-configuration.html">Partner Configuration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/company-information.html">Company Information</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/identifiers.html">Identifiers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/on-hold-inactive.html">On-Hold/Inactive</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">Certificate</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/csv-settings.html">CSV Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/document-types.html">Document Types</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/endpoints.html">Endpoints</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/maps.html">Maps</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/channels.html">Channels</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/routes.html">Routes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/partner-conversations.html">Partner Conversations</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/rosettanet-pips.html">RosettaNet PIPs</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/rosettanet-agreements.html">RosettaNet Agreements</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/administration.html">Administration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/environments.html">Environments</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/error-codes.html">Error Codes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/security.html">Security</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/lookup-tables.html">Lookup Tables</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/walkthroughs.html">Walkthroughs</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/ftps-and-edi-x12-purchase-order-walkthrough.html">FTPS and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/transaction-tracking-walkthrough.html">Transaction Tracking Walkthrough</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/anypoint-partner-manager-api.html">Anypoint Partner Manager API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/glossary.html">Glossary</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/partner-manager-connector.html">Partner Manager Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/ftps-connector.html">FTPS Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">EDI X12 Order Processing Example</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/supported-edi-document-types.html">Supported EDI Document Types</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../../getting-started/index.html">Getting Started with Anypoint Platform</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/design-an-api.html">To Design an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/implement-and-test-api.html">To Implement and Test an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/sync-api.html">To Sync an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../../anypoint-platform/exchange/index.html">Anypoint Exchange</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-platform/exchange/exchange-faq.html">Anypoint Exchange FAQ</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/build-a-hello-world-application.html">Tutorial: Creating a Mule App</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/anypoint-connector.html">Anypoint Connector Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../mule-runtime/3.8/messages/mule-message.html">How to Work with a Mule Message</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/content-based-routing.html">How to Route Mule Messages Using a Switch Statement</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../anypoint-platform/cloudhub/deploy-to-cloudhub.html">Deploy to CloudHub</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../../healthcare-toolkit/index.html">Healthcare Toolkit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../healthcare-toolkit/hl7/hl7-edi.html">HL7 EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../healthcare-toolkit/mllp-connector.html">HL7 MLLP</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../healthcare-toolkit/connector-testpanel.html">Connector Testing with TestPanel</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Migrating Mule 1.x to 2.0</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/solutions-docs/edit/master/modules/migration/content/mule-runtime/1.x-to-2.0-migration-guide.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Migrating Mule 1.x to 2.0</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page describes the major configuration and code changes in Mule 2.0 to help Mule 1.x users understand what has changed between releases. For more information on new features and changes, see Whats New in This Release.</p>
+</div>
+<div class="paragraph">
+<p>The principal new feature of Mule 2.0 is a powerful new schema-based configuration style leveraging <a href="http://static.springframework.org/spring/docs/2.0.x/reference/extensible-xml.html">Spring&#8217;s Extensible XML Authoring</a>.<br>
+The new format looks similar to the Mule 1.x format, and upgrading from Mule 1.x to 2.x is fairly straightforward. This page will help you get started.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quick-reference"><a class="anchor" href="#quick-reference"></a>Quick Reference</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section provides a quick reference to the changes from 1.x to 2.x.</p>
+</div>
+<div class="sect2">
+<h3 id="xml-configuration-changes"><a class="anchor" href="#xml-configuration-changes"></a>XML Configuration Changes</h3>
+<div class="paragraph">
+<p>Following are some high-level changes in the XML configuration. For details, see <a href="#configuration-changes">Configuration Changes</a> below.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">1.x</th>
+<th class="tableblock halign-left valign-top">2.x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interceptors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supported starting with Mule 2.1.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mule implementations are attributes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mule implementations are elements</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mule descriptor implementation is explicitly required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service component configuration is optional. PassThroughComponent is default.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Endpoint: address or name attribute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Endpoint: address, name, or new path attribute</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="code-changes"><a class="anchor" href="#code-changes"></a>Code Changes</h3>
+<div class="paragraph">
+<p>For details on these changes, see Whats New in This Release.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">1.x</th>
+<th class="tableblock halign-left valign-top">2.x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.mule.umo.*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.mule.api.* in most cases</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.mule.providers.*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.mule.transport.*.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.mule.extras.*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.mule.module.NAME.*</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">package names are singular/plural</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">package names are singular</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MuleClient.receive(&#8230;&#8203;)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MuleClient.request(&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MuleManager utility class</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MuleContext instance available through life cycle methods or MuleAwareContext implementation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QuickConfigurationBuilder</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No longer supported</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MuleXMLConfigurationBuilder</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DefaultMuleContextFactory</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UMOMessage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MuleMessage</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MuleMessage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DefaultMuleMessage</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UMOEndpoint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InboundEndpoint or OutboundEndpoint</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UMOEndpointURI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EndpointURI</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MuleEndpoint.getOrCreateEndpointForUri(&#8230;&#8203;, UMOEndpoint.ENDPOINT_TYPE_SENDER)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">new DefaultEndpointFactory().getOutboundEndpoint(&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MuleEndpoint.getOrCreateEndpointForUri(&#8230;&#8203;, UMOEndpoint.ENDPOINT_TYPE_RECEIVER)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">new DefaultEndpointFactory().getInboundEndpoint(&#8230;&#8203;)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">doPostFunctionalSetUp()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">suitePreSetUp() and doSetUp()</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuration-changes"><a class="anchor" href="#configuration-changes"></a>Configuration Changes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes the configuration changes in detail.</p>
+</div>
+<div class="sect2">
+<h3 id="file-header"><a class="anchor" href="#file-header"></a>File Header</h3>
+<div class="paragraph">
+<p>Mule configuration files are now based on an XML schema instead of DTDs. Therefore, you must configure the Mule core namespace plus any modules or transports as shown below in this empty configuration file.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mule 1.4</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;!DOCTYPE mule-configuration PUBLIC "-//MuleSource //DTD mule-configuration XML V1.0//EN"
+                                "http://mule.mulesource.org/dtds/mule-configuration.dtd"&gt;
+
+&lt;mule-configuration id="Samples" version="1.0"&gt;
+
+&lt;/mule-configuration&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Mule 2.0</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.0"
+      xsi:schemaLocation="
+          http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+          http://www.mulesource.org/schema/mule/jms/2.0 http://www.mulesource.org/schema/mule/jms/2.0/mule-jms.xsd"&gt;
+
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page describes the recommended approach of using <strong>mule</strong> as the default namespace, but you can also use other default namespaces, such as the Spring "beans" namespace.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="environment-properties"><a class="anchor" href="#environment-properties"></a>Environment Properties</h3>
+<div class="paragraph">
+<p>Mule 2.0 now uses the <code>&lt;configuration/&gt;</code> element for configuring global settings, such as thread profiles and the default endpoint setting for synchronous/asynchronous messaging. For information on using this element, see Global Settings Configuration Reference.</p>
+</div>
+<div class="paragraph">
+<p>You now set the queue profile on the model and set the pooling profile directly on the pooled component. For more information on threading profiles, queue profiles, and pooling, see Tuning Performance.</p>
+</div>
+<div class="sect3">
+<h4 id="server-id"><a class="anchor" href="#server-id"></a>Server ID</h4>
+<div class="paragraph">
+<p>In 2.0, some system properties are immutable after startup, such as the serverId. The serverId can no longer be set in the XML configuration. Instead, you have to specify it by using the <code>-M-Dmule.serverId=YOUR_MULE_SERVER_ID</code> system property or set it programatically in a parent application by calling <code>org.mule.config.DefaultMuleConfiguration.setId()</code> before starting the Mule context. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">MuleContext muleContext = new
+DefaultMuleContextFactory().createMuleContext();
+muleContext.getConfiguration().setId("MY_SERVER");
+muleContext.start();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="server-url"><a class="anchor" href="#server-url"></a>Server URL</h4>
+<div class="paragraph">
+<p>In 1.x, you started the Admin Agent by specifying a value for the <code>serverUrl</code> attribute in the <code>&lt;mule-environment-properties&gt;</code> element. In 2.x, you use the <code>&lt;remote-dispatcher-agent&gt;</code> element instead (see <a href="https://www.mulesoft.org/docs/site/current/apidocs/org/mule/module/client/remoting/RemoteDispatcherAgent.html">org.mule.module.client.remoting.RemoteDispatcherAgent</a>).</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;client:remote-dispatcher-agent&gt;
+    &lt;client:remote-endpoint address="tcp://localhost:60504" synchronous="true" /&gt;
+&lt;/client:remote-dispatcher-agent&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="connectors"><a class="anchor" href="#connectors"></a>Connectors</h3>
+<div class="paragraph">
+<p>Just as with Mule 1.x, connectors are configured as top-level elements in the Mule configuration, but they now use transport-specific schemas. The connector elements have changed accordingly as shown below:</p>
+</div>
+<div class="paragraph">
+<p><strong>Mule 1.4</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;connector className="org.mule.providers.vm.VMConnector"/&gt;
+&lt;connector className="org.mule.providers.jms.JmsConnector"/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Mule 2.0</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;vm:connector/&gt;
+&lt;jms:connector/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The new approach provides a huge advantage in that each transport now defines its own syntax for configuring connectors, avoiding class names and untyped properties. Additionally, you can use your favorite IDE&#8217;s auto-completion feature, making Mule 2.0 fast and easy to configure.</p>
+</div>
+<div class="paragraph">
+<p>Following is another example illustrating a stdio connector taken from the echo example:</p>
+</div>
+<div class="paragraph">
+<p><strong>Mule 1.4</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;connector name="SystemStreamConnector" className="org.mule.providers.stream.SystemStreamConnector"&gt;
+    &lt;properties&gt;
+        &lt;property name="promptMessage" value="Please enter something: "/&gt;
+        &lt;property name="messageDelayTime" value="1000"/&gt;
+    &lt;/properties&gt;
+&lt;/connector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Mule 2.0</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;stdio:connector name="SystemStreamConnector"
+                 promptMessage="Please enter something: "
+                 messageDelayTime="1000"/&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+To use a specific transport, you must import its namespace as explained above.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="endpoints"><a class="anchor" href="#endpoints"></a>Endpoints</h3>
+<div class="paragraph">
+<p>Endpoints are now easier to configure and more context-specific in Mule 2.0, as described below.</p>
+</div>
+<div class="paragraph">
+<p><strong>Global Endpoints</strong></p>
+</div>
+<div class="paragraph">
+<p>Global endpoints act as endpoint templates, allowing you to configure and reuse an endpoint configuration for multiple logical endpoints. To configure a global endpoint, you use the "endpoint" element as a top-level element instead of on routers or exception strategies. You can configure all the same elements on a global endpoint as on a logical endpoint, including making them transport-specific.<br>
+An &lt;endpoint-identifier&gt; in 1.4 is equivalent to a global endpoint in 2.0 that just has a URI configured.</p>
+</div>
+<div class="paragraph">
+<p>Notes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Be careful defining transformers on global endpoints that are referenced by inbound and outbound endpoints, as transformers are not the same for inbound and outbound endpoints.</p>
+</li>
+<li>
+<p>Although logical endpoints inherit and can extend a global endpoint configuration, you cannot extend properties. Properties configured on a logical endpoint will overwrite properties configured on the referenced global endpoint.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Explicit Endpoint Types</strong></p>
+</div>
+<div class="paragraph">
+<p>You now specify endpoint types explicitly (inbound, outbound, or response). This approach allows endpoints to have more specific configuration. For example, by specifying an endpoint as inbound, you could ensure that pollingFrequency is configured on the inbound file connector but not on its outbound counterpart.</p>
+</div>
+<div class="paragraph">
+<p><strong>Transport-specific Endpoints</strong></p>
+</div>
+<div class="paragraph">
+<p>Endpoint configuration has been improved to avoid untyped properties. Some of these properties are cross-transport attributes or elements, whereas others are defined by transport-specific endpoint definitions.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mule 1.4</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;endpoint address="pop3://bob:secret@localhost:62002" transformers="BytesToMime"/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Mule 2.0</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;pop3:inbound-endpoint user="bob" password="secret" host="localhost" port="62002"&gt;
+    &lt;email:bytes-to-mime-transformer/&gt;
+&lt;/pop3:inbound-endpoint&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="services-and-components-formerly-muledescriptors"><a class="anchor" href="#services-and-components-formerly-muledescriptors"></a>Services and Components (Formerly MuleDescriptors)</h3>
+<div class="paragraph">
+<p>Services and components are now configured differently. Following are the two versions of the Mule Hello example:</p>
+</div>
+<div class="paragraph">
+<p><strong>Mule 1.4</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mule-descriptor name="ChitChatUMO" implementation="org.mule.samples.hello.ChitChatter"&gt;
+    &lt;inbound-router&gt;
+        &lt;endpoint address="vm://chitchatter" transformers="NameStringToChatString"/&gt;
+    &lt;/inbound-router&gt;
+    &lt;outbound-router&gt;
+        &lt;router className="org.mule.routing.outbound.OutboundPassThroughRouter"&gt;
+            &lt;endpoint address="stream://System.out" transformers="ChatStringToString" /&gt;
+        &lt;/router&gt;
+    &lt;/outbound-router&gt;
+&lt;/mule-descriptor&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Mule 2.0</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;service name="ChitChatUMO"&gt;
+    &lt;inbound&gt;
+        &lt;vm:inbound-endpoint path="chitchatter" transformer-refs="NameStringToChatString"/&gt;
+    &lt;/inbound&gt;
+    &lt;component class="org.mule.samples.hello.ChitChatter"/&gt;
+    &lt;outbound&gt;
+        &lt;outbound-pass-through-router&gt;
+            &lt;stdio:outbound-endpoint system="OUT" transformer-refs="ChatStringToString"/&gt;
+        &lt;/outbound-pass-through-router&gt;
+    &lt;/outbound&gt;
+&lt;/service&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Following is a description of the changes:</p>
+</div>
+<div class="paragraph">
+<p><strong>New Nomenclature:</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>MuleDescriptor</strong> is now <strong>Service</strong><br>
+<strong>Implementation</strong> is now <strong>Component</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Extensibility:</strong></p>
+</div>
+<div class="paragraph">
+<p>A component is abstract, allowing multiple implementation types. By default, Mule includes two implementations: &lt;component/&gt; and &lt;pooled-component/&gt;. Other modules can add other component types.</p>
+</div>
+<div class="paragraph">
+<p>The &lt;component&gt; and &lt;pooled-component&gt; elements are configured in exactly the same way, except that the &lt;pooled-component&gt; has an additional optional &lt;pooling-profile&gt; child element that can be use to customize the pool behavior. These elements can either use the "class" attribute or define an object-factory as a child element. If you use the "class" attribute, the prototype object factory will be used by default. You can configure components with singleton, prototype, and Spring object factories.</p>
+</div>
+<div class="paragraph">
+<p><strong>Minimal Configuration:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;component class="org.your.PrototypeComponent"/&gt;
+..
+&lt;pooled-component class="org.your.PooledPrototypeComponent"/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Complete Configuration Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;spring:bean name="myPooledSpringBeanComponent" class="org.your.PooledSpringBeanComponent" /&gt;
+..
+&lt;pooled-component&gt;
+    &lt;reflection-entry-point-resolver/&gt;
+    &lt;spring-object bean="myPooledSpringBeanComponent"/&gt;
+    &lt;custom-lifecycle-adapter-factory class="org.mule.config.spring.parsers.specific.TestLifecycleAdapterFactory"/&gt;
+    &lt;binding interface="java.lang.String" method="setMethod"&gt;
+        &lt;outbound-endpoint address="vm://myEndpoint" /&gt;
+    &lt;/binding&gt;
+    &lt;pooling-profile exhaustedAction="WHEN_EXHAUSTED_FAIL"
+        initialisationPolicy="INITIALISE_ALL" maxActive="1"
+        maxIdle="2" maxWait="3" /&gt;
+&lt;/pooled-component&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="routers-and-filters"><a class="anchor" href="#routers-and-filters"></a>Routers and Filters</h3>
+<div class="paragraph">
+<p>Routers and filters also take advantage of the new schema-based configuration. Most are defined in Mule, but specific modules and transports can also contribute routers or filters by defining them in their own namespace.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mule 1.4</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;router className="org.mule.routing.inbound.SelectiveConsumer"/&gt;
+
+&lt;router className="org.mule.routing.outbound.FilteringOutboundRouter"/&gt;
+&lt;router className="org.mule.routing.outbound.MulticastingRouter"/&gt;
+&lt;router className="org.my.CustomRouter"/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Mule 2.0</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;selective-consumer-router/&gt;
+&lt;filtering-router/&gt;
+&lt;multicasting-router/&gt;
+&lt;custom-inbound-router class="org.my.CustomRouter"/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Mule 1.4</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;global-endpoints&gt;
+  &lt;endpoint name="CustomerResponses" address="vm://customer.responses"/&gt;
+&lt;/global-endpoints&gt;
+..
+&lt;router className="org.mule.routing.outbound.FilteringOutboundRouter"&gt;
+    &lt;global-endpoint name="CustomerResponses"/&gt;
+    &lt;filter expectedType="org.mule.examples.loanbroker.messages.LoanQuote" className="org.mule.routing.filters.PayloadTypeFilter"/&gt;
+&lt;/router&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Mule 2.0</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;vm:endpoint name="CustomerResponses" path="customer.responses"/&gt;
+..
+&lt;filtering-router&gt;
+    &lt;outbound-endpoint ref="CustomerResponses"/&gt;
+    &lt;payload-type-filter expectedType="org.mule.examples.loanbroker.messages.LoanQuote"/&gt;
+&lt;/filtering-router&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>(Taken from LoanBroker ESN Example)</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="transformers"><a class="anchor" href="#transformers"></a>Transformers</h3>
+<div class="paragraph">
+<p>Transformers also take advantage of the new schema-based configuration. Modules and transports contribute transformers by defining them in their own namespace.</p>
+</div>
+<div class="paragraph">
+<p>Transformers are now defined directly rather than by specifying class names.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mule 1.4</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;transformer className="org.mule.transformers.simple.MessagePropertiesTransformer"/&gt;
+&lt;transformer className="org.mule.transformers.simple.ByteArrayToObject"/&gt;
+&lt;transformer className="org.mule.transformers.xml.XsltTransformer"/&gt;
+&lt;transformer className="org.my.CustomTransformer"/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Mule 2.0</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;message-properties-transformer/&gt;
+&lt;byte-array-to-object-transformer/&gt;
+&lt;xml:xslt-transformer/&gt;
+&lt;custom-transformer class="org.my.CustomTransformer"/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Custom transformers can still be used with the "custom-transformer" element.</p>
+</div>
+<div class="paragraph">
+<p>Transformers can be referenced from endpoints using the "transformer-refs" attribute or can be declared inline.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mule 1.4</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;global-endpoint name="CustomerRequestsREST" transformers="RestRequestToCustomerRequestTransformer"/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Mule 2.0</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;inbound-endpoint ref="CustomerRequestsREST" transformer-refs="Transformer1 Transformer2"/&gt;
+
+&lt;inbound-endpoint ref="CustomerRequestsREST"&gt;
+    &lt;transformer ref="RestRequestToCustomerRequestTransformer" /&gt;
+&lt;/inbound-endpoint&gt;
+
+&lt;inbound-endpoint ref="IncomingData"&gt;
+    &lt;byte-array-to-object-transformer/&gt;
+&lt;/inbound-endpoint&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="bridging"><a class="anchor" href="#bridging"></a>Bridging</h3>
+<div class="paragraph">
+<p>Bridging configuration has been simplified in Mule 2.0. To implement a bridge service, you simply configure inbound and outbound routers. Bridging occurs implicitly.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mule 1.4</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mule-descriptor name="bridge" implementation="org.mule.components.simple.BridgeComponent"&gt;
+    &lt;inbound-router&gt;
+        &lt;endpoint address="vm://bridge.inbound"/&gt;
+    &lt;/inbound-router&gt;
+    &lt;outbound-router&gt;
+        &lt;router className="org.mule.routing.outbound.OutboundPassThroughRouter"&gt;
+            &lt;endpoint address="vm://bridge.outbound"/&gt;
+        &lt;/router&gt;
+    &lt;/outbound-router&gt;
+&lt;/mule-descriptor&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Mule 2.0</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;service name="bridge"&gt;
+   &lt;inbound&gt;
+       &lt;vm:inbound-endpoint path="bridge.inbound"/&gt;
+   &lt;/inbound&gt;
+   &lt;outbound&gt;
+       &lt;outbound-pass-through-router&gt;
+           &lt;vm:outbound-endpoint path="bridge.outbound"/&gt;
+       &lt;/outbound-pass-through-router&gt;
+   &lt;/outbound&gt;
+&lt;/service&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The "bridge-component" and "pass-through-component" can still be used for backward-compatibility but are no longer needed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exception-strategies"><a class="anchor" href="#exception-strategies"></a>Exception Strategies</h3>
+<div class="paragraph">
+<p>Developers now have much finer control over transactions through configuration. Pattern matching filters can be used to match different types of exceptions. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;model&gt;
+    &lt;default-service-exception-strategy&gt;
+        &lt;commit-transaction exception-pattern="*"&gt;
+        &lt;jms:outbound-endpoint queue="DLQ"/&gt;
+    &lt;/default-service-exception-strategy&gt;
+    ...
+&lt;/model&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This configuration tells Mule to keep any current transaction open until after we dispatch to the JMS DLQ (Dead Letter Queue), and then commit the current transaction.</p>
+</div>
+<div class="paragraph">
+<p>For certain transactions, you may want to roll back the transaction immediately. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;model&gt;
+    &lt;default-service-exception-strategy&gt;
+        &lt;commit-transaction exception-pattern="*"&gt;
+        &lt;rollback-transaction exception-pattern"com.acme.a.*,com.acme.b.*"/&gt;
+        &lt;jms:outbound-endpoint queue="DLQ"/&gt;
+    &lt;/default-service-exception-strategy&gt;
+    ...
+&lt;/model&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This configuration tells Mule to roll back transactions when there are exceptions with packages <code>com.acme.a</code> and <code>com.acme.b</code>. Otherwise, commit the current transaction. Note that the <code>&lt;rollback-transaction&gt;</code> has priority over the <code>&lt;commit-transaction&gt;</code> element.</p>
+</div>
+<div class="paragraph">
+<p>Next: <strong>Migrating Mule 2.0 to 2.1</strong> &gt;&gt;</p>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../../_theme/scripts/menu.js"></script>
+<script src="../../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

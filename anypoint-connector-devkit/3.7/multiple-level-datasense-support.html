@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="devkit, datasense, multiple level, multi-level">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-connector-devkit/3.8/multiple-level-datasense-support.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Multiple Level DataSense Support // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="devkit-tutorial.html">DevKit Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="anypoint-connector-development.html">Anypoint Connector Development</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-your-dev-environment.html">Setting Up Your Development Environment</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-java-sdk-based-connector.html">Creating a Java SDK-Based Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-soap-connector.html">Creating a SOAP Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-rest-connector.html">Creating a REST Connector</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="connector-project-structure.html">Connector Project Structure</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-api-access.html">Setting Up API Access</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="authentication.html">Authentication</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="authentication-methods.html">Authentication Methods</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="connector-connection-strategies.html">Connector Connection Strategies</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="connection-management.html">Connection Management</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="oauth-v1.html">OAuth V1</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="oauth-v2.html">OAuth V2</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="http-basic-authentication.html">HTTP Basic Authentication</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="no-authentication.html">No Authentication</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="connector-attributes-and-operations.html">Connector Attributes and Operations</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-message-sources.html">Defining Message Sources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-message-processors.html">Creating Message Processors</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-connector-attributes.html">Defining Connector Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="complex-data-types-attributes.html">Complex Data Types Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="mime-type-and-encoding.html">MIME Type and Encoding</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-testing-framework.html">Connector Testing Framework</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="installing-and-testing-your-connector-in-studio.html">Installing and Testing Your Connector in Studio</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="extending-connector-functionality.html">Extending Connector Functionality</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="adding-datasense.html">Adding DataSense</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="multiple-level-datasense-support.html">Multiple Level DataSense Support</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense-query-language.html">Adding DataSense Query Language</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-query-pagination-support.html">Adding Query Pagination Support</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="building-a-batch-enabled-connector.html">Building a Batch Enabled Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="shading-libraries.html">Shading Libraries</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="connector-reference-documentation.html">Connector Reference Documentation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="packaging-your-connector-for-release.html">Packaging Your Connector for Release</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="connector-certification-program-guidelines.html">Connector Certification Program Guidelines</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="anypoint-connector-examples.html">Anypoint Connector Examples</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tutorial-barn-connector.html">Tutorial - Barn Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-using-a-java-sdk.html">Creating a Connector Using a Java SDK</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-soap-service-via-cxf-client.html">Creating a Connector for a SOAP Service Via CXF Client</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-restful-api-using-restcall-annotations.html">Creating a Connector for a RESTful API using @RestCall Annotations</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="annotation-reference.html">Annotation Reference</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Multiple Level DataSense Support</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs/edit/v3.7/modules/ROOT/content/multiple-level-datasense-support.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Multiple Level DataSense Support</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>As seen before, Mule DataSense is a feature that allows you to displays the metadata of entities included in a service in a friendly manner. In its original form, DataSense uses a single key to identify the entity for which the MetaData has to be retrieved. This single-key approach might be a restriction for complex cases, where the entities to be describe through MetaData are identified in a nested way, with more than one identifiers and that most of the time work in a closely related way, creating a selection tree based on the previously selected key.</p>
+</div>
+<div class="paragraph">
+<p>For example, if you want to describe a state in the world, a single key with the name of the state is not going to be enough to uniquely identify it. A better id for a state would be a nested combination of "region&#8594;country&#8594;state", where the user would first select the region, then a country from the ones available for that region, and finally a state in the previously selected country.</p>
+</div>
+<div class="paragraph">
+<p>DevKit 3.7 and later adds support for MultiLevel DataSense, a feature that allows the developer to easily provide a set of multi-level nested keys, that greatly improves the user experience when selecting a complex-key for an entity.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add-multi-level-datasense-support"><a class="anchor" href="#add-multi-level-datasense-support"></a>Add Multi-Level DataSense Support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As a connector developer, you can describe metadata using nested levels, providing a key for each level. When developing a connector, you can describe a MetadataKeyRetriever with multiple composed keys that are later processed in a MetadataRetriever as a single object.  In each processor you can declare a single composed key with labels for each level.</p>
+</div>
+<div class="paragraph">
+<p>This allows better granularity when describing an entity, and improves the experience of those using the connector at design time.</p>
+</div>
+<div class="sect2">
+<h3 id="connector-developer-usage"><a class="anchor" href="#connector-developer-usage"></a>Connector Developer Usage</h3>
+<div class="paragraph">
+<p>This section describes implementing a metadata category and the metadata key parameter.</p>
+</div>
+<div class="sect3">
+<h4 id="metadatacategory-implementation"><a class="anchor" href="#metadatacategory-implementation"></a>@MetaDataCategory Implementation</h4>
+<div class="paragraph">
+<p>Implementing a MetaDataCategory that uses multi-level keys, implies the following modifications to the original methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>@MetaDataKeyRetriever must return a <code>List&lt;ComposedMetaDataKey&gt;</code>. Categories using ComposedKeys can only return this kind of keys.</p>
+</li>
+<li>
+<p>@MetaDataRetriever must receive a single ComposedMetaDataKey<br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For cases where the default keySeparator "||" can be a valid combination inside the keyId&#8217;s to be used, then the @MetaDataKeyRetriever can be configured with a custom keySeparator to be used when levels are concatenated</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@MetaDataCategory
+public class CustomSeparatorComposedKeyCategory {
+
+    // Common Category Setup
+    // ...
+    private static final int REGION = 0;
+    private static final int COUNTRY = 1;
+    private static final int STATE = 2;
+
+    @MetaDataKeyRetriever( keySeparator="@@" )
+    // keySeparator is Optional, with a default value of '||'
+    public List&lt;ComposedMetaDataKey&gt; getMetaDataKeys() throws Exception {
+
+      return ComposedMetaDataKeyBuilder.getInstance()
+           .newKeyCombination()
+             .newLevel() // Region
+               .addId("south", "South America") // Added to Dropdown 1
+             .endLevel()
+             .newLevel() // Country
+               .addId("arg", "Argentina") // Added to Dropdown 2
+             .endLevel()
+             .newLevel() // State
+               .addId("bsas", "Buenos Aires") // Added to Dropdown 3
+               .addId("tucu", "Tucuman") // Added to Dropdown 3
+             .endLevel()
+           .endKeyCombination()
+           .newKeyCombination()
+             .newLevel() // Region
+               .addId("north", "North America") // Added to Dropdown 1
+             .endLevel()
+             .newLevel() // Country
+               .addId("usa", "United States") // Added to Dropdown 2
+             .endLevel()
+             .newLevel() // State
+               .addId("ny", "New York") // Added to Dropdown 3
+               .addId("ca", "California") // Added to Dropdown 3
+             .endLevel()
+           .endKeyCombination()
+         .build();
+    }
+
+
+    @MetaDataRetriever
+    public MetaData getMetaData(ComposedMetaDataKey composedKey) throws Exception {
+        DefaultMetaDataBuilder builder = new DefaultMetaDataBuilder();
+        MetaDataModel model;
+
+        // A valid key would be: south@@arg@@tucu
+        if (composedKey.getSortedIds().get(REGION).equals("south")) {
+            model = builder.createDynamicObject("TravelData")
+                             .addList("mainCities").ofSimpleField(DataType.STRING)
+                             .endDynamicObject()
+                         .build();
+        } else {
+            model = builder.createDynamicObject("BusinessData")
+                             .addList("mainBanks").ofSimpleField(DataType.STRING)
+                             .endDynamicObject()
+                         .build();
+        }
+        return new DefaultMetaData(model);
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="metadatakeyparam-implementation"><a class="anchor" href="#metadatakeyparam-implementation"></a>@MetaDataKeyParam Implementation</h4>
+<div class="paragraph">
+<p>@MetaDataKeyParam must declare a <strong>labels</strong> attribute, declaring a label for each DataSense level to be shown in Studio as a drop-down. Labels is the "name" of the drop-down.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Processor
+@MetaDataScope( CustomSeparatorComposedKeyCategory.class )
+public Map&lt;String,Object&gt; addEntity(
+            @MetaDataKeyParam( labels={"Region", "Country", "State"} ) String key,
+            @Payload Map&lt;String,Object&gt; entity)
+{
+    //...
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="restrictions"><a class="anchor" href="#restrictions"></a>Restrictions</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>The keySeparator cannot contain these characters: <code>#[]</code></p>
+</li>
+<li>
+<p>Labels cannot contain a comma (,) character.</p>
+</li>
+<li>
+<p>The number of labels must match the number of key levels provided by the MetaDataKeyRetriever method.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="builder-details-how-to-create-multiple-key-combinations"><a class="anchor" href="#builder-details-how-to-create-multiple-key-combinations"></a>Builder Details: How to Create Multiple Key Combinations</h3>
+<div class="sect3">
+<h4 id="fluent-builder"><a class="anchor" href="#fluent-builder"></a>Fluent Builder</h4>
+<div class="paragraph">
+<p>Use Fluent Builder to create multiple key combinations in scenarios when all the information is available for a one-line creation.</p>
+</div>
+<div class="paragraph">
+<p>In the following example, the expected IDs output is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">south||arg||bsas, south||arg||tucu, north||usa||nyc, north||usa||ca</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Three drop-downs display in Anypoint Studio, as shown in the previous screenshots:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The top one shows "South America" and "North America".</p>
+</li>
+<li>
+<p>Depending on the first selection, the second one shows "Argentina" or "United States" as options.</p>
+</li>
+<li>
+<p>The third drop-down shows "Buenos Aires" and "Tucuman" when Argentina is selected in the second drop-down, or "San Francisco" and "Los Angeles", if United States is selected in the second drop-down.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock java">
+<div class="content">
+<pre class="highlightjs highlight"><code>return ComposedMetaDataKeyBuilder.getInstance()
+.newKeyCombination()
+    .newLevel().addId("south", "South America").endLevel()
+    .newLevel().addId("arg", "Argentina").endLevel()
+    .newLevel().addId("bsas", "Buenos Aires").addId("tucu", "Tucuman")
+.endKeyCombination()
+.newKeyCombination()
+    .newLevel().addId("north", "North America").endLevel()
+    .newLevel().addId("usa", "United States").endLevel()
+    .newLevel().addId("nyc", "New York").addId("ca", "California").endLevel()
+.endKeyCombination()
+.build();</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="fluent-builder-with-partial-level-definitions"><a class="anchor" href="#fluent-builder-with-partial-level-definitions"></a>Fluent Builder with Partial Level Definitions</h3>
+<div class="paragraph">
+<p>Similar to the first fluent approach, the partial Level&#8217;s definition will enable code re-use while building keys.</p>
+</div>
+<div class="paragraph">
+<p>In this example, the expected IDs output is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">id1||common1, id1||common2, id1||sub1,
+id2||common1, id2||common2, id1||sub1,
+id3||common1, id3||common2, id3||sub2, id3||sub3</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Partial Level definition
+MetaDataKeyLevel commonIds = new DefaultMetaDataKeyLevel();
+commonIds.addId("common1", "Common 1")
+                   .addId("common2", "Common 2");
+
+return ComposedMetaDataKeyBuilder.getInstance()
+    .newKeyCombination()
+      .newLevel()
+        .addId("id1", "Commons With Subset_1").addId("id2", "Commons With Subset_2")
+      .endLevel()
+      .newLevel()
+        .addIds(commonIds) // Partial Level re-use
+        .addId("sub1", "SubLevel 1")
+      .endLevel()
+    .endKeyCombination()
+    .newKeyCombination()
+        .newLevel()
+ .addId("id3", "Commons With Subset_3")
+ .endLevel()
+        .newLevel()
+          .addIds(commonIds) // Partial Level re-use
+          .addId("sub2", "SubLevel 2")
+          .addId("sub3", "SubLevel 3")
+        .endLevel()
+    .endKeyCombination()
+    .build();</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="detached-builder"><a class="anchor" href="#detached-builder"></a>Detached Builder</h4>
+<div class="paragraph">
+<p>Build each node separately, and merge them all together in the final build. All the keys being built are stored in the builder and concatenated once the build is executed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">ComposedMetaDataKeyBuilder metaDataKeyBuilder = ComposedMetaDataKeyBuilder.getInstance();
+
+ComposedMetaDataKeyBuilder.CombinationBuilder firstCombinationBuilder = metaDataKeyBuilder.newKeyCombination();
+firstCombinationBuilder.newLevel().addId("id1", "ID1").endLevel();
+
+ComposedMetaDataKeyBuilder.LevelBuilder levelBuilder = firstCombinationBuilder.newLevel();
+for (String id : Arrays.asList(new String[]{"sub1", "sub2", "sub3"})) {
+    levelBuilder.addId(id, id.toUpperCase());
+}
+levelBuilder.endLevel();
+firstCombinationBuilder.endKeyCombination();
+
+ComposedMetaDataKeyBuilder.CombinationBuilder secondCombinationBuilder = metaDataKeyBuilder.newKeyCombination();
+secondCombinationBuilder.newLevel().addId("id2", "ID2").endLevel();
+
+levelBuilder = secondCombinationBuilder.newLevel();
+for (String id : Arrays.asList(new String[]{"sub1", "sub4", "sub5"})) {
+    levelBuilder.addId(id, id.toUpperCase());
+}
+levelBuilder.endLevel();
+secondCombinationBuilder.endKeyCombination();
+
+
+// Expected IDs output is: id1||sub1, id1||sub2, id1||sub3, id2||sub1, id2||sub4, id2||sub5
+
+return metaDataKeyBuilder.build();</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mule-app-developer-usage"><a class="anchor" href="#mule-app-developer-usage"></a>Mule App Developer Usage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Connector users will see multiple drop-downs when selecting an operation using a ComposedKey. Each dropdown represents a different metadata level, and has associated a set of keys. Levels must be filled in order, since lower levels are directly related to the previous selections.</p>
+</div>
+<div class="paragraph">
+<p>When using the processor implemented above, Anypoint Studio will render the following view for the user:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mladdentry.png" alt="MLAddEntry">
+</div>
+</div>
+<div class="paragraph">
+<p>When all the levels are populated, the final key is composed and the metadata is fetched for that key.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/full-dropdown-sample.png" alt="full_dropdown_sample">
+</div>
+</div>
+<div class="paragraph">
+<p>In the XML, this key is placed as a single string, where each level is separated for the previously mentioned keySeparator.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;sample-connector:operation config-ref="config" myKey="north@@usa@@ca"/&gt;</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../../anypoint-studio/5/datasense/datasense.html">DataSense</a></p>
+</li>
+<li>
+<p><a href="adding-datasense.html">Adding DataSense</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/mule-management-console/3.8/persisting-mmc-data-to-mysql.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Persisting MMC Data to MySQL // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Mule Management Console</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-the-trial-version-of-mmc.html">Installing the Trial Version of MMC</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="installing-the-production-version-of-mmc.html">Installing the Production Version of MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="installing-and-deploying-mmc-to-weblogic.html">Installing and Deploying MMC to Weblogic</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="installing-and-deploying-mmc-to-websphere.html">Installing and Deploying MMC to WebSphere</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="upgrading-the-management-console.html">Upgrading the Management Console</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="configuration-files-for-ldap-and-external-dbs-in-mmc-before-and-after-3.4.2.html">Configuration Files for LDAP and External DBs in MMC Before and After 3.4.2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="migration-scripts-for-business-events.html">Migration Scripts for Business Events</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-mmc-3.6.0-with-an-external-database.html">Upgrading to MMC 3.6.0 with an External Database</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-mmc-3.6.0-with-ldap.html">Upgrading to MMC 3.6.0 with LDAP</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="upgrading-from-mmc-3.4.1-for-ms-sql-server-to-mmc-3.6.0-for-ms-sql-server.html">Upgrading from MMC 3.4.1 for MS-SQL Server to MMC 3.6.0 for MS-SQL Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="orientation-to-the-console.html">Orientation to the Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mmc-walkthrough.html">MMC Walkthrough</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="architecture-of-the-mule-management-console.html">Architecture of the Mule Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="setting-up-mmc.html">Setting Up MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-mmc-mule-esb-communications.html">Setting Up MMC-Mule ESB Communications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="persisting-mmc-data-on-external-databases.html">Persisting MMC Data On External Databases</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="configuring-mmc-for-external-databases-quick-reference.html">Configuring MMC for External Databases - Quick Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-ms-sql-server.html">Persisting MMC Data to MS SQL Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-mysql.html">Persisting MMC Data to MySQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-oracle.html">Persisting MMC Data to Oracle</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-postgresql.html">Persisting MMC Data to PostgreSQL</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="encrypting-ldap-and-database-passwords-in-mmc.html">Encrypting LDAP and Database Passwords in MMC</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-mmc-users-and-roles.html">Managing MMC Users and Roles</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-in-mmc.html">Setting Up and Managing Users in MMC</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="encrypting-mmc-user-passwords.html">Encrypting MMC User Passwords</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-via-ldap.html">Setting Up and Managing Users via LDAP</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="managing-with-mmc.html">Managing with MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="managing-mule-servers-clusters-and-groups.html">Managing Mule Servers Clusters and Groups</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="maintaining-the-server-application-repository.html">Maintaining the Server Application Repository</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="working-with-flows.html">Working with Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-mule-high-availability-ha-clusters.html">Managing Mule High Availability (HA) Clusters</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="configuring-mule-ha-clustering.html">Configuring Mule HA Clustering</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="creating-or-disbanding-a-cluster.html">Creating or Disbanding a Cluster</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="deploying-redeploying-or-undeploying-an-application-to-or-from-a-cluster.html">Deploying, Redeploying, or Undeploying an Application To or From a Cluster</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="dynamically-adding-or-removing-nodes-in-a-cluster.html">Dynamically Adding or Removing Nodes in a Cluster</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="monitoring-a-cluster.html">Monitoring a Cluster</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="mmc-rest-api.html">MMC REST API</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="rest-api-reference.html">REST API Reference</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="clusters.html">Clusters</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="deployments.html">Deployments</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="repository-of-applications.html">Repository of Applications</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="server-groups.html">Server Groups</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="servers.html">Servers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="user-groups.html">User Groups</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="using-the-management-console-api.html">Using the Management Console API</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-with-mmc.html">Monitoring with MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-server-alerts.html">Viewing Server Alerts</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-system-memory.html">Viewing System Memory</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-threads.html">Viewing Threads</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-server-pools.html">Viewing Server Pools</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="working-with-the-server-configuration-files.html">Working with the Server Configuration Files</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-server-properties.html">Viewing Server Properties</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="editing-server-settings.html">Editing Server Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="customizing-server-metrics-dashboard.html">Customizing Server Metrics Dashboard</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-slas-and-alerts.html">Defining SLAs and Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-and-managing-alerts-and-slas.html">Adding and Managing Alerts and SLAs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-alert-destinations-and-notifications.html">Setting Up Alert Destinations and Notifications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="analyzing-business-events.html">Analyzing Business Events</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="business-events-use-cases.html">Business Events Use Cases</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="tracking-and-querying-business-events.html">Tracking and Querying Business Events</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="analyzing-flow-processing-and-payloads.html">Analyzing Flow Processing and Payloads</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-os-resources.html">Viewing Server OS Resources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-jmx-information.html">Viewing JMX Information</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-the-dashboard.html">Customizing the Dashboard</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="accessing-server-logs.html">Accessing Server Logs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="audit-logs.html">Audit Logs</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="troubleshooting-with-mmc.html">Troubleshooting with MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="troubleshooting-tips.html">Troubleshooting Tips</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="monitoring-and-debugging-applications.html">Monitoring and Debugging Applications</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="tracking-flows.html">Tracking Flows</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="analyzing-message-flows.html">Analyzing Message Flows</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="debugging-message-processing.html">Debugging Message Processing</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="debugging-the-loan-broker-example-application.html">Debugging the Loan Broker Example Application</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="using-the-management-console-for-performance-tuning.html">Using the Management Console for Performance Tuning</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="automating-tasks-using-scripts.html">Automating Tasks Using Scripts</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Persisting MMC Data to MySQL</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/mule-management-console-docs/edit/v3.6/modules/ROOT/content/persisting-mmc-data-to-mysql.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Persisting MMC Data to MySQL</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><mark><strong><em>MMC Version 3.4.2 and Later</em></strong></mark></p>
+</div>
+<div class="paragraph">
+<p>This document will cover how to persist environment and transaction data to MySQL databases. Follow the instructions to <a href="#mysql-installation">MySQL Installation</a>, then follow the specific instructions for <a href="#persisting-environment-data">Persisting Environment Data</a> or <a href="#persisting-transaction-data">Persisting Transaction Data</a> persistence to set up your user, create your database, and configure your MMC instance to persist your data.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Remember that <strong>environment data and transaction data must exist in two separate databases</strong> (regardless of whether they are on the same server or use the same platform).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Jump to:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><a href="#persisting-environment-data">Persisting Environment Data</a></strong></p>
+</li>
+<li>
+<p><strong><a href="#persisting-transaction-data">Persisting Transaction Data</a></strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assumptions"><a class="anchor" href="#assumptions"></a>Assumptions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes that you have an understanding of the <a href="setting-up-mmc.html">data persistence options</a> for environment and transaction data and that you are familiar with the basic <a href="architecture-of-the-mule-management-console.html">Architecture of the Mule Management Console</a>. It also assumes that you have installed:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>MMC Version 3.5.0</strong>. Download it from the <a href="http://www.mulesoft.com/support-login">customer portal</a> if you need to upgrade to this version.</p>
+</li>
+<li>
+<p><strong>a Web application server such as Tcat, Tomcat, or JBoss</strong>. Please refer to the <a href="../../mule-runtime/3.6/install/hardware-and-software-requirements.html">Hardware and Software Requirements</a> for the latest information about hardware requirements and supported application servers, Java Runtime Environments, and browsers.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For practical purposes, this document mentions Tomcat as the servlet container; however, the instructions contained here apply also to Tcat or JBoss. If you are using Tcat or JBoss, make sure to unpack the Management Console .war file in the appropriate directory. For additional information, see <a href="installing-the-production-version-of-mmc.html">Installing the Production Version of MMC</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In this document, <code>&lt;MMC_HOME&gt;</code> refers to the directory where MMC is installed.</p>
+</div>
+<div class="paragraph">
+<p>If you are using the trial version, this directory is inside the root of the embedded Tomcat server from which MMC runs. Depending on where you placed the bundled installation, the path will be similar to <code>&lt;installation_root&gt;/mmc-distribution-mule-console-bundle-3.5.0/mmc-3.5.0/apache-tomcat-7.0.52/webapps/mmc-3.5.0</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you are using a production installation in an application server such as Tomcat, the path should be similar to <code>&lt;Tomcat root&gt;/webapps/mmc-console-3.50.</code> For example <code>/var/lib/tomcat6/webapps/mmc-console-3.5.0</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mysql-installation"><a class="anchor" href="#mysql-installation"></a>MySQL Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The MySQL installation outlined here is basic: the database is installed on the local machine on the default port of 3306, with security deactivated (using an unsecured connection to the database, and a user with full admin rights).</p>
+</div>
+<div class="sect2">
+<h3 id="tools"><a class="anchor" href="#tools"></a>Tools</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>MySQL Community Server (<a href="http://dev.mysql.com/downloads/mysql/">Download</a>)</p>
+</li>
+<li>
+<p>mysql command-line utility</p>
+</li>
+<li>
+<p>phpMyAdmin, a Web-based database administration tool (optional) (<a href="http://www.phpmyadmin.net/home_page/downloads.php">Download</a>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This configuration was tested with MySQL Community Server 5.5.</p>
+</div>
+<div class="paragraph">
+<p>Creating a database and database user in MySQL is relatively simple. You can perform these tasks either with the  <code>mysql</code> command-line utility, or with the <code>phpMyAdmin</code> Web-based administration tool. This document does not describe how to set up or install MySQL, or how to create the tables with <code>phpMyAdmin</code>; however, it does list the commands to create the database, user, and tables for the environment data persistence example below. See the expandable section in <a href="#creating-the-tables">Creating the Tables</a> for details.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="persisting-environment-data"><a class="anchor" href="#persisting-environment-data"></a>Persisting Environment Data</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To set up MySQL to persist your MMC environment data, you need to complete these steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create the database.</p>
+</li>
+<li>
+<p>Create the database user.</p>
+</li>
+<li>
+<p>Create the tables.</p>
+</li>
+<li>
+<p>Set up MMC.</p>
+</li>
+<li>
+<p>If your MySQL is on a remote host, perform some additional configuration.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The embedded database files for the Mule console reside at one of the following directories:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>if on a Web servlet container such as Tomcat:` &lt;MMC_HOME&gt;/mmc-data/db`</p>
+</li>
+<li>
+<p>if on a trial version: <code>&lt;Mule install path&gt;/.mule/mmc/mmc-data/db</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>After you configure MMC to use an external database to store its persistent data, do not delete the <code>mmc-data</code> folder. The <code>db</code> subfolder will not be used anymore, but the <code>repository</code>, <code>version</code> and <code>workspaces</code> subfolders will be in use by Java Content Repository (JCR) internal settings.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="creating-the-database"><a class="anchor" href="#creating-the-database"></a>Creating the Database</h3>
+<div class="paragraph">
+<p>Create a new database with the following parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Database name:</strong> <code>mmc_persistency_status</code></p>
+</li>
+<li>
+<p><strong>Database owner:</strong> <code>MMC_STATUS</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-the-database-user"><a class="anchor" href="#creating-the-database-user"></a>Creating the Database User</h3>
+<div class="paragraph">
+<p>Create a new database user with default permissions and the following parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Username:</strong> <code>MMC_STATUS</code></p>
+</li>
+<li>
+<p><strong>Password:</strong> <code>mmc123</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-the-tables"><a class="anchor" href="#creating-the-tables"></a>Creating the Tables</h3>
+<div class="paragraph">
+<p>Navigate to the following directory: <code>&lt;MMC_HOME&gt;/WEB-INF/classes/quartz</code>. In this directory you will find two scripts for MySQL:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>tables_mysql.sql</code> for MySQL server versions newer than 4.1</p>
+</li>
+<li>
+<p><code>tables_mysql_version_4_1_and_older.sql</code>  for MySQL server versions 4.1 and older</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Depending on your MySQL server version, execute the appropriate script in the target database,  <code>mmc_persistency_status</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Creating the database, user and tables with the <code>mysql</code> utility</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open a terminal and run the <code>mysql</code> utility with the following command.</p>
+</li>
+<li>
+<p><code>mysql</code> prompts you for root&#8217;s user password. Enter the password, and you should see the following <code>mysql</code> prompt.</p>
+</li>
+<li>
+<p>Enter the following commands in the order in which they appear below. Each command is terminated by a semicolon (;). When you press Enter after each semicolon, the terminal displays a message that begins with  <code>Query OK</code> , which indicates successful completion of the command.</p>
+</li>
+<li>
+<p>After you exit  <code>mysql</code> , locate the relevant script for MySQL provided with the Management Console (by default at <code>&lt;MMC_HOME&gt;/WEB-INF/classes/quartz</code> ). In your terminal, change to the directory containing the script by running the <code>cd</code> command. An example command follows.</p>
+</li>
+<li>
+<p>From this directory, run  <code>mysql</code> again, this time with the parameters shown below.</p>
+</li>
+<li>
+<p>After you enter the password, you are logged in to database  <code>mmc_persistency_status</code> as user  <code>MMC_STATUS</code> . <br></p>
+</li>
+<li>
+<p>Run the MySQL script by issuing the following command.</p>
+</li>
+<li>
+<p>Depending on your MySQL server version, the script name will be  <code>tables_mysql.sql</code> or  <code>tables_mysql_versions_4_1_and_above.sql</code> . When you run the script, <code>mysql</code> will display a long list of status messages as per the following.</p>
+</li>
+<li>
+<p>The status messages listed above indicate that the tables have been successfully created. To verify, issue the following command (below, top), which yields the following output (below, bottom).
+.To see the contents of a particular table, run the following command.
+The example below includes the command output for table <code>QRTZ_BLOB_TRIGGERS</code>:
+At this point, you&#8217;ve finished configuring MySQL. You can proceed to set up the Management Console to use the database you&#8217;ve just created.</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-up-mmc-to-use-mysql-for-persisting-environment-data"><a class="anchor" href="#setting-up-mmc-to-use-mysql-for-persisting-environment-data"></a>Setting Up MMC to use MySQL for Persisting Environment Data</h3>
+<div class="paragraph">
+<p>This example uses the parameters employed <a href="#persisting-environment-data">Persisting Environment Data</a> when creating the MySQL database.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>MySQL listening host and port: localhost port 3306</p>
+</li>
+<li>
+<p>Database name: <code>mmc_persistency_status</code></p>
+</li>
+<li>
+<p>Database user: <code>MMC_STATUS</code></p>
+</li>
+<li>
+<p>Password: <code>mmc123</code></p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="obtaining-mysql-drivers"><a class="anchor" href="#obtaining-mysql-drivers"></a>Obtaining MySQL Drivers</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="http://dev.mysql.com/downloads/connector/j/5.0.html">Download</a> the latest MySQL driver. (You need a free Oracle account to download.) The driver is called <code>mysql-connector-java-&lt;version&gt;</code>, such as <code>mysql-connector-java-5.1.26</code>. You can download the driver as a zip or  tar.gz file.</p>
+</li>
+<li>
+<p>Extract the .zip or .tar.gz installation file. In the resulting directory structure, locate the file called <code>mysql-connector-java-&lt;version&gt;-bin.jar</code>. This is the jbdc driver itself, that you will copy to the Management Console directory structure.</p>
+</li>
+</ol>
+</div>
+<div class="sect4">
+<h5 id="driver-for-mmc-run-as-mule-app"><a class="anchor" href="#driver-for-mmc-run-as-mule-app"></a>Driver for MMC run as Mule app</h5>
+<div class="paragraph">
+<p>Copy the MySQL jdbc driver, <code>mysql-connector-java-&lt;version&gt;-bin.jar</code>, to the following directory: <code>&lt;Mule install path&gt;/apps/mmc/webapps/mmc/WEB-INF/lib</code>.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, make the driver generally available by copying it to: <code>&lt;Mule install path&gt;/lib/user</code>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="driver-for-mmc-run-as-a-web-app"><a class="anchor" href="#driver-for-mmc-run-as-a-web-app"></a>Driver for MMC run as a Web app</h5>
+<div class="paragraph">
+<p>Copy the MySQL jdbc driver, <code>mysql-connector-java-&lt;version&gt;-bin.jar</code>, to the following directory: <code>&lt;MMC_HOME&gt;/</code> WEB-INF/lib.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mmc-configuration"><a class="anchor" href="#mmc-configuration"></a>MMC Configuration</h4>
+<div class="paragraph">
+<p>Configuring MMC to store data on a MySQL database involves two basic tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Modifying the file <code>web.xml</code> to tell MMC to use MySQL instead of its default database</p>
+</li>
+<li>
+<p>Modifying the file <code>mmc-mysql.properties</code> to set the parameters for connecting to the MySQL database</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="modifying-web-xml"><a class="anchor" href="#modifying-web-xml"></a>Modifying web.xml</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the directory <code>&lt;MMC_HOME&gt;/WEB-INF</code>, locate the file <code>web.xml</code>, then open it for editing.</p>
+</li>
+<li>
+<p>Locate the <code>spring.profiles.active</code> section, shown below.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;context-param&gt;
+&lt;param-name&gt;spring.profiles.active&lt;/param-name&gt;
+&lt;param-value&gt;tracking-h2,env-derby&lt;/param-value&gt;
+&lt;/context-param&gt;</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Delete the string <code>env-derby</code>, then replace it with <code>env-mysql</code>, as shown below.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;context-param&gt;
+&lt;param-name&gt;spring.profiles.active&lt;/param-name&gt;
+&lt;param-value&gt;tracking-h2,env-mysql&lt;/param-value&gt;
+&lt;/context-param&gt;</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you are also planning to <a href="#persisting-transaction-data">Persisting Transaction Data</a> to MySQL, delete the string <code>tracking-h2</code> and replace it with <code>tracking-mysql</code>.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <code>spring.profiles.active</code> section in the <code>web.xml</code> configuration file allows you to define what external databases are used for storing environment and/or tracking data.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="modifying-code-mmc-mysql-properties-code"><a class="anchor" href="#modifying-code-mmc-mysql-properties-code"></a>Modifying <code>mmc-mysql.properties</code></h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the directory <code>&lt;MMC_HOME&gt;/WEB-INF/classes/META-INF/databases</code>, locate the file <code>mmc-mysql.properties</code>, then open it for editing.</p>
+</li>
+<li>
+<p>The table below lists the settings contained in the file. Modify the values as needed. In general, the only values that you should need to modify are <code>env.username</code>, <code>env.password</code>, <code>env.host</code>, <code>env.port</code> and <code>env.dbschema</code>.</p>
+</li>
+</ol>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>env.driver</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Driver to use for connecting to the database</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>com.mysql.jdbc.Driver</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>env.script</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Script to use for creating the tables in the target database</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mysql</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>env.username</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database user</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>MMC_STATUS</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>env.password</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the database user</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mmc123</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>env.host</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hostname or IP address where the database server is listening</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>localhost</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>env.port</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port where the database server is listening</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>3306</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>env.url</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL for connecting to the database</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>jdbc:mysql://${env.host}:${env.port}/${env.dbschema}</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>env.dbschema</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database to connect to</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mmc_persistency_status</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Save the file with your modifications, if any.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="removing-local-database-files"><a class="anchor" href="#removing-local-database-files"></a>Removing Local Database Files</h3>
+<div class="paragraph">
+<p>For the configuration changes to take effect, before launching MMC you need to delete the local database files that MMC uses by default.</p>
+</div>
+<div class="paragraph">
+<p>In the root directory of your Web application server, locate the <code>mmc-data</code> directory (for example, <code>/var/lib/tomcat6/mmc-data</code>), then delete the <code>mmc-data</code> directory.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Before you delete <code>mmc-data</code>, make a backup copy of this directory and store it in a safe location. If anything goes wrong with your new database configuration, you can use <code>mmc-data</code> to restore the old database configuration while you troubleshoot your new database config in a test environment.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>At this point, MMC, is configured to store environment data on the external MySQL database that you specified.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="connecting-to-a-remote-mysql-server"><a class="anchor" href="#connecting-to-a-remote-mysql-server"></a>Connecting to a Remote MySQL Server</h3>
+<div class="paragraph">
+<p>If the MySQL server resides on a remote host, you are most likely unable to connect, unless you perform the following two actions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>configure the MySQL server to allow remote database connections</p>
+</li>
+<li>
+<p>grant privileges to your database user allowing it to connect remotely</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Both actions are described in the following two sections.</p>
+</div>
+<div class="sect3">
+<h4 id="remote-database-connections"><a class="anchor" href="#remote-database-connections"></a>Remote Database Connections</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To check that the MySQL server allows remote database connections, locate the MySQL server configuration file, for example <code>/etc/mysql/my.cnf</code>.</p>
+</li>
+<li>
+<p>Search for the following line.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>bind-address        = 127.0.0.1</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If the line exists, perform the following steps:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>1.  Stop the MySQL server.</p>
+</li>
+<li>
+<p>Open the configuration file for editing, then comment out the line with a number sign (#), as shown below.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># bind-address      = 127.0.0.1</pre>
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Close the file, then restart the MySQL server.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="remote-access-privileges"><a class="anchor" href="#remote-access-privileges"></a>Remote Access Privileges</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To grant remote database access to your database user, login to MySQL as the MySQL server root user, using the following command.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>mysql -u root -D mysql -p</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enter the password for root.</p>
+</li>
+<li>
+<p>Obtain the 41-digit hexadecimal representation of the database user&#8217;s password (in this case, the password for user MMC_STATUS) by running the following command.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>SELECT * FROM user WHERE User = '&lt;user&gt;';</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the output from the previous command, find, then copy the 41-digit hex number, which is preceded by an asterisk. Ensure that you save this number to your clipboard or a text file, since you will use it in the next step. A snippet of example output is shown below.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sql hljs" data-lang="sql">mysql&gt; SELECT * FROM user WHERE User = 'MMC_STATUS';
++--------------+------------+-------------------------------------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+--------+-----------------------+
+| Host         | User       | Password                                  | Select_priv | Insert_priv | Update_priv | Delete_priv | Create_priv | Drop_priv | Reload_priv | Shutdown_priv | Process_priv | File_priv | Grant_priv | References_priv | Index_priv | Alter_priv | Show_db_priv | Super_priv | Create_tmp_table_priv | Lock_tables_priv | Execute_priv | Repl_slave_priv | Repl_client_priv | Create_view_priv | Show_view_priv | Create_routine_priv | Alter_routine_priv | Create_user_priv | Event_priv | Trigger_priv | Create_tablespace_priv | ssl_type | ssl_cipher | x509_issuer | x509_subject | max_questions | max_updates | max_connections | max_user_connections | plugin | authentication_string |
++--------------+------------+-------------------------------------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+--------+-----------------------+
+| localhost    | MMC_STATUS | *14695FC49478AC013A63030250DD44DE579D54E1 | N           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            |</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Grant the privileges with the following command. For the <code>&lt;password&gt;</code> parameter, paste the 41-digit hex number you copied in the previous step.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">GRANT ALL PRIVILEGES ON &lt;database&gt;.* TO '&lt;user&gt;'@'&lt;host|net&gt;' IDENTIFIED BY PASSWORD '&lt;password&gt;' WITH GRANT OPTION;</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Tell the MySQL server to reload the grant tables, with the following command.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>FLUSH PRIVILEGES;</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Details and usage example for the GRANT ALL PRIVILEGES command</p>
+</div>
+<div class="paragraph">
+<p>The value of <code>&lt;host|net&gt;</code> can either be a host or network specification. Wildcards are allowed, such as <code>'MMC_STATUS'@'172.16.0.%'</code>.</p>
+</div>
+<div class="paragraph">
+<p>The value of <code>&lt;password&gt;</code> is the 41-digit hexadecimal number representing the password. To obtain your user&#8217;s password, run the following command from the <code>mysql</code> prompt.</p>
+</div>
+<div class="paragraph">
+<p>A complete command example follows.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Testing the remote connection with the telnet command</p>
+</div>
+<div class="paragraph">
+<p>If you are unsure of the MySQL server configuration, <em>but are certain that you have connectivity to the MySQL server host and port</em> (i.e. you are sure there are no routing issues, firewalls, etc. blocking connectivity), then you can use the <code>telnet</code> command to do a remote test of the MySQL server.</p>
+</div>
+<div class="paragraph">
+<p>If the MySQL server is not accepting remote connections, trying to telnet to the MySQL host and port results in a "Connection refused error," even if the server is indeed listening on the specified host and port.</p>
+</div>
+<div class="paragraph">
+<p>If the MySQL server is accepting remote connections, but there is no user allowed to connect remotely, the output appears similar to the following. In this example, the connection succeeds but is closed by the remote host.</p>
+</div>
+<div class="paragraph">
+<p>If connectivity to the MySQL server is fully working, and the server is granting user access, the output appears similar to the following.</p>
+</div>
+<div class="paragraph">
+<p>If you obtain this output, but cannot successfully connect the Management Console to the remote MySQL server, then something is likely wrong with the Management Console configuration. Check the logs in Mule or your Web app server for details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="persisting-transaction-data"><a class="anchor" href="#persisting-transaction-data"></a>Persisting Transaction Data</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To set up MySQL to persist your MMC transaction data, you need to complete these steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create the database.</p>
+</li>
+<li>
+<p>Create the database user.</p>
+</li>
+<li>
+<p>Set up MMC.</p>
+</li>
+<li>
+<p><a href="#modifying-the-cleanup-script-for-mysql">Modifying the Cleanup Script for MySQL</a>.</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="creating-the-database-2"><a class="anchor" href="#creating-the-database-2"></a>Creating the Database</h3>
+<div class="paragraph">
+<p>Create a new database with the following parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Database name:</strong> <code>event_tracker</code></p>
+</li>
+<li>
+<p><strong>Database owner:</strong> <code>MMC_EVENTS</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-the-database-user-2"><a class="anchor" href="#creating-the-database-user-2"></a>Creating the Database User</h3>
+<div class="paragraph">
+<p>Create a new database user with default permissions and the following parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Username:</strong> <code>MMC_EVENTS</code></p>
+</li>
+<li>
+<p><strong>Password:</strong> <code>mmc123</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-up-mmc-to-use-mysql-for-persisting-transaction-data"><a class="anchor" href="#setting-up-mmc-to-use-mysql-for-persisting-transaction-data"></a>Setting Up MMC to use MySQL for Persisting Transaction Data</h3>
+<div class="sect3">
+<h4 id="obtaining-mysql-drivers-2"><a class="anchor" href="#obtaining-mysql-drivers-2"></a>Obtaining MySQL Drivers</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="http://dev.mysql.com/downloads/connector/j/5.0.html">Download</a> the latest MySQL driver. (You need a free Oracle account to download.) The driver is called <code>mysql-connector-java-&lt;version&gt;</code>, such as <code>mysql-connector-java-5.1.26</code>. You can download the driver as a zip or  tar.gz file.</p>
+</li>
+<li>
+<p>Extract the zip or tar.gz installation file. In the resulting directory structure, locate the file called <code>mysql-connector-java-&lt;version&gt;-bin.jar</code>. This is the jbdc driver itself, that you will copy to the Management Console directory structure.</p>
+</li>
+</ol>
+</div>
+<div class="sect4">
+<h5 id="installing-the-driver"><a class="anchor" href="#installing-the-driver"></a>Installing the Driver</h5>
+<div class="paragraph">
+<p>Copy the MySQL jdbc driver, <code>mysql-connector-java-&lt;version&gt;-bin.jar</code>, to the following directory: <code>&lt;MMC_HOME&gt;/WEB-INF/lib</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mmc-configuration-2"><a class="anchor" href="#mmc-configuration-2"></a>MMC Configuration</h4>
+<div class="paragraph">
+<p>Configuring MMC to store Business Events data on a MySQL database involves two basic tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Modifying the file <code>web.xml</code> to tell MMC to use MySQL instead of its default database</p>
+</li>
+<li>
+<p>Modifying the file <code>tracking-persistence-mysql.properties</code> to set the parameters for connecting to the MySQL database</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="modifying-web-xml-2"><a class="anchor" href="#modifying-web-xml-2"></a>Modifying web.xml</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the directory <code>&lt;MMC_HOME&gt;/WEB-INF</code>, locate the file <code>web.xml</code>, then open it for editing.</p>
+</li>
+<li>
+<p>Locate the <code>spring.profiles.active</code> section, shown below.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;context-param&gt;
+&lt;param-name&gt;spring.profiles.active&lt;/param-name&gt;
+&lt;param-value&gt;tracking-h2,env-derby&lt;/param-value&gt;
+&lt;/context-param&gt;</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Delete the string <code>tracking-h2</code>, then replace it with <code>tracking-mysql</code>, as shown below.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;context-param&gt;
+&lt;param-name&gt;spring.profiles.active&lt;/param-name&gt;
+&lt;param-value&gt;tracking-mysql,env-mysql&lt;/param-value&gt;
+&lt;/context-param&gt;</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you are also planning to <a href="#persisting-environment-data">Persisting Environment Data</a> to MySQL, delete the string <code>env-derby</code> and replace it with <code>env-mysql</code>.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <code>spring.profiles.active</code> section in the <code>web.xml</code> configuration file allows you to define what external databases are used for storing environment and/or tracking data.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="modifying-tracking-persistence-mysql-properties"><a class="anchor" href="#modifying-tracking-persistence-mysql-properties"></a>Modifying tracking-persistence-mysql.properties</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the directory <code>&lt;MMC_HOME&gt;/WEB-INF/classes/META-INF/databases</code>, locate the file <code>tracking-persistence-mysql.properties</code>, then open it for editing.</p>
+</li>
+<li>
+<p>Modify the included settings as needed, according to the table below. In general, the only values that you should need to modify are <code>mmc.tracking.db.username</code>, <code>mmc.tracking.db.password</code>, <code>mmc.tracking.db.host</code>, <code>mmc.tracking.db.port</code> and <code>mmc.tracking.db.dbname</code>.</p>
+</li>
+</ol>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mmc.tracking.db.events.query.propKeys</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Do not change this value.</strong> This is a DB-engine-specific query to retrieve event keys.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>SELECT DISTINCT t1.KEY0 FROM EVENT_PROPERTIES t1</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mmc.tracking.db.platform</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of database server to connect to</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mysql</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mmc.tracking.db.driver</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Driver to use for connecting to the database</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>com.mysql.jdbc.Driver</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mmc.tracking.db.host</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hostname or IP address where the database server is listening</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>localhost</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mmc.tracking.db.port</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port where the database server is listening</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>3306</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mmc.tracking.db.url</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL for connecting to the database</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>jdbc:mysql://${mmc.tracking.db.host}:${mmc.tracking.db.port}/${mmc.tracking.db.dbname}</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mmc.tracking.db.username</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database user</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>MMC_EVENTS</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mmc.tracking.db.password</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the database user</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mmc123</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mmc.tracking.db.dbname</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database to connect to</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>event_tracker</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mmc.max.events.exception.details.length</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of characters from a Business Events exception that will be stored in the tracking database. The maximum allowed is 261120.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>8000</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Save the file with your modifications, if any.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="removing-local-database-files-2"><a class="anchor" href="#removing-local-database-files-2"></a>Removing Local Database Files</h3>
+<div class="paragraph">
+<p>For the configuration changes to take effect, before launching MMC you need to delete the local database files that MMC uses by default.</p>
+</div>
+<div class="paragraph">
+<p>In the root directory of your Web application server, locate the <code>mmc-data</code> directory (for example, <code>/var/lib/tomcat6/mmc-data</code>), then delete the <code>mmc-data</code> directory.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Before you delete <code>mmc-data</code>, make a backup copy of this directory and store it in a safe location. If anything goes wrong with your new database configuration, you can use <code>mmc-data</code> to restore the old database configuration while you troubleshoot your new database config in a test environment.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>At this point, MMC, is configured to store environment data on the external MySQL database that you specified.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="modifying-the-cleanup-script-for-mysql"><a class="anchor" href="#modifying-the-cleanup-script-for-mysql"></a>Modifying the Cleanup Script for MySQL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MMC includes a script to perform a routine cleanup of the MMC database, which by default takes place every day at midnight. The current script for MySQL contains a bug which causes MySQL to throw an SQL exception. To avoid this issue, replace the original script with the one provided below, by completing the following steps.</p>
+</div>
+<div id="newscript" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import com.mulesoft.mmc.tracking.repository.jpa.entities.*
+
+import java.util.Calendar;
+
+def logger = log
+
+def oneWeekAgo = Calendar.getInstance()
+oneWeekAgo.add(Calendar.DAY_OF_MONTH, -7);
+
+log.info("About to delete all tracking details older than "+oneWeekAgo.getTime());
+
+DriverManagerDataSource ds = applicationContext.getBean("dataSource");
+
+Properties properties = new Properties();
+properties.put("openjpa.jdbc.DBDictionary", "mysql");
+properties.put("javax.persistence.jdbc.url", ds.getUrl());
+properties.put("javax.persistence.jdbc.user", ds.getUsername());
+properties.put("javax.persistence.jdbc.password", ds.getPassword());
+properties.put("openjpa.ConnectionDriverName", "com.mysql.jdbc.Driver");
+
+EntityManagerFactory emf = null;
+EntityManager em = null;
+
+try {
+
+    emf = Persistence.createEntityManagerFactory("tracking-persistence-unit", properties);
+
+    em = emf.createEntityManager();
+
+    em.getTransaction().begin();
+
+    em.createNativeQuery("DELETE p FROM EVENT_PROPERTIES p where p.id in (select e.id from EVENTS e where e.transaction_id in (select t.id from TRANSACTION_SUMMARIES t where t.timestamp &lt; ?1))").setParameter(1, oneWeekAgo).executeUpdate();
+
+    em.createNamedQuery(EventEntity.DELETE_OLDER_THAN_QUERY_NAME).setParameter("timestamp", oneWeekAgo).executeUpdate();
+            em.createNamedQuery(TransactionSummaryEntity.DELETE_OLDER_THAN_QUERY_NAME).setParameter("timestamp", oneWeekAgo).executeUpdate();
+
+    em.getTransaction().commit();
+
+} catch (RuntimeException re)
+    {
+        if (em?.getTransaction()?.isActive()) {
+            em.getTransaction().rollback();
+        }
+        throw re;
+    }
+
+finally {
+    em?.close();
+    emf?.close();
+}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="replacing-the-old-script"><a class="anchor" href="#replacing-the-old-script"></a>Replacing the Old Script</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log in to MMC.</p>
+</li>
+<li>
+<p>Go to the Administration tab, then Admin Shell. You should see the following screen.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/admin-shell.png" alt="admin_shell">
+</div>
+</div>
+</li>
+<li>
+<p>Click Cleanup Tracking DB in the column to the right. This displays the contents of the script in the editor box, as shown below.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/admin-shell2.png" alt="admin_shell2">
+</div>
+</div>
+</li>
+<li>
+<p>Now you can edit the script as desired. Delete all of the contents of the script, leaving the editor blank.</p>
+</li>
+<li>
+<p>Copy-paste the new script into the editor.</p>
+</li>
+<li>
+<p>Click <strong>Save As</strong> under the editor.</p>
+</li>
+<li>
+<p>In the input field next to <strong>Save As</strong>, type <code>Cleanup Tracking DB</code> (case sensitive), then click Save. This causes the <a href="#newscript">new script</a> to overwrite the old one.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Read more about <a href="setting-up-mmc.html">MMC setup</a>.</p>
+</li>
+<li>
+<p>Review the <a href="architecture-of-the-mule-management-console.html">Architecture of the Mule Management Console</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

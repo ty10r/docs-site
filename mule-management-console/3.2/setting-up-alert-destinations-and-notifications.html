@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/mule-management-console/3.8/setting-up-alert-destinations-and-notifications.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Setting Up Alert Definitions and Notifications // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Mule Management Console</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-mule-server-instances.html">Working with Mule Server Instances</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-users.html">Setting Up Users</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-alerts.html">Viewing Server Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-system-memory.html">Viewing System Memory</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-threads.html">Viewing Threads</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-pools.html">Viewing Server Pools</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="working-with-the-server-configuration-files.html">Working with the Server Configuration Files</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-properties.html">Viewing Server Properties</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-os-resources.html">Viewing Server OS Resources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-jmx-information.html">Viewing JMX Information</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="editing-server-settings.html">Editing Server Settings</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-server-metrics-dashboard.html">Customizing Server Metrics Dashboard</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="installing-the-management-console.html">Installing the Management Console</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="configuring-the-management-console-to-use-an-external-database.html">Configuring the Management Console to Use an External Database</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="installing-the-management-console-with-an-external-database.html">Installing the Management Console with an External Database</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="running-the-webapp-example-with-jboss.html">Running the WebApp Example with JBoss</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="running-the-webapp-example-with-tomcat.html">Running the WebApp Example with Tomcat</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="running-the-webapp-example-with-weblogic.html">Running the WebApp Example with WebLogic</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="how-to-use-the-management-console.html">How to Use the Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="architecture-of-the-management-console.html">Architecture of the Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="troubleshooting-tips.html">Troubleshooting Tips</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-and-debugging-applications.html">Monitoring and Debugging Applications</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-flows.html">Tracking Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="analyzing-message-flows.html">Analyzing Message Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-message-processing.html">Debugging Message Processing</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-the-loan-broker-example-application.html">Debugging the Loan Broker Example Application</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="adding-and-managing-alerts-and-slas.html">Adding and Managing Alerts and SLAs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="how-to-run-the-management-console.html">How to Run the Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="enabling-authentication-through-ldap.html">Enabling Authentication Through LDAP</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="defining-slas-and-alerts.html">Defining SLAs and Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="quick-start-guide-to-mule-esb-server-and-the-management-console.html">Quick Start Guide to Mule ESB Server and the Management Console</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="evaluating-mule-ha-clustering.html">Evaluating Mule HA Clustering</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="analyzing-business-events.html">Analyzing Business Events</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-and-querying-business-events.html">Tracking and Querying Business Events</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="business-events-use-cases.html">Business Events Use Cases</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="configuring-a-database-for-business-event-data-persistence.html">Configuring a Database for Business Event Data Persistence</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="common-tasks.html">Common Tasks</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="validating-the-license.html">Validating the License</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="mule-high-availability-ha-clusters.html">Mule High Availability (HA) Cluster Overview</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-mule-high-availability-ha-clusters.html">Managing Mule High Availability (HA) Clusters</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="creating-or-disbanding-a-cluster.html">Creating or Disbanding a Cluster</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="deploying-redeploying-or-undeploying-an-application-to-or-from-a-cluster.html">Deploying, Redeploying, or Undeploying an Application To or From a Cluster</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="monitoring-a-cluster.html">Monitoring a Cluster</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="using-the-management-console-api.html">Using the Management Console APIs</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-servers-using-rest-apis.html">Managing Servers Using REST APIs</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="create-a-server-group.html">Create a Server Group</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="create-or-update-a-file.html">Create or Update a File</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="delete-a-file.html">Delete a File</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="delete-a-server.html">Delete a Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="delete-a-server-group.html">Delete a Server Group</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="get-a-file.html">Get a File</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="get-a-server.html">Get a Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="get-a-server-group.html">Get a Server Group</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="get-file-metadata.html">Get File Metadata</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="list-all-server-groups.html">List All Server Groups</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="list-all-servers.html">List All Servers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="register-a-server.html">Register a Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="restart-a-server.html">Restart a Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="update-a-file.html">Update a File</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="update-a-server.html">Update a Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="update-a-server-group.html">Update a Server Group</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="managing-clusters-using-rest-apis.html">Managing Clusters Using REST APIs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="managing-applications-using-rest-apis.html">Managing Applications Using REST APIs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="managing-deployments-using-rest-apis.html">Managing Deployments Using REST APIs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="managing-flows-in-a-server-using-rest-apis.html">Managing Flows in a Server Using REST APIs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="managing-flows-in-a-cluster-using-rest-apis.html">Managing Flows in a Cluster Using REST APIs</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-alert-destinations-and-notifications.html">Setting Up Alert Destinations and Notifications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="automating-tasks-using-scripts.html">Automating Tasks Using Scripts</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-users-and-roles.html">Managing Users and Roles</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="customizing-the-dashboard.html">Customizing the Dashboard</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-management-console-for-performance-tuning.html">Using the Management Console for Performance Tuning</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-flows.html">Working with Flows</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="maintaining-the-server-application-repository.html">Maintaining the Server Application Repository</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="analyzing-flow-processing-and-payloads.html">Analyzing Flow Processing and Payloads</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="accessing-server-logs.html">Accessing Server Logs</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Setting Up Alert Definitions and Notifications</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/mule-management-console-docs/edit/v3.2/modules/ROOT/content/setting-up-alert-destinations-and-notifications.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Setting Up Alert Definitions and Notifications</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Alert destinations are the locations, such as email addresses, to which notifications are sent when alerts are triggered. You need to set up alert destinations prior to creating any alert notifications, since notifications are associated with specific destinations. Setting up a notification is described in the mmc:section.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-up-alert-destinations"><a class="anchor" href="#setting-up-alert-destinations"></a>Setting Up Alert Destinations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Click the Alert Destinations node in the navigation tree to see currently defined destinations. The pane displays the user-supplied name of the destination and the destination type, either email or SNMP.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/alerts-destination-view.png" alt="alerts destination view">
+</div>
+</div>
+<div class="paragraph">
+<p>Click the New Destination button to create a new destination. The Add Alert Destination pane opens. You start by entering a name for the destination and selecting the destination type. From the Type pull-down list, select the type of destination: email or SNMP. (See below.)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/alert-dest1.png" alt="alert dest1">
+</div>
+</div>
+<div class="paragraph">
+<p>Depending on the destination type you select, you are prompted for additional fields.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-email-destinations"><a class="anchor" href="#configuring-email-destinations"></a>Configuring Email Destinations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When adding an email-type destination, you must designate server and the recipient user information. The figure below is an example of configuring an email destination:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/alerts-destination-add-email-google.png" alt="alerts destination add email google">
+</div>
+</div>
+<div class="paragraph">
+<p>For an email destination, you need to specify the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>SMTP server designation: You can identify the SMTP server by its IP address, such as 192.168.0.1, or by its url, such as <code>smtp.mycompany.com</code>.</p>
+</li>
+<li>
+<p>SMTP server port number: The server port number, such as 25.</p>
+</li>
+<li>
+<p>User email name: The email name and address for the recipient, such as <a href="mailto:user@mycompany.com">user@mycompany.com</a>.</p>
+</li>
+<li>
+<p>Password: The recipient&#8217;s email password.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Check the TLS/SSL box if the server requires a secure environment. You must set this field to conform to your SMTP provider&#8217;s server configuration.</p>
+</div>
+<div class="paragraph">
+<p>When finished, click Save to complete adding the destination.</p>
+</div>
+<div class="sect2">
+<h3 id="examples-of-email-destinations"><a class="anchor" href="#examples-of-email-destinations"></a>Examples of Email Destinations</h3>
+<div class="paragraph">
+<p>The following examples show how you set up email destinations for Google and Yahoo mail recipients.</p>
+</div>
+<div class="paragraph">
+<p>For Google mail (gmail), set the fields as follows:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Input Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the alert destination</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Email</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SMTP Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">smtp.googlemail.com</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SMTP Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">465</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Username</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;username&gt;@gmail.com</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;email password&gt;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use TLS/SSL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For Yahoo mail, set the fields as follows:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Input Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the alert destination</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Email</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SMTP Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">smtp.mail.yahoo.com</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SMTP Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">465</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Username</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;username&gt;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;email password&gt;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use TLS/SSL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-snmp-destinations"><a class="anchor" href="#configuring-snmp-destinations"></a>Configuring SNMP Destinations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>SNMP-type destinations have different fields than email-type destinations. The figure below is an example of how you might set up an SNMP destination:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/alerts-destination-add-snmp.png" alt="alerts destination add snmp">
+</div>
+</div>
+<div class="paragraph">
+<p>Specify the following for SNMP destinations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OID: An identifying name for the destination. The OID you enter needs to conform to SNMP conventions. For example, a valid OID might be <code>1.3.6</code>.</p>
+</li>
+<li>
+<p>Local address: The local SNMP address to which to bind the destination. The address must conform to SNMP conventions. An example of a local address might be <code>udp:127.0.0.1/40162</code>.</p>
+</li>
+<li>
+<p>Target address: The SNMP target address to which to send the alert notification. This address also must conform to SNMP conventions. For example, you might enter an address such as <code>udp:127.0.0.1/40163</code>.</p>
+</li>
+<li>
+<p>Version: The SNMP version number. The default value is 2c.</p>
+</li>
+<li>
+<p>Username: The SNMP user name.</p>
+</li>
+<li>
+<p>Password: The user password.</p>
+</li>
+<li>
+<p>Passphrase: The user&#8217;s identifying pass phrase.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When finished, click Save to complete adding the destination.</p>
+</div>
+<div class="paragraph">
+<p>To edit a destination, double-click the destination entry in the Alert Destinations pane. The edit pane displays the data entered for that destination and you can change values as needed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="specifying-notifications"><a class="anchor" href="#specifying-notifications"></a>Specifying Notifications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Set up notifications after you have defined possible destinations for your notifications. When you create a new notification, you must select a destination for the notification from a list of defined destinations.</p>
+</div>
+<div class="paragraph">
+<p>Click the Alert Notifications node in the navigation tree to view alert notifications that are already defined. The pane displays the names of all alert notifications and their destinations.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/alerts-notification-view.png" alt="alerts notification view">
+</div>
+</div>
+<div class="paragraph">
+<p>To create a new notification, click the New Notification button. The Add Alert Notification pane opens. (See below.)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/alerts-notification-add.png" alt="alerts notification add">
+</div>
+</div>
+<div class="paragraph">
+<p>Enter a name for the notification. Specifying a filter for the notification is optional and is covered in the next paragraph. Select the notification destination from the Destination pull-down list. If you have not yet defined a destination, then this list is empty and you cannot complete the notification specification.</p>
+</div>
+<div class="paragraph">
+<p>You optionally may specify one or more filters. When you click the Add button in the middle of the pane, the pane displays a table into which you specify the filter field(s) and values for these field(s). You may add as many filter fields as you like. Select each filter field from the Field pull-down menu. The Value pull-down menu displays the values that correspond to the selected field. (The figure below is an example of this.)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/alerts-notification-filter.png" alt="alerts notification filter">
+</div>
+</div>
+<div class="paragraph">
+<p>For each filter field you specify, be sure to click the Save button beneath the Field/Values table to save that filter, or click Cancel to discard the entry. You can select filter fields and delete them, if you want. Add additional filters by clicking the Add button, but be sure you click Save or Cancel before specifying these additional filter fields.</p>
+</div>
+<div class="paragraph">
+<p>For example, the next figure shows how you might filter notifications on the Alert field. Once you select Alert for the Field column, the Value column displays any alerts that have been defined and you can select an alert value from the list.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/alerts-notification-filter1.png" alt="alerts notification filter1">
+</div>
+</div>
+<div class="paragraph">
+<p>The Filter table displays any added filters. You can remove any filters you have added by clicking the red X to the right of the Value column.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/alerts-notification-filter2.png" alt="alerts notification filter2">
+</div>
+</div>
+<div class="paragraph">
+<p>If the destination type you select is email, you enter the email recipient name, the name of the sender, a subject, and text for the body of the email. You must enter data for all these fields (See the figure below.)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/alerts-notification-destination-email.png" alt="alerts notification destination email">
+</div>
+</div>
+<div class="paragraph">
+<p>For email destinations, you may use an expression in the subject and body fields. To use an expression and have it correctly interpreted, you must enclose the expression in curly braces and precede it with a dollar sign ($) symbol, as shown below. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">${expression}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can combine the expression with some other text. For example, you might want a subject line that displays a standard message that an alert has been triggered but also includes an expression indicating the alert condition. You might set the subject field as follows:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/alerts-notification-subject-email.png" alt="alerts notification subject email">
+</div>
+</div>
+<div class="paragraph">
+<p>See mmc:below for more information on properties that you can use with these alert expressions.</p>
+</div>
+<div class="paragraph">
+<p>When the destination type is SNMP, you are prompted just for a value, as shown below. You must enter data for the Value field to be able to save the notification.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/alerts-notification-snmp.png" alt="alerts notification snmp">
+</div>
+</div>
+<div class="paragraph">
+<p>For all notifications, be sure to click the Save button after you have entered all required data. Notice that the Save button is grayed out until all required fields are completed.</p>
+</div>
+<div class="paragraph">
+<p>To edit a notification, double-click the notification entry in the Alert Notifications pane. The edit pane displays the data entered for that notification and you can change values as needed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="properties-used-in-alert-expressions"><a class="anchor" href="#properties-used-in-alert-expressions"></a>Properties Used in Alert Expressions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are a number of properties whose values you can incorporate into alert destinations and notifications. You incorporate these properties using the expression syntax shown above. Some properties are common to all alert types, while others pertain to specific alert types.</p>
+</div>
+<div class="paragraph">
+<p>The following properties are common to all alert types. (The class <code>com.mulesoft.console.alert.RaisedAlert</code> contains the declaration of alert properties.)</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service identifier</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serverId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Server identifier</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serverName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Server name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description of the raised alert</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">timestamp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time when the alert was raised</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source of the raised alert</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">severity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Severity of the alert, such as Fatal or Critical</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of the alert, such as Low Memory or Exception</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Certain alert types have other accessible properties in addition to the common properties shown above. The table below shows the alert types for which additional properties are defined and the specific properties.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 10%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Alert Type</th>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exception Alert</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">exceptionMessage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A short text message describing the exception</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">exceptionFullMessage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A complete or full text message describing the exception</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">exceptionRootCause</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The cause of the exception</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Threshold-based Alert (may be a custom, thread pool, or JMX alert)</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">actualValue</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The value that caused the alert to be raised</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">threshold</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The threshold value at which point the alert is raised</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">thresholdEventType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of the event raising the alert</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL health Alert</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">urlStatus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The error status identifier from the URL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">urlMessage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The error message from the URL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Log Alert</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">logFile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The log file name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">logLine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The line in the log file</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><a href="defining-slas-and-alerts.html">&lt;&lt; Previous: <strong>Defining SLAs and Alerts</strong></a></p>
+</div>
+<div class="paragraph">
+<p><a href="managing-users-and-roles.html">Next: <strong>Managing Users and Roles</strong> &gt;&gt;</a></p>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

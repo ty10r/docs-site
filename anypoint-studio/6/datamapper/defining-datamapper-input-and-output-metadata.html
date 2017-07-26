@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="datamapper">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-studio/6/datamapper/defining-datamapper-input-and-output-metadata.html">
+  <link rel="stylesheet" href="../../../_theme/stylesheets/theme.css">
+  <title>Defining a Data Mapping Flow with Input and Output Metadata (Deprecated - DataMapper) // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../index.html">Anypoint Studio</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../setting-up-your-development-environment.html">Development Environment Setup</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../hardware-and-software-requirements.html">Hardware and Software Requirements</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../download-and-launch-anypoint-studio.html">Download and Launch Anypoint Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../install-update-items-in-studio.html">Updating Studio, Mule and Components</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-runtime/adding-community-runtime.html">Installing Mule Runtime in Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../install-update-items-in-studio.html">Installing Extensions</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../install-studio-gw.html">Installing API Gateway Runtime</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../maven/using-maven-in-anypoint-studio.html">Using Maven in Studio</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/maven-support-in-anypoint-studio.html">Maven Support in Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/building-a-mule-application-with-maven-in-studio.html">Building Mule Applications with Maven in Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/enabling-maven-support-for-a-studio-project.html">Enabling Maven Support on Studio Projects</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/importing-a-maven-project-into-studio.html">Importing Maven Projects</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../studio-in-eclipse.html">Studio in Eclipse</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../using-subversion-with-studio.html">Using Subversion</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../preparing-a-gitignore-file.html">Preparing a .gitignore file</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../troubleshooting-studio.html">Troubleshooting Studio Issues</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../basic-studio-tutorial.html">Basic Studio Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../anypoint-studio-features.html">Studio Reference</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../datasense/datasense.html">DataSense</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../about-defining-metadata.html">Defining Metadata</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../testing-connections.html">Testing Connections</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../using-perceptive-flow-design.html">Using Perceptive Flow Design</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../datasense/datasense-enabled-connectors.html">DataSense-enabled Connectors</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../datasense/using-the-datasense-explorer.html">Using the DataSense Explorer</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../raml-1-0-data-types-support.html">RAML 1.0 Data Types Support</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../datasense/datasense-query-editor.html">DataSense Query Editor</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../datasense/datasense-query-language.html">DataSense Query Language</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../transform-message/transform-message-component-concept-studio.html">About Transform Message Component</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../transform-message/workflow-create-mapping-ui-studio.html">Workflow: Create a Mapping</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transform-message/input-output-structure-transformation-studio-task.html">To Define Input and Output Structure of a Transformation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transform-message/graphically-construct-mapping-studio-task.html">To Graphically Construct a Mapping</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transform-message/preview-transformation-output-studio-task.html">To Preview the Output of a Transformation</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transform-message/tips-transform-message-ui-studio.html">Tips on the Transform Message UI</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transform-message/change-target-output-transformation-studio-task.html">To Change the Target Output of a Transformation</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transform-message/add-another-output-transform-studio-task.html">To Add Another Output Target</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transform-message/move-transformations-separate-file-studio-task.html">To Move Transformations to Separate Files</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../studio-visual-debugger.html">Studio Visual Debugger</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../import-export-projects-studio.html">Importing and Exporting</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-sync-reference.html">API Sync</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../mule-runtime/changing-runtimes-in-studio.html">Changing Runtimes in Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../studio-policy-editor.html">Studio Policy Editor (Beta)</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../keyboard-shortcuts-in-studio.html">Keyboard Shortcuts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../adding-source-attachments-to-studio.html">Adding Source Attachments to Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../deploy-more-than-one-application.html">Deploy More than One Application</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../mule-runtime/starting-the-runtime-in-cluster-mode-in-studio.html">Starting the Studio Runtime in Cluster Mode</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="datamapper-user-guide-and-reference.html">DataMapper (Deprecated)</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper-concepts.html">DataMapper Concepts</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper-visual-reference.html">DataMapper Visual Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="defining-datamapper-input-and-output-metadata.html">Defining DataMapper Input and Output Metadata</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../defining-metadata-using-edit-fields.html">Defining Metadata Using Edit Fields</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../pojo-class-bindings-and-factory-classes.html">POJO Class Bindings and Factory Classes</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../building-a-mapping-flow-in-the-graphical-mapping-editor.html">Building a Mapping Flow in the Graphical Mapping Editor</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../mapping-flow-input-and-output-properties.html">Mapping Flow Input and Output Properties</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper-input-error-policy-for-bad-input-data.html">DataMapper Input Error Policy for Bad Input Data</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="using-datamapper-lookup-tables.html">Using DataMapper Lookup Tables</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="streaming-data-processing-with-datamapper.html">Streaming Data Processing with DataMapper</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../updating-metadata-in-an-existing-mapping.html">Updating Metadata in an Existing Mapping</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mapping-elements-inside-lists.html">Mapping Elements Inside Lists</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="previewing-datamapper-results-on-sample-data.html">Previewing DataMapper Results on Sample Data</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper-examples.html">DataMapper Examples</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="datamapper-supplemental-topics.html">DataMapper Supplemental Topics</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../choosing-mel-or-ctl2-as-scripting-engine.html">Choosing MEL or CTL2 as Scripting Engine</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper-fixed-width-input-format.html">DataMapper Fixed Width Input Format</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper-flat-to-structured-and-structured-to-flat-mapping.html">DataMapper Flat-to-Structured and Structured-to-Flat Mapping</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="including-the-datamapper-plugin.html">Including the DataMapper Plugin</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Defining a Data Mapping Flow with Input and Output Metadata (Deprecated - DataMapper)</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-studio-docs/edit/v6/modules/ROOT/content/datamapper/defining-datamapper-input-and-output-metadata.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Defining a Data Mapping Flow with Input and Output Metadata (Deprecated - DataMapper)</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>DataMapper continues to be fully supported in all current and future versions of Mule 3.x, however it will be removed in Mule 4.0 in favor of the <strong>Transform Message</strong> component (based on <a href="../../../mule-runtime/3.8/dataweave/dataweave.html">DataWeave</a> code). We recommend that if you wish to take advantage of the new capabilities of DataWeave or if you start new projects, upgrade now.</p>
+</div>
+<div class="paragraph">
+<p>A <a href="../../../mule-runtime/3.8/dataweave/dataweave-migrator.html">migration tool</a> is now included in Anypoint Studio, which assists in converting a DataMapper map to DataWeave. From the Anypoint Studio Canvas, right-click a DataMapper building block, select <strong>Migrate to DataWeave</strong>, and follow the instructions.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/dw-migrator-script.png" alt="dw migrator">
+</div>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t see DataMapper on your palette, you can enable it by going to <strong>Preferences</strong> &gt; <strong>Anypoint Studio</strong> &gt; <strong>Palette Profiles</strong> and clicking the checkbox <strong>Show deprecated Mule Components and Attributes</strong>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Creating mapping is the first step for working with the Anypoint DataMapper. After you create the mapping, the properties editor displays the Data Mapping Flow Editor, where you can map source to target data.</p>
+</div>
+<div class="paragraph">
+<p>Keep in mind that the act of creating a mapping is irreversible, once you hit the <strong>create mapping</strong> button, most of what you set up cannot be changed unless you delete your DataMapper transformer and start over.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assumptions"><a class="anchor" href="#assumptions"></a>Assumptions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes the reader is familiar with the Anypoint DataMapper Transformer. If you are not, start from the beginning: <a href="datamapper-user-guide-and-reference.html">DataMapper User Guide and Reference</a>. For a listing of all available tools in Anypoint DataMapper, consult <a href="datamapper-visual-reference.html">DataMapper Visual Reference</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="basic-parameters-to-set-up"><a class="anchor" href="#basic-parameters-to-set-up"></a>Basic Parameters to Set Up</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you first place a DataMapper component on the flow and open its properties editor, you see the fields needed for creating a new mapping.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/basic.png" alt="basic">
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Display Name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A name to display on the DataMapper building block in your flow</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>File Name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The .grf file that will store the mapping definition</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Input Source</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Select between payload, available variables, available properties, or write your own expression</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Input Type</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Choose the format of the input data</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Output Target</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Select between payload, available properties, or write your own expression to populate the output into a particular variable, property or child element of the payload</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Output Type</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Choose the format of the output data.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The name you enter for the .grf file need not be unique across your project—if the name is used elsewhere in your project, Studio will generate a unique filename for the mapping flow file to avoid any name conflict.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you place a DataMapper right after or right before a DataSense-enabled element that is already configured, DataMapper intelligently predicts what data structure is expected or returned and pre-populates its fields accordingly, saving you the work of configuring them.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise, you must choose a data source for your mapping. You can simply take the payload, as it comes, or pick any of the variables in the mule message, inbound or outbound properties in the message. If you want to select a particular section of the payload, or any property that isn&#8217;t available in design time, you can also type a MEL expression such as <code>#[payload.myAttribute]</code> to refer to this, instead of selecting from the drop down menu.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/source2.png" alt="source2">
+</div>
+</div>
+<div class="paragraph">
+<p>The output target can be similarly configured, both through the available options in the drop down menu or by typing in an expression. You can map the data to any existing or non existing property, variable, or child element of the payload by using an expression in such a way.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/datamapper-output.jpg" alt="datamapper+output">
+</div>
+</div>
+<div class="paragraph">
+<p>The available input and output types include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Flat data</strong>: CSV (delimited file), Microsoft Excel, or fixed width file data</p>
+</li>
+<li>
+<p><strong>Structured data</strong>: XML, JSON, POJO (Plain Old Java Objects), Map&lt;k,v&gt; (key-value maps)</p>
+</li>
+<li>
+<p><strong>Data from Anypoint Connectors</strong>: accessing SaaS applications or any other source or target for which Mule has a connector. Data is typically in either Map or POJO format, depending upon the connector.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Editing and Managing .GRF files</strong><br></p>
+</div>
+<div class="paragraph">
+<p><code>.grf</code> files should only be created in the mappings folder, and can only be edited in the DataMapper Mapping Flow Editor. Editing a .grf file directly, as with a text or XML file editor in Eclipse, or with an external editor, can cause unpredictable behavior in Studio.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="defining-input-and-output-metadata"><a class="anchor" href="#defining-input-and-output-metadata"></a>Defining Input and Output Metadata</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once you have selected the input and output data formats, you must populate the specific metadata, such as data elements, types, and attributes, for the input and output data for this mapping flow. There are three principal ways to populate this metadata:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For many input types, metadata can be automatically derived from sample input files.</p>
+</li>
+<li>
+<p>Metadata can be entered manually, or edited manually after being inferred by one of the automated methods.</p>
+</li>
+<li>
+<p>For Connector inputs and outputs, metadata is automatically populated by Mule.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For cases where you are manually defining metadata, there is a convenient shortcut for copying input to output metadata, or vice versa, depending on which one you already have. See Shortcut: Duplicating Metadata between Input and Output for details.</p>
+</div>
+<div class="paragraph">
+<p>The available fields that define these settings depend on the selected input and output data types. The variations are described in the following sections:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#defining-csv-metadata">Defining CSV Metadata</a></p>
+</li>
+<li>
+<p><a href="#defining-connector-metadata">Defining Connector Metadata</a></p>
+</li>
+<li>
+<p><a href="#defining-fixed-width-format-metadata">Defining Fixed Width Format Metadata</a></p>
+</li>
+<li>
+<p><a href="#defining-json-metadata">Defining JSON Metadata</a></p>
+</li>
+<li>
+<p><a href="#defining-key-value-map-metadata">Defining Key-Value Map Metadata</a></p>
+</li>
+<li>
+<p><a href="#defining-ms-excel-metadata">Defining MS Excel Metadata</a></p>
+</li>
+<li>
+<p><a href="#defining-pojo-metadata">Defining POJO Metadata</a></p>
+</li>
+<li>
+<p><a href="#defining-xml-metadata">Defining XML Metadata</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once you have defined metadata for both input and output. Studio saves the metadata definitions to a mapping flow file, and opens the Mapping Flow Editor where you actually map input data to output data.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Post-Metadata Setup</strong></p>
+</div>
+<div class="paragraph">
+<p>For full documentation on the properties explained below, see <a href="../mapping-flow-input-and-output-properties.html">Mapping Flow Input and Output Properties</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="defining-csv-metadata"><a class="anchor" href="#defining-csv-metadata"></a>Defining CSV Metadata</h3>
+<div class="paragraph">
+<p>You can define the basic metadata for a delimited input file, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The column names and types</p>
+</li>
+<li>
+<p>The delimiter used in the file</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To define a CSV input or output, select CSV in the Input or Output dropdown, as shown:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/csvex.png" alt="CSVex">
+</div>
+</div>
+<div class="paragraph">
+<p>Click the ellipsis to select an example file from which to infer metadata.</p>
+</div>
+<div class="paragraph">
+<p>To explicitly define the columns, select <strong>User Defined</strong>, then click <strong>Create/Edit Structure</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/definefields.png" alt="definefields">
+</div>
+</div>
+<div class="paragraph">
+<p>In the Edit Fields dialog, you can:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Define columns by name and by type</p>
+</li>
+<li>
+<p>Set the delimiter for your file</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="defining-a-custom-delimiter-for-a-csv-file"><a class="anchor" href="#defining-a-custom-delimiter-for-a-csv-file"></a>Defining a Custom Delimiter for a CSV File</h4>
+<div class="paragraph">
+<p>Anypoint DataMapper offers the choice of several common delimiters for a CSV file: the default comma (","); pipe ("|"); semicolon (";"); colon (":"); or space (" "). The dropdown illustrates typical columns separated by the delimiters.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/image2013-4-10-1-58-7.png" alt="image2013-4-10+1+58+7">
+</div>
+</div>
+<div class="paragraph">
+<p>To add a custom delimiter, click + and enter the new character—for example,  a tilde ("~"). The new delimiter now appears in the dropdown among the available choices:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/image2013-4-10-2-46-50.png" alt="image2013-4-10+2+46+50">
+</div>
+</div>
+<div class="paragraph">
+<p>Select the new delimiter from the list to finalize your choice.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Additional Properties for CSV Files</strong></p>
+</div>
+<div class="paragraph">
+<p>CSV files have additional properties that can only be configured from the Properties dialog in the Data Mapping View, and that affect how input data is parsed and how output data is generated. You should review these properties once you have the mapping flow open in the mapping flow editor. See "CSV Input and Output Properties" in <a href="../mapping-flow-input-and-output-properties.html">Mapping Flow Input and Output Properties</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-connector-metadata"><a class="anchor" href="#defining-connector-metadata"></a>Defining Connector Metadata</h3>
+<div class="paragraph">
+<p>For connector metadata, the DataMapper can take its metadata from the connector input or output.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>DataMapper, Connectors and DataSense</strong></p>
+</div>
+<div class="paragraph">
+<p>Through Anypoint Studio&#8217;s support for Perceptive Flow Design, DataSense-enabled connectors retrieve from the connected source system full metadata for supported operations and objects, including any custom objects and fields. If you model a flow to include a connector that supports perceptive flow design as an input to or output from a DataMapper, Mule uses metadata retrieved from the connected system – a SaaS provider, for example – and feeds that data into the DataMapper to automate correct input and output metadata setup. See <a href="../datasense/datasense.html">DataSense</a> and <a href="../using-perceptive-flow-design.html">Using Perceptive Flow Design</a> for more details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When a connector already defined in a Mule flow is input or output for your DataMapper, the operation and any associated object classes are filled in for you.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/connector.png" alt="connector">
+</div>
+</div>
+<div class="paragraph">
+<p>If necessary, you can override the metadata linked to an operation by selecting <strong>By Type</strong> and then selecting an object type.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-fixed-width-format-metadata"><a class="anchor" href="#defining-fixed-width-format-metadata"></a>Defining Fixed Width Format Metadata</h3>
+<div class="paragraph">
+<p>For metadata for fixed width data, you can select a sample input file:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/fwidth.png" alt="fwidth">
+</div>
+</div>
+<div class="paragraph">
+<p>Column formats are inferred from the input file.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can select "User Defined" and manually define name, type, and column width metadata:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/image2013-5-7-0-20-33.png" alt="image2013-5-7+0+20+33">
+</div>
+</div>
+<div class="paragraph">
+<p>Note: See <a href="datamapper-fixed-width-input-format.html">Fixed-Width Input Format</a> for several examples of working with fixed-width input format data.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Additional Properties for Fixed Width Data</strong><br></p>
+</div>
+<div class="paragraph">
+<p>Fixed-width data files have additional properties that can only be configured from the Properties dialog in the Data Mapping View and that affect how input data is parsed and how output data is generated. You should review these properties once you have the mapping flow open in the mapping flow editor. See "Fixed Width Input and Output Properties" in <a href="../mapping-flow-input-and-output-properties.html">Mapping Flow Input and Output Properties</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-json-metadata"><a class="anchor" href="#defining-json-metadata"></a>Defining JSON Metadata</h3>
+<div class="paragraph">
+<p>There are three ways to define JSON metadata:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>By selecting a sample JSON file</p>
+</li>
+<li>
+<p>By manually creating a JSON file definition</p>
+</li>
+<li>
+<p>By copying the structure you defined in the input/output</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/json.png" alt="json">
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="using-a-json-sample"><a class="anchor" href="#using-a-json-sample"></a>Using a JSON Sample</h4>
+<div class="paragraph">
+<p>To define JSON Metadata using a sample JSON file:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select Type <strong>JSON.</strong></p>
+</li>
+<li>
+<p>Choose <strong>From Example.</strong></p>
+</li>
+<li>
+<p>Click the ellipsis "&#8230;&#8203;" and browse to or enter the path to the sample JSON file.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using-user-created-json-definition"><a class="anchor" href="#using-user-created-json-definition"></a>Using User-Created JSON Definition</h4>
+<div class="paragraph">
+<p>To define JSON Metadata directly:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select Type <strong>JSON</strong>;</p>
+</li>
+<li>
+<p>Choose <strong>User Defined</strong>;</p>
+</li>
+<li>
+<p>Click <strong>Edit Fields</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The Define the JSON dialog opens.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/image2013-5-7-0-39-24.png" alt="image2013-5-7+0+39+24">
+</div>
+</div>
+<div class="paragraph">
+<p>Here you can specify:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the name and type of the parent, which can be a single Element or a List of Elements;</p>
+</li>
+<li>
+<p>the names and types of child elements that make up the structure inside the parent, which can be strings, numeric types, dates, Booleans, Elements, or lists of any of the above.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Additional Properties for JSON Data</strong></p>
+</div>
+<div class="paragraph">
+<p>JSON data has additional properties that can only be configured from the Properties dialog in the Data Mapping View, and that affect how input data is parsed and how output data is generated. You should review these properties once you have the mapping flow open in the mapping flow editor. See "JSON Input and Output Properties" in <a href="../mapping-flow-input-and-output-properties.html">Mapping Flow Input and Output Properties</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-key-value-map-metadata"><a class="anchor" href="#defining-key-value-map-metadata"></a>Defining Key-Value Map Metadata</h3>
+<div class="paragraph">
+<p>There are two ways to define key-value map metadata:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>By manually defining the key-value map structure</p>
+</li>
+<li>
+<p>By providing Groovy code that constructs a Map object of the desired form</p>
+</li>
+<li>
+<p>By copying the structure you defined in the input/output</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/mapkv.png" alt="mapkv">
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="using-direct-key-value-map-definition"><a class="anchor" href="#using-direct-key-value-map-definition"></a>Using Direct Key-Value Map Definition</h4>
+<div class="paragraph">
+<p>To define a Key-Value Map Definition directly:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Choose Input type Map&lt;k,v&gt; and select User Defined.</p>
+</li>
+<li>
+<p>Click "Edit Fields".  Enter the name for your Map, the Type (which can be Element or List&lt;Element&gt;).</p>
+</li>
+<li>
+<p>Then add child fields for your Key-Value Map, setting name and type for each.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using-a-groovy-map-sample-script"><a class="anchor" href="#using-a-groovy-map-sample-script"></a>Using a Groovy Map Sample Script</h4>
+<div class="paragraph">
+<p>To define a Key-Value Map using a Groovy script as an example, create a Groovy script that constructs and returns a Key-Value Map object of the desired structure.</p>
+</div>
+<div class="paragraph">
+<p>For example, this Groovy script defines a single key-value Map representing one person&#8217;s contact information:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">return [name:"John",lastName:"Harrison",address:"4th Street",zipCode:1002]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This Groovy script defines a List of Key-Value Maps representing contact information for multiple people:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">return [
+        [name:"John",lastName:"Harrison",address:"4th Street",zipCode:1002],
+        [name:"Dan",lastName:"Tomson",address:"6th Street",zipCode:1003]
+      ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use a Groovy script to define Key-Value Map metadata:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select Type: <strong>Map&lt;k,v&gt;</strong></p>
+</li>
+<li>
+<p>Select <strong>From Example</strong></p>
+</li>
+<li>
+<p>Enter the path to the Groovy script file in Groovy Map Sample, as shown:</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Additional Properties for Key-Value Maps Data</strong></p>
+</div>
+<div class="paragraph">
+<p>Key-Value Map data has additional properties that can only be configured from the Properties dialog in the Data Mapping View and that affect how input data is parsed and how output data is generated. You should review these properties once you have the mapping flow open in the mapping flow editor. See "Key-Value Map Input and Output Properties" in <a href="../mapping-flow-input-and-output-properties.html">Mapping Flow Input and Output Properties</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-ms-excel-metadata"><a class="anchor" href="#defining-ms-excel-metadata"></a>Defining MS Excel Metadata</h3>
+<div class="paragraph">
+<p>To define metadata for an MS Excel spreadsheet:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select <strong>Type</strong> <code>MS Excel</code>.</p>
+</li>
+<li>
+<p>Enter a path to a sample Excel spreadsheet, or click the ellipsis "…" to browse the filesystem for one.</p>
+</li>
+<li>
+<p>Enter a value for <strong>Name</strong>, used to reference the input spreadsheet in DataMapper expressions.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/excel.png" alt="excel">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>There are no user-modifiable metadata definitions for Excel spreadsheets. DataMapper will infer column names and data types from the contents of the spreadsheet.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-pojo-metadata"><a class="anchor" href="#defining-pojo-metadata"></a>Defining POJO Metadata</h3>
+<div class="paragraph">
+<p>Metadata for a POJO (Plain Old Java Object) as DataMapper source or target consists of a definition of the class of the Java object. This can be a single class, or a complex structure consisting of nested Collections and key/value Maps containing any Java class in your project.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/pojo.png" alt="pojo">
+</div>
+</div>
+<div class="paragraph">
+<p>To define metadata for a POJO:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select <strong>Type</strong> <code>Pojo.</code></p>
+</li>
+<li>
+<p>Click the ellipsis <strong>… </strong>to open the Object Introspector dialog.</p>
+</li>
+<li>
+<p>Construct the needed structure in the Object Introspector.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/image2013-5-7-1-59-17.png" alt="image2013-5-7+1+59+17">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Once you have a complete description of the desired class structure, click <strong>OK</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/pojo2.png" alt="pojo2">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Additional Properties for POJO Data</strong></p>
+</div>
+<div class="paragraph">
+<p>POJO input and output data has additional properties that can only be configured from the Properties dialog in the Data Mapping View and that affect how input data is parsed and how output data is generated. You should review these properties once you have the mapping flow open in the mapping flow editor. See "POJO Input and Output Properties" in <a href="../mapping-flow-input-and-output-properties.html">Mapping Flow Input and Output Properties</a> for details.</p>
+</div>
+<div class="paragraph">
+<p>There are also two specific situations in which you need to make changes when using POJO as an output format:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When the class of a POJO is an abstract class or an interface, and you need to specify a concrete class for use at runtime;</p>
+</li>
+<li>
+<p>When you need to use a factory class to instantiate the POJO, instead of calling the class&#8217;s constructor.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The properties required are accessed through the Input and Output Properties dialog in the DataMapper mapping view. See <a href="../pojo-class-bindings-and-factory-classes.html">POJO Metadata: Bindings and Factories</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-xml-metadata"><a class="anchor" href="#defining-xml-metadata"></a>Defining XML Metadata</h3>
+<div class="paragraph">
+<p>There are three ways to define XML metadata:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Provide an XSD schema definition</p>
+</li>
+<li>
+<p>Provide a sample XML file, from which Mule can derive an XSD file</p>
+</li>
+<li>
+<p>Directly enter user-defined metadata</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="using-an-xsd-schema-definition"><a class="anchor" href="#using-an-xsd-schema-definition"></a>Using an XSD Schema Definition</h4>
+<div class="paragraph">
+<p>To define XML metadata using an XSD schema definition:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select <strong>Type</strong> <code>XML</code>.</p>
+</li>
+<li>
+<p>Choose <strong>From Example</strong>.</p>
+</li>
+<li>
+<p>Click the ellipsis "…" and browse to an XSD file, or enter the path to the XSD file directly.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/xml-new-input.png" alt="xml+new+input">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using-an-xml-sample"><a class="anchor" href="#using-an-xml-sample"></a>Using an XML Sample</h4>
+<div class="paragraph">
+<p>Studio can use an XML sample file to generate an XSD schema, which it can then use to define XML metadata.</p>
+</div>
+<div class="paragraph">
+<p>To generate an XSD schema definition file from sample XML:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click <strong>Generate Schema from XML</strong>.</p>
+</li>
+<li>
+<p>Enter or browse to the path to the sample XML file, and the path to the directory where the XSD will be stored. (In general, this directory should be inside your Mule project.)</p>
+</li>
+<li>
+<p>Click <strong>OK</strong>.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can optionally select only a sub-branch of the XML tree structure. Once you have selected a sample XML file, DataMapper will parse it and present a list of the elements in it in the dropdown menu next to <strong>Root Element</strong>. By picking an element in that list, you tell DataMapper to only take data from this point in the tree down.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Studio generates an XSD file in the specified schema directory, and fills in the XML schema path with the full path to the XSD file.</p>
+</div>
+<div class="paragraph">
+<p>From this point, behavior is the same as if you had originally selected an XSD file.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Review the Derived XSD</strong><br></p>
+</div>
+<div class="paragraph">
+<p>While you can see the structure in the Data Mapping Editor, it is also prudent to review the generated XSD file to ensure that the derived definitions fully match your expectations.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Additional Properties for XML</strong><br></p>
+</div>
+<div class="paragraph">
+<p>XML input data has additional properties that can only be configured from the Properties dialog in the Data Mapping View and that affect how input data is parsed and how output data is generated. You should review these properties once you have the mapping flow open in the mapping flow editor. See "XML Input and Output Properties" in <a href="../mapping-flow-input-and-output-properties.html">Mapping Flow Input and Output Properties</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="shortcut-creating-output-metadata-based-on-defined-input-metadata"><a class="anchor" href="#shortcut-creating-output-metadata-based-on-defined-input-metadata"></a>Shortcut: Creating Output Metadata based on Defined Input Metadata</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When defining the input and output metadata, often the output metadata will be very similar in structure to the input metadata (for example, a contact name with a list of addresses), even though the underlying format will be different (for example, Pojo vs. JSON). In such cases, there is a shortcut for quickly populating the output metadata, reproducing the structure of the input. If the structures are not exactly the same, you can then edit the output or input as needed to account for the differences.</p>
+</div>
+<div class="paragraph">
+<p>For example, you can recreate the input metadata structure created by sampling this JSON input file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "type": "members",
+  "id": "id0",
+  "contacts": [
+    {
+      "name": "",
+      "lastname": ""
+    },
+    {
+      "name": "",
+      "lastname": ""
+    },
+  ],
+  "emergencyContacts": [
+    {
+      "name": "",
+      "lastname": ""
+    },
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The goal in this example is to create a Maps/List of Maps output metadata structure that corresponds to this JSON  input structure.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Save the above text as contacts.json in a convenient directory.</p>
+</li>
+<li>
+<p>Add a new DataMapper to a flow.</p>
+</li>
+<li>
+<p>In the Input section of the the Select Input and Output Type pane, select Type <strong>JSON</strong>, select <strong>From Example</strong>, and for Json sample, enter the path to your contacts.json file.</p>
+</li>
+<li>
+<p>In the Output section, select a different structured format for Type—for this example,  <strong>Map&lt;k,v&gt;</strong> . Select <strong>User Defined</strong> , and click *Generate default * under the *Name * field.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/json.png" alt="json">
+</div>
+</div>
+<div class="paragraph">
+<p>DataMapper duplicates the structure of the JSON file as a key-value map.</p>
+</div>
+</li>
+<li>
+<p>Under Output, click <strong>Edit Fields</strong> to see the result. The generated name <strong>object</strong> has been inserted, and the Type is <strong>Element</strong>. The structure of the input is reproduced as a starting point for the output metadata definition.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/image2013-5-7-1-54-33.png" alt="image2013-5-7+1+54+33">
+</div>
+</div>
+<div class="paragraph">
+<p>You can edit the resulting structure further, adding or removing elements as needed. The use of this editor is described in <a href="../defining-metadata-using-edit-fields.html">Defining Metadata Using Edit Fields</a>. When you have finalized the structure, click <strong>OK</strong>.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once you finish creating the mapping, the mapping flow definition opens in the graphical mapping editor. At that point you can define the element mappings and transformations for your data, as described in <a href="../building-a-mapping-flow-in-the-graphical-mapping-editor.html">Building a Mapping Flow in the Graphical Mapping Editor</a>.</p>
+</div>
+<div class="paragraph">
+<p>You can also:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Set additional properties that affect the handling of input and output, as described in <a href="../mapping-flow-input-and-output-properties.html">Mapping Flow Input and Output Properties</a></p>
+</li>
+<li>
+<p>Revise your metadata definitions, if necessary, as described in <a href="../updating-metadata-in-an-existing-mapping.html">Updating Metadata in an Existing Mapping</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../../_theme/scripts/menu.js"></script>
+<script src="../../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

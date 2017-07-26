@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="agent, mule, esb, servers, monitor, notifications, external systems, third party, get status, metrics">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/runtime-manager-agent/1.7/event-tracking.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Event Tracking // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Event Tracking</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/runtime-manager-agent-docs/edit/v1.7/modules/ROOT/content/event-tracking.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Event Tracking</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-cloud-disabled.png" alt="logo cloud disabled" title="CloudHub"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-hybrid-active.png" alt="logo hybrid active" title="Hybrid Deployment"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-server-active.png" alt="logo server active" title="Anypoint Platform Private Cloud Edition"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-pcf-disabled.png" alt="logo pcf disabled" title="Pivotal Cloud Foundry"></a></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="anchor" href="#overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Event tracking allows you to to view real-time information about messages being processes by a specific flow. You can view message payloads before, during and after they are processed, as well as information about the message processors in the flow and message metadata.</p>
+</div>
+<div class="paragraph">
+<p>Event tracking provides you with visibility into business transactions and events on your Mule servers, allowing you to track and analyze the flow and disposition of particular messages. For example, you can use the data to do root cause analysis on a failure within a business transaction, or to identify message processing bottlenecks.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="notification-types"><a class="anchor" href="#notification-types"></a>Notification Types</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mule provides notifications about execution of a flow&#8217;s components as shown below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/event-tracking.png" alt="event_tracking">
+</div>
+</div>
+<div class="paragraph">
+<p>Available notification types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pipeline Message Notification</p>
+</li>
+<li>
+<p>Endpoint Message Notification</p>
+</li>
+<li>
+<p>Component Message Notification</p>
+</li>
+<li>
+<p>Event Notification (Custom Events)</p>
+</li>
+<li>
+<p>Message Processor Notification</p>
+</li>
+<li>
+<p>Async Message Notification</p>
+</li>
+<li>
+<p>Transaction Notification</p>
+</li>
+<li>
+<p>Exception Notification</p>
+</li>
+<li>
+<p>Exception Strategy Notification</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pushed-event-information"><a class="anchor" href="#pushed-event-information"></a>Pushed Event Information</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For each notification, the agent pushes the following information:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>timestamp</code>: Timestamp for the event</p>
+</li>
+<li>
+<p><code>notificationType</code>: Event Type (i.e: Message Processor Event, Inbound Endpoint Event)</p>
+</li>
+<li>
+<p><code>action</code>: Event Action (i.e: Begin, End, Complete, Rollback)</p>
+</li>
+<li>
+<p><code>resourceIdentifier</code>: (i.e: flow name )</p>
+</li>
+<li>
+<p><code>muleMessage</code>: If configured, pushes the serialized Mule message; if this is not possible, it pushes an error message</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following are currently <em>*not*</em> sent by the Runtime Manager Agent:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Mule Message ID</strong></p>
+</li>
+<li>
+<p><strong>Exception:</strong> The message and stack trace in case of an exception</p>
+</li>
+<li>
+<p><strong>Path:</strong> The component Mule path</p>
+</li>
+<li>
+<p><strong>Annotations:</strong> Annotations for the component, if any</p>
+</li>
+<li>
+<p><strong>Application</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="debugging-levels"><a class="anchor" href="#debugging-levels"></a>Debugging Levels</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Event tracking allows you to determine the amount of debugging output by configuring the debugging level.</p>
+</div>
+<div class="paragraph">
+<p>Available debugging levels:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>None (no debugging)</p>
+</li>
+<li>
+<p>Business Events</p>
+</li>
+<li>
+<p>Tracking</p>
+</li>
+<li>
+<p>Debug</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following table lists the types of notifications active in each debugging level.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">NOTIFICATIONS</th>
+<th class="tableblock halign-left valign-top">NONE</th>
+<th class="tableblock halign-left valign-top">BE</th>
+<th class="tableblock halign-left valign-top">TRACKING</th>
+<th class="tableblock halign-left valign-top">DEBUG</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pipeline Message</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Async Message</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exception</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Event</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exception Strategy</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transaction</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Endpoint Message</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Message Processor</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Component Message</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">√</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-event-tracking"><a class="anchor" href="#configuring-event-tracking"></a>Configuring Event Tracking</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can configure the tracking level globally and/or per application, and/or per flow. It&#8217;s possible to configure the tracking level in the configuration file <code>mule-agent.yml</code>, or in real time using the agent API.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Bear in mind that performance may be affected depending on the debugging level.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="configuring-via-code-mule-agent-yml-code"><a class="anchor" href="#configuring-via-code-mule-agent-yml-code"></a>Configuring via <code>mule-agent.yml</code></h3>
+<div class="sect3">
+<h4 id="configuring-tracking-globally"><a class="anchor" href="#configuring-tracking-globally"></a>Configuring Tracking Globally</h4>
+<div class="paragraph">
+<p>This configuration affects all the applications in the Mule instance, as well as their flows. In the example below, the tracking level is set to <code>TRACKING</code>.</p>
+</div>
+<div class="paragraph">
+<p>In <code>mule-agent.yml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mule.agent.tracking.service:
+     globalTrackingLevel: TRACKING</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If <code>globalTrackingLevel</code> is not specified, the default value is <code>NONE</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuring-tracking-by-application"><a class="anchor" href="#configuring-tracking-by-application"></a>Configuring Tracking by Application</h4>
+<div class="paragraph">
+<p>In the example below, the tracking level for application <code>mule-example-echo</code> and its flow is set to <code>TRACKING</code>.</p>
+</div>
+<div class="paragraph">
+<p>In <code>mule-agent.yml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mule.agent.tracking.service:
+      trackedApplications:
+          - appName: mule-example-echo
+            trackingLevel: TRACKING</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuring-tracking-by-application-flow"><a class="anchor" href="#configuring-tracking-by-application-flow"></a>Configuring Tracking by Application Flow</h4>
+<div class="paragraph">
+<p>In the example below, different tracking levels are set for specific flows in application <code>mule-example-echo</code>. Tracking level <code>TRACKING</code> is set for the whole application, but tracking level <code>DEBUG</code> is set for the flow <code>EchoFlow</code>.</p>
+</div>
+<div class="paragraph">
+<p>In <code>mule-agent.yml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mule.agent.tracking.service:
+    trackedApplications:
+        - appName: mule-example-echo
+          trackingLevel: TRACKING
+          trackedFlows:
+              - flowName: EchoFlow
+                trackingLevel: DEBUG</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-complex-tracking-configurations"><a class="anchor" href="#setting-complex-tracking-configurations"></a>Setting Complex Tracking Configurations</h3>
+<div class="paragraph">
+<p>This example sets the following configuration:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Application <code>mule-example-echo</code>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/event-tracking.png" alt="event_tracking.png">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Level `TRACKING `for application</p>
+</li>
+<li>
+<p>Level <code>DEBUG</code> for flow <code>EchoFlow</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>All other applications in the Mule instance, and their flows:<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Level Business Event (<code>BE</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In <code>mule-agent.yml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mule.agent.tracking.service:
+    globalTrackingLevel: BE
+    trackedApplications:
+        - appName: mule-example-echo
+          trackingLevel: TRACKING
+          trackedFlows:
+              - flowName: EchoFlow
+                trackingLevel: DEBUG</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-via-the-agent-api-during-runtime"><a class="anchor" href="#configuring-via-the-agent-api-during-runtime"></a>Configuring Via the Agent API During Runtime</h3>
+<div class="paragraph">
+<p>The agent API allows you to change the agent tracking configuration during runtime.</p>
+</div>
+<div class="sect3">
+<h4 id="retrieving-the-current-configuration"><a class="anchor" href="#retrieving-the-current-configuration"></a>Retrieving the Current Configuration</h4>
+<div class="paragraph">
+<p>This below retrieves the information about the tracking service. The retrieved information includes the configurable fields with their current values.</p>
+</div>
+<div class="paragraph">
+<p><strong>Request:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>GET &lt;Runtime Manager Agent URL&gt;/mule/agent/mule.agent.tracking.service</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Response:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"configurableFields": [
+    {
+      "name": "globalTrackingLevel",
+      "valueType": "com.mulesoft.agent.services.tracking.TrackingLevel",
+      "value": "NONE",
+      "configurableType": "DYNAMIC",
+      "description": ""
+    },
+    {
+      "name": "trackedApplications",
+      "valueType": "[Lcom.mulesoft.agent.services.tracking.TrackedApplication;",
+      "value": [],
+      "configurableType": "DYNAMIC",
+      "description": ""
+    }
+  ],
+  "injectedHandlers": [
+    {
+      "name": "com.mulesoft.agent.handlers.internal.InternalTrackingNotificationHandler",
+      "path": "/mule/agent/tracking.notification.internal.message.handler/configuration",
+      "type": "class com.mulesoft.agent.domain.tracking.AgentTrackingNotification"
+    }
+  ],
+  "serviceHandlerTypes": [
+    "class com.mulesoft.agent.domain.tracking.AgentTrackingNotification"
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="modifying-the-current-configuration"><a class="anchor" href="#modifying-the-current-configuration"></a>Modifying the Current Configuration</h4>
+<div class="paragraph">
+<p>To modify the current configuration during runtime, send a request with the JSON representation of the desired configuration. This representation will override the current configuration. Any fields not included in the JSON representation will retain their current values.</p>
+</div>
+<div class="paragraph">
+<p>The following example request overrides the <code>globalTrackingLevel</code> and <code>trackedApplications</code> fields. All other fields are left unchanged.</p>
+</div>
+<div class="paragraph">
+<p><strong>Request:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">PATCH &lt;Runtime Manager Agent URL&gt;/mule/agent/mule.agent.tracking.service HTTP/1.1
+
+{
+  "globalTrackingLevel": "BE",
+  "trackedApplications": [
+  {
+    "appName": "mule-example-echo",
+    "trackingLevel": "DEBUG",
+    "trackedFlows": [
+    {
+      "flowName": "EchoFlow",
+      "trackingLevel": "TRACKING"
+    }
+    ]
+  }
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Response:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "configurableFields": [
+  {
+    "name": "globalTrackingLevel",
+    "valueType": "com.mulesoft.agent.services.tracking.TrackingLevel",
+    "value": "BE",
+    "configurableType": "DYNAMIC",
+    "description": ""
+    },
+    {
+      "name": "trackedApplications",
+      "valueType": "[Lcom.mulesoft.agent.services.tracking.TrackedApplication;",
+      "value": [
+      {
+        "appName": "mule-example-echo",
+        "trackingLevel": "DEBUG",
+        "trackedFlows": [
+        {
+          "flowName": "EchoFlow",
+          "trackingLevel": "TRACKING"
+        }
+        ]
+      }
+      ],
+      "configurableType": "DYNAMIC",
+      "description": ""
+    }
+    ],
+    "injectedHandlers": [
+    {
+      "name": "com.mulesoft.agent.handlers.internal.InternalTrackingNotificationHandler",
+      "path": "/mule/agent/tracking.notification.internal.message.handler/configuration",
+      "type": "class com.mulesoft.agent.domain.tracking.AgentTrackingNotification"
+    }
+    ],
+    "serviceHandlerTypes": [
+    "class com.mulesoft.agent.domain.tracking.AgentTrackingNotification"
+    ]
+  }</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="tcat, server, tomcat, monitor">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/tcat-server/7.1/add-tcat-server-capabilities-to-an-existing-tomcat-install.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Add Tcat Server Capabilities to an Existing Tomcat Install // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Tcat Server</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="using-the-rest-api.html">Using the REST API</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="apply-a-profile-to-a-server.html">Apply a Profile to a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="apply-a-profile-to-a-server-group.html">Apply a Profile to a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="create-a-deployment.html">Create a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="create-a-server-group.html">Create a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="create-or-update-a-file.html">Create or Update a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-deployment.html">Delete a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-file.html">Delete a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-server.html">Delete a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-server-group.html">Delete a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-deployment.html">Get a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-file.html">Get a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-server.html">Get a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-server-group.html">Get a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-file-metadata.html">Get File Metadata</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-the-deployment-history.html">Get the Deployment History</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-the-deployment-version-details.html">Get the Deployment Version Details</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="list-all-deployments.html">List All Deployments</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="list-all-servers.html">List All Servers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="list-all-server-groups.html">List All Server Groups</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="redeploy-a-deployment.html">Redeploy a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="register-a-server.html">Register a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="restart-a-server.html">Restart a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="undeploy-a-deployment.html">Undeploy a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="update-a-file.html">Update a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="update-a-server.html">Update a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="update-a-server-group.html">Update a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="repository-api.html">Repository API</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-server-profiles.html">Working with Server Profiles</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="applying-your-tcat-server-license.html">Applying Your Tcat Server License</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="automating-tasks.html">Automating Tasks</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-custom-policies.html">Creating Custom Policies</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-remote-workspaces.html">Creating Remote Workspaces</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-to-amazon-ec2.html">Deploying to Amazon EC2</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="integrating-with-ldap.html">Integrating with LDAP</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-the-repository.html">Managing the Repository</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-users-and-groups.html">Managing Users and Groups</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="maven-publishing-plug-in.html">Maven Publishing Plug-in</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="update-a-deployment.html">Update a Deployment</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="monitoring-repository-activity.html">Monitoring Repository Activity</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="scheduling-the-usage-statistics-script.html">Scheduling the Usage Statistics Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="troubleshooting.html">Troubleshooting</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-http-atompub-api.html">Using the HTTP AtomPub API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-servers.html">Working with Servers</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="overview-of-tcat-server.html">Overview of Tcat Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="quick-start.html">Quick Start</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installation.html">Installation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="server-profiles.html">Server Profiles</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="integrating-with-ant.html">Integrating with Ant</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="csv-save-start-script.html">CSV Save Start Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="csv-save-stop-script.html">CSV Save Stop Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="csv-save-writer-script.html">CSV Save Writer Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="saving-jmx-metric-data-to-csv-files.html">Saving JMX Metric Data to CSV Files</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-tcat-server-on-microsoft-windows.html">Installing Tcat Server on Microsoft Windows</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="add-tcat-server-capabilities-to-an-existing-tomcat-install.html">Add Tcat Server Capabilities to an Existing Tomcat Install</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="applying-a-new-tcat-server-license.html">Applying a new Tcat Server license</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="archetypes.html">Archetypes</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="mulesoft-tomcat-archetypes.html">MuleSoft Tomcat Archetypes</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="mulesoft-tcat-archetypes.html">MuleSoft Tcat Archetypes</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="common-problems-and-solutions.html">Common Problems and Solutions</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="defining-notifications-and-destinations.html">Defining Notifications and Destinations</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="disable-multicasting.html">Disable Multicasting</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="edit-server-information.html">Edit Server Information</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="global-dashboard-overview.html">Global Dashboard Overview</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-multiple-tcat-instances-on-a-single-machine.html">Installing Multiple Tcat Instances on a Single Machine</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="jmx-agent-monitoring.html">JMX Agent Monitoring</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="moving-a-tcat-installation-from-a-non-linux-os-to-linux.html">Moving a Tcat Installation from a Non-Linux OS to Linux</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="quickstart.html">QuickStart</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="release-notes.html">Release Notes</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="release-notes-tcat-6-r2.html">Release Notes Tcat 6 R3</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="release-notes-tcat-6-r3.html">Release Notes Tcat 6 R2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tcat-server-6-r2-release-notes.html">Tcat Server 6 R2 Release Notes</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="server-dashboard.html">Server Dashboard</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="user-group-permissions.html">User Group Permissions</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-cloudcat-with-amazon-ec2.html">Using Cloudcat with Amazon EC2</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-cloudcat-with-gogrid.html">Using Cloudcat with GoGrid</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="integrating-with-maven.html">Integrating with Maven</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="upgrading.html">Upgrading</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-7.1.0.html">Upgrading to 7.1.0</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-r4.html">Upgrading to R4</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-6.3.html">Upgrading to 6.3</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-tcat-server-6-r2-p1.html">Upgrading to Tcat Server 6 R2 P1</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-from-tcat-server-6-r1-to-tcat-server-6-r2.html">Upgrading from Tcat Server 6 R1 to Tcat Server 6 R2</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Add Tcat Server Capabilities to an Existing Tomcat Install</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/tcat-server-docs/edit/v7.1/modules/ROOT/content/add-tcat-server-capabilities-to-an-existing-tomcat-install.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Add Tcat Server Capabilities to an Existing Tomcat Install</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use this procedure to add Tcat Server Monitoring and Management capabilities to an existing instance of the open source Tomcat server. Please send us comments or questions: <a href="mailto:tcat-install@mulesoft.com">tcat-install@mulesoft.com</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add-tcat-to-existing-tomcat-install"><a class="anchor" href="#add-tcat-to-existing-tomcat-install"></a>Add Tcat to Existing Tomcat Install</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This process explains how to <strong>install</strong> the Tcat Server on an existing Tomcat server instance, and to use the Administration Console to <strong>register</strong>, <strong>manage</strong>, and <strong>monitor</strong> that server.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="before-you-begin"><a class="anchor" href="#before-you-begin"></a>Before You Begin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This process requires one or more existing Tomcat instances, as well as an installed instance of Tcat Server with the Administration Console on the same machine or on a different machine. If you use more than one machine, these machines must have TCP network connectivity from the Console to the Tomcat machines you want to manage. The Console must be able to open initial connections over either HTTP (8080 by default) or AJP (8009 by default), and then over the Tcat Agent secure port (51443 by default). All of these port numbers are configurable.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For instructions on installing Tcat Server with the Administration Console, consult the QuickStart. Instructions on installing Tomcat server are at <a href="http://tomcat.apache.org/">http://tomcat.apache.org</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="requirements"><a class="anchor" href="#requirements"></a>Requirements</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Supported Environments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat 5.5.x or newer, including all Tomcat 6, 7, and 8 releases</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any operating system that has a fully compliant Java 1.5 or newer JDK or JRE.  See <a href="installation.html">Java Runtime Requirements</a> for more details.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="converting-a-stock-tomcat-windows-service-into-a-tcat-windows-service"><a class="anchor" href="#converting-a-stock-tomcat-windows-service-into-a-tcat-windows-service"></a>Converting a Stock Tomcat Windows Service Into a Tcat Windows Service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This procedure assumes that you&#8217;re converting only a single installation of stock Tomcat per machine to a Tcat Server, but if you&#8217;d like to run more than one converted Tomcat installation per server you need to rename each installation&#8217;s service name. The default Tcat windows service name is "TcatServer". Wherever you&#8217;re seeing "TcatServer" in the below instructions, replace that string with a different service name, and also change <code>conf/Catalina/localhost/tcat-env.conf</code> to contain your modified service name. The file <code>tcat-env.conf</code>  only exists after the first successful server registration with the Tcat Server console.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Unregister your stock Tomcat from your Tcat Server console, if you had previously installed the agent webapp and registered it. Make sure to remove the agent&#8217;s <code>truststore.jks</code> file from your Tomcat&#8217;s <code>webapps/agent/WEB-INF/</code> directory, if it exists, then restart your Tomcat.</p>
+</li>
+<li>
+<p>Install a full Tcat Server installation (Windows service) <strong>on a different machine</strong>, so that you can copy some of its individual files into your stock Tomcat Windows service installation directory tree. You do not need to start it – just install it to unpack the files. Make sure the Tcat Server that you install is version "Tcat 6 R4" (6.4.0 or newer).</p>
+</li>
+<li>
+<p>Copy the following files from the Tcat installation to the Tomcat installation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>TcatServer6\bin\tcat6.bat</code> to <code>Tomcat6\bin\tcat6.bat</code></p>
+</li>
+<li>
+<p><code>TcatServer6\bin\tcat-service.bat</code> to <code>Tomcat6\bin\tcat-service.bat</code></p>
+</li>
+<li>
+<p><code>TcatServer6\bin\catalina.bat</code> to <code>Tomcat6\bin\catalina.bat</code></p>
+</li>
+<li>
+<p><code>TcatServer6\bin\prunsrv64.exe</code> to <code>Tomcat6\bin\prunsrv64.exe</code></p>
+</li>
+<li>
+<p><code>TcatServer6\bin\prunsrv32.exe</code> to <code>Tomcat6\bin\prunsrv32.exe</code></p>
+</li>
+<li>
+<p><code>TcatServer6\bin\prunmgr.exe</code> to <code>Tomcat6\bin\TcatServerw.exe</code><br>
+Modify the service name in the destination filename if you are customizing the service name.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Open an administrator shell and change directory into your Tomcat&#8217;s <code>CATALINA_HOME</code> directory.</p>
+</li>
+<li>
+<p>Make sure that the <code>JAVA_HOME</code> or <code>JRE_HOME</code> (not both) environment variable is set properly to your choice of Java VM in the current shell environment. Take extra care to verify that it is set exactly right.</p>
+</li>
+<li>
+<p>Run the Tcat Windows service installer, passing the Windows service name you want to use for this Tcat Server installation, like this:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Tomcat 6&gt;cd bin
+Tomcat 6\bin&gt;tcat-service install TcatServer</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Carefully inspect the last line of the output of this command. If it results in an error such as "Failed installing 'TcatServer' service", then it is likely that you already have a service with that name installed, and you need to perform the above steps over with a different service name.</p>
+</div>
+</li>
+<li>
+<p>Copy the Tcat Server agent.war webapp archive into your Tomcat&#8217;s <code>webapps/</code> directory, assuming you have not already done so.</p>
+</li>
+<li>
+<p>Restart your Tomcat via the stock Tomcat windows service.
+After Tomcat restarts, use the Tcat Server console to register your Tomcat server. <strong>Do not restart it from the console yet!</strong></p>
+</li>
+<li>
+<p>In your stock Tomcat&#8217;s installation tree, edit the file <code>conf/Catalina/localhost/tcat-env.conf</code><br>
+If you are naming this server&#8217;s Tcat service name something other than the default "TcatServer" name, then change all occurrences of: <code>-Dtcat.service=TcatServer</code><br>
+to your customized service name. Don&#8217;t modify any other settings yet.</p>
+</li>
+<li>
+<p>Shut down your stock Tomcat windows service.</p>
+</li>
+<li>
+<p>Start your Tcat Server windows service by running this from your admin shell:</p>
+<div class="listingblock">
+<div class="content">
+<pre>Tomcat 6\bin&gt;tcat6 start</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or, if you&#8217;re customizing the service name, give your modified service name as a second argument:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Tomcat 6\bin&gt;tcat6 start MyServiceName</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it. Your Tomcat is now running as a Tcat Server windows service.</p>
+</div>
+<div class="paragraph">
+<p>From the Tcat console, the server should be available. Inspect it. Try a Tcat Server restart. Click the Restart Server button for this server. This should restart the new Tcat Server windows service, and bring it back up. From this point onwards, use only the Tcat Server console to restart your Tomcat server, or use the Tcat Server windows service (per the Tcat documentation), if you need to start, restart, or stop your Tomcat locally without the Tcat Server console. You should disable the stock Tomcat windows service by moving the <code>bin\tomcat6.exe</code> file to a different filename so that it is not accidentally used.</p>
+</div>
+<div class="paragraph">
+<p>Also, from this point onwards, make any environment variable changes only from the Tcat Server console or the Windows system properties control. Environment variable changes you make in the console get saved into your <code>tcat-env.conf</code> file, and are used during Tcat Server restarts.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add-tcat-agent-war-to-the-tomcat-installation-directory"><a class="anchor" href="#add-tcat-agent-war-to-the-tomcat-installation-directory"></a>Add Tcat agent.war to the Tomcat Installation Directory</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Follow these instructions if you are activating the Tcat agent in an installation of Tomcat that is <strong>not</strong> installed as a Windows service. This includes all operating systems.</p>
+</div>
+<div class="paragraph">
+<p>Copy the agent.war file from the TcatServer6/webapps directory of the Tcat Server installation into the webapps directory in your Apache Tomcat installation, for example on Windows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>C:\Program Files\apache-tomcat-6.0.26\webapps.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A few seconds after the Tcat agent web application starts on this server, you should be able to see it as a new Tomcat instance in the Unregistered Group of the Tcat Server Administration Console.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add-new-server-by-ip-address"><a class="anchor" href="#add-new-server-by-ip-address"></a>Add New Server by IP Address</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If the newly modified Tomcat server does not appear in the Administration Console, click  the New Server button in the upper right of the group list.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enter a Server Name and the Tcat Agent URL, click Add:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/addserver.png" alt="addserver">
+</div>
+</div>
+</li>
+<li>
+<p>The new server should now appear in the All Group of the Administration Console</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="register-the-unregistered-tomcat-server"><a class="anchor" href="#register-the-unregistered-tomcat-server"></a>Register the Unregistered Tomcat Server</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From the Administration Console, click  the Unregistered Group</p>
+</li>
+<li>
+<p>Select the new Apache Tomcat server from the list and click Register</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/regservr.png" alt="regservr">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add-server-to-group"><a class="anchor" href="#add-server-to-group"></a>Add Server to Group</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Optional</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From the Administration Console, select the server</p>
+</li>
+<li>
+<p>Click Add to Group and select the group from the pull down menu</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/addtogroup.png" alt="addtogroup">
+</div>
+</div>
+</li>
+<li>
+<p>Confirm the choice and wait for the Administration Console to refresh</p>
+</li>
+<li>
+<p>The server appears in the new group</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="troubleshooting"><a class="anchor" href="#troubleshooting"></a>Troubleshooting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you try to install the Tcat Server with the Administration Console on a machine that already has an installation of Apache Tomcat on it, you may have port conflicts.</p>
+</div>
+<div class="paragraph">
+<p>If so, consult this section of the <a href="installing-multiple-tcat-instances-on-a-single-machine.html">Tcat Server Installation documentation</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.mulesoft.com/tcat/download">Tcat Download</a></p>
+</li>
+<li>
+<p><a href="mailto:support@mulesoft.com">Contact MuleSoft</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="ldap, authentication, mmc">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/mule-management-console/3.3/enabling-ldap-authentication.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Enabling LDAP Authentication // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Mule Management Console</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-the-management-console.html">Installing the Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="quick-start-guide-to-mule-esb-server-and-the-management-console.html">Quick Start Guide to Mule ESB Server and the Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="architecture-of-the-management-console.html">Architecture of the Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="how-to-use-the-management-console.html">How to Use the Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-mule-server-instances.html">Working with Mule Server Instances</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-users.html">Setting Up Users</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-users-and-roles.html">Managing Users and Roles</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-alerts.html">Viewing Server Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-system-memory.html">Viewing System Memory</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-threads.html">Viewing Threads</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-pools.html">Viewing Server Pools</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="working-with-the-server-configuration-files.html">Working with the Server Configuration Files</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-properties.html">Viewing Server Properties</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-os-resources.html">Viewing Server OS Resources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-jmx-information.html">Viewing JMX Information</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="editing-server-settings.html">Editing Server Settings</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-server-metrics-dashboard.html">Customizing Server Metrics Dashboard</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="troubleshooting-tips.html">Troubleshooting Tips</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-and-debugging-applications.html">Monitoring and Debugging Applications</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-flows.html">Tracking Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="analyzing-message-flows.html">Analyzing Message Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-message-processing.html">Debugging Message Processing</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-the-loan-broker-example-application.html">Debugging the Loan Broker Example Application</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="adding-and-managing-alerts-and-slas.html">Adding and Managing Alerts and SLAs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="how-to-run-the-management-console.html">How to Run the Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="persisting-environment-data.html">Persisting Environment Data</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="persisting-transaction-data.html">Persisting Transaction Data</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="enabling-ldap-authentication.html">Enabling LDAP Authentication</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="defining-slas-and-alerts.html">Defining SLAs and Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="analyzing-business-events.html">Analyzing Business Events</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-and-querying-business-events.html">Tracking and Querying Business Events</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="business-events-use-cases.html">Business Events Use Cases</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="common-tasks.html">Common Tasks</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="managing-mule-high-availability-ha-clusters.html">Managing Mule High Availability (HA) Clusters</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-or-disbanding-a-cluster.html">Creating or Disbanding a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="configuring-mule-ha-clustering.html">Configuring Mule HA Clustering</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="deploying-redeploying-or-undeploying-an-application-to-or-from-a-cluster.html">Deploying, Redeploying, or Undeploying an Application To or From a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="monitoring-a-cluster.html">Monitoring a Cluster</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-management-console-api.html">Using the Management Console API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-alert-destinations-and-notifications.html">Setting Up Alert Destinations and Notifications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="accessing-server-logs.html">Accessing Server Logs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="audit-logs.html">Audit Logs</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="automating-tasks-using-scripts.html">Automating Tasks Using Scripts</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="customizing-the-dashboard.html">Customizing the Dashboard</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-management-console-for-performance-tuning.html">Using the Management Console for Performance Tuning</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-flows.html">Working with Flows</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="maintaining-the-server-application-repository.html">Maintaining the Server Application Repository</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="analyzing-flow-processing-and-payloads.html">Analyzing Flow Processing and Payloads</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="rest-api-reference.html">REST API Reference</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="clusters.html">Clusters</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="repository-of-applications.html">Repository of Applications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="server-groups.html">Server Groups</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="servers.html">Servers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="user-groups.html">User Groups</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="deployments.html">Deployments</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Enabling LDAP Authentication</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/mule-management-console-docs/edit/v3.3/modules/ROOT/content/enabling-ldap-authentication.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Enabling LDAP Authentication</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page applies to version 3.3 of the Mule Management Console, which we refer to throughout the document as “the console”, or "the Mule console". For information on enabling LDAP on version 3.2.x of the console, click <a href="../3.2/enabling-authentication-through-ldap.html">Enabling Authentication Through LDAP</a>.</p>
+</div>
+<div class="paragraph">
+<p>The Mule Management Console provides REST APIs for <a href="using-the-management-console-api.html">programmatic access to much of the console’s functionality</a>, including cluster management, applications, flows and deployments. You can also use the REST API to configure <a href="using-the-management-console-api.html">automated replication of LDAP user groups</a>.</p>
+</div>
+<div class="paragraph">
+<p>The Lightweight Directory Access Protocol (LDAP), is a public standard that facilitates distributed directories (such as network user privilege information) over the Internet Protocol (IP). The many available LDAP servers include free-use open source projects. The particulars of installing, running and configuring LDAP servers fall outside the scope of this document; however, this document does provide an example of a simple LDAP configuration, including basic instructions for installing and running an LDAP server on a Linux system.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="anchor" href="#overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can configure a Mule console to leverage an LDAP server for user authentication. In this use case, the LDAP server creates and manages users, and no information about users is stored on the console. Group information is managed both on the LDAP server and on the console.</p>
+</div>
+<div class="paragraph">
+<p>The following table lists user and group information, specifying where it is stored and managed:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Information</th>
+<th class="tableblock halign-left valign-top">Management and Storage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>User names and passwords</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>LDAP database</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Groups names and group members</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>LDAP database</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Groups names and group permissions</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Console</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Groups have to be created both on the LDAP server and on the console. When the console authenticates a user through LDAP, it requests the user&#8217;s group information from the LDAP server, and then assigns the appropriate permissions for the user based on the groups to which the user belongs.</p>
+</div>
+<div class="paragraph">
+<p>When using LDAP, the console needs to authenticate <em>itself</em> on the LDAP server to gain access to the LDAP database. The console needs to log in with a user account defined on the LDAP database. This user account can be any one of the accounts set up for users of the console, or it can be a separate account altogether (not belonging to any group) whose sole purpose is to authenticate the console.</p>
+</div>
+<div class="paragraph">
+<p>For example, you can create a user on the LDAP database called <code>mmc</code>, and configure the console to connect to the LDAP server using <code>mmc&#8217;s credentials. When a user logs into the console — as user `admin</code>, for example — the console first authenticates <em>itself</em> on the LDAP server using <code>mmc&#8217;s credentials, then it sends `admin&#8217;s credentials to the LDAP server. If `admin&#8217;s credentials are valid, the LDAP server provides the console with `admin&#8217;s group information. The console then grants appropriate permissions to `admin</code> in accordance with the permissions specified for the groups to which <code>admin</code> belongs.</p>
+</div>
+<div class="paragraph">
+<p>The last section of this document provides an <a href="#example-a-simple-ldap-setup">Example: A Simple LDAP Setup</a> detailing this configuration.</p>
+</div>
+<div class="paragraph">
+<p>To configure the console to authenticate users via LDAP, perform the following high-level tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#obtain-ldap-parameters">Obtain LDAP parameters</a></p>
+</li>
+<li>
+<p><a href="#set-up-users-and-groups-on-ldap">Set up users and groups on LDAP</a></p>
+</li>
+<li>
+<p><a href="#enabling-the-ldap-spring-profile">Enabling the LDAP Spring Profile</a></p>
+</li>
+<li>
+<p><a href="#enabling-ldap-on-the-console">Enabling LDAP on the console</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="obtain-ldap-parameters"><a class="anchor" href="#obtain-ldap-parameters"></a>Obtain LDAP parameters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ask your LDAP server administrator for the following information:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>The LDAP host and listening port</strong>. The host can be an IP address or hostname. Example: <code>192.168.1.14</code> on port <code>389</code>.</p>
+</li>
+<li>
+<p><strong>The LDAP user account credentials that the console uses to connect to LDAP</strong>. This is the user account configured on the LDAP server that allows the console access to the database storing information about the console users. Example: user: <code>mmc</code> password: <code>mmc123</code></p>
+</li>
+<li>
+<p><strong>Structure of the LDAP tree that stores user and group information for console users</strong>. This data provides the base context and attributes that the console uses to search within LDAP for users. The LDAP server administrator can export these values from the LDAP server onto a text file called an LDIF file (for LDAP Data Interchange Format). The <a href="#example-a-simple-ldap-setup">Example: A Simple LDAP Setup</a> provided in this document includes the LDIF export for the illustrated working configuration (see Populating the LDAP database by importing an LDIF file)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="set-up-users-and-groups-on-ldap"><a class="anchor" href="#set-up-users-and-groups-on-ldap"></a>Set up users and groups on LDAP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You must create all users on the LDAP server. In other words, it is not possible to create users on LDAP via the console, since the console can only read the LDAP database, and cannot write to it.</p>
+</div>
+<div class="paragraph">
+<p>User groups must be created on LDAP, and <em>also on the console</em>. As described above, group permissions are defined and stored on the console.</p>
+</div>
+<div class="paragraph">
+<p>The following table lists user- and group-related tasks, specifying whether they are performed on the console or the LDAP server (or both).</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Performed on the console</th>
+<th class="tableblock halign-left valign-top">Performed on the LDAP server</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create users</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set user passwords</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create groups</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Assign users to groups</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set group permissions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>You must create all console users under the same subtree of the LDAP database, since the console will search for these users under a single base context. For example, you can create all users under the same organizational unit. In such a case, all console users share the same Relative Distinguished Name (RDN), such as <code>ou=people,dc=company,dc=org</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="enabling-ldap-on-the-console"><a class="anchor" href="#enabling-ldap-on-the-console"></a>Enabling LDAP on the console</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You must enable LDAP on the console so that the console can authenticate users against the LDAP server. The procedure involves two steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#enabling-the-ldap-spring-profile">Enabling the LDAP Spring Profile</a></p>
+</li>
+<li>
+<p><a href="#creating-the-ldap-configuration-file">Creating the LDAP Configuration File</a></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>These steps involve the following two files:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>&lt;Mule install path&gt;/apps/mmc/webapps/mmc/WEB-INF/web.xml</code>, which instructs the console to enable the LDAP spring profile, which is necessary for LDAP authentication.</p>
+</li>
+<li>
+<p><code>&lt;Mule install path&gt;/apps/mmc/webapps/mmc/WEB-INF/classes/mmc-ldap.properties</code>, which contains the information necessary to connect to an LDAP server and to search for users on that server.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="enabling-the-ldap-spring-profile"><a class="anchor" href="#enabling-the-ldap-spring-profile"></a>Enabling the LDAP Spring Profile</h3>
+<div class="paragraph">
+<p>Complete the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the following directory: <code>&lt;Mule install path&gt;/apps/mmc/webapps/mmc/WEB-INF</code></p>
+</li>
+<li>
+<p>Locate the file <code>web.xml</code>.</p>
+</li>
+<li>
+<p>Open it with your favorite text editor, then locate the following line:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;param-name&gt;spring.profiles.active&lt;/param-name&gt;</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Modify the next line to include the LDAP Spring profile as a value:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;param-value&gt;tracking-h2,ldap&lt;/param-value&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-the-ldap-configuration-file"><a class="anchor" href="#creating-the-ldap-configuration-file"></a>Creating the LDAP Configuration File</h3>
+<div class="paragraph">
+<p>Complete the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the <code>classpath</code> directory: <code>&lt;Mule install path&gt;/apps/mmc/webapps/mmc/WEB-INF/classes</code></p>
+</li>
+<li>
+<p>Create a file called <code>mmc-ldap.properties</code>. This will be the LDAP configuration file.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For Tomcat, the classpath directory is <code>/lib</code>.
+. Include in this configuration file all the required parameters, substituting the values specific to your environment into the listing below:
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">providerURL=ldap://192.168.1.14:389/
+userDn=cn=mmc,dc=company,dc=com
+password=mmcadmin
+usernameAttribute=uid
+userSearchBaseContext=ou=people,dc=company,dc=com
+userSearchFilterExpression=(uid={0})
+userSearchBase=ou=people,dc=company,dc=com
+userSearchAttributeKey=objectclass
+userSearchAttributeValue=person
+roleDn=ou=groups,dc=company,dc=com
+groupSearchFilter=(member={0})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following table describes the properties set through the configuration file:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>providerURL</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>URL, including listening port, of the LDAP server</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>userDn</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Distinguished Name (DN) of the <em>console user</em>, i.e. the user the console uses to log in to the LDAP server and gain access to the LDAP database.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>password</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The password of the <em>console user</em>. This is the password property of the <code>initialDirContextFactory</code> bean.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>usernameAttribute</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Used to override the default value of the <code>usernameAttribute</code> parameter in <code>org.mule.galaxy.security.ldap.UserLdapEntryMapper</code>, which is required for ActiveDirectory configuration. The default is <code>uid</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>userSearchBaseContext</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The base context within the LDAP tree structure in which the console searches for users. This is the first <code>&lt;constructor-arg&gt;</code> of the <code>userSearch</code> bean.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>userSearchFilterExpression</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>A filter expression used to find entries in the LDAP database that match a particular user. For example, (uid={0}) looks for an entry whose <code>uid</code> attribute matches the user name as it was supplied to the console in the <strong>Username</strong> field at login. This is the second <code>&lt;constructor-arg&gt;</code> of the <code>userSearch</code> bean</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>userSearchBase</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The base context in the LDAP database in which the console will search for users. This is the (<code>userSearchBase</code> property of the <code>userManagerTarget</code> bean).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>userSearchAttributeKey</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The attribute used to search for users on the LDAP server. This is the (<code>userSearchAttributes</code> property of the <code>UserManagerTarget</code> bean).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>userSearchAttributeValue</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>This is the value of the attribute used to search for users on the LDAP server.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>roleDn</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The DN of the context used to search for groups to which the user belongs. This is the second &lt;constructor-arg&gt; of the <code>ldapAuthoritiesPopulator bean</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>groupSearchFilter</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>A filter expression that finds roles. For instance, <code>(member={0})</code> searches for groups inside the <code>groupSearchBase</code> that have an attribute called <code>member</code>, whose values contain the user name supplied to the console in the <strong>Username</strong> field at login. This is the <code>groupSearchFilter</code> property of the \{<code>ldapAuthoritiesPopulator</code>} bean.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>You can configure user and group search parameters to suit the structure of the LDAP database containing user entries.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementing-the-setup"><a class="anchor" href="#implementing-the-setup"></a>Implementing the Setup</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="method-one-authenticating-console-users"><a class="anchor" href="#method-one-authenticating-console-users"></a>Method One: Authenticating Console Users</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>On the LDAP server, create a group called <code>Administrators</code>.</p>
+</li>
+<li>
+<p>Define a user belonging to that group.</p>
+</li>
+<li>
+<p>Enable LDAP on the console.</p>
+</li>
+<li>
+<p>Log in to the console as the user who belongs to the <code>Administrators</code> group.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The console automatically assigns full administrative privileges to any user belonging to the group <code>Administrators</code>, so on login, you have full administrative privileges on the console. You can then create other groups on the console and assign the desired permissions. You preform all further user configuration, such as adding/removing users from groups, on the LDAP server. After this, you may remove the <code>Administrators</code> group from the LDAP server if you desire.</p>
+</div>
+<div class="sect3">
+<h4 id="using-the-console-s-administrator-role-to-set-up-groups"><a class="anchor" href="#using-the-console-s-administrator-role-to-set-up-groups"></a>Using the Console’s Administrator Role to Set Up Groups</h4>
+<div class="paragraph">
+<p>Assume that the domain for the LDAP database is <strong>company.com</strong>. Users are stored in the Organizational Unit <strong>people</strong>, and groups are stored in the Organizational Unit <strong>groups</strong>.</p>
+</div>
+<div class="paragraph">
+<p>On the LDAP server:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a user, for example <code>admin</code>. The DN of the user will be: <code>cn=admin,ou=people,dc=company,dc=com</code>.</p>
+</li>
+<li>
+<p>Set the user&#8217;s password.</p>
+</li>
+<li>
+<p>Create a group called <code>Administrators</code>. The DN of the group will be <code>cn=Administrators,ou=groups,dc=company,dc=com</code>.</p>
+</li>
+<li>
+<p>Set the attribute <code>member</code> of group <code>Administrators</code> to include user <code>admin</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>On the console:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Stop the console.</p>
+</li>
+<li>
+<p>Enable LDAP on the console (see instructions <a href="#enabling-ldap-on-the-console">Enabling LDAP on the console</a>).</p>
+</li>
+<li>
+<p>Re-start the console.</p>
+</li>
+<li>
+<p>Log in as user <code>admin</code>, using the password set on the LDAP server.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The console authenticates you as user <code>admin</code> on the LDAP server, belonging to the group <code>Administrators</code>. So after you log in, the Dashboard provides full functionality provided for users with administrative privileges:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/dashboard.jpg" alt="Dashboard">
+</div>
+</div>
+<div class="paragraph">
+<p>You can now create new groups, and modify the permissions of existing groups. To do so, click <strong>Manage Users and Permissions</strong> on the Dashboard, or click <strong>Administration</strong>, then <strong>User Groups</strong>.</p>
+</div>
+<div class="paragraph">
+<p>After creating/modifying groups to your desired configuration, you may remove the <code>Administrators</code> group from the LDAP server if desired.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="method-two-authenticating-console-users"><a class="anchor" href="#method-two-authenticating-console-users"></a>Method Two: Authenticating Console Users</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create all necessary users and groups on the LDAP server.</p>
+</li>
+<li>
+<p>Launch the console <em>without</em> LDAP enabled.</p>
+</li>
+<li>
+<p>Log in to the console.</p>
+</li>
+<li>
+<p>Create groups that match the groups already created on the LDAP server.</p>
+</li>
+<li>
+<p>Assign appropriate permissions to each group.</p>
+</li>
+<li>
+<p>Stop the console.</p>
+</li>
+<li>
+<p>Enable LDAP on the console.</p>
+</li>
+<li>
+<p>Restart the console, then log in.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="example-a-simple-ldap-setup"><a class="anchor" href="#example-a-simple-ldap-setup"></a>Example: A Simple LDAP Setup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This example illustrates a simple LDAP configuration, in which the LDAP server and the console exist on the same machine. Specifically, the exercise covers installation and basic configuration of an LDAP server on a Debian-based Linux system. To complete the steps described below, you should be familiar with software installation and configuration on Linux systems.</p>
+</div>
+<div class="sect2">
+<h3 id="the-environment"><a class="anchor" href="#the-environment"></a>The Environment</h3>
+<div class="paragraph">
+<p>This example was created using the following system specifications:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>O.S.: Linux (Xubuntu 12.04 LTS, based on Debian 7 “Wheezy/Sid”). Homepage: <a href="http://xubuntu.org" class="bare">http://xubuntu.org</a></p>
+</li>
+<li>
+<p>LDAP Server: OpenLDAP. Homepage: <a href="http://www.openldap.org" class="bare">http://www.openldap.org</a></p>
+</li>
+<li>
+<p>LDAP browser: Apache Directory Studio. Homepage: <a href="http://directory.apache.org/studio/" class="bare">http://directory.apache.org/studio/</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This example provides a basic overview of the following tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Download and install the OpenLDAP server and utilities</p>
+</li>
+<li>
+<p><a href="#downloading-and-installing-the-apache-directory-studio-ldap-browser">Downloading and installing the Apache Directory Studio LDAP browser</a></p>
+</li>
+<li>
+<p><a href="#configuring-the-ldap-server">Configuring the LDAP Server</a></p>
+</li>
+<li>
+<p>Create LDAP users and groups using Apache Directory Studio (or alternatively, create the users and groups by importing an LDIF file)</p>
+</li>
+<li>
+<p>Configure the console for use with LDAP</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="downloading-and-installing-the-openldap-server"><a class="anchor" href="#downloading-and-installing-the-openldap-server"></a>Downloading and installing the OpenLDAP server</h3>
+<div class="sect3">
+<h4 id="openldap-installation-options"><a class="anchor" href="#openldap-installation-options"></a>OpenLDAP installation options</h4>
+<div class="paragraph">
+<p>OpenLDAP is a free, open source LDAP server available for many platforms including most flavors of Unix, Linux, Mac OS X, and Windows. The easiest way to set up OpenLDAP is to install the appropriate packages within a Linux distribution such as Debian, Suse, Red Hat, etc.</p>
+</div>
+<div class="paragraph">
+<p>The OpenLDAP project distributes the software only in source form, which can be obtained <a href="http://www.openldap.org/software/download/">here</a>. Be sure to check the FAQ <a href="http://www.openldap.org/faq/data/cache/1.html">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, several third-party, prepackaged versions are available for download. Of these, the <a href="http://lirone.symas.net/symas-com/">Symas Corporation</a> includes a paid version for Microsoft Windows.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="installing-on-debian-based-linux-distributions"><a class="anchor" href="#installing-on-debian-based-linux-distributions"></a>Installing on Debian-based Linux distributions</h4>
+<div class="paragraph">
+<p>The OpenLDAP server and the client programs are available in separate packages, respectively called <code>slapd</code> and <code>ldap-utils</code>. The <code>ldap-utils</code> package includes client utilities such as <code>ldapadd</code> and <code>ldapmodify</code>, which allow you to read and manage LDAP databases via the command line.</p>
+</div>
+<div class="paragraph">
+<p>To install both packages, run the following command as root:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">apt-get install slapd ldap-utils</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Running commands as root on some Debian-based systems</strong>
+On some Debian-based systems such as Ubuntu or its derivatives, the usual procedure to run commands as root is to issue: <code>sudo &lt;command&gt;</code></p>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can become root by running (as a user properly authorized in the <code>/etc/sudoers</code> file) the following command: <code>sudo su -</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Another way to install OpenLDAP is to use a package manager such as <code>synaptic</code>, which provides a graphical interface to the system&#8217;s package database. <code>synaptic</code> is usually installed by default, and available on the system menu under <strong>System</strong> &gt; <strong>Synaptic Package Manager</strong>. In <code>synaptic</code>, select the packages <code>slapd</code> and <code>ldap-utils</code>, then apply the changes.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="downloading-and-installing-the-apache-directory-studio-ldap-browser"><a class="anchor" href="#downloading-and-installing-the-apache-directory-studio-ldap-browser"></a>Downloading and installing the Apache Directory Studio LDAP browser</h3>
+<div class="paragraph">
+<p>Apache Directory Studio is a free and open source, Eclipse-based LDAP browser and client for use with any LDAP server. It&#8217;s available for Mac OS X, Linux, and Windows. It can be downloaded directly from the project&#8217;s <a href="http://directory.apache.org/studio/">home page</a>. Sources are available on the <a href="http://directory.apache.org/studio/downloads.html">download page</a>.</p>
+</div>
+<div class="paragraph">
+<p>Installing Apache Directory Studio is very simple — just uncompress and unpack the install file and run the program binary. Installation instructions for each supported platform can be found <a href="http://directory.apache.org/studio/static/users_guide/apache_directory_studio/download_install.html">here</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Uncompressing and unpacking gzipped tar files</strong></p>
+</div>
+<div class="paragraph">
+<p>The Apache Studio installer file for linux is a gzipped tar file (<code>.tar.gz</code>). Most Linux file managers, such as <code>Nautilus</code> or <code>Thunar</code>, provide a way to uncompress and unpack these files using a graphical interface, usually by right-clicking the file and selecting <strong>Open with Archive Manager</strong> or a similar option. To decompress and unpack the file on the command line, navigate to the directory where the file was downloaded and run the following command: <code>tar zxvf &lt;file&gt;</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="network-configuration"><a class="anchor" href="#network-configuration"></a>Network Configuration</h3>
+<div class="paragraph">
+<p>For this example, we run the OpenLDAP server on the default port on the local machine.</p>
+</div>
+<div class="paragraph">
+<p>LDAP host: <code>127.0.0.1</code><br>
+ LDAP port: <code>389</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-the-ldap-server"><a class="anchor" href="#configuring-the-ldap-server"></a>Configuring the LDAP Server</h3>
+<div class="paragraph">
+<p>The OpenLDAP server runs as a daemon called <code>slapd</code>. After installing the distribution package, the daemon starts automatically with its default configuration, which it reads from the <code>/etc/slapd.d</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>In this example, we modify <code>slapd&#8217;s configuration to read its parameters from the system-wide LDAP configuration file, `/etc/ldap/ldap.conf</code>. We then modify this file to include the definition for the database containing the LDAP users. This includes four steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#Stopping the slapd daemon">[Stopping the slapd daemon]</a></p>
+</li>
+<li>
+<p>Modify slapd&#8217;s default parameters file, <code>/etc/default/slapd</code></p>
+</li>
+<li>
+<p>Modify the system-wide LDAP configuration file, <code>/etc/ldap/ldap.conf</code></p>
+</li>
+<li>
+<p>Restart the <code>slapd</code> daemon</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="stopping-the-code-slapd-code-daemon"><a class="anchor" href="#stopping-the-code-slapd-code-daemon"></a>Stopping the <code>slapd</code> daemon</h4>
+<div class="paragraph">
+<p>To verify that the <code>slapd</code> daemon is running, open a terminal and issue the following command: <code>ps aux | grep slapd</code></p>
+</div>
+<div class="paragraph">
+<p>If the daemon is running, the command will return something like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">openldap  1172  0.0  0.1 256916  4840 ?        Ssl  11:39   0:00 /usr/sbin/slapd -h ldap:/// ldapi:/// -g openldap -u openldap -F /etc/ldap/slapd.d</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the above appears, stop the daemon by issuing the following command as root: <code>service slapd stop</code></p>
+</div>
+<div class="paragraph">
+<p>Finally, verify that it has effectively stopped, by re-issuing the <code>ps aux</code> command.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="modifying-slapd-s-default-parameters-file"><a class="anchor" href="#modifying-slapd-s-default-parameters-file"></a>Modifying slapd&#8217;s default parameters file</h4>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+When you modify configuration files, you should backup the original file. For example, make a copy called <code>&lt;file&gt;.bak</code> or <code>&lt;file&gt;.orig</code> in the same directory.
+After stopping the <code>slapd</code> daemon, open the file <code>/etc/default/slapd</code> with a text editor. Find and replace the following entries, as shown below:
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Find the line that begins with <code>SLAPD_CONF</code>, and re-write it to read: <code>SLAPD_CONF=/etc/ldap/ldap.conf</code>
+This tells the <code>slapd</code> daemon to read its configuration from the system-wide LDAP configuration file, <code>/etc/ldap/ldap.conf</code>, which we will modify in the following step.</p>
+</li>
+<li>
+<p>Find the line that begins with <code>SLAPD_PIDFILE</code>, and re-write it to read: <code>(SLAPD_PIDFILE=/var/run/slapd.pid</code>
+This tells the daemon to write the its <strong>Process Identification Number</strong> (PID) to the file <code>/var/run/slapd.pid</code>. The daemon will not start without this setting.</p>
+</li>
+<li>
+<p>Find the line that begins with <code>SLAPD_SERVICES</code>, and re-write it to read: <code>SLAPD_SERVICES="ldap://0.0.0.0:389/"</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This instructs the daemon to listen on port <code>389</code> (the default port) on all network interfaces.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="modify-the-system-wide-ldap-configuration-file"><a class="anchor" href="#modify-the-system-wide-ldap-configuration-file"></a>Modify the System-wide LDAP Configuration File</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Backup the contents of the file <code>/etc/ldap/ldap.conf</code>.</p>
+</li>
+<li>
+<p>Replace the contents of the file with the contents listed below. (You will need to replace the contents of the <code>rootpw</code> field with your own password or hash.)</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">#
+# LDAP Defaults
+#
+
+# See ldap.conf(5) for details
+# This file should be world readable but not world writable.
+
+loglevel 256
+
+include /etc/ldap/schema/core.schema
+include /etc/ldap/schema/cosine.schema
+include /etc/ldap/schema/inetorgperson.schema
+include /etc/ldap/schema/openldap.schema
+include /etc/ldap/schema/misc.schema
+include /etc/ldap/schema/collective.schema
+include /etc/ldap/schema/dyngroup.schema
+
+modulepath /usr/lib/ldap
+moduleload back_bdb.la
+
+database bdb
+suffix "dc=company,dc=com"
+rootdn "cn=Manager,dc=company,dc=com"
+rootpw {MD5}n2Hfn6TPhHfYzebqdqm1XA==</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is a basic configuration file with only one database, which we&#8217;ve setup for this example.</p>
+</div>
+<div class="paragraph">
+<p>The following table describes LDAP configuration file parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Item</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>loglevel</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Specifies logging detail. Level 256 logs connection, operation and results statistics. On this system, by default <code>slapd</code> logs to <code>/var/log/syslog</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>modulepath</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Specifies a list of directories to search for loadable modules.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>moduleload</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Specifies the names of modules to load, which in this case is the <code>bdb</code> module for loading a Berkeley database.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>database</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Marks the beginning of a new database instance definition, starting with the database type.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>suffix</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The DN suffix of all queries that will be passed to the database.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>rootdn</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The DN of the root user of the database. This user has full right read-write access to the database. In this example, we employ this user to create entries for console users. The console itself only needs <code>read access</code> to the database. It can log in to LDAP as a different user.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>rootpw</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The password for the database root user. In this case, the file stores an MD5 hash of the password. Passwords can be stored in clear text, but this is a security risk since this configuration file is world-readable. Password hashes can be generated with the <code>slappasswd command</code>, as explained below.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>How to generate a hash for the database root user password (optional)</strong>
+As shown <a href="#EnablingLDAPAuthentication-System-wideLDAPconfigurationfile">above</a>, the LDAP configuration file stores the user name and password for the root user of the database. The password can be stored in clear text; however, this constitutes a security risk, since the LDAP configuration file is world-readable. To generate a hash for the password, run the following command: <code>slappasswd -h &lt;scheme&gt; -s &lt;secret&gt;</code></p>
+</div>
+<div class="paragraph">
+<p><code>&lt;scheme&gt;</code> is an RFC 2307 scheme such as {MD5}, {CRYPT} or {SSHA} (the default), and <code>&lt;secret&gt;</code> is the secret to hash. If invoked with no arguments, the command prompts for the secret and outputs the resulting {SSHA} hash.</p>
+</div>
+<div class="paragraph">
+<p>The output of this command should be similar to the following: \{<code>MD5}Xr4ilOzQ4PCOq3aQ0qbuaQ==</code></p>
+</div>
+<div class="paragraph">
+<p>This output can be copy-pasted into the LDAP configuration file for the <code>rootpw</code> field.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="test-the-ldap-server"><a class="anchor" href="#test-the-ldap-server"></a>Test the LDAP server</h4>
+<div class="paragraph">
+<p>To test the LDAP server, open a connection to the server and perform a search. To do this, issue the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">ldapsearch -x -b '' -s base '(objectclass=*)' namingContexts</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For this example, the command should return the following output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># extended LDIF
+#
+# LDAPv3
+# base &lt;&gt; with scope baseObject
+# filter: (objectclass=*)
+# requesting: namingContexts
+#
+
+#
+dn:
+namingContexts: dc=company,dc=com
+
+# search result
+search: 2
+result: 0 Success
+
+# numResponses: 2
+# numEntries: 1</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="create-ldap-database-entries"><a class="anchor" href="#create-ldap-database-entries"></a>Create LDAP database entries</h4>
+<div class="paragraph">
+<p>At this point, the LDAP server is running and an empty database has been created. We begin populating the database by creating the database root user, which is necessary for log in with Apache Studio and for adding database entries using its graphical interface.</p>
+</div>
+<div class="paragraph">
+<p>Create a text file with the following text:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">dn: dc=company,dc=com
+objectclass: dcObject
+objectclass: organization
+o: My Company
+dc: company
+
+dn: cn=Manager,dc=company,dc=com
+objectclass: organizationalRole
+cn: Manager</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+It is essential to check spacing when working with LDIF files. Be sure to leave only one blank line between entries (and no spaces or tabs in blank lines), and no spaces or tabs at the beginning or end of any line of text.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now, create the initial database entries with the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">ldapadd -x -D "cn=Manager,dc=company,dc=com" -W -f &lt;file&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command will prompt you for the root user&#8217;s password. Enter the password that you set in the system-wide LDAP configuration file.</p>
+</div>
+<div class="paragraph">
+<p>This command should return the following output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Enter LDAP Password:
+adding new entry "dc=company,dc=com"
+
+adding new entry "cn=Manager,dc=company,dc=com"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, the database root user, with DN “cn=Manager,dc=company,dc=com”, has been defined.</p>
+</div>
+<div class="paragraph">
+<p>We log in with this user in order to populate the database.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="populate-the-ldap-database"><a class="anchor" href="#populate-the-ldap-database"></a>Populate the LDAP database</h4>
+<div class="paragraph">
+<p>There are two methods for populating the LDAP database: manually defining each database object by means of a graphical user interface, or writing an LDIF file with the database object definitions, then importing the file into LDAP. This example describes both methods:</p>
+</div>
+<div class="paragraph">
+<p><a href="#populating-the-ldap-database-using-a-gui-apache-studio">Populating the LDAP database using a GUI (Apache Studio)</a><br>
+Populating the LDAP database by importing an LDIF file</p>
+</div>
+<div class="sect4">
+<h5 id="populating-the-ldap-database-using-a-gui-apache-studio"><a class="anchor" href="#populating-the-ldap-database-using-a-gui-apache-studio"></a>Populating the LDAP database using a GUI (Apache Studio)</h5>
+<div class="sect5">
+<h6 id="launch-apache-studio"><a class="anchor" href="#launch-apache-studio"></a>Launch Apache Studio</h6>
+<div class="paragraph">
+<p>Navigate to the directory where you decompressed the Apache Studio gzipped tar file. Open a terminal window and type:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">cd &lt;Apache Studio directory&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">cd ApacheDirectoryStudio-linux-x86_64-1.5.3.v20100330/</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+When using the terminal, pressing the Tab key will usually auto-complete the folder and file names.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Once in the directory, issue the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">./ApacheDirectoryStudio</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Apache Studio&#8217;s Welcome screen (usually a blank screen) appears.</p>
+</div>
+<div class="paragraph">
+<p>In order to begin populating the database, you must first create a connection to the database, which you accomplish by completing the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the <strong>LDAP</strong> menu, then click on <strong>New Connection</strong>. The <strong>Network Parameter</strong> window pops up.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/1-conn-parameters.png" alt="1-conn.parameters">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Fill in the required fields:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Connection name</strong>: Specify any meaningful name. For this example, we use <code>local</code>.</p>
+</li>
+<li>
+<p><strong>Hostname</strong>: Hostname or IP address of the LDAP server. In this example, it&#8217;s on localhost, <code>127.0.0.1</code>.</p>
+</li>
+<li>
+<p><strong>Port</strong>: In this example, port <code>389</code> (default for LDAP).</p>
+</li>
+<li>
+<p><strong>Encryption method</strong>: <code>No encryption</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>To test the connection, click on <strong>Check Network Parameter</strong>, then click <strong>Next</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you experience connection problems while trying to establish a connection to an LDAP server on a different host, issue a telnet command to port <code>389</code> on the LDAP host by running the following command: <code>telnet &lt;host&gt; &lt;port&gt;</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">telnet 192.168.1.14 389</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the connection is successful, output should resemble the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">syrah:~$ telnet 127.0.0.1 389
+Trying 127.0.0.1...
+Connected to 127.0.0.1.
+Escape character is '^]'.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On the other hand, a <code>Connection refused</code> error indicates that nothing is listening on the specified port. Any other result may indicate a network issue, such as a firewall between your machine and the LDAP host.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>After setting network parameters, the wizard takes you to the <strong>Authentication</strong> window:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/2-auth-user.png" alt="2-auth_user">
+</div>
+</div>
+<div class="paragraph">
+<p>Enter the required information:</p>
+</div>
+<div class="paragraph">
+<p><strong>Authentication Method</strong>: <code>Simple authentication</code>.
+ <strong>Bind DN or user</strong>: The root user of the database, as defined on the LDAP configuration file and created with the LDIF import described above. In this case, <strong>cn=Manager,dc=company,dc=com</strong>.
+ <strong>Bind password</strong>: The password for the database root user, as defined on the LDAP configuration file.</p>
+</div>
+<div class="paragraph">
+<p>Click <strong>Check Authentication</strong> to verify authentication, then click <strong>Finish</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Apache Directory Studio is now connected to the LDAP server. The <strong>LDAP Browser</strong> pane displays a top-level entry called <strong>DIT</strong> (Directory Information Tree). Click the arrow next to <strong>DIT</strong> to expand the contents of the database. At this point, the database only contains one object: the root user, Manager.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/4-initial-db-objects.png" alt="4-initial_DB_objects">
+</div>
+</div>
+<div class="paragraph">
+<p>===== Creating organizational units</p>
+</div>
+<div class="paragraph">
+<p>We create two organizational units (ou): <strong>groups</strong>, for storing group definitions; and <strong>people</strong>, for storing user definitions.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the <strong>LDAP Browser</strong> pane, right-click the domain entry for the database, <strong>dc=company,dc=com</strong>.</p>
+</li>
+<li>
+<p>On the pop-up menu, click <strong>New</strong>, then select <strong>New Entry</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Entry Creation Method</strong> window, click <strong>Create entry from scratch</strong>, then click <strong>Next</strong>. The wizard takes you to the <strong>Object Classes</strong> window:</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/5-create-obj-wizard-ob-classes.png" alt="5-create_obj_wizard-ob_classes">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the <strong>Available object classes</strong> input box, begin typing <strong>OrganizationalUnit</strong>. The search box automatically selects available objects that match your search.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/6-create-obj-wizard-ob-classes.png" alt="6-create_obj_wizard-ob_classes">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click <strong>OrganizationalUnit</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Add</strong>, then click <strong>Next</strong>. The next window is the <strong>Distinguished Name</strong> window:</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/7-create-obj-wizard-dn.png" alt="7-create_obj_wizard-DN">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the <strong>RDN</strong> field, enter <strong>ou</strong>, then press <strong>Enter</strong>.</p>
+</li>
+<li>
+<p>In the <strong>=</strong> field, enter <strong>groups</strong>. When you do so, the <strong>DN Preview</strong> window fills automatically with the <strong>Distinguished Name</strong> of the entry you are creating, in this case <code>ou=groups,dc=company,dc=com</code>.</p>
+</li>
+<li>
+<p>Click <strong>Next</strong>. The wizard takes you to the <strong>Attributes</strong> pop-up window:</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/8-create-obj-wizard-attrs.png" alt="8-create_obj_wizard-attrs">
+</div>
+</div>
+<div class="paragraph">
+<p>The window displays the list of attributes of the object just created.
+. Click <strong>Finish</strong> to write the changes to the LDAP database. An object of type OrganizationalUnit called <code>groups</code>, with DN <code>ou=groups,dc=company,dc=com</code>, is created, and it appears in the <strong>LDAP Browser</strong> pane.</p>
+</div>
+<div class="paragraph">
+<p>Repeat the above process, creating a new OrganizationalUnit object called <strong>people</strong>.</p>
+</div>
+<div class="paragraph">
+<p>===== Creating users</p>
+</div>
+<div class="paragraph">
+<p>At this point, the LDAP database contains the root user plus two empty organizational units called <code>groups</code> and <code>people</code>. We next create the entries for three users, all under the <code>people</code> organizational unit.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">User</th>
+<th class="tableblock halign-left valign-top">User&#8217;s function in this configuration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>mmc</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Allow the console to authenticate <em>itself</em> on LDAP, to gain read access to the database. The credentials for this user are stored in the console&#8217;s LDAP configuration file, <code>mmc-ldap.properties</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>admin</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>This is a console user. It will be a member of the <code>Administrators</code> group, and have full administrative privileges on the console.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>testuser1</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>This is a console user with limited permissions, created for this example.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The procedure for creating users is the same as that for creating groups. The values (object type and attributes) differ, of course.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right-click the <strong>ou=people</strong> entry in the LDAP tree, select <strong>New</strong>, then <strong>New Entry</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Object Classes</strong> window, select <strong>inetOrgPerson</strong>, then click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Distinguished Name</strong> window, type <code>cn</code> into the <strong>RDN</strong> field, then press <strong>Enter</strong>.</p>
+</li>
+<li>
+<p>In the <strong>=</strong> field, enter <code>mmc</code>. When you do so, the <strong>DN Preview</strong> window should fill automatically with the <strong>Distinguished Name</strong> of the entry you are creating, in this case <code>cn=mmc,ou=people,dc=company,dc=com</code>.</p>
+</li>
+<li>
+<p>Press <strong>Next</strong>.</p>
+</li>
+<li>
+<p>When the <strong>Attributes</strong> window prompts you to specify a value for the <strong>sn</strong> field, right-click the <strong>sn</strong> field, then select <strong>Edit Value</strong>. Type <strong>mmc</strong>, then click <strong>Finish</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The <code>mmc</code> user has been created with the following attributes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>objectClass: <code>inetOrgPerson</code></p>
+</li>
+<li>
+<p>objectClass: <code>organizationalPerson</code></p>
+</li>
+<li>
+<p>objectClass: <code>person</code></p>
+</li>
+<li>
+<p>objectClass: <code>top</code></p>
+</li>
+<li>
+<p>cn: <code>mmc</code></p>
+</li>
+<li>
+<p>sn: <code>mmc</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You must add two more attributes:</p>
+</div>
+<div class="paragraph">
+<p>uid: <code>mmc</code>
+userPassword: <code>mmc123</code></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To add these attributes, click the <strong>New Attribute</strong> icon (highlighted below).</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/9-create-obj-wizard-user-attrs.png" alt="9-create_obj_wizard-user_attrs">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the <strong>Attribute Type</strong> window input box, type <code>uid</code> (or select <strong>uid</strong> from the drop-down menu by clicking the arrow to the right of the input box).</p>
+</li>
+<li>
+<p>Click <strong>Next</strong>, then <strong>Finish</strong>.</p>
+</li>
+<li>
+<p>Type <strong>mmc</strong>, then press <strong>Enter</strong>.</p>
+</li>
+<li>
+<p>Click on the <strong>New Attribute</strong> icon again, then type or select <strong>userPassword</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Options</strong> window, click <strong>Finish</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/10-create-obj-wizard-user-pass.png" alt="10-create_obj_wizard-user_pass">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When prompted for the new password, type <strong>mmc123</strong> (or another password of your choice; you will have to specify this same password in the console&#8217;s <code>mmc-ldap.properties</code> file) in the <strong>Enter New Password</strong> field.</p>
+</li>
+<li>
+<p>In the <strong>Select Hash Method</strong> menu, select <strong>Plaintext</strong>, then click <strong>OK</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>User <code>mmc</code> has now been defined with all the attributes that will be employed in this example configuration.</p>
+</div>
+<div class="paragraph">
+<p>Repeat the above procedure to create users <strong>admin</strong> and <strong>testuser1</strong>, assigning the passwords of your choice. These passwords will be entered by the users when logging into the console.</p>
+</div>
+<div class="paragraph">
+<p>===== Creating and Defining the Administrators Group</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>On the <strong>LDAP Browser</strong> pane, right-click on the <strong>ou=groups</strong> entry in the directory tree.</p>
+</li>
+<li>
+<p>Select <strong>New</strong>, then <strong>New Entry</strong>.</p>
+</li>
+<li>
+<p>Following the same procedure for creating organizational units and users, define an entry with the following attributes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>objectClass: <code>groupOfNames</code></p>
+</li>
+<li>
+<p>cn: <code>Administrators</code></p>
+</li>
+<li>
+<p><code>member: cn=admin,ou=people,dc=company,dc=com</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>After you have defined the <strong>cn</strong> attribute, the object creation wizard prompts you to enter a value for the <strong>member</strong> attribute. This is the DN of the user that will belong to the <code>Administrators</code> group. You can either type the DN of the user (see above) or click <strong>Browse</strong> to select the user from the database:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/11-create-obj-wizard-groupmember.png" alt="11-create_obj_wizard-groupmember">
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see, group membership is not stored with the user&#8217;s definition, but with the definitions of the groups to which the user belongs. If you want more than one user to belong to the group, use the <strong>New Attribute</strong> icon, (see above) to add more attributes to the group, completing these steps as well:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>select <strong>member</strong> as the attribute type.</p>
+</li>
+<li>
+<p>select the additional user that will be a member of the group.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When a user logs in to the console, the console first asks the LDAP server to verify the user name and password, and then requests a list of the groups that the user belongs to. The parameters for this search are defined in the following line on the <code>mmc-ldap.properties</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">groupSearchFilter=(member={0})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>===== Creating and defining a test user and group</p>
+</div>
+<div class="paragraph">
+<p>Following the procedures outlined above, create a user called <strong>testuser1</strong> and a group called <strong>testgroup</strong>, with <code>testuser1</code> as member of the group.</p>
+</div>
+<div class="paragraph">
+<p>==== Configure the console for LDAP</p>
+</div>
+<div class="paragraph">
+<p>Follow the procedure outlined <a href="#enabling-ldap-on-the-console">Enabling LDAP on the console</a> to Enable LDAP on the console. For this example, the contents of the <code>mmc-ldap.properties</code> file are as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">providerURL=ldap://127.0.0.1:389/
+userDn=cn=mmc,ou=people,dc=company,dc=com
+password=mmc123
+userSearchBaseContext=ou=people,dc=company,dc=com
+userSearchFilterExpression=(uid={0})
+userSearchBase=ou=people,dc=company,dc=com
+userSearchAttributeKey=objectclass
+userSearchAttributeValue=person
+roleDn=ou=groups,dc=company,dc=com
+groupSearchFilter=(member={0})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>===== Test console logins</p>
+</div>
+<div class="paragraph">
+<p>Start the console and log in as user <strong>admin</strong>, using the password set in LDAP when creating the user. Since user <code>admin</code> is a member of the Administrators group, the console has given the user the default set of full administrative permissions for the group. On log in, the console displays the Dashboard, which exposes full functionality for members of the group.</p>
+</div>
+<div class="paragraph">
+<p>Once logged in to the console, verify that the console has correctly read all users from the LDAP server. To do this, click <strong>Administration</strong>. You should see a list of all the users created on the LDAP database, in this case, <code>mmc</code>, <code>admin</code> and <code>testuser1</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/12-mmc-userlist.png" alt="12 mmc userlist">
+</div>
+</div>
+<div class="paragraph">
+<p>Create a group called <strong>testgroup</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the <strong>Manage</strong> pane on the left-hand side of the screen.</p>
+</li>
+<li>
+<p>Click <strong>User Groups</strong>.</p>
+</li>
+<li>
+<p>Click <strong>New</strong> on the right hand of the screen, then enter:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>group <strong>Name</strong></p>
+</li>
+<li>
+<p><strong>Description</strong> (if desired)</p>
+</li>
+<li>
+<p>set the permissions.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For this test group, set the following permissions:</p>
+</div>
+<div class="paragraph">
+<p><strong>Applications - View</strong>
+ <strong>Deployments - View</strong>
+ <strong>Flows - View</strong>
+ <strong>Tracking - View</strong>
+ <strong>Files - View</strong>
+ <strong>Servers - View</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Server Group Permissions</strong>: All</p>
+</div>
+<div class="paragraph">
+<p>Log out of the console, then log back in as <strong>testuser1</strong>. The console displays the Dashboard, but with limited options matching the limited permissions of group <code>testgroup</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/13-mmc-limited-dashboard.png" alt="13-mmc-limited_dashboard">
+</div>
+</div>
+<div class="paragraph">
+<p>==== Where to Go from Here</p>
+</div>
+<div class="paragraph">
+<p>You can create new users and groups on LDAP and assign members to the groups. Then, on the console, set the desired permissions for each group. You can then remove the <code>Administrators</code> group from LDAP, if desired.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+After modifying the LDAP database, restart the console to allow it to re-read the contents of the LDAP database.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>=== Alternative Method of Populating the LDAP Database: Importing an LDIF file</p>
+</div>
+<div class="paragraph">
+<p>To automatically create database objects in LDAP, you first define the objects in an LDIF file, then import the file into LDAP with the <code>ldapadd</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Below you will find the LDIF file for all of the database user and group objects created in this example. If you wish to automatically replicate this user and group configuration into your LDAP database, copy-paste the below code into a plain text file, then import the file with the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">ldapadd -x -D "cn=Manager,dc=company,dc=com" -W -f &lt;file&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may wish to modify the <code>userPassword</code> values before importing.</p>
+</div>
+<div class="paragraph">
+<p>LDIF file contents:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">dn: ou=groups,dc=company,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: groups
+
+dn: ou=people,dc=company,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: people
+
+dn: cn=Administrators,ou=groups,dc=company,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: Administrators
+member: cn=admin,ou=people,dc=company,dc=com
+
+dn: cn=admin,ou=people,dc=company,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: admin
+sn: admin
+uid: admin
+userPassword: mmcadmin
+
+dn: cn=Developers,ou=groups,dc=company,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: Developers
+member: cn=admin,ou=people,dc=company,dc=com
+
+dn: cn=testuser1,ou=people,dc=company,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: testuser1
+sn: testuser1
+uid: testuser1
+userPassword: testuser1123
+
+dn: cn=testgroup,ou=groups,dc=company,dc=com
+objectClass: groupOfNames
+objectClass: top
+cn: testgroup
+member: cn=testuser1,ou=people,dc=company,dc=com
+
+dn: cn=mmc,ou=people,dc=company,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: mmc
+sn: mmc
+uid: mmc
+userPassword: mmc123</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>=== Basic Logging of LDAP Events</p>
+</div>
+<div class="paragraph">
+<p>By default, the LDAP server logs events to <code>/var/log/syslog</code>. In case of authentication issues, check this log for details.</p>
+</div>
+<div class="paragraph">
+<p>Below is an extract of the log, showing events logged by <code>slapd</code> when a user logs into the console. There are two <code>BIND</code> operations (user authentications) to the LDAP server; the first occurs when the console starts and authenticates itself (See: the second and third lines in the extract below). After establishing the context base for searching, LDAP searches for <code>user admin</code>, authenticates the user, then searches for the groups the user belongs to.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Jun  6 17:02:21 syrah slapd[1099]: conn=1007 fd=15 ACCEPT from IP=127.0.0.1:34467 (IP=0.0.0.0:389)
+Jun  6 17:02:21 syrah slapd[1099]: conn=1007 op=0 BIND dn="cn=mmc,ou=people,dc=company,dc=com" method=128
+Jun  6 17:02:21 syrah slapd[1099]: conn=1007 op=0 BIND dn="cn=mmc,ou=people,dc=company,dc=com" mech=SIMPLE ssf=0
+Jun  6 17:02:21 syrah slapd[1099]: conn=1007 op=0 RESULT tag=97 err=0 text=
+Jun  6 17:02:21 syrah slapd[1099]: conn=1007 op=1 SRCH base="ou=people,dc=company,dc=com" scope=2 deref=3 filter="(uid=admin)"
+Jun  6 17:02:21 syrah slapd[1099]: &lt;= bdb_equality_candidates: (objectClass) not indexed
+Jun  6 17:02:21 syrah slapd[1099]: &lt;= bdb_equality_candidates: (uid) not indexed
+Jun  6 17:02:21 syrah slapd[1099]: conn=1007 op=1 SEARCH RESULT tag=101 err=0 nentries=1 text=
+Jun  6 17:02:21 syrah slapd[1099]: conn=1008 fd=16 ACCEPT from IP=127.0.0.1:34468 (IP=0.0.0.0:389)
+Jun  6 17:02:21 syrah slapd[1099]: conn=1008 op=0 BIND dn="cn=admin,ou=people,dc=company,dc=com" method=128
+Jun  6 17:02:21 syrah slapd[1099]: conn=1008 op=0 BIND dn="cn=admin,ou=people,dc=company,dc=com" mech=SIMPLE ssf=0
+Jun  6 17:02:21 syrah slapd[1099]: conn=1008 op=0 RESULT tag=97 err=0 text=
+Jun  6 17:02:21 syrah slapd[1099]: conn=1008 op=1 SRCH base="cn=admin,ou=people,dc=company,dc=com" scope=0 deref=3 filter="(objectClass=*)"
+Jun  6 17:02:21 syrah slapd[1099]: conn=1008 op=1 SEARCH RESULT tag=101 err=0 nentries=1 text=
+Jun  6 17:02:21 syrah slapd[1099]: conn=1008 op=2 UNBIND
+Jun  6 17:02:21 syrah slapd[1099]: conn=1008 fd=16 closed
+Jun  6 17:02:21 syrah slapd[1099]: conn=1007 op=2 SRCH base="ou=groups,dc=company,dc=com" scope=2 deref=3 filter="(member=cn=admin,ou=people,dc=company,dc=com)"
+Jun  6 17:02:21 syrah slapd[1099]: conn=1007 op=2 SRCH attr=cn objectClass javaSerializedData javaClassName javaFactory javaCodeBase javaReferenceAddress javaClassNames javaRemoteLocation</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

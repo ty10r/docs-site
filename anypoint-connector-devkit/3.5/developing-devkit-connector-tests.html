@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-connector-devkit/3.8/developing-devkit-connector-tests.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Developing DevKit Connector Tests // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="setup.html">Setup</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-your-dev-environment.html">Setting Up Your Development Environment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-your-api-access.html">Setting up your API access</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="authentication.html">Authentication</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="basic-auth.html">Basic Auth</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="oauth-v1.html">OAuth V1</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="oauth-v2.html">OAuth V2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="authentication-methods.html">Authentication Method</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="defining-attributes-operations-and-data-model.html">Defining Attributes Operations and Data Model</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-message-sources.html">Defining Message Sources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-message-processors.html">Creating Message Processors</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-connector-attributes.html">Defining Connector Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="complex-data-types-attributes.html">Complex Data Types Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense.html">Adding DataSense</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense-query-language.html">Adding DataSense Query Language</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-query-pagination-support.html">Adding Query Pagination Support</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="building-a-batch-enabled-connector.html">Building a Batch Enabled Connector</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-and-testing-your-connector-in-studio.html">Installing and Testing Your Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-reference-documentation.html">Creating Reference Documentation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="packaging-your-connector-for-release.html">Packaging Your Connector for Release</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="implementing-a-rest-connector.html">Implementing a REST Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="annotation-reference.html">Annotation Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="anypoint-connector-examples.html">Anypoint Connector Examples</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="barn-connector.html">Barn Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-using-a-java-client-library.html">Creating a Connector Using a Java Client Library</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-soap-service-via-cxf-client.html">Creating a Connector for a SOAP Service Via CXF Client</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-restful-api-using-jersey.html">Creating a Connector for a RESTful API Using Jersey</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-restful-api-using-restcall-annotations.html">Creating a Connector for a RESTful API using @RESTCall Annotations</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Developing DevKit Connector Tests</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs/edit/v3.5/modules/ROOT/content/developing-devkit-connector-tests.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Developing DevKit Connector Tests</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>While DevKit doesn&#8217;t enforce writing tests, you should develop unit and functional tests for your connector as part of the development process. A connector should not be considered production-ready without a test suite.</p>
+</div>
+<div class="paragraph">
+<p>While testing strategy may vary extensively based on your specific needs, this document introduces the basics of what Mule and DevKit make available to support testing efforts.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes that you:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Installed the Anypoint Connector DevKit Plugin as described in <a href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a></p>
+</li>
+<li>
+<p>Are familiar with Anypoint Studio</p>
+</li>
+<li>
+<p>Are familiar with Maven build manager for Java</p>
+</li>
+<li>
+<p>Are ready to prepare a test suite for your new connectors</p>
+</li>
+<li>
+<p>Are familiar with jUnit - The Regression and Smoke Test scaffolds make calls to jUnit</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="areas-to-test"><a class="anchor" href="#areas-to-test"></a>Areas to Test</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Incorporate these tests in your test suite:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Input data validation:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Run consistency checks on the inputs if your connector accepts user parameters or parameters from another application. Parameters taken by the cloud service may be optional, while others must adhere to certain rules.</p>
+</li>
+<li>
+<p>Implement unit tests that assign valid or invalid inputs to each of your connector&#8217;s methods, and check that the input validation responds accordingly.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>API Interaction</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Handle connection or communication errors if your connector communicates over the Internet with a remote service, typically by either retrying or by throwing a clear exception.</p>
+</li>
+<li>
+<p>Test error handling regardless of the type of error handling strategy you choose.</p>
+</li>
+<li>
+<p>Mock up testing a Web service.</p>
+</li>
+<li>
+<p>Point the connector to your test endpoint instead of a production target so that you can more easily reproduce error conditions like timeouts or connection loss.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Mule ESB Integration:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Cover all operations in your connector&#8217;s test suite&#8212;&#8203;test every operation and parameter at least once.</p>
+</li>
+<li>
+<p>Pass in and receive all reasonable inputs and outputs for each operation.</p>
+</li>
+<li>
+<p>Pay special attention to covering complex data types passed into and received from operations in XML, since these can be tricky.</p>
+</li>
+<li>
+<p>Test the use of default and optional parameter values in the XML to make sure they behave as expected.</p>
+</li>
+<li>
+<p>Test cases where you expect the connector to raise exceptions.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Studio Integration:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Test your connector&#8217;s appearance and usability in Studio.</p>
+</li>
+<li>
+<p>Include the behavior and prompts in the properties dialog, tooltips generated from your Javadoc comments, etc. The only way to test this is to manually use the connector in Studio.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="generate-tests-scaffold"><a class="anchor" href="#generate-tests-scaffold"></a>Generate Tests Scaffold</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A test scaffold is a set of Java files that appear under src/test/java after you use Anypoint Studio to generate tests. Studio generates these files:</p>
+</div>
+<div class="paragraph">
+<p>Test Runners - Runs sets of test cases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Regression test suite file - You can use this code to uncover new bugs by comparing the previous state of the connector to the current. If this is the first time run, it finds new bugs.</p>
+</li>
+<li>
+<p>Smoke test suite file - Reveals simple issues such as "does this feature run?" that you can use to ensure that the basic behavior of your connector functions as expected.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Regression and Sanity Test Levels:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Test case automation Java files - Scaffolds tests for each method in your connector.</p>
+</li>
+<li>
+<p>Optional test data files - Provides test data for your connector.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To create a test case scaffold:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right-click your project in Package Explorer and click <strong>Anypoint Connector</strong> &gt; <strong>Generate Tests</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/generatetests.png" alt="GenerateTests">
+</div>
+</div>
+</li>
+<li>
+<p>Click the methods that you want to create a test scaffold for, or click <strong>Select All</strong>. The wizard displays choices from methods in your application, for example, this application contains many methods:<br></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/testscaffoldinggeneration.png" alt="TestScaffoldingGeneration">
+</div>
+</div>
+</li>
+<li>
+<p>Click  <strong>Generate Test Case Scaffolding</strong> to create the scaffold files.</p>
+</li>
+<li>
+<p>Click additional choices if you want Studio to create test data that you can use to test your connector:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Generate Functional Test Data Files</strong></p>
+</li>
+<li>
+<p><strong>Generate Interop Test Data Files</strong></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Click <strong>Finish</strong>. Studio creates files that appear in Package Explorer under src/test/java.</p>
+</li>
+<li>
+<p>Add your code to the scaffolded tests. To run your tests, see <a href="#running-generated-tests">Running Generated Tests</a>.</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="example-scaffold-file"><a class="anchor" href="#example-scaffold-file"></a>Example Scaffold File</h3>
+<div class="paragraph">
+<p>Test example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.mule.modules.automation.testcases;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+public class EnterTimeOffTestCases
+    extends myTestParent
+{
+
+    @Before
+    public void setup() {
+        //TODO: Add setup required to run test or remove method
+        initializeTestRunMessage("enterTimeOffTestData");
+    }
+    @After
+    public void tearDown() {
+        //TODO: Add code to reset sandbox state to the one before the test was run or remove
+    }
+    @Category({
+        RegressionTests.class,
+        SmokeTests.class
+    })
+    @Test
+    public void testEnterTimeOff()
+        throws Exception
+    {
+        Object result = runFlowAndGetPayload("enter-time-off");
+        throw new RuntimeException("NOT IMPLEMENTED METHOD");
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can replace the "TODO" statements with code for your tests.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="testing-procedure"><a class="anchor" href="#testing-procedure"></a>Testing Procedure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Anypoint Connector DevKit&#8217;s testing procedure provides these features.</p>
+</div>
+<div class="sect2">
+<h3 id="objectives"><a class="anchor" href="#objectives"></a>Objectives</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Automation test suite integrated to the connector.</p>
+</li>
+<li>
+<p>Real sandbox and Mule server is used when running the tests.</p>
+</li>
+<li>
+<p>Automation test suite maintenance should be minimal.</p>
+</li>
+<li>
+<p>Outdated automation suites don&#8217;t affect development.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="test-creation-criteria"><a class="anchor" href="#test-creation-criteria"></a>Test Creation Criteria</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Launches and completes a Mule instance for each test ensuring isolation from the rest of the suite.</p>
+</li>
+<li>
+<p>setUp() method creates the test fixture prior to running the actual test. Entities are created specifically for testing an operation.</p>
+</li>
+<li>
+<p>Test data values, used as input for the test, are kept separated from tests, as beans in a Spring file.</p>
+</li>
+<li>
+<p>Tests should be flexible enough to support all possible entities and amount of them (if applicable) and should only have to be updated if business logic changes happen on the operation or the operation itself is modified (for example, a signature change).</p>
+</li>
+<li>
+<p>One Mule flow for each operation. Java code to glue operations into more complex use cases.</p>
+</li>
+<li>
+<p>Tests should clean up after themselves. Sandbox is left in the state prior to running the test.</p>
+</li>
+<li>
+<p>Tests should only test one thing at a time.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="coverage-categories"><a class="anchor" href="#coverage-categories"></a>Coverage Categories</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Smoke suite ensures tests preconditions are met for a Regression run.</p>
+</li>
+<li>
+<p>Regression suite includes at least one test case for each operation. Input on this kind of tests is taken from the Mule Message and thus they&#8217;re fully parameterized and their data can be modified from the AutomationSpringBeans.xml file.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="test-creation-criteria-coverage-categories"><a class="anchor" href="#test-creation-criteria-coverage-categories"></a>Test Creation Criteria - Coverage Categories</h3>
+<div class="sect3">
+<h4 id="mule-connector-test-framework"><a class="anchor" href="#mule-connector-test-framework"></a>mule-connector-test framework</h4>
+<div class="sect4">
+<h5 id="objectives-2"><a class="anchor" href="#objectives-2"></a>Objectives</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Consistent test suite implementation through the different connectors business models.</p>
+</li>
+<li>
+<p>Increase code reusability.</p>
+</li>
+<li>
+<p>Improved test case readability by encapsulating complexities.</p>
+</li>
+<li>
+<p>Reduce maintenance cost.</p>
+</li>
+<li>
+<p>Robustness by isolating test suite implementation from Mule classes changes.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="concepts"><a class="anchor" href="#concepts"></a>Concepts</h5>
+<div class="paragraph">
+<p>Use cases are built as a sequence of connector operations calls. Prior to running a use case a TestRunMessage is initialized and loaded with data required by the use case. Once an operation is invoked the content of the TestRunMessage is turned into a MuleEvent and then consumed by the operation. Asserts are then applied to the payload of the operation under test.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="maven-dependency"><a class="anchor" href="#maven-dependency"></a>Maven Dependency</h5>
+<div class="paragraph">
+<p>mule-devkit-parent contains the framework version property (that can, if necessary, be overridden on the connector pom) and its dependency node.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">   ...
+&lt;properties&gt;
+   ...
+   &lt;connector.test.version&gt;2.0.6&lt;/connector.test.version&gt;
+&lt;/properties&gt;
+&lt;!-- Mule Connector Test Framework --&gt;
+&lt;dependency&gt;
+   &lt;groupId&gt;org.mule.modules&lt;/groupId&gt;
+   &lt;artifactId&gt;mule-connector-test&lt;/artifactId&gt;
+   &lt;version&gt;${connector.test.version}&lt;/version&gt;
+   &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+   ...</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="framework-and-test-suite-components"><a class="anchor" href="#framework-and-test-suite-components"></a>Framework and Test Suite Components</h3>
+<div class="sect3">
+<h4 id="connectortestcase-class"><a class="anchor" href="#connectortestcase-class"></a>ConnectorTestCase Class</h4>
+<div class="paragraph">
+<p>ConnectorTestCase class inherits from <strong>org.mule.tck.junit4.FunctionalTestCase</strong> and wraps <code>FunctionalTestCase</code> methods in methods that facilitate automating connectors operations use cases and enforce a uniform approach on the construction of test suites. ConnectorTestCase is by <em>&lt;Connector&gt;TestParent.java</em> and this class becomes the parent test class for all of the test cases.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="connectortestutils-class"><a class="anchor" href="#connectortestutils-class"></a>ConnectorTestUtils Class</h4>
+<div class="paragraph">
+<p>Provides methods for working with NullPayload, initialization of random test data and also date manipulation on the Spring file. Also enhances the exception message that&#8217;s displayed for more accurate debugging.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="connector-testparent-class"><a class="anchor" href="#connector-testparent-class"></a>&lt;Connector&gt;TestParent Class</h4>
+<div class="paragraph">
+<p>Extends the ConnectorTestCase class and might be used to override default framework configuration settings, add OAuth capabilities, implement helper methods, or store global settings for example to test run time out rules.</p>
+</div>
+<div class="paragraph">
+<p>Common use cases of the service can be defined as this class methods in order to make them available to the rest of the test suite. This would make tests more readable and related to the specific domain of the connector.</p>
+</div>
+<div class="paragraph">
+<p>All TestCases classes must extend from this TestParent.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="operationname-testcases-class"><a class="anchor" href="#operationname-testcases-class"></a>&lt;OperationName&gt;TestCases Class</h4>
+<div class="paragraph">
+<p><strong>Note</strong>: Do not run automation tests automatically by Maven as they require credentials.</p>
+</div>
+<div class="paragraph">
+<p>Each operation on the connector has its <em>&lt;OperationName&gt;TestCases.java</em> class that contains its related test cases. The sequence of operations called along the @Before, @Test, @After cycle make an operation use case.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">...
+public class &lt;OperationName&gt;TestCases extends &lt;ConnectorName&gt;TestParent {
+   // Private attributes used as auxiliary fields for storing test run values
+   private Integer leadRecordId;
+
+   // Create the test fixture
+   @Before
+   public void setUp() throws Exception {
+     ...
+   }
+
+   // Return the sandbox to its original state
+   @After
+   public void tearDown() throws Exception {
+      ...
+   }
+
+   // Invoke the flow of operations under test and asserts on its payload
+   @Category({SmokeTests.class, RegressionTests.class})
+   @Test
+   public void test&lt;operationName&gt;() {
+      try {
+         ...
+      } catch (Exception e) {
+         fail(ConnectorTestUtils.getStackTrace(e));
+      }
+   }
+}
+...</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="test-resources"><a class="anchor" href="#test-resources"></a>Test Resources</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>AutomationSpringBeans.xml</strong> - Contains the maps and POJOs required by the tests to run.</p>
+</li>
+<li>
+<p><strong>automation-test-flows.xml</strong> - A collection of flows (each containing a connector operation) that are going to be invoked on the tests.</p>
+</li>
+<li>
+<p><strong>automation-credentials.properties</strong> - Stores the connector credentials and authenticated user related information.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="test-runners"><a class="anchor" href="#test-runners"></a>Test Runners</h3>
+<div class="paragraph">
+<p>Different sets of tests can be run with the aid of runners. This is the reason test cases are classified into two categories:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Smoke</strong>: Tests that verify operations used on @Before and @After methods, thus assuring that it makes sense to run the test suite.</p>
+</li>
+<li>
+<p><strong>Regression</strong>: Positive test on which operation attributes are passed from Message.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="suite-implementation"><a class="anchor" href="#suite-implementation"></a>Suite Implementation</h3>
+<div class="sect3">
+<h4 id="test-development-environment-set-up"><a class="anchor" href="#test-development-environment-set-up"></a>Test Development Environment Set Up</h4>
+<div class="paragraph">
+<p>After building the connector, add <em>target/generated-sources/mule</em> to the project build path, it might be necessary to add additional generated sources to the build path depending on the connector (such as <em>target/generated-sources/cxf</em>).</p>
+</div>
+<div class="paragraph">
+<p>Also, if the connector is <strong>Standard</strong>, remember to add a muleLicenseKey.lic to the src/test/resources folder and to remove it prior to committing your changes.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="packages-and-files"><a class="anchor" href="#packages-and-files"></a>Packages and Files</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><em>org.mule.modules.&lt;connector-project&gt;.automation</em> contains the &lt;Connector&gt;TestParent and the SmokeTests and RegressionTests categories interfaces.</p>
+</li>
+<li>
+<p><em>org.mule.modules.&lt;connector-project&gt;.automation.testrunners</em> contains the runners (RegressionTestSuite, SmokeTestSuite).</p>
+</li>
+<li>
+<p><em>org.mule.modules.&lt;connector-project&gt;.automation.testcases</em> contains the functional test cases exclusively.</p>
+</li>
+<li>
+<p><em>&lt;connector-project&gt;/src/test/resources</em> contains automation flows, credentials and Spring beans files:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>AutomationSpringBeans.xml</p>
+</li>
+<li>
+<p>automation-test-flows.xml</p>
+</li>
+<li>
+<p>automation-credentials.properties</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="automation-flows"><a class="anchor" href="#automation-flows"></a>Automation Flows</h4>
+<div class="paragraph">
+<p>For each operation a maximum of two flows is placed on the automation-test-flows. One for mandatory attributes (this will test that no mandatory argument was left unimplemented on the connector) and if applicable another with all attributes (mandatory and optional, to build a more general case on the operation).</p>
+</div>
+<div class="sect4">
+<h5 id="automation-test-flows-xml-and-operation-attributes"><a class="anchor" href="#automation-test-flows-xml-and-operation-attributes"></a>automation-test-flows.xml and Operation Attributes</h5>
+<div class="paragraph">
+<p>Each operation on the connector has at least a corresponding flow on the automation-test-flows file. The flow and its associated operation should be thought of as resources that can be called from multiple tests. Flow names should be the same as the operation they contain or at least start with the name of the operation they contain, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="&lt;operation-name&gt;" doc:name="&lt;operation-name&gt;"&gt;
+   &lt;marketo:&lt;operation-name&gt; config-ref="&lt;ConfigName&gt;"
+     doc:name="&lt;operation-name&gt;"  ... /&gt;
+&lt;/flow&gt;
+&lt;flow name="&lt;operation-name&gt;-&lt;particular-case&gt;" doc:name="&lt;operation-name&gt;"&gt;
+   &lt;marketo:&lt;operation-name&gt; particularCaseAttribute="#[flowVars.attributeName]"
+     config-ref="&lt;ConfigName&gt;" doc:name="&lt;operation-name&gt;"  ... /&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Operation attributes are to be populated in this fashion:</p>
+</div>
+<div class="paragraph">
+<p><code>attributeName="#[flowVars.attributeName]"</code></p>
+</div>
+<div class="paragraph">
+<p>Or this other case:</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;taleo:&lt;entityName&gt; ref="#[flowVars.&lt;entityName&gt;Ref]"/&gt;</code></p>
+</div>
+<div class="paragraph">
+<p>In the case of being given the choice of passing non-primitive types (for example, POJOs, <code>List&lt;POJOs&gt;</code>, <code>Map&lt;POJOs&gt;</code>, etc.) either from the payload, by reference, or by manually creating it using Anypoint Studio, either taking the value from the payload or by reference should be selected.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;!-- mobjects value passed by as reference --&gt;
+&lt;flow name="sync-mobjects" doc:name="sync-mobjects"&gt;
+   &lt;marketo:sync-mobjects config-ref="Marketo"  doc:name="Sync MObjects"
+     operation="#[flowVars.operation]" type="#[flowVars.type]"&gt;
+   &lt;marketo:mobjects ref="#[flowVars.mobjectsRef]"/&gt;
+   &lt;/marketo:sync-mobjects&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;!-- mobject value taken from payload --&gt;
+&lt;flow name="sync-mobjects" doc:name="sync-mobjects"&gt;
+   &lt;marketo:sync-mobjects config-ref="Marketo"  doc:name="Sync MObjects"
+     operation="#[flowVars.operation]" type="#[flowVars.type]"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="keeping-updated-headers"><a class="anchor" href="#keeping-updated-headers"></a>Keeping Updated Headers</h4>
+<div class="paragraph">
+<p>Change the connector version to <strong>current</strong> to avoid the configuration xml to get broken, e.g. from <em><a href="http://www.mulesoft.org/schema/mule/taleo/1.0-SNAPSHOT/mule-taleo.xsd" class="bare">http://www.mulesoft.org/schema/mule/taleo/1.0-SNAPSHOT/mule-taleo.xsd</a></em> to <em><a href="http://www.mulesoft.org/schema/mule/taleo/current/mule-taleo.xsd" class="bare">http://www.mulesoft.org/schema/mule/taleo/current/mule-taleo.xsd</a></em>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="credentials"><a class="anchor" href="#credentials"></a>Credentials</h4>
+<div class="paragraph">
+<p>Connector credentials should be picked from the automation-credential.properties file during test development or if tests are to be run from within Eclipse. Populate the config element field with placeholders: <code>configRefAttribute="${serviceName.configRefAttribute}"</code></p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;marketo:config name="Marketo" userId="${marketo.userId}"
+ key="${marketo.key}" endpointUrl="${marketo.endpointUrl}" doc:name="Marketo"&gt;
+   &lt;marketo:connection-pooling-profile initialisationPolicy="INITIALISE_ONE"
+     exhaustedAction="WHEN_EXHAUSTED_GROW"/&gt;
+&lt;/marketo:config&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create a property placeholder that references automation-credentials.properties or add <code>xmlns:context="http://www.springframework.org/schema/context"</code> as an attribute of the Mule node as one of its child node:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;context:property-placeholder location="automation-credentials.properties" /&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Prior to committing, change the location value to the following to run the suites from the console or build plan by passing the URL where the automation-credentials.properties are stored:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;context:property-placeholder location="${&lt;CONNECTOR_NAME&gt;_CREDENTIALS}" /&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="test-data-using-spring-beans"><a class="anchor" href="#test-data-using-spring-beans"></a>Test Data Using Spring Beans</h4>
+<div class="paragraph">
+<p>AutomationSpringBeans stores the test data required for each test to run.</p>
+</div>
+<div class="paragraph">
+<p>The most common case is to have a <strong>&lt;testMethod&gt;TestData</strong> map containing all the primitive values or bean references for a specific test. For more complex cases, additional beans for the test may be required besides the main "TestData" map.</p>
+</div>
+<div class="paragraph">
+<p>The approach is that each test has its set of dedicated test values, hence the convention. Reusing the same bean on different test results in them being coupled; if some specific data setup is desired for a particular test, changes might end up producing an unexpected behavior on others.</p>
+</div>
+<div class="paragraph">
+<p>By convention all bean IDs related to an operation should begin with the operation name followed by the bean class. This avoids name conflicts and make clear on which operation this bean is used.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;!--  get-lead --&gt;
+&lt;bean id="testGetLeadLeadKey" class="com.marketo.mktows.LeadKey"&gt;
+   &lt;property name="keyType"&gt;
+      &lt;util:constant static-field="com.marketo.mktows.LeadKeyRef.IDNUM" /&gt;
+   &lt;/property&gt;
+&lt;/bean&gt;
+
+&lt;util:map id="testGetLeadLeadRecord" scope="prototype"&gt;
+   &lt;entry key="City" value="city" /&gt;
+   &lt;entry key="Company" value="company_title" /&gt;
+   &lt;entry key="Country" value="country" /&gt;
+   &lt;entry key="FirstName" value="first_name" /&gt;
+   &lt;entry key="LastName" value="last_name" /&gt;
+   &lt;entry key="MobilePhone" value="cell_phone" /&gt;
+   &lt;entry key="Phone" value="work_phone" /&gt;
+   &lt;entry key="State" value="state" /&gt;
+   &lt;entry key="Title" value="job_title" /&gt;
+&lt;/util:map&gt;
+
+&lt;!--  testGetLead method TestData map --&gt;
+&lt;util:map id="testGetLeadTestData" scope="prototype"&gt;
+   &lt;entry key="type" value="LeadRecord" /&gt;
+&lt;/util:map&gt;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In spring use <em>scope="prototype"</em> (if applicable) to ensure values from previous tests (ids, etc) are not reused in the following tests.</p>
+</li>
+<li>
+<p>"TestData" map can be used to store expected results for a test in case the expected value relates to the data been passed to them.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;util:map id="createBatchAttendeeListTestData" map-class="java.util.HashMap"
+  key-type="java.lang.String" value-type="java.lang.Object" scope="prototype"&gt;
+  &lt;entry key="payloadContent" value-ref="attendeeBatch"/&gt;
+  &lt;entry key="batchType" value="CREATE"/&gt;
+  &lt;entry key="expectedRecordsSucceeded" value="2"/&gt;
+&lt;/util:map&gt;
+@Test
+public void testCreateBatchAttendeeList() {
+   ...
+  assertEquals(payload.getRecordsSucceeded(),
+    getTestRunMessageValue("expectedRecordsSucceeded"));
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="relevant-cases-derived-from-data"><a class="anchor" href="#relevant-cases-derived-from-data"></a>Relevant Cases Derived From Data</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Attribute types or entity members that are non primitive values (for example, an entity having a date field or complex types).</p>
+</li>
+<li>
+<p>Wildcards and special characters on queries.</p>
+</li>
+<li>
+<p>Output entities, for example, list containing different types of records.</p>
+</li>
+<li>
+<p>If client operation has not merely been wrapped, exercise connector custom code through a more complex test data setup for the test. An example of this are methods that receive a data representation object and return a concrete instance (<em>Hint: Check the developer’s unit tests</em>).</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>ConcreteInstance fromMap(Map&lt;String,Object&gt; mapRepresentation)</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="fields-with-unique-values"><a class="anchor" href="#fields-with-unique-values"></a>Fields With Unique Values</h4>
+<div class="paragraph">
+<p>Generate entity fields that contain unique values dynamically in order to make the automation runs more robust. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;bean id="randomEmailAddress"
+  class="org.mule.modules.tests.ConnectorTestUtils"
+  factory-method="generateRandomEmailAddress"
+  scope="prototype" /&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="date-generation-common-cases"><a class="anchor" href="#date-generation-common-cases"></a>Date Generation Common Cases</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;bean id="xmlGregorianCalendarDateInThePast"
+ class="org.mule.modules.tests.ConnectorTestUtils"
+ factory-method="generateXMLGregorianCalendarDateForYesterday"
+ scope="prototype" /&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="user-related-data"><a class="anchor" href="#user-related-data"></a>User Related Data</h4>
+<div class="paragraph">
+<p>Use the automation-credentials.properties files in conjunction with AutomationSpringBeans.xml to test user related operations.</p>
+</div>
+<div class="sect4">
+<h5 id="automation-credentials-properties"><a class="anchor" href="#automation-credentials-properties"></a>automation-credentials.properties</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">taleo.username=username
+taleo.password=password
+taleo.companyCode=companyCode
+taleo.userId=42</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="automationspringbeans"><a class="anchor" href="#automationspringbeans"></a>AutomationSpringBeans</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"&gt;
+  &lt;property name="location"&gt;
+    value&gt;automation-credentials.properties&lt;/value&gt;
+  &lt;/property&gt;
+&lt;/bean&gt;
+&lt;!-- search-user  --&gt;
+&lt;util:map id="testSearchUserTestData" map-class="java.util.HashMap"
+  key-type="java.lang.String" value-type="java.lang.Object" scope="prototype"&gt;
+  &lt;entry key="expectedUserId" value="${taleo.userId}" /&gt;
+  &lt;entry key="searchParams" value-ref="searchUserSearchParams" /&gt;
+&lt;/util:map&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="test-methods"><a class="anchor" href="#test-methods"></a>Test Methods</h3>
+<div class="sect3">
+<h4 id="naming-conventions-for-test-methods"><a class="anchor" href="#naming-conventions-for-test-methods"></a>Naming Conventions for Test Methods</h4>
+<div class="paragraph">
+<p>Use a single flow and pass attributes values as null. No need to have two flows with different sets of attributes.</p>
+</div>
+<div class="paragraph">
+<p>Base test cases names can be extended to cover particular cases, for example:</p>
+</div>
+<div class="paragraph">
+<p><code>testMandatoryAttributes_UPDATEbatchType</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="testmandatoryattributes_-particularcase"><a class="anchor" href="#testmandatoryattributes_-particularcase"></a>testMandatoryAttributes_&lt;particularCase&gt;</h4>
+<div class="paragraph">
+<p>Each class should declare a <code>nullifyOptionalAttributes()</code> method if applicable:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">private void nullifyOptionalAttributes() {
+            upsertOnTestRunMessage("parentCode", null);
+            upsertOnTestRunMessage("filter", null);
+    }
+    @Category({RegressionTests.class})
+    @Test
+    public void testOnlyMandatory() {
+        nullifyOptionalAttributes();
+        ListItems listItems = null;
+        try {
+            listItems = runFlowAndGetPayload("get-list-items");
+        } catch (Exception e) {
+            fail(ConnectorTestUtils.getStackTrace(e));
+        }
+        assertTrue(listItems.getListItem().size() &gt; 0);
+        Iterator&lt;ListItem&gt; iterator = listItems.getListItem().iterator();
+        while (iterator.hasNext()) {
+            ListItem listItem = iterator.next();
+            assertTrue(listItem.getItemsLink().contains(listID));
+        }
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Call this method after initializing the TestRunMessage and prior to an operation under test invocation.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="testoptionalattributes_-particularcase"><a class="anchor" href="#testoptionalattributes_-particularcase"></a>testOptionalAttributes_&lt;particularCase&gt;</h4>
+<div class="paragraph">
+<p>Most general case, generally applies filter to the responses test.</p>
+</div>
+<div class="paragraph">
+<p>Use a <code>&#x0023;{null}</code> expression to handle the different cases in the AutomationSpringBeans file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;util:map id="getListItemsTestData" map-class="java.util.HashMap"
+    key-type="java.lang.String" value-type="java.lang.Object" scope="prototype"&gt;
+    &lt;entry key="parentCode" value="#{null}"/&gt;
+    &lt;entry key="filter" value="#{null}"/&gt;
+ &lt;/util:map&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="negative-cases"><a class="anchor" href="#negative-cases"></a>Negative Cases</h3>
+<div class="sect3">
+<h4 id="good-test-case-qualities"><a class="anchor" href="#good-test-case-qualities"></a>Good Test Case Qualities</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Flexibility: all data setup changes (for example, entity type changes) can be performed from the Spring file without modifying the tests.</p>
+</li>
+<li>
+<p>Only runtime generated values should be handled in the test, everything else should be declared in the AutomationSpringBeans file.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">DeleteRecord deleteUserRecordRequest = new DeleteRecord();
+deleteUserRecordRequest.setSysId(userSysId);
+upsertPayloadContentOnTestRunMessage(deleteUserRecordRequest);
+runFlowAndGetPayload("delete-user-record");</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Extensibility: test cases can be used for any amount of entities and also apply validations to any kind of output.</p>
+</li>
+<li>
+<p>@Test should not start with any kind of preparation prior to calling the operation under test. That should fall under the @Before method. Ideally test should call the flow of the operation under test, assert the result, and, if applicable, set data required for the @After method.</p>
+</li>
+<li>
+<p>Assertions are applied to values on the responses, avoid using the assertNotNull assertion.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If a message processor returns an object that can contain null field values, it is acceptable to perform an assertNotNull on the field followed by the functional assertion on the field. This avoids failures being logged as errors.</p>
+</div>
+<div class="paragraph">
+<p>If a message processor has void as return type and the payload was not used to pass data to it you can use the <code>org.mule.modules.tests.ConnectorTestUtils.assertNullPayload(Object)</code> assertion.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">GetResponse getResponse = runFlowAndGetPayload("get-user");
+assertEquals(userSysId, getResponse.getSysId());
+assertEquals(expectedName, getResponse.getName());</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If void is returned by the operation under test, auxiliary calls to other operations can be made to verify that changes took effect.</p>
+</li>
+<li>
+<p>As last resort, group sets of void operations by a test case to validate that an exception is not returned by their usage.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="test-fixture-and-teardown"><a class="anchor" href="#test-fixture-and-teardown"></a>Test Fixture and tearDown</h4>
+<div class="paragraph">
+<p>Request test data and perform use case preparation logic on the @Before methods. @Test method should contain if possible only a single flow call (the one that relates to the operation under test) and the assertions on its payload. On the @After method the changes on the sandbox should be reverted.</p>
+</div>
+<div class="paragraph">
+<p>The framework enforces:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The data consumed by the operation under test must be taken from the TestRunMessage. This implies that the TestRunMessage has to always initialize at some point prior to the invocation of the flow containing the operation.</p>
+</li>
+<li>
+<p>Additional flows can be invoked without altering the TestRunMessage by using:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">runFlowAndGetMessage(String flowName, String beanId)
+runFlowAndGetPayload(String flowName, String beanId)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Runtime values can be added to the TestRunMessage to prepare the data for the operation under test.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Before
+  public void setUp() throws Exception {
+     HashMap&lt;String, Object&gt;
+     leadRecord = getBeanFromContext("listOperationMObject");
+     initializeTestRunMessage(leadRecord);
+     // allows updating leadRecord with values from operation responses
+     ...
+  }</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>"Operation under test" test data needs to be composed from setUp responses.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="errors-and-failures"><a class="anchor" href="#errors-and-failures"></a>Errors and Failures</h4>
+<div class="paragraph">
+<p>Fixture and tearDown throw an exception so that unexpected errors on their logic or calls list as errors on the test and not as a failure.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Before
+ public void setUp() throws Exception {
+    // setUp logic
+ }</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+public void setUp() throws Exception {
+  // Setup logic
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If an exception is thrown on the @Test the test is listed as failed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Category({SmokeTests.class, RegressionTests.class})
+@Test
+public void test&lt;operationName&gt;() {
+      try {
+         ...
+      } catch (Exception e) {
+         fail(ConnectorTestUtils.getStackTrace(e));
+      }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="test-cases-classification"><a class="anchor" href="#test-cases-classification"></a>Test Cases Classification</h3>
+<div class="paragraph">
+<p>Tests are categorized using @Category annotation on top of the test method signatures.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Category({SmokeTests.class, RegressionTests.class})
+@Test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tests for operations that are used on the @Before or @After are to be marked as SmokeTests.</p>
+</div>
+<div class="sect3">
+<h4 id="test-runners-2"><a class="anchor" href="#test-runners-2"></a>Test Runners</h4>
+<div class="paragraph">
+<p>One for each test case type (SmokeTest, RegressionTest). Place in the the org.mule.modules.&lt;connector&gt;.automation.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@RunWith(Categories.class)
+@IncludeCategory(RegressionTests.class)
+@SuiteClasses({
+      // All &lt;operation&gt;TestCases classes within the automation.testcases package
+      AppendTestCases.class,
+      DeleteDirectoryTestCases.class,
+      ...
+   })
+public class RegressionTestSuite {
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="testing-inbound-endpoints"><a class="anchor" href="#testing-inbound-endpoints"></a>Testing Inbound Endpoints</h4>
+<div class="paragraph">
+<p>For now, inbound endpoint testing must be done by adding a <a href="../../mule-runtime/3.5/transports/vm-transport-reference.html">VM endpoint</a> in the flow that has the inbound endpoint we want to test. A VM endpoint is essentially an in-memory queue (hence the name VM, because they are handled by the JVM) addressable by URL that stores messages until they are processed. By storing the messages received by the inbound endpoint in a VM queue, we can retrieve them in the test case and make assertions on them.</p>
+</div>
+<div class="paragraph">
+<p>For example, if we wanted to test SQS’s Receive Messages operation, we would need two flows: a flow that actually sends the message, and another flow with the Receive Messages inbound endpoint, as such:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="send-message" doc:name="SendMessage"&gt;
+     &lt;sqs:send-message config-ref="Sqs"
+      message="#[flowVars.message]"
+      queueUrl="#[flowVars.queueUrl]"
+      /&gt;
+&lt;/flow&gt;
+
+&lt;flow name="receive-message" doc:name="receive-message"&gt;
+&lt;sqs:receive-messages config-ref="Sqs" queueUrl="#[flowVars.queueUrl]"/&gt;
+...
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To actually get the messages to use in our test, add a VM endpoint to the flow:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="receive-message" doc:name="receive-message"&gt;
+      &lt;sqs:receive-messages config-ref="Sqs"
+        queueUrl="#[flowVars.queueUrl]"/&gt;
+      &lt;vm:outbound-endpoint path="receive"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use the VM endpoint, add it as a Maven dependency to your project:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.mule.transports&lt;/groupId&gt;
+  &lt;artifactId&gt;mule-transport-vm&lt;/artifactId&gt;
+  &lt;version&gt;${mule.version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Also, update XML schemas and namespaces. See the <a href="../../mule-runtime/3.5/transports/vm-transport-reference.html">VM endpoint documentation</a> for details.</p>
+</div>
+<div class="paragraph">
+<p>In your test case, use the runFlowAndWaitForResponseVM method. The important thing to note here is the path of the queue. A simple test for these flows is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public void testReceiveMessages() throws Exception {
+    String message = "Hello world";
+    upsertOnTestRunMessage("message", message);
+    String response = runFlowAndWaitForResponseVM("send-message", "receive", 500L);
+    assertEquals(message, response);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The parameters for runFlowAndWaitForResponseVM are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The flow to run</p>
+</li>
+<li>
+<p>The VM queue to wait for messages on</p>
+</li>
+<li>
+<p>How long to wait (in milliseconds) before timing out and throwing an exception.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This information can also be seen in the Javadoc for this method.</p>
+</div>
+<div class="paragraph">
+<p>This is a preliminary way to implement this functionality because ideally there should be no need to manually add endpoints to flows in order to test them.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="oauth-authentication-setup"><a class="anchor" href="#oauth-authentication-setup"></a>OAuth Authentication Setup</h4>
+<div class="paragraph">
+<p>The accessToken has to be manually generated and then passed along with the credentials to the service in order to run the test suite.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s use Facebook as example:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Manually get the access token per Facebook&#8217;s <a href="https://developers.facebook.com/tools/explorer">Graph API Explorer</a>.</p>
+</li>
+<li>
+<p>Add an accessToken property to automation-credentials.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">facebook.username=&lt;usernameValue&gt;
+facebook.appId=&lt;appIdValue&gt;
+facebook.appSecret=&lt;appSecretValue&gt;
+facebook.domain=&lt;domainValue&gt;
+facebook.localPort=&lt;localPortValue&gt;
+facebook.remotePort=&lt;remotePortValue&gt;
+facebook.path=&lt;pathValue&gt;
+facebook.accessToken=&lt;generatedAccessToken&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add FacebookConnectorOAuthState bean to AutomationSpringBeans.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"&gt;
+      &lt;property name="location"&gt;
+            &lt;value&gt;automation-credentials.properties&lt;/value&gt;
+      &lt;/property&gt;
+&lt;/bean&gt;
+&lt;bean id="connectorOAuthState" class="org.mule.module.facebook.oauth.FacebookConnectorOAuthState" &gt;
+       &lt;property name="accessToken" value="${facebook.accessToken}" /&gt;
+&lt;/bean&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>In <strong>&lt;connectorName&gt;TestParent</strong>, after initializing the muleContext, add a FacebookConnectorOAuthState instance to the Object Store:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Before
+    public void init() throws ObjectStoreException {
+      ObjectStore objectStore = muleContext.getRegistry().lookupObject(MuleProperties.DEFAULT_USER_OBJECT_STORE_NAME);
+      objectStore.store("accessTokenId",
+        (FacebookConnectorOAuthState) context.getBean("connectorOAuthState"));
+    }</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add <code>accessTokenId="accessTokenId"</code> to the operations in automation-test-flows. This value is resolved by the ObjectStore.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;facebook:config-with-oauth name="Facebook"
+  appId="${facebook.appId}"
+  appSecret="${facebook.appSecret}"
+  doc:name="Facebook"&gt;
+&lt;facebook:oauth-callback-config domain="${facebook.domain}"
+  localPort="${facebook.localPort}"
+  remotePort="${facebook.remotePort}"
+  path="${facebook.path}"/&gt;
+&lt;/facebook:config-with-oauth&gt;
+&lt;flow name="get-user" doc:name="get-user"&gt;
+  &lt;facebook:get-user config-ref="Facebook"
+    user="#[flowVars.username]"
+    accessTokenId="accessTokenId"
+    doc:name="Facebook" /&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="running-the-suites"><a class="anchor" href="#running-the-suites"></a>Running the Suites</h3>
+<div class="paragraph">
+<p>From the console:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">export CO_CREDENTIALS=http://&lt;ip&gt;/automation/co/automation-credentials.mvnproperties
+mvn -Dtest=SmokeTestSuite test
+mvn -Dtest=GetDailyTrendsTestCases#testGetDailyTrendsParametrized test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">mvn -Dtest=SmokeTestSuite -Dmule.test.timeoutSecs=180 -DCO=http://&lt;ip&gt;/automation/co/automation-credentials.properties test</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="debugging-tests"><a class="anchor" href="#debugging-tests"></a>Debugging Tests</h3>
+<div class="sect3">
+<h4 id="setting-test-timeout"><a class="anchor" href="#setting-test-timeout"></a>Setting Test Timeout</h4>
+<div class="paragraph">
+<p>Either in the &lt;ConnectorName&gt;TestParent:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">// Sets global timeout
+    @Rule
+    public Timeout globalTimeout = new Timeout(300000);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or if using Eclipse in Preferences &gt; Java &gt; Installed JREs, edit the JRE and add -<code>Dmule.test.timeoutSecs=300</code> to the default VM arguments.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="viewing-inbound-and-outbound-messages-in-cxf"><a class="anchor" href="#viewing-inbound-and-outbound-messages-in-cxf"></a>Viewing Inbound and Outbound Messages in CXF</h4>
+<div class="paragraph">
+<p>Place the following files into /&lt;connector-project&gt;/src/test/resources_:_</p>
+</div>
+<div class="sect4">
+<h5 id="log4j-properties"><a class="anchor" href="#log4j-properties"></a>log4j.properties</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># Default properties to initialise log4j
+log4j.rootLogger=INFO, A1
+log4j.appender.A1=org.apache.log4j.ConsoleAppender
+log4j.appender.A1.layout=org.apache.log4j.PatternLayout
+log4j.appender.A1.layout.ConversionPattern=[%d{MM-dd HH:mm:ss}] %-5p %c{1} [%t]: %m%n
+# Settings for specific packages
+#log4j.logger.org.mule=DEBUG
+# CXF is used heavily by Mule for web services
+log4j.logger.org.apache.cxf=DEBUG
+#log4j.logger.org.apache.jcp=DEBUG
+#log4j.logger.org.apache.ws.security=DEBUG
+log4j.logger.org.apache.cxf.interceptor.LoggingInInterceptor=DEBUG, console
+log4j.logger.org.apache.cxf.interceptor.LoggingOutInterceptor=DEBUG, console</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="cxf-xml"><a class="anchor" href="#cxf-xml"></a>cxf.xml</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:cxf="http://cxf.apache.org/core"
+      xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd"&gt;
+   &lt;cxf:bus&gt;
+      &lt;cxf:features&gt;
+         &lt;cxf:logging/&gt;
+      &lt;/cxf:features&gt;
+   &lt;/cxf:bus&gt;
+&lt;/beans&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-generated-tests"><a class="anchor" href="#running-generated-tests"></a>Running Generated Tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After creating tests using <em>Project</em> &gt; <strong>Anypoint Connector</strong> &gt; <strong>Generate Tests</strong>, and populating the test scaffold with code specific to your connector, you can run your tests using the <em>Project</em>  &gt;  <strong>Anypoint Connector</strong>  &gt;  <strong>Run Interop Tests</strong>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/runinteroptests.png" alt="RunInteropTests">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Basic </strong>- The TestData file before changes</p>
+</li>
+<li>
+<p><strong>Override</strong> - The TestData file after changes</p>
+</li>
+<li>
+<p>Tests to run:<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Connectivity</strong> - Test the connector for connectivity issues</p>
+</li>
+<li>
+<p><strong>Data Mapper</strong>  - Test DataMapper issues</p>
+</li>
+<li>
+<p><strong>Xml Generation</strong>  - Test XML code</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Verbose Mode</strong> - Include additional information</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Note</strong>: After you click OK, your tests run. Once the tests start, you can&#8217;t break out of them. After the tests complete, results display in the Studio console.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="next-steps"><a class="anchor" href="#next-steps"></a>Next Steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are developing individual unit tests while adding operations to your connector, you should go back to the development process. Build your connector project with Maven; if any of your tests fail, then your Maven build process fails.</p>
+</div>
+<div class="paragraph">
+<p>After you complete your test suite, you can <a href="creating-reference-documentation.html">complete documentation and samples</a> for your connector.</p>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-connector-devkit/3.3/writing-custom-cloud-connectors.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Writing Custom Cloud Connectors // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="devkit-overview.html">DevKit Overview</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="your-first-cloud-connector.html">Your First Cloud Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="how-the-devkit-works.html">How the DevKit Works</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="writing-mule-extensions.html">Writing Mule Extensions</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="writing-custom-cloud-connectors.html">Writing Custom Cloud Connectors</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="authorizing-your-connector-with-oauth-1.0a.html">Authorizing your Connector with OAuth 1.0a</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="authorizing-your-connector-with-oauth-2.0.html">Authorizing your Connector with Oauth 2.0</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="connector-reference.html">Connector Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="connecting-to-a-rest-api.html">Connecting to a REST API</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="managing-connections.html">Managing Connections</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="using-the-cloud-connector-archetype.html">Using the Cloud Connector Archetype</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="using-connection-management.html">Using Connection Management</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="writing-custom-modules.html">Writing Custom Modules</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="using-the-module-archetype.html">Using the Module Archetype</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="pooling-modules.html">Pooling Modules</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="creating-message-processors.html">Creating Message Processors</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="nesting-message-processors.html">Nesting Message Processor</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="invocation-headers.html">Invocation Headers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="inbound-headers.html">Inbound Headers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="outbound-headers.html">Outbound Headers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="injecting-mule-managers.html">Injecting the Payload</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="handling-http-callbacks.html">Handling HTTP Callbacks</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-transformers.html">Creating Transformers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-message-sources.html">Creating Message Sources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="configuring-extensions.html">Configuring Extensions</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-mule-studio-integration.html">Customizing Mule Studio integration</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="documenting-mule-extensions.html">Documenting Mule Extensions</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="documenting-mule-extensions.html">Documenting Mule Extensions</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="required-javadoc.html">Required JavaDoc</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="uploading-documentation-to-github.html">Uploading documentation to GitHub</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="devkit-error-handling.html">Devkit Error handling</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="handling-collections.html">Handling Collections</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="handling-complex-types.html">Handling Complex Types</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="handling-enums.html">Handling Enums</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="injecting-mule-managers.html">Injecting Mule Managers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="packaging-mule-extensions.html">Packaging Mule Extensions</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="taking-advantage-of-mule-lifecycle.html">Taking Advantage of Mule Lifecycle</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="testing-extensions.html">Testing Your Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="writing-extensions-in-intellij.html">Writing Extensions in IntelliJ</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="writing-extensions-in-eclipse.html">Writing Extensions in Eclipse</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="publish.html">Publishing</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="contribute.html">Contribute</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="devkit-glossary.html">Glossary</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Writing Custom Cloud Connectors</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs/edit/v3.3/modules/ROOT/content/writing-custom-cloud-connectors.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Writing Custom Cloud Connectors</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="devkit-overview.html">DevKit Overview</a> page introduces the idea of annotations. The <code>@Connector</code> annotation tells the DevKit that the Java class declaration that follows represents an endpoint that connects a Mule flow to an external entity. The entity might be a Web-based service like salesforce.com or LinkedIn, or it can be a legacy application on your intranet.</p>
+</div>
+<div class="paragraph">
+<p><a href="connector-reference.html">Connector Reference</a> provides reference information about writing cloud connectors.</p>
+</div>
+<div class="paragraph">
+<p><a href="your-first-cloud-connector.html">Your First Cloud Connector</a> provides a quick tutorial.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="authentication"><a class="anchor" href="#authentication"></a>Authentication</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A special consideration for connectors is authentication. Often, the external entity requires a username and password on first connection, then returns an access token for the connector to use for subsequent interactions. The connector preserves the access token between calls. This pattern is called <strong>connection management</strong>. <a href="using-connection-management.html">Using Connection Management</a> provides more information about how Mule supports connection management.</p>
+</div>
+<div class="paragraph">
+<p>The Mule application may not be the user, but may be acting for a user who wishes to keep the username and password secret. For such cases, the industry has developed the OAuth standard, which Mule supports.</p>
+</div>
+<div class="sect2">
+<h3 id="structuring-connector-code-to-support-connection-management-and-oauth"><a class="anchor" href="#structuring-connector-code-to-support-connection-management-and-oauth"></a>Structuring Connector Code to Support Connection Management and OAuth</h3>
+<div class="paragraph">
+<p>Sometimes you may wish to connect to an external entity that supports both connection management and OAuth. AS of DevKit Version 3.3, Mule provides a way to support <em>both</em> in a single connector JAR, with all of the common code in a base class. The different connector classes extend the base class.<br></p>
+</div>
+<div class="sect3">
+<h4 id="example"><a class="anchor" href="#example"></a>Example</h4>
+<div class="paragraph">
+<p>Here is an example simplified from the Mule connector to salesforce.com that uses connection management:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name = "sfdc", schemaVersion = "4.0", friendlyName = "Salesforce")
+public class SalesforceModule {
+
+    // a lot of @Configurable properties not-related to the connection management
+
+    @Connect
+    public synchronized void connect(@ConnectionKey String username, String password, String securityToken) { ... }
+
+    @Disconnect
+    public synchronized void destroySession() { ... }
+
+    @Processor
+    @InvalidateConnectionOn(exception = SoapConnection.SessionTimedOutException.class)
+    public List&lt;Map&lt;String, Object&gt;&gt; query(@Placement(group = "Query") String query) throws Exception { ... }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is a similarly simplified example from the Mule connector to salesforce.com that uses OAuth:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name = "sfdc", schemaVersion = "4.0", friendlyName = "Salesforce")
+@OAuth2(authorizationUrl = "https://login.salesforce.com/services/oauth2/authorize",
+        accessTokenUrl = "https://login.salesforce.com/services/oauth2/token")
+public class SalesforceModule {
+
+    // a lot of @Configurable properties not-related to OAuth
+
+    @Configurable
+    @OAuthConsumerKey
+    private String apiKey;
+
+    @Configurable
+    @OAuthConsumerSecret
+    private String apiSecret;
+
+    @Processor
+    public List&lt;Map&lt;String, Object&gt;&gt; query(@OAuthAccessToken String accessToken,, @Placement(group = "Query") String query) throws Exception { ... }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is a version that combines connection management and OAuth:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">public abstract class BaseSalesforceModule {
+
+    // a lot of @Configurable properties not-related to the connection management
+
+    @Processor
+    @InvalidateConnectionOn(exception = SoapConnection.SessionTimedOutException.class)
+    public List&lt;Map&lt;String, Object&gt;&gt; query(@Placement(group = "Query") String query) throws Exception { ... }
+}
+
+@Connector(name = "sfdc", schemaVersion = "4.0", friendlyName = "Salesforce")
+public class SalesforceModule extends BaseSalesforceModule {
+
+    @Connect
+    public synchronized void connect(@ConnectionKey String username, String password, String securityToken) { ... }
+
+    @Disconnect
+    public synchronized void destroySession() { ... }
+}
+
+@Connector(name = "sfdc", schemaVersion = "4.0", friendlyName = "Salesforce", elementName = "config-with-oauth")
+@OAuth2(authorizationUrl = "https://login.salesforce.com/services/oauth2/authorize",
+        accessTokenUrl = "https://login.salesforce.com/services/oauth2/token")
+public class SalesforceModule extends BaseSalesforceModule {
+
+    @Configurable
+    @OAuthConsumerKey
+    private String apiKey;
+
+    @Configurable
+    @OAuthConsumerSecret
+    private String apiSecret;
+
+    @Configurable
+    @OAuthAccessToken
+    private String accessToken;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is how you can use both in the same Mule flow:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;sfdc:config name="Salesforce" username="${sfdc.user}" password="${sfdc.pass}" securityToken="${sfdc.token}"/&gt;
+
+&lt;sfdc:config-with-oauth name="SalesforceWithOAuth" apiKey="${api.key}" apiSecret="${api.secret}"/&gt;
+
+&lt;flow name="main"&gt;
+     &lt;sfdc:query config-ref="Salesforce" ... /&gt;
+
+     &lt;sfdc:query config-ref="SalesforceWithOAuth" ... /&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="connecting-and-disconnecting"><a class="anchor" href="#connecting-and-disconnecting"></a>Connecting and Disconnecting</h3>
+<div class="paragraph">
+<p>When you create a Cloud Connector, you must annotate exactly one method with the <code>@Connect</code> annotation and one with the <code>@Disconnect</code> annotation. The DevKit generates message processors corresponding to each of these.</p>
+</div>
+<div class="paragraph">
+<p>Creating a connector also requires you to annotate two other methods. The <code>@ValidateConnection</code> annotation identifies a method the DevKit calls to see if the connection is already established before trying to establish it with the @Connect method. The <code>@ConnectionIdentifier</code> annotation identifies a method that provides an identifier to be used for logging. The method acquires, stores, and supplies a unique ID for the connection.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the DevKit automatically creates message processors called <strong>authorize</strong> and <strong>unauthorize</strong>. The former authorizes the connection, and the latter rescinds the authorization and discards any saved access tokens.</p>
+</div>
+<div class="paragraph">
+<p>When specifying the authorization process for a Cloud Connector, you must provide the URL of the external party providing the authorization. In the case of OAuth2, for example, you specify the URL as the <code>authorizationUrl</code> parameter in the <code>@OAuth2</code> annotation. In some cases, you may wish to change the URL later in the process, perhaps to change environments or use a proxy. The following example — which uses a salesforce.com connector as a model — demonstrates how to change the URL later in the process.<br></p>
+</div>
+<div class="sect3">
+<h4 id="example-2"><a class="anchor" href="#example-2"></a>Example</h4>
+<div class="paragraph">
+<p>Here is how to specify the URL in the original annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@OAuth2(authorizationUrl = "https://login.salesforce.com/services/oauth2/authorize",
+        accessTokenUrl = "https://login.salesforce.com/services/oauth2/token")
+public class SalesforceOAuthConnector extends BaseSalesforceModule {</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is how to specify a new URL when creating the config element:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;sfdc:config-with-oauth authorizationUrl="newUrl"/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This takes precedence over the value specified in the annotation.</p>
+</div>
+<div class="paragraph">
+<p>Here is how to specify a new URL in the authorize message processor:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="authorizeFlow"&gt;
+&lt;http:inbound-endpoint ... /&gt;
+&lt;sfdc:authorize authorizationUrl="newUrl"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This value takes precedence over either of the other two.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="the-state-parameter"><a class="anchor" href="#the-state-parameter"></a>The State Parameter</h3>
+<div class="paragraph">
+<p>The OAuth specification enables the caller to include a parameter called <strong>state</strong>, which the external entity returns with the access token. This helps the caller maintain state between the request and the callback.</p>
+</div>
+<div class="paragraph">
+<p>The DevKit automatically makes <strong>state</strong> an attribute of the authorize message processor. To pass this parameter, set its value as in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="authorize"&gt;
+    &lt;http:inbound-endpoint ... &gt;
+    &lt;sfdc:authorize ... state="xxx"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="passing-additional-authorization-parameters"><a class="anchor" href="#passing-additional-authorization-parameters"></a>Passing Additional Authorization Parameters</h3>
+<div class="paragraph">
+<p>Sometimes authorization requires passing additional parameters with the authorization URL. Mule provides the <code>authorizationParameters</code> parameter for the @OAuth or @OAuth2 annotation. This parameter takes a list of authorization parameter names and types, specified as in the following example from the salesforce.com connector:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name = "sfdc",
+        schemaVersion = "5.0",
+        friendlyName = "Salesforce",
+        minMuleVersion = "3.3",
+        configElementName = "config-with-oauth")
+@OAuth2(authorizationUrl = "https://login.salesforce.com/services/oauth2/authorize",
+        accessTokenUrl = "https://login.salesforce.com/services/oauth2/token",
+        authorizationParameters = {
+                @OAuthAuthorizeParameter(name = "display", type = SalesforceOAuthDisplay.class)
+        })
+public class SalesforceOAuthConnector extends BaseSalesforceModule</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The example above shows an authorization parameter called <code>display</code>, which is of type SalesforceOAuthDisplay.class.</p>
+</div>
+<div class="paragraph">
+<p>You can use any data type supported by the DevKit, except collections and complex types. The DevKit generates code to add the extra parameters to the generated authorization URL as query string parameters.</p>
+</div>
+<div class="paragraph">
+<p>If the external entity passes parameters back as part of the authorization process, the DevKit provides a convenient way to access them. Use the <code>@OAuthParameter</code> annotation on each member of the Java class that you wish to use to hold those parameters, as in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@OAuthParameter(regex = "Mule Expression to obtain parameter 1")
+ private String parameter1;
+
+@OAuthParameter(regex = "Mule Expression to obtain parameter 2")
+ private String parameter2;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The parameter is called <code>regex</code> for compatibility with earlier terminology, but it need not be a regular expression. It is an expression in the <a href="../../mule-runtime/3.3/mel/mule-expression-language-mel.html">Mule Expression Language (MEL)</a>, which can be a regular expression or any other MEL expression.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="refreshing-an-invalid-token"><a class="anchor" href="#refreshing-an-invalid-token"></a>Refreshing an Invalid Token</h3>
+<div class="paragraph">
+<p>Mule provides a method for automatically refreshing an invalid access token. This requires a method that can recognize that a token is invalid and a regular expression for extracting the new token from the payload returned by the external entity in response to the request for an updated token.</p>
+</div>
+<div class="paragraph">
+<p>The <code>OAuthInvalidateAccessTokenOn</code> annotation takes a parameter specifying the exception thrown by the access method if the token is invalid. The DevKit catches that exception and starts an automatically created subflow to obtain the updated token. Then, it retries the access with the updated token. If that fails, it throws an exception up to the main flow.</p>
+</div>
+<div class="paragraph">
+<p>The annotation of the access routine is as in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Processor
+@OAuthInvalidateAccessTokenOn(exception = RuntimeException.class)
+public void processor() { ... }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Specify the regular expression for extracting the updated token as in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name = "oauth")
+@OAuth2(refreshTokenRegex = "myRegex")
+public class OAuthModule</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="automatic-access-token-management"><a class="anchor" href="#automatic-access-token-management"></a>Automatic Access Token Management</h3>
+<div class="paragraph">
+<p>OAuth DevKit-generated cloud connectors have hooks for saving and restoring access tokens. This facilitates restoring state between Mule shutdowns. In DevKit 3.3, if the connector can identify the user, DevKit implements automatic saving and restoring of access tokens.</p>
+</div>
+<div class="paragraph">
+<p>Use the <code>@OAuthAccessTokenIdentifier</code> annotation to mark a method inside a cloud connector as the one to be called by the DevKit to identify the user after authorization is complete.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@OAuthAccessTokenIdentifier
+public String getUserId() {
+return api.getUserId(myAccessToken);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mule stores the ID of the user access token as a flow variable called <code>OAuthAccessTokenId</code>. Processors in the flow can use it as an argument in calls to protected resources. The following example demonstrates how to access the ID.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="authorize"&gt;
+&lt;http:inbound-endpoint ... /&gt;
+&lt;connector:authorize ... /&gt;
+&lt;logger level="INFO" message="The user identification is #[flowVars['OAuthAccessTokenId']]"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The flow must save this information in, for example, a cookie or a session variable.</p>
+</div>
+<div class="paragraph">
+<p>Mule DevKit creates an attribute called <code>accessTokenId</code> in each generated message processor that is protected by OAuth. This holds the idenfier of the access token, which is used to make the call. Note that the access token id is <em>not</em> the access token itself and does not represent <em>only</em> the access token. The following example illustrates how to set the attribute.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="xxx"&gt;
+&lt;connector:my-operation accessTokenId="#[flowVars['OAuthAccessTokenId']]"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mule DevKit persists the following information required to re-use an authorized connector:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The access token<br>
+* The acesss token secret (if it is OAuth 1.0a)<br>
+* The refresh token (if it is OAuth 2.0)<br>
+* Any information that was extracted during the service provider callback.<br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>DevKit stores the information in the default user object store.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<strong>Mule DevKit 3.3.0</strong> does not properly set the default user object store, so the connector initializes without specifying an object store. <strong>Mule DevKit 3.3.1</strong> correctly sets the default user object store.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In the configuration element of any OAuth-enabled cloud connector capable of automatically managing access tokens, DevKit creates an element called <code>oauth-store-config</code> with a single attribute called <code>objectStore-ref</code>. The value of the attribute is a reference to an object store, as in the following example.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;connector:config ... &gt;
+&lt;connector:oauth-store-config objectStore-ref="myObjectStore"/&gt;
+&lt;/connector:config&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="post-authentication-actions"><a class="anchor" href="#post-authentication-actions"></a>Post-authentication Actions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After successful authentication using OAuth, the connector may need to perform setup tasks. Use the <code>@OAuthPostAuthorization</code> annotation to mark the method that performs these tasks, as in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@OAuthPostAuthorization
+    public void postAuthorize() throws ConnectionException, MalformedURLException, AsyncApiException { ... }</code></pre>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

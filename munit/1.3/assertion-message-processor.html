@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="mule, esb, tests, qa, quality assurance, verify, functional testing, unit testing, stress testing">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/munit/1.3/assertion-message-processor.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Assertion Message Processors // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">MUnit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-suite.html">Test Suite</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-munit-in-anypoint-studio.html">Using MUnit in Anypoint Studio</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="munit-maven-support.html">Maven Support</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-maven-plugin.html">Maven Plugin</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-maven-plugin-configuration.html">Maven Plugin Configuration</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-domain-support.html">Domain Support</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-coverage-report.html">Coverage Report</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="message-processors.html">Message Processors</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="assertion-message-processor.html">Assertion</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="set-message-processor.html">Set</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="mock-message-processor.html">Mock</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="verify-message-processor.html">Verify</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="spy-message-processor.html">Spy</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-matchers.html">Matchers</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="munit-utils.html">Utilities</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-database-server.html">Database Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-ftp-server.html">FTP Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="run-and-wait-scope.html">Run and Wait Scope</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="munit-examples.html">Examples</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-short-tutorial.html">Short Tutorial</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="example-testing-apikit.html">Testing APIkit</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="logging-in-munit.html">Logging</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="testing-sap.html">Testing SAP</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-tests-with-java.html">Tests With Java</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../solutions/migration/munit/1.3-migration-guide.html">MUnit 1.3 Migration Guide</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Assertion Message Processors</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/munit-docs/edit/v1.3/modules/ROOT/content/assertion-message-processor.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Assertion Message Processors</h1>
+    <div class="sect1">
+<h2 id="overview"><a class="anchor" href="#overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Assert feature, provided by MUnit, allows the developer to run <em>assertions</em> in order to validate the state of a Mule message&#8217;s content.</p>
+</div>
+<div class="paragraph">
+<p>All the message processors listed bellow can be used either to validate the Mule message after the production code runs, or as part of the MUnit Spy message processor.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Every MUnit Assertion message processor contains an attribute message. It is recommended to fill this optional attribute in order to easily identify a failing assertion.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assert-payload"><a class="anchor" href="#assert-payload"></a>Assert Payload</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>assert-payload-equals</code> message processor validates that the payload of a Mule message is equal to an expected value.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/assertion1.png" alt="assertion1">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:assert-payload-equals message="oops!" expectedValue="'#[['value 1','value 2']]"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The error message to print if the assertions fails. It accepts MEL expressions. If left as a literal, it assumes a string value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expectedValue</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The value to compare the payload against. It accepts MEL expressions. If left as a literal, it assumes a string value.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If the assertion fails, the message processor throws a <code>java.lang.AssertionError</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you wish to compare the payload against a Spring bean, you can use the MUnit MEL function <code>getBeanFromMuleContext('bean_name')</code>. This function inspects the Mule registry and returns the bean with the matching name if it is present.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assert-null"><a class="anchor" href="#assert-null"></a>Assert Null</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>assert-null</code> message processor validates that the Mule message&#8217;s payload is <code>NullPayload</code>.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-2" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/assert-null.png" alt="assert null">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-2" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="title">assert-null example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:assert-null message="oops!"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the error message to print if the assertions fails. It accepts MEL expressions. If left as a literal, it assumes a string value.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If the assertion fails, the message processor throws a <code>java.lang.AssertionError</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assert-not-null"><a class="anchor" href="#assert-not-null"></a>Assert Not Null</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>assert-not-null</code> message processor validates that the Mule message&#8217;s payload is <em>not</em> <code>NullPayload</code>.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-3" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/assert-not-null.png" alt="assert not null">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-3" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:assert-not-null message="oops!"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the error message to print if the assertions fails. It accepts MEL expressions. If left as
+literal, it assumes a string value.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If the assertion fails, the message processor throws a <code>java.lang.AssertionError</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assert-equals"><a class="anchor" href="#assert-equals"></a>Assert Equals</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>assert-on-equals</code> message processor validates equality between two objects.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-4" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/assert-on-equals.png" alt="assert on equals">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-4" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:assert-on-equals message="oops!" expectedValue="#['expected']" actualValue="#['actual_value']"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the error message to print if the assertions fails. It accepts MEL expressions. If left as a literal, it assumes a string value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expectedValue</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the value of the expected object. It accepts MEL expressions. If left as a literal, it assumes a string value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>actualValue</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the actual value we are validating. It accepts MEL expressions. If left as a literal, it assumes a string value.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If the assertion fails, the message processor throws a <code>java.lang.AssertionError</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assert-not-equals"><a class="anchor" href="#assert-not-equals"></a>Assert Not Equals</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>assert-not-same</code> message processor validates whether two objects are different.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-5" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/assert-not-same.png" alt="assert not same">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-5" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:assert-not-same message="oops!" expectedValue="#['']" actualValue="#[payload]"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the error message to print if the assertions fails. It accepts MEL expressions. If left as a literal, it assumes a string value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expectedValue</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the value of the expected object. It accepts MEL expressions. If left as a literal, it assumes a string value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>actualValue</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the actual value we are validating. It accepts MEL expressions. If left as a literal, it assumes a string value.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If the assertion fails, the message processor throws a <code>java.lang.AssertionError</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assert-false"><a class="anchor" href="#assert-false"></a>Assert False</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>assert-false</code> message processor validates that the result of a boolean expression is <em>false</em>.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-6" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/assert-false.png" alt="assert false">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-6" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:assert-false  message="oops!" condition="#[ 1 != 1 || payload.length != 0]"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the error message to print if the assertions fails. It accepts MEL expressions. If left as a literal, it assumes a string value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>condition</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the expression you want to validate.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If the assertion fails, the message processor throws a <code>java.lang.AssertionError</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assert-true"><a class="anchor" href="#assert-true"></a>Assert True</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>assert-true</code> message processor validates that the result of a boolean expression is <em>true</em>.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-7" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/assert-true.png" alt="assert true">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-7" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:assert-true message="oops!" condition="#[#[ 1 == 1 &amp;amp;&amp;amp; payload.length == 0]]" doc:name="Assert True"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the error message to print if the assertions fails. It accepts MEL expressions. If left as a literal, it assumes a string value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>condition</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the expression you want to validate.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If the assertion fails, the message processor throws a <code>java.lang.AssertionError</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="munit-utilitarian-mel-functions"><a class="anchor" href="#munit-utilitarian-mel-functions"></a>MUnit Utilitarian MEL Functions</h3>
+<div class="paragraph">
+<p>You can greatly enhance the capabilities of the Assert True message processor by combining it with the MUnit utilitarian MEL Functions, a set of MEL expressions that help validate the status of a Mule message.</p>
+</div>
+<div class="sect3">
+<h4 id="message-properties-finder"><a class="anchor" href="#message-properties-finder"></a>Message Properties Finder</h4>
+<div class="paragraph">
+<p>These functions validate the existence of a certain message property by its name. They are specially useful in cases where the value of a message property is irrelevant, but you need to validate that the property was created by the flow you&#8217;re testing.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>messageHasproperty is foundInAnyScopeCalled(propertyName)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns true if a property in <em>any scope</em> with the name provided is found.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>messageHasInboundproperty is foundCalled(propertyName)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns true if an <em>inbound</em> property with the provided name is found.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>messageHasOutboundproperty is foundCalled(propertyName)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns true if an <em>outbound</em> property with the provided name is found.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>messageHasSessionproperty is foundCalled(propertyName)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns true if a <em>session</em> property with the provided name is found.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>messageHasInvocationproperty is foundCalled(propertyName)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns true if an <em>invocation</em> property with the provided name is found.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>messageHasInboundAttachmentCalled(property is foundName)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns true if an <em>inbound attachment</em> property with the provided name is found.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>messageHasOutboundAttachmentCalled(property is foundName)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns true if an <em>outbound attachment</em> property with the provided name is found.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-8" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/assert-true-properties.png" alt="assert true properties">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-8" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:assert-true condition="#[messageHasPropertyInAnyScopeCalled('my_property')]"/&gt;
+&lt;munit:assert-true condition="#[messageHasInvocationPropertyCalled('another_property')]"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="other-mel-functions"><a class="anchor" href="#other-mel-functions"></a>Other MEL functions</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>getBeanFromMuleContext('bean_name')</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inspects the Mule registry and returns the bean with the matching name if present.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fail"><a class="anchor" href="#fail"></a>Fail</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use the <code>fail</code> message processor if you want to fail your test on purpose, for example in order to validate that a specific event should not happen.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-9" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/assert-fails.png" alt="assert fails">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-9" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:fail message="This should not happen"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the error message to print if the assertion fails. It accepts MEL expressions. If left as a literal, it assumes a string value.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="defining-custom-assertions"><a class="anchor" href="#defining-custom-assertions"></a>Defining Custom Assertions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If need a more specific assertion, MUnit allows you to extend the assertion message processor&#8217;s library, and hence define your own custom assertions.</p>
+</div>
+<div class="sect2">
+<h3 id="defining-custom-assertion-implementations"><a class="anchor" href="#defining-custom-assertion-implementations"></a>Defining Custom Assertion Implementations</h3>
+<div class="paragraph">
+<p>To implement a custom assertion you need to implement the interface <code>org.mule.munit.MunitAssertion</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Custom assertion example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package your.package;
+
+public class CustomAssertion implements MunitAssertion{
+  @Override
+  public MuleEvent execute(MuleEvent muleEvent) throws AssertionError {   <i class="conum" data-value="1"></i><b>(1)</b>
+    if ( !muleEvent.getMessage().getPayload().equals("Hello World") ){    <i class="conum" data-value="2"></i><b>(2)</b>
+      throw new AssertionError("Error the payload is incorrect");
+    }
+
+  return muleEvent;                                                       <i class="conum" data-value="3"></i><b>(3)</b>
+
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Implement the only method in the interface <code>public MuleEvent execute(MuleEvent muleEvent) throws AssertionError</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Run your custom logic, which in this case validates that the message&#8217;s payload is <code>Hello World</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>If the validation is passed, return the same event.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Implement your custom assertions with care, since modifying the message payload or variables could affect subsequent assertions in your test. Normal MUnit assertions guarantee that this does not happens unless specified.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-a-custom-assertion-message-processor"><a class="anchor" href="#defining-a-custom-assertion-message-processor"></a>Defining a Custom Assertion Message Processor</h3>
+<div class="paragraph">
+<p>After you have defined your custom assertion, use the <code>run-custom</code> message processor to run it.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-10" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/custom-assertion.png" alt="custom assertion">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-10" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:run-custom assertion-ref="#[new your.package.CustomAssertion()]"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assertion-ref</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the custom assertion instance to run.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>You can also define your custom assertion as a bean.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-11" class="discrete view">Studio Visual Editor</h3>
+<div class="paragraph">
+<p>Navigate to the <strong>Global Elements</strong> tab from your test Suite, click <strong>Create</strong>, select <strong>Bean</strong> and configure your custom bean assertion</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/custom-bean-assertion.png" alt="custom bean assertion">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/assert-custom-assertion.png" alt="assert custom assertion">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-11" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;spring:beans&gt;    <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;spring:bean class="your.package.CustomAssertion" name="customAssertion"/&gt;
+&lt;/spring:beans&gt;
+...
+&lt;munit:test name="testCustomAssertion" description="run custom assertion test"&gt;
+    &lt;munit:run-custom assertion-ref="customAssertion"/&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+&lt;/munit:test&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Define custom assertion bean.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Run custom assertion using bean name.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The <code>run-custom</code> message processor does not allow to define an error message in case of failure. This is handled by the custom assertion implementation.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="defining-assertions-with-java-code"><a class="anchor" href="#defining-assertions-with-java-code"></a>Defining Assertions With Java Code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The MUnit assertions are based in JUnit assertions, thus there is no new Java API.</p>
+</div>
+<div class="paragraph">
+<p>To define assertions in your Java-based MUnit Test, you just need to import the JUnit Assert library. MUnit does not provide a Java assert library.</p>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="munit, testing, unit testing">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/munit/1.3/munit-tests-with-java.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>MUnit Tests with Java // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">MUnit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-suite.html">Test Suite</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-munit-in-anypoint-studio.html">Using MUnit in Anypoint Studio</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="munit-maven-support.html">Maven Support</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-maven-plugin.html">Maven Plugin</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-maven-plugin-configuration.html">Maven Plugin Configuration</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-domain-support.html">Domain Support</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-coverage-report.html">Coverage Report</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="message-processors.html">Message Processors</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="assertion-message-processor.html">Assertion</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="set-message-processor.html">Set</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="mock-message-processor.html">Mock</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="verify-message-processor.html">Verify</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="spy-message-processor.html">Spy</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-matchers.html">Matchers</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="munit-utils.html">Utilities</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-database-server.html">Database Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-ftp-server.html">FTP Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="run-and-wait-scope.html">Run and Wait Scope</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="munit-examples.html">Examples</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-short-tutorial.html">Short Tutorial</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="example-testing-apikit.html">Testing APIkit</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="logging-in-munit.html">Logging</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="testing-sap.html">Testing SAP</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-tests-with-java.html">Tests With Java</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../solutions/migration/munit/1.3-migration-guide.html">MUnit 1.3 Migration Guide</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">MUnit Tests with Java</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/munit-docs/edit/v1.3/modules/ROOT/content/munit-tests-with-java.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>MUnit Tests with Java</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>MUnit allows you to test your configuration files both with Java and XML code.
+This guide explains how to use Java to configure your suites and create your tests.
+You can use MUnit to create tests, create assertions over messages,
+and to mock, spy, and verify your message processors.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Testing your configuration files with Java or XML is your choice.
+However, only XML currently allows testing with coverage, dynamic ports, and use of the Maven plugin.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-your-suite-class"><a class="anchor" href="#creating-your-suite-class"></a>Creating Your Suite Class</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To run MUnit tests with Java, create a class that extends <code>FunctionalMunitSuite</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import org.mule.munit.runner.functional.FunctionalMunitSuite;
+
+public class MyTestSuite extends FunctionalMunitSuite {
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="choosing-a-configuration-file-to-test"><a class="anchor" href="#choosing-a-configuration-file-to-test"></a>Choosing a Configuration File to Test</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To specify a configuration file you want to test, implement the
+<code>getConfigResources</code> method in your class and return the name of the
+configuration file.</p>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t override this method, MUnit obtains the configuration files
+from the information specified in the <code>mule-deploy.properties</code> file, or, if this file is not found,
+from the <code>mule-config.xml</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Override
+protected String getConfigResources() {
+  return "my-config-file.xml";
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To test more than one configuration file, return each
+configuration file name separated with a comma (",").</p>
+</div>
+<div class="paragraph">
+<p>For example: <code>return "my-config-file.xml,my-second-config-file.xml"</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="enabling-and-disabling-inbound-endpoints"><a class="anchor" href="#enabling-and-disabling-inbound-endpoints"></a>Enabling and Disabling Inbound Endpoints</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To enable or disable inbound endpoints, override the <code>haveToDisableInboundEndpoints</code>
+ method. For example, if you want to enable inbound endpoints, use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Override
+protected boolean haveToDisableInboundEndpoints() {
+	return false;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t override this method, MUnit by default disables inbound endpoints.</p>
+</div>
+<div class="sect2">
+<h3 id="enabling-inbound-endpoints-for-flows"><a class="anchor" href="#enabling-inbound-endpoints-for-flows"></a>Enabling Inbound Endpoints for Flows</h3>
+<div class="paragraph">
+<p>To only enable inbound endpoints for flows, override the
+<code>getFlowsExcludedOfInboundDisabling</code> method.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Override
+protected List&lt;String&gt; getFlowsExcludedOfInboundDisabling() {
+  return Arrays.asList("firstFlow","thirdFlow");
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t override this method, all flows start with their inbound endpoints disabled.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="enabling-and-disabling-mocking-for-mule-connectors"><a class="anchor" href="#enabling-and-disabling-mocking-for-mule-connectors"></a>Enabling and Disabling Mocking for Mule Connectors</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Enabling and disabling mocking in connectors only works with endpoint-based, outbound-endpoint connectors.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To enable or disable mocking for a connector, override the
+<code>haveToMockMuleConnectors</code> method.</p>
+</div>
+<div class="paragraph">
+<p>For example, if you don&#8217;t want to mock
+connectors, use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Override
+protected boolean haveToMockMuleConnectors() {
+  return false;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t override this method, Mule connectors are mocked by default.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="actions-when-creating-and-starting-the-mule-context"><a class="anchor" href="#actions-when-creating-and-starting-the-mule-context"></a>Actions When Creating and Starting the Mule Context</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To perform actions when the Mule Context is created or started,
+implement the <code>muleContextStarted</code> or <code>muleContextStarted</code> respectively.</p>
+</div>
+<div class="paragraph">
+<p>For example, to print the Mule Context start date, use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Override
+protected void muleContextStarted(MuleContext muleContext) {
+  System.out.println("Mule Context Started at" + new Date(muleContext.getStartDate()));
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-your-test"><a class="anchor" href="#creating-your-test"></a>Creating Your Test</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After you configure your suite, the next step is to create your tests. Create <code>JUnit</code> tests
+and use <code>MUnit</code> to provide methods to test your configuration files.
+The simplest way to create a test is with the <code>@Test</code> annotation from <code>JUnit</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+public void MyTest() {
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-a-flow"><a class="anchor" href="#running-a-flow"></a>Running a Flow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To test your configuration files, you should be able to run your flows.
+The <code>runFlow</code> method allows you to run a particular flow with a custom <code>MuleEvent</code> as input,
+and returns the resulting <code>MuleEvent</code>.</p>
+</div>
+<div class="paragraph">
+<p>To create a custom <code>MuleEvent</code> for testing, MUnit
+provides the <code>testEvent</code> method that creates an event with an Object as payload.</p>
+</div>
+<div class="paragraph">
+<p>For example, for the following flow:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="echoFlow"&gt;
+  &lt;echo-component/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you want to test that the payload is not modified after passing through an
+echo component, create this test:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import org.junit.Assert;
+import org.junit.Test;
+import org.mule.api.MuleEvent;
+import org.mule.munit.runner.functional.FunctionalMunitSuite;
+
+public class MyTest extends FunctionalMunitSuite {
+
+  @Test
+  public void Test() throws Exception {
+    String myStringPayload = "myPayload";
+    MuleEvent resultMuleEvent = runFlow("echoFlow", testEvent(myStringPayload)); <i class="conum" data-value="1"></i><b>(1)</b>
+    Assert.assertEquals(myStringPayload, resultMuleEvent.getMessage().getPayload()); <i class="conum" data-value="2"></i><b>(2)</b>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Run the <code>echoFlow</code> with a specific String as payload.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Assert that the resulting payload is the same as the original.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+MUnit does not provide its own assertions library for Java.
+You can perform assertions using the <code>JUnit</code> assertions library,
+as shown in the first line of the previous example.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mocking"><a class="anchor" href="#mocking"></a>Mocking</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MUnit lets you define mocked behavior for a message processor. In this case,
+MUnit replaces the normal behavior of the message processor with the behavior you define.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example Mocking Configuration</strong></p>
+</div>
+<div class="paragraph">
+<p>The following example sets up a flow for an HTTP connector to access a generic database</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+​
+&lt;mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+  xmlns:spring="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd"&gt;
+    &lt;db:generic-config name="Generic_Database_Configuration" url="localhost:8082" doc:name="Generic Database Configuration"/&gt;
+    &lt;http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/&gt;
+    &lt;flow name="myFlow"&gt;
+        &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+        &lt;db:select config-ref="Generic_Database_Configuration" doc:name="Select All Stocks"&gt;
+            &lt;db:parameterized-query&gt;&lt;![CDATA[SELECT * FROM flights;]]&gt;&lt;/db:parameterized-query&gt;
+        &lt;/db:select&gt;
+        &lt;set-payload value="#[payload.substring(0,3)]" doc:name="Get Id"/&gt;
+    &lt;/flow&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Mocking Test</strong></p>
+</div>
+<div class="paragraph">
+<p>The following example tests for a sample payload:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import org.junit.Assert;
+import org.junit.Test;
+import org.mule.api.MuleEvent;
+import org.mule.api.MuleMessage;
+import org.mule.munit.common.mocking.MessageProcessorMocker;
+import org.mule.munit.runner.functional.FunctionalMunitSuite;
+​
+public class MyTestSuite extends FunctionalMunitSuite {
+​
+  @Test
+  public void MockingTest() throws Exception {
+    String myMockPayload = "815-OA";
+​
+    MuleMessage messageToBeReturned = muleMessageWithPayload(myMockPayload);
+    MessageProcessorMocker mocker = whenMessageProcessor("select").ofNamespace("db");
+    mocker.thenReturn(messageToBeReturned);
+​
+    MuleEvent resultMuleEvent = runFlow("myFlow", testEvent("example"));
+    Assert.assertEquals("815", resultMuleEvent.getMessage().getPayload());
+  }
+​
+}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-the-when-message-processor"><a class="anchor" href="#using-the-when-message-processor"></a>Using the When Message Processor</h3>
+<div class="paragraph">
+<p>The <code>whenMessageProcessor</code> method allows you to mock a message processor that matches
+certain properties.</p>
+</div>
+<div class="paragraph">
+<p>For example if the following flow is part of your configuration file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="myFlow"&gt;
+  &lt;set-payload value="#[1]" doc:name="Set One As Payload"/&gt;
+  &lt;logger level="INFO" doc:name="Logger"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are several ways to match the processor you want to mock.</p>
+</div>
+<div class="sect3">
+<h4 id="match-by-processor-name"><a class="anchor" href="#match-by-processor-name"></a>Match by Processor Name</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">MessageProcessorMocker mocker =
+  whenMessageProcessor("set-payload");</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-a-namespace-attribute"><a class="anchor" href="#add-a-namespace-attribute"></a>Add a Namespace Attribute</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">MessageProcessorMocker mocker =
+  whenMessageProcessor("set-payload").ofNamespace("mule");</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-additional-attributes"><a class="anchor" href="#add-additional-attributes"></a>Add Additional Attributes</h4>
+<div class="paragraph">
+<p>In the example flow there is only one <code>set-payload</code> message processor, but
+if there were more than one, you should use other processor attributes, such as
+the <code>doc:name</code> attribute, to mock a message processor.</p>
+</div>
+<div class="paragraph">
+<p>For example, for the following flow:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="myFlow"&gt;
+  &lt;set-payload value="#[1]" doc:name="Set One"/&gt;
+  &lt;logger level="INFO" doc:name="Logger"/&gt;
+  &lt;set-payload value="#[2]" doc:name="Set Two"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To mock only the <strong>second</strong> <code>set-payload</code> processor, use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">MessageProcessorMocker mocker =
+  whenMessageProcessor("set-payload")
+  .withAttributes(Attribute.attribute("name").
+                  ofNamespace("doc").
+                  withValue("Set Two"));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Return Value</strong></p>
+</div>
+<div class="paragraph">
+<p>After you find a message processor that matches your attributes, you can
+return one or more of the following:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 30%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Method Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>thenReturn</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Receives a Mule message to return by the message processor.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mocker.thenReturn(muleMessageWithPayload("myNewPayload"));</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>thenThrow</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Receives an exception that is thrown by the message processor.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mocker.thenThrow(new IllegalArgumentException());</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>thenReturnSameEvent</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Returns the same event the message processor received.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>mocker.thenReturnSameEvent();</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Example</strong></p>
+</div>
+<div class="paragraph">
+<p>This example builds on the last and shows you how to mock a message
+processor with Java:</p>
+</div>
+<div class="listingblock">
+<div class="title">Flow</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="myFlow"&gt;
+  &lt;set-payload value="My Current Payload"/&gt;
+  &lt;logger level="INFO"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Test</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import org.junit.Test;
+import org.junit.Assert;
+import org.mule.api.MuleEvent;
+import org.mule.munit.common.mocking.MessageProcessorMocker;
+import org.mule.api.MuleMessage;
+import org.mule.munit.runner.functional.FunctionalMunitSuite;
+
+public class MyTestSuite extends FunctionalMunitSuite {
+
+  @Test
+  public void test() throws Exception {
+    String myMockPayload = "myPayload"; <i class="conum" data-value="1"></i><b>(1)</b>
+
+    MuleMessage messageToBeReturned =
+      muleMessageWithPayload(myMockPayload); <i class="conum" data-value="2"></i><b>(2)</b>
+    MessageProcessorMocker mocker =
+      whenMessageProcessor("set-payload"); <i class="conum" data-value="3"></i><b>(3)</b>
+    mocker.thenReturn(messageToBeReturned); <i class="conum" data-value="4"></i><b>(4)</b>
+
+    MuleEvent resultMuleEvent =
+      runFlow("myFlow", testEvent("example")); <i class="conum" data-value="5"></i><b>(5)</b>
+    Assert.assertEquals(myMockPayload,
+      resultMuleEvent.getMessage().getPayload()); <i class="conum" data-value="6"></i><b>(6)</b>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The payload that replaces the original.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The message returned by the mock.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The mock that matches the <code>set-payload</code> message processor.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Sets the return message to the mock.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Runs the flow with the custom <code>MuleEvent</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Asserts that the mock payload replaces the original payload.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spy-message-processor"><a class="anchor" href="#spy-message-processor"></a>Spy Message Processor</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>spyMessageProcessor</code> method lets you create a spy so you can
+see what happens before and after a message processor is called.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">MunitSpy mySpy = spyMessageProcessor("logger");</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The syntax that <code>MunitSpy</code> uses to match the message processor is the same
+as the <code>MessageProcessorMocker</code>. Therefore, you can match a message processor
+by name, namespace, and attributes.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="before-and-after-spy"><a class="anchor" href="#before-and-after-spy"></a>Before and After Spy</h3>
+<div class="paragraph">
+<p>To define the actions you want to perform before and after the message processor
+executes, create classes that implement <code>SpyProcess</code> and define the
+<code>spy</code> method.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">SpyProcess beforeSpy = new SpyProcess() {
+
+  @Override
+  public void spy(MuleEvent event) throws MuleException {
+    System.out.println("Message before is " + event.getMessageAsString());
+  }
+};
+
+SpyProcess afterSpy = new SpyProcess() {
+
+  @Override
+  public void spy(MuleEvent event) throws MuleException {
+    System.out.println("Message after is " + event.getMessageAsString());
+  }
+};
+spyMessageProcessor("set-payload").before(beforeSpy).after(afterSpy);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="before-and-after-spy-example"><a class="anchor" href="#before-and-after-spy-example"></a>Before and After Spy Example</h3>
+<div class="paragraph">
+<p>The following example shows how to do assertions with the spy before and after a message
+processor executes.</p>
+</div>
+<div class="listingblock">
+<div class="title">Flow</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="myFlow"&gt;
+    &lt;logger level="INFO"/&gt;
+    &lt;set-payload value="#[2]"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Test</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import org.junit.Assert;
+import org.junit.Test;
+import org.mule.api.MuleEvent;
+import org.mule.api.MuleException;
+import org.mule.munit.common.mocking.SpyProcess;
+import org.mule.munit.runner.functional.FunctionalMunitSuite;
+
+@Test
+public void SpyTest() throws Exception {
+  SpyProcess beforeSpy = new SpyProcess() { <i class="conum" data-value="1"></i><b>(1)</b>
+
+    @Override
+    public void spy(MuleEvent event) throws MuleException {
+      Assert.assertEquals(1, event.getMessage().getPayload());
+    }
+  };
+  SpyProcess afterSpy = new SpyProcess() { <i class="conum" data-value="2"></i><b>(2)</b>
+
+    @Override
+    public void spy(MuleEvent event) throws MuleException {
+      Assert.assertEquals(2, event.getMessage().getPayload());
+    }
+  };
+  spyMessageProcessor("set-payload") <i class="conum" data-value="3"></i><b>(3)</b>
+    .ofNamespace("mule")
+    .before(beforeSpy)
+    .after(afterSpy);
+
+  runFlow("myFlow", testEvent(1)); <i class="conum" data-value="4"></i><b>(4)</b>
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Create the spy process to be executed before the message processor.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Create the spy process to be executed after the message processor.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Create the spy message processor for the set payload, and add the before and
+after processes.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Run the flow with a custom <code>MuleEvent</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="verify-message-processor"><a class="anchor" href="#verify-message-processor"></a>Verify Message Processor</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For example, you can validate if a specific message processor has been called
+a specific number of times.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">MunitVerifier verifier = verifyCallOfMessageProcessor("logger");</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The syntax that <code>MunitVerifier</code> uses to match a message processor is the same
+as the <code>MessageProcessorMocker</code> and <code>MunitSpy</code>. Therefore, you can match a
+message processor by name, namespace, and attributes.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="verify-configuration-and-test-examples"><a class="anchor" href="#verify-configuration-and-test-examples"></a>Verify Configuration and Test Examples</h3>
+<div class="paragraph">
+<p>The following example uses a choice to determine how many times to call the logger:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+​
+&lt;mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+  xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd"&gt;
+  &lt;flow name="choiceFlow"&gt;
+    &lt;choice&gt;
+      &lt;when expression="#[payload == 1]"&gt;
+        &lt;set-payload value="Payload is 1" /&gt;
+      &lt;/when&gt;
+      &lt;otherwise&gt;
+        &lt;logger level="INFO" /&gt;
+      &lt;/otherwise&gt;
+    &lt;/choice&gt;
+  &lt;/flow&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Verify Test Example</strong></p>
+</div>
+<div class="paragraph">
+<p>The following example tests the configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import org.junit.Test;
+import org.mule.munit.runner.functional.FunctionalMunitSuite;
+​
+​
+public class MyTestSuite extends FunctionalMunitSuite {
+
+  @Test
+  public void VerifyTest() throws Exception {
+​
+      runFlow("choiceFlow", testEvent(1));
+​
+      verifyCallOfMessageProcessor("set-payload").ofNamespace("mule").times(1);
+  }
+​
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="verify-times"><a class="anchor" href="#verify-times"></a>Verify Times</h3>
+<div class="paragraph">
+<p>MUnit provides the following methods that you can use to verify how many times to call a message processor.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Method Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>times</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Receives the <strong>exact</strong> number of times to call the message processor.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>atLeast</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Receives the <strong>minimum</strong> number of times to call the message processor.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>atMost</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Receives the <strong>maximum</strong> number of times to call the message processor.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>atLeastOnce</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The message processor must be called at least once.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If the above conditions are not fulfilled, the test fails.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example</strong></p>
+</div>
+<div class="paragraph">
+<p>The following example shows how to ensure that the <code>logger</code> message processor is
+called <strong>exactly</strong> three times.</p>
+</div>
+<div class="listingblock">
+<div class="title">Flow</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="choiceFlow"&gt;
+    &lt;choice&gt;
+        &lt;when expression="#[payload == 1]"&gt;
+            &lt;logger level="INFO"/&gt;
+            &lt;logger level="INFO"/&gt;
+            &lt;logger level="INFO"/&gt;
+        &lt;/when&gt;
+        &lt;otherwise&gt;
+            &lt;logger level="INFO"/&gt;
+        &lt;/otherwise&gt;
+    &lt;/choice&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Test</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import org.junit.Test;
+import org.mule.munit.runner.functional.FunctionalMunitSuite;
+
+public class MyTestSuite extends FunctionalMunitSuite {
+
+  @Test
+  public void VerifyTest() throws Exception{
+    runFlow("choiceFlow", testEvent(1)); <i class="conum" data-value="1"></i><b>(1)</b>
+
+    verifyCallOfMessageProcessor("logger").ofNamespace("mule").times(3); <i class="conum" data-value="2"></i><b>(2)</b>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Run the flow with a custom MuleEvent.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Verify that the logger message processor is called three times.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

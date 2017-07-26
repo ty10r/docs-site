@@ -1,0 +1,2468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="anypoint, studio, choice, conditional, if, flow control">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/mule-runtime/3.8/routers/choice-flow-control-reference.html">
+  <link rel="stylesheet" href="../../../_theme/stylesheets/theme.css">
+  <title>Choice Flow Control Reference // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../connectors/anypoint-connectors.html">Anypoint Connectors</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/installing-connectors.html">Installing Connectors</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/connector-configuration-reference.html">Connector Configuration Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/working-with-multiple-versions-of-connectors.html">Working with Multiple Versions of Connectors</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/using-a-connector-to-access-an-oauth-api.html">Using a Connector to Access an OAuth API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/auto-paging-in-anypoint-connectors.html">Auto-Paging in Anypoint Connectors</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/ajax-connector.html">Ajax Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/amazon-ec2/amazon-ec2-connector.html">Amazon EC2 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/s3-connector/">Amazon S3 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/sns-connector/">Amazon SNS Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/sqs-connector/">Amazon SQS Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../connectors/amqp/amqp-connector.html">AMQP Connector</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/amqp/amqp-connector-examples.html">AMQP Connector Examples</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/amqp/amqp-connector-reference.html">AMQP Connector Reference</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/box-connector/">Box Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../connectors/cassandra/cassandra-connector-about.html">Cassandra Connector</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/cassandra/cassandra-connector-conf-task.html">To Configure Cassandra Authentication</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/cassandra/cassandra-connector-install-conf-task.html">To Install and Configure the Cassandra Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/cassandra/cassandra-connector-run-demo-task.html">To Run the Cassandra Connector Demo</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/cassandra/cassandra-connector-create-keyspace-task.html">To Create a Keyspace</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/cassandra/cassandra-connector-create-table-task.html">To Create a Cassandra Table</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/cassandra/cassandra-connector-datatypes.html">Cassandra Connector Data Types Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/cassandra/cassandra-connector-ops-reference.html">Cassandra Connector Operations Reference</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/concur-connector/">Concur Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../connectors/database/database-connector.html">Database Connector</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/database/database-connector-examples.html">Database Connector Examples</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/database/database-connector-reference.html">Database Connector Reference</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../connectors/dotnet/dotnet-connector-guide.html">.NET Connector Guide</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/dotnet/dotnet-connector-user-guide.html">.NET Connector User Guide</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-studio/6/anypoint-extensions-for-visual-studio.html">Anypoint Extensions for Visual Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/dotnet/dotnet-connector-migration-guide.html">DotNet Connector Migration Guide</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/dotnet/dotnet-connector-faqs.html">DotNet Connector FAQs</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/file/file-connector.html">File Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/ftp/ftp-connector.html">FTP Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/generic/generic-connector.html">Generic Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="https://mulesoft.github.io/hdfs-connector/">Hadoop HDFS Connector</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="https://mulesoft.github.io/hdfs-connector/">Hadoop HDFS Connector Technical Reference</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../connectors/http/http-connector.html">HTTP Connector</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/http/http-listener-connector.html">HTTP Listener Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/http/http-request-connector.html">HTTP Request Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/http/authentication-in-http-requests.html">Authentication in HTTP Requests</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/http/http-connector-reference.html">HTTP Connector Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/tls/tls-configuration.html">TLS Configuration</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/tls1-0-migration.html">TLS 1.0 Migration</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/http/migrating-to-the-new-http-connector.html">Migrating to the New HTTP Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/http/http-connector-deprecated.html">HTTP Connector - Deprecated</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/imap/imap-connector.html">IMAP Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/database/database-connector.html">JDBC Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/kafka-connector/">Kafka Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/ldap-connector/">LDAP Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/marketo-connector/">Marketo Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/microsoft-dynamics/microsoft-dynamics-365-connector.html">Microsoft Dynamics 365 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/microsoft-dynamics/microsoft-dynamics-365-operations-connector.html">Microsoft Dynamics 365 for Operations Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/microsoft-dynamics/microsoft-dynamics-ax-2012-connector.html">Microsoft Dynamics AX 2012 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/microsoft-dynamics/microsoft-dynamics-crm-connector.html">Microsoft Dynamics CRM Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/microsoft-dynamics/microsoft-dynamics-gp-connector.html">Microsoft Dynamics GP Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/dynamics-nav-connector/">Microsoft Dynamics NAV Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="https://mulesoft.github.io/service-bus-connector">Microsoft Service Bus Connector</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="https://mulesoft.github.io/service-bus-connector">Microsoft Service Bus Connector FAQ</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/microsoft-sharepoint/microsoft-sharepoint-2013-connector.html">Microsoft SharePoint 2013 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/microsoft-sharepoint/microsoft-sharepoint-2010-connector.html">Microsoft SharePoint 2010 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/microsoft-sharepoint/microsoft-sharepoint-online-connector.html">Microsoft SharePoint Online Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="https://mulesoft.github.io/mongo-connector/">MongoDB Connector</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="https://mulesoft.github.io/mongo-connector/">MongoDB Connector API Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="https://mulesoft.github.io/mongo-connector/">MongoDB Connector Migration Guide</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../connectors/msmq/msmq-connector.html">MSMQ Connector</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/msmq/msmq-connector-user-guide.html">MSMQ Connector User Guide</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/msmq/windows-gateway-services-guide.html">Windows Gateway Services Guide</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/msmq/msmq-connector-faqs.html">MSMQ Connector FAQs</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/neo4j/neo4j-connector.html">Neo4J Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="https://mulesoft.github.io/netsuite-connector/">NetSuite Connector</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="https://mulesoft.github.io/netsuite-connector/">NetSuite Connector API Reference</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/openair-connector/">NetSuite OpenAir Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/objectstore-connector/">Object Store Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/oracle-ebs-connector/">Oracle E-Business Suite Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/oracle-ebs-122-connector/">Oracle E-Business Suite 12.2.x Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/peoplesoft-connector/">PeopleSoft Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/pop3/pop3-connector.html">POP3 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/quartz/quartz-connector.html">Quartz Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/redis-connector/">Redis Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/remedy/remedy-connector.html">Remedy Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/rosettanet/rosettanet-connector.html">RosettaNet Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/salesforce-analytics-connector/">Salesforce Analytics Cloud Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="https://mulesoft.github.io/salesforce-connector/">Salesforce Connector</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="https://mulesoft.github.io/salesforce-connector/">Salesforce Connector Authentication</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/salesforce-composite-connector/">Salesforce Composite Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/salesforce-marketing-cloud-connector/">Salesforce Marketing Cloud Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="https://mulesoft.github.io/sap-transport/">SAP Connector</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="https://mulesoft.github.io/sap-transport/">SAP Connector Advanced Features</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="https://mulesoft.github.io/sap-transport/">SAP Connector Troubleshooting</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="https://mulesoft.github.io/servicenow-wsdl-connector/">ServiceNow Connector 5.x</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="https://mulesoft.github.io/servicenow-wsdl-connector/">ServiceNow Connector 5.0 Migration Guide</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/servicenow-connector/">ServiceNow Connector 4.0</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/servlet/servlet-connector.html">Servlet Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/sftp/sftp-connector.html">SFTP Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="https://mulesoft.github.io/siebel-jdb-connector/">Siebel Connector</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="https://mulesoft.github.io/siebel-jdb-connector/">Siebel Business Objects Connector API Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="https://mulesoft.github.io/siebel-jdb-connector/">Siebel Business Services Connector API Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="https://mulesoft.github.io/siebel-jdb-connector/">Siebel Integration Object Connector API Reference</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/success-factors-connector/">SuccessFactors Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/twilio/twilio-connector.html">Twilio Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../connectors/web-service-consumer/web-service-consumer.html">Web Service Consumer</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../connectors/web-service-consumer/web-service-consumer-reference.html">Web Service Consumer Reference</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/windows-powershell/windows-powershell-connector-guide.html">Windows PowerShell Connector Guide</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/wmq/wmq-connector.html">WMQ Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connectors/workday/workday-connector.html">Workday Connector 7.0 and later</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="https://mulesoft.github.io/workday-wsdl-connector/">Workday Connector 6.0</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="https://mulesoft.github.io/workday-wsdl-connector/">Workday Connector 6.0 Migration Guide</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://mulesoft.github.io/zuora-connector/">Zuora Connector</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../index.html">Mule Runtime</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../mule-concepts.html">Key Concepts</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../messages/about-mule-message.html">Mule Message Structure</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../messages/about-transforming-mule-message.html">Mule Message Transformation</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../flows/using-flows-for-service-orchestration.html">Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../flows/index.html">Flow Architecture in a Mule Application</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../flows/elements-in-a-mule-flow.html">Elements in a Flow</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../components/mule-components.html">Components</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/mule-transformers.html">Transformers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-filters-scopes-and-routers.html">Filters, Scopes, and Routers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../connectors/index.html">Anypoint Connectors</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../mule-configuration/global-elements.html">Global Elements</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../administer/clustering/mule-high-availability-ha-clusters.html">High Availability Clusters</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../install/installing.html">Installing and Deploying Mule</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../install/hardware-and-software-requirements.html">Hardware and Software Requirements</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../install/supported-sw-and-systems.html">Supported Software and Systems</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../install/downloading-and-starting-mule-esb.html">Downloading Mule Runtime</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../install/installing-an-enterprise-license.html">Installing an Enterprise License</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../install/third-party-software-in-mule.html">Third Party Software in Mule</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../deploy/deploying.html">Deploying Mule Runtime</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../deploy/starting-and-stopping-mule-esb.html">Starting and Stopping Mule</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../deploy/mule-deployment-model.html">Mule App Deployment Model</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/hot-deployment.html">Hot Deployment</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/application-deployment.html">Application Deployment</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/application-format.html">Application Format</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                  <button class="nav-tgl"></button>
+                                                <a class="nav-lnk" href="../deploy/mule-application-deployment-descriptor.html">Mule Application Deployment Descriptor</a>
+                                                  <ul class="nav-lst">
+                                                      <li class="nav-itm" data-depth="5" data-state="collapsed">
+                                                        <a class="nav-lnk" href="../application-plugin-format.html">Application Plugin Format</a>
+                                                      </li>
+                                                      <li class="nav-itm" data-depth="5" data-state="collapsed">
+                                                        <a class="nav-lnk" href="../mule-plugin-format.html">Mule Plugin Format</a>
+                                                      </li>
+                                                  </ul>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../deploy/deployment-scenarios.html">Mule Runtime Embedded Deployment Scenarios</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/deploying-mule-to-jboss.html">Deploying Mule to JBoss</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/mule-as-mbean.html">Mule as MBean</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/deploying-mule-to-weblogic.html">Deploying Mule to WebLogic</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/deploying-mule-to-websphere.html">Deploying Mule to WebSphere</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/deploying-mule-as-a-service-to-tomcat.html">Deploying Mule as a Service to Tomcat</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/embedding-mule-in-a-java-application-or-webapp.html">Embedding Mule in a Java Application or Webapp</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/application-server-based-hot-deployment.html">Application Server-Based Hot Deployment</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/deploying-to-multiple-environments.html">Configuring Mule App for Deployment Anywhere</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../deploy/configuring-mule-for-standalone-deployment-scenarios.html">Configuring Mule for Different Deployment Scenarios</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/configuring-mule-as-a-linux-or-unix-daemon.html">Configuring Mule as a Linux or Unix Daemon</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/configuring-mule-as-a-windows-service.html">Configuring Mule as a Windows Service</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/configuring-mule-to-run-from-a-script.html">Configuring Mule to Run From a Script</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../deploy/classloader-control-in-mule.html">Classloader Control in Mule</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../deploy/fine-grain-classloader-control.html">Fine Grain Classloader Control</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../mule-server-notifications.html">Mule Server Notifications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../deploy/hardening-your-mule-installation.html">Hardening your Mule Installation</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../reference.html">Reference</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../flows/flows-and-subflows.html">Flows and Subflows</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../flows/flow-references.html">Flow References and Properties</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../flows/flow-processing-strategies.html">Flow Processing Strategies</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../flows/flow-reference-component-reference.html">Flow Reference Element</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../flows/flow-architecture-advanced-use-case.html">Flow Architecture Advanced Use Case</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../dataweave/dataweave.html">DataWeave</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../dataweave/dataweave-quickstart.html">DataWeave Quickstart Guide</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../dataweave/dataweave-language-introduction.html">Language Introduction</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../dataweave/dataweave-selectors.html">Selectors</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../dataweave/dataweave-operators.html">Operators</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../dataweave/dataweave-types.html">Types</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../dataweave/dataweave-formats.html">Formats</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../dataweave/dataweave-memory-management.html">Memory Management</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../dataweave/dataweave-examples.html">DataWeave Examples</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../dataweave/dataweave-xml-reference.html">DataWeave XML Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../dataweave/dataweave-flat-file-schemas.html">Flat File Schemas</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../dataweave/dataweave-migrator.html">DataWeave Migrator Tool</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../transformers/transformers.html">Transformers</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../transformers/using-transformers.html">Using Transformers</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/transformers-configuration-reference.html">Transformers Configuration Reference</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/native-support-for-json.html">Native Support for JSON</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/xmlprettyprinter-transformer.html">XmlPrettyPrinter Transformer</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/append-string-transformer-reference.html">Append String Transformer Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/attachment-transformer-reference.html">Attachment Transformer Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/expression-transformer-reference.html">Expression Transformer Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/java-transformer-reference.html">Java Transformer Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/object-to-xml-transformer-reference.html">Object to XML Transformer Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/parse-template-reference.html">Parse Template Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/property-transformer-reference.html">Property Transformer Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/script-transformer-reference.html">Script Transformer Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/session-variable-transformer-reference.html">Session Variable Transformer Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/set-payload-transformer-reference.html">Set Payload Transformer Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/variable-transformer-reference.html">Variable Transformer Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/xml-to-object-transformer-reference.html">XML to Object Transformer Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transformers/xslt-transformer-reference.html">XSLT Transformer Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-studio/6/about-defining-metadata.html">Custom Metadata Tab</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../transformers/custom/creating-custom-transformers.html">Creating Custom Transformers</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/creating-flow-objects-and-transformers-using-annotations.html">Creating Flow Objects and Transformers Using Annotations</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/function-annotation.html">Function Annotation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/groovy-annotation.html">Groovy Annotation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/inboundattachments-annotation.html">InboundAttachments Annotation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/inboundheaders-annotation.html">InboundHeaders Annotation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/lookup-annotation.html">Lookup Annotation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/mule-annotation.html">Mule Annotation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/outboundattachments-annotation.html">OutboundAttachments Annotation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/outboundheaders-annotation.html">OutboundHeaders Annotation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/payload-annotation.html">Payload Annotation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/schedule-annotation.html">Schedule Annotation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/transformer-annotation.html">Transformer Annotation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/xpath-annotation.html">XPath Annotation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transformers/custom/creating-custom-transformer-classes.html">Creating Custom Transformer Classes</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../components/components.html">Components</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../components/configuring-components.html">Configuring Components</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../components/configuring-java-components.html">Configuring Java Components</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../components/developing-components.html">Developing Components</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../components/entry-point-resolver-configuration-reference.html">Entry Point Resolver Configuration Reference</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../components/component-bindings.html">Component Bindings</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../components/using-interceptors.html">Using Interceptors</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../components/cxf-component-reference.html">CXF Component Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../components/echo-component-reference.html">Echo Component Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../components/expression-component-reference.html">Expression Component Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../components/http-static-resource-handler.html">HTTP Static Resource Handler</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../components/http-response-builder.html">HTTP Response Builder</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../components/invoke-component-reference.html">Invoke Component Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../components/java-component-reference.html">Java Component Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../components/logger-component-reference.html">Logger Component Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../components/rest-component-reference.html">REST Component Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../components/script-component-reference.html">Script Component Reference</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../components/groovy-component-reference.html">Groovy Component Reference</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../components/javascript-component-reference.html">JavaScript Component Reference</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../components/python-component-reference.html">Python Component Reference</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../components/ruby-component-reference.html">Ruby Component Reference</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../exceptions/error-handling.html">Error Handling</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../exceptions/catch-exception-strategy.html">Catch Exception Strategy</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../exceptions/choice-exception-strategy.html">Choice Exception Strategy</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../exceptions/reference-exception-strategy.html">Reference Exception Strategy</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../exceptions/rollback-exception-strategy.html">Rollback Exception Strategy</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../exceptions/exception-strategy-most-common-use-cases.html">Exception Strategy Most Common Use Cases</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../exceptions/mule-exception-strategies.html">Mule Exception Strategies</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../debug/debugging.html">Debugging</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../debug/configuring-mule-stacktraces.html">Configuring Mule Stacktraces</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../debug/debugging-outside-studio.html">Debugging Outside Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../debug/logging.html">Logging Using Mule Components</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../debug/logging-in-mule.html">Logging Configurations in Mule</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../mel/mule-expression-language-mel.html">Mule Expression Language (MEL)</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mel/mel-cheat-sheet.html">MEL Cheat Sheet</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mel/mule-expression-language-basic-syntax.html">Mule Expression Language Basic Syntax</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mel/mule-expression-language-examples.html">Mule Expression Language Examples</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../mel/mule-expression-language-reference.html">Mule Expression Language Reference</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../mel/mule-expression-language-date-and-time-functions.html">Mule Expression Language Date and Time Functions</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../mel/mel-dataweave-functions.html">MEL DataWeave Functions</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mel/mule-expression-language-tips.html">Mule Expression Language Tips</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../testing/testing.html">Testing</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../testing/introduction-to-testing-mule.html">Testing</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../testing/unit-testing.html">Unit Testing</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../testing/functional-testing.html">Functional Testing</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../testing/testing-strategies.html">Testing Strategies</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../testing/profiling-mule.html">Profiling Mule</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="routers.html">Routers</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="all-flow-control-reference.html">All Flow Control Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="choice-flow-control-reference.html">Choice Flow Control Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="scatter-gather.html">Scatter-Gather</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="splitter-flow-control-reference.html">Splitter Flow Control Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="creating-custom-routers.html">Creating Custom Routers</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../scopes/scopes.html">Scopes</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../scopes/async-scope-reference.html">Async Scope Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../scopes/cache-scope.html">Cache Scope</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../scopes/foreach.html">Foreach</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../scopes/message-enricher.html">Message Enricher</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../scopes/poll-reference.html">Poll Reference</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../scopes/poll-schedulers.html">Poll Schedulers</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../scopes/request-reply-scope.html">Request-Reply Scope</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../scopes/transactional.html">Transactional</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../scopes/until-successful-scope.html">Until Successful Scope</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../batch/batch-processing.html">Batch Processing</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../batch/batch-filters-and-batch-commit.html">Batch Filters and Batch Commit</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../batch/batch-job-instance-id.html">Batch Job Instance ID</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../batch/batch-processing-reference.html">Batch Processing Reference</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../batch/using-mel-with-batch-processing.html">Using MEL with Batch Processing</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../batch/batch-streaming-and-job-execution.html">Batch Streaming and Job Execution</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../batch/record-variable.html">Record Variable</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../validators/validations-module.html">Validators</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../validators/json-schema-validator.html">JSON Schema Validator</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../validators/building-a-custom-validator.html">Building a Custom Validator</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../filters/filters.html">Filters</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../filters/custom-filter.html">Custom Filter</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../filters/exception-filter.html">Exception Filter</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../filters/logic-filter.html">Logic Filter</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../filters/message-filter.html">Message Filter</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../filters/message-property-filter.html">Message Property Filter</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../filters/regex-filter.html">Regex Filter</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../filters/schema-validation-filter.html">Schema Validation Filter</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../filters/wildcard-filter.html">Wildcard Filter</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../filters/idempotent-filter.html">Idempotent Filter</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../filters/filter-ref.html">Filter Ref</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../api-usage/publishing-and-consuming-apis-with-mule.html">Using APIs and Web Services in Mule</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../api-usage/using-web-services.html">Using Web Services</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../api-usage/proxying-web-services.html">Proxying Web Services</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../api-usage/using-.net-web-services-with-mule.html">Using .NET Web Services with Mule</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-usage/consuming-a-soap-api.html">Consuming a SOAP API</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-usage/publishing-a-rest-api.html">Publishing a REST API</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../api-usage/consuming-a-rest-api.html">Consuming a REST API</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../api-usage/rest-api-examples.html">REST API Examples</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../api-usage/publishing-a-soap-api.html">Publishing a SOAP API</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../api-usage/securing-a-soap-api.html">Securing a SOAP API</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../mule-configuration/extra-cxf-component-configurations.html">Extra CXF Component Configurations</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../mule-configuration/understanding-mule-configuration.html">Understanding Mule Configuration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/about-the-xml-configuration-file.html">About the Mule Application XML Configuration File</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/configuring-properties.html">Configuring Properties</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/about-configuration-builders.html">About Configuration Builders</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/connecting-with-transports-and-connectors.html">Connecting with Transports and Connectors</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/mule-versus-web-application-server.html">Mule versus Web Application Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/creating-project-archetypes.html">Creating Project Archetypes</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../integration-patterns/understanding-enterprise-integration-patterns-using-mule.html">Understanding Enterprise Integration Patterns Using Mule</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../integration-patterns/understanding-orchestration-using-mule.html">Understanding Orchestration Using Mule</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../spring-integration/using-mule-with-spring.html">Using Mule with Spring</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../spring-integration/sending-and-receiving-mule-events-in-spring.html">Sending and Receiving Mule Events in Spring</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../spring-integration/spring-application-contexts.html">Spring Application Contexts</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../spring-integration/using-spring-beans-as-flow-components.html">Using Spring Beans as Flow Components</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../spring-integration/mule-esb-3-and-test-api-javadoc.html">Mule 3 API Javadoc</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../mule-configuration/schema-documentation.html">Mule XML Schema Documentation</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/notes-on-mule-3.0-schema-changes.html">Notes on Mule 3.0 Schema Changes</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../maven/using-maven-with-mule.html">Using Maven with Mule</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/configuring-maven-to-work-with-mule-esb.html">Configuring Maven to Work with Mule</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/maven-tools-for-mule-esb.html">Maven Tools for Mule</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/mule-maven-plugin.html">Mule Maven Plugin</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/mule-esb-plugin-for-maven.html">Mule Plugin For Maven (deprecated)</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/maven-reference.html">Maven Reference</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../transactions/transaction-management.html">Transaction Management</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transactions/single-resource-transactions.html">Single Resource Transactions</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transactions/multiple-resource-transactions.html">Multiple Resource Transactions</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transactions/xa-transactions.html">XA Transactions</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transactions/using-bitronix-to-manage-transactions.html">Using Bitronix to Manage Transactions</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-studio/6/adding-and-removing-user-libraries.html">Adding and Removing User Libraries</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../shared-resources/domain-project-shared-resources.html">Shared Resources</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../administer/setting-environment-variables.html">Setting Environment Variables</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../object-scopes/object-scopes.html">Object Scopes</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../object-scopes/storing-objects-in-the-registry.html">Storing Objects in the Registry</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../object-scopes/bootstrapping-the-registry.html">Specifying Objects to Bootstrap to Registry</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../object-scopes/unifying-the-mule-registry.html">Unifying the Mule Registry</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../security/securing.html">Securing</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../security/mule-security.html">Security in Mule</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../security/anypoint-enterprise-security.html">Anypoint Enterprise Security</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/installing-anypoint-enterprise-security.html">Installing Anypoint Enterprise Security</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/mule-secure-token-service.html">Mule Secure Token Service</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../../../anypoint-platform/api-manager/building-an-external-oauth-2.0-provider-application.html">Creating an Oauth 2.0 Web Service Provider</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/authorization-grant-types.html">Authorization Grant Types</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/mule-credentials-vault.html">Mule Credentials Vault</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/mule-message-encryption-processor.html">Mule Message Encryption Processor</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/pgp-encrypter.html">PGP Encrypter</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/mule-digital-signature-processor.html">Mule Digital Signature Processor</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/anypoint-filter-processor.html">Anypoint Filter Processor</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/mule-crc32-processor.html">Mule CRC32 Processor</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/anypoint-enterprise-security-example-application.html">Anypoint Enterprise Security Example Application</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/mule-sts-oauth-2.0-example-application.html">Mule STS Oauth 2.0 Example Application</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../security/mulesoft-security-update-policy.html">MuleSoft Security Update Policy</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../security/configuring-security.html">Configuring Security</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/configuring-the-spring-security-manager.html">Configuring the Spring Security Manager</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/component-authorization-using-spring-security.html">Component Authorization Using Spring Security</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/setting-up-ldap-provider-for-spring-security.html">Setting up LDAP Provider for Spring Security</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/upgrading-from-acegi-to-spring-security.html">Upgrading from Acegi to Spring Security</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/encryption-strategies.html">Encryption Strategies</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/pgp-security.html">PGP Security</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/jaas-security.html">Jaas Security</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../security/saml-module.html">SAML Module</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../security/fips-140-2-compliance-support.html">FIPS 140-2 Compliance Support</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../transports/transports-reference.html">Transports Reference</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../transports/connecting-using-transports.html">Connecting Using Transports</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transports/configuring-a-transport.html">Configuring a Transport</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transports/creating-transports.html">Creating Transports</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transports/transport-archetype.html">Transport Archetype</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transports/transport-service-descriptors.html">Transport Service Descriptors</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/ajax-transport-reference.html">AJAX Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/ejb-transport-reference.html">EJB Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/email-transport-reference.html">Email Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/file-transport-reference.html">File Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/ftp-transport-reference.html">FTP Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/deprecated-http-transport-reference.html">HTTP Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/https-transport-reference.html">HTTPS Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/imap-transport-reference.html">IMAP Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/jdbc-transport-reference.html">JDBC Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../transports/jetty-transport-reference.html">Jetty Transport Reference</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transports/jetty-ssl-transport.html">Jetty SSL Transport</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../transports/jms-transport-reference.html">JMS Transport Reference</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transports/activemq-integration.html">ActiveMQ Integration</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transports/hornetq-integration.html">HornetQ Integration</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transports/open-mq-integration.html">Open MQ Integration</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transports/solace-jms.html">Solace JMS</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transports/tibco-ems-integration.html">Tibco EMS Integration</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/multicast-transport-reference.html">Multicast Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/pop3-transport-reference.html">POP3 Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/quartz-transport-reference.html">Quartz Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/rmi-transport-reference.html">RMI Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/servlet-transport-reference.html">Servlet Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/sftp-transport-reference.html">SFTP Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/smtp-transport-reference.html">SMTP Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/ssl-and-tls-transports-reference.html">SSL and TLS Transports Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/stdio-transport-reference.html">STDIO Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/tcp-transport-reference.html">TCP Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/udp-transport-reference.html">UDP Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/vm-transport-reference.html">VM Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/mule-wmq-transport-reference.html">Mule WMQ Transport Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/wsdl-connectors.html">WSDL Connectors</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transports/xmpp-transport-reference.html">XMPP Transport Reference</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../modules/modules-reference.html">Modules Reference</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../modules/atom-module-reference.html">Atom Module Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../modules/bpm-module-reference.html">BPM Module Reference</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/drools-module-reference.html">Drools Module Reference</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/jboss-jbpm-module-reference.html">JBoss jBPM Module Reference</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../modules/cxf-module-reference.html">CXF Module Reference</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/cxf-module-overview.html">CXF Module Overview</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/building-web-services-with-cxf.html">Building Web Services with CXF</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/consuming-web-services-with-cxf.html">Consuming Web Services with CXF</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/enabling-ws-addressing.html">Enabling WS-Addressing</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/enabling-ws-security.html">Enabling WS-Security</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/cxf-error-handling.html">CXF Error Handling</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/proxying-web-services-with-cxf.html">Proxying Web Services with CXF</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/supported-web-service-standards.html">Supported Web Service Standards</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/using-a-web-service-client-directly.html">Using a Web Service Client Directly</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/using-http-get-requests.html">Using HTTP GET Requests</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/using-mtom.html">Using MTOM</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/cxf-module-configuration-reference.html">CXF Module Configuration Reference</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../modules/data-bindings-reference.html">Data Bindings Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../modules/jaas-module-reference.html">JAAS Module Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../modules/jboss-transaction-manager-reference.html">JBoss Transaction Manager Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../modules/jersey-module-reference.html">Jersey Module Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../modules/json-module-reference.html">JSON Module Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../modules/object-store-module-reference.html">Mule Object Store Module Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../modules/mule-object-stores.html">Mule Object Store Usage</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../modules/rss-module-reference.html">RSS Module Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../modules/scripting-module-reference.html">Scripting Module Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../modules/spring-extras-module-reference.html">Spring Extras Module Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../modules/sxc-module-reference.html">SXC Module Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../modules/xml-module-reference.html">XML Module Reference</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/domtoxml-transformer.html">DomToXml Transformer</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/jaxb-bindings.html">JAXB Bindings</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/jaxb-transformers.html">JAXB Transformers</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/jxpath-extractor-transformer.html">JXPath Extractor Transformer</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../mule-configuration/xml-namespaces.html">XML Namespaces</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/xmlobject-transformers.html">XmlObject Transformers</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/xmltoxmlstreamreader-transformer.html">XmlToXMLStreamReader Transformer</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/xquery-support.html">XQuery Support</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/xquery-transformer.html">XQuery Transformer</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/xslt-transformer.html">XSLT Transformer</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/xpath-extractor-transformer.html">XPath Extractor Transformer</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../modules/xpath.html">XPath</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../extending.html">Extending</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../extending-mule.html">Extending Mule</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../components/extending-components.html">Extending Components</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../modules/custom/custom-message-processors.html">Custom Message Processors</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/creating-example-archetypes.html">Creating Example Archetypes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/creating-a-custom-xml-namespace.html">Creating a Custom XML Namespace</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/creating-module-archetypes.html">Creating Module Archetypes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../custom/internationalizing-strings.html">Internationalizing Strings</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../team-development-with-mule.html">Team Development with Mule</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/modularizing-your-configuration-files-for-team-development.html">Modularizing Your Configuration Files for Team Development</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/using-side-by-side-configuration-files.html">Using Side-by-Side Configuration Files</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../using-modules-in-your-application.html">Using Modules In Your Application</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-usage/using-mule-with-web-services.html">Using Mule with Web Services</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../sharing-custom-code.html">Sharing Custom Code</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../shared-resources/sharing-custom-configuration-fragments.html">Sharing Custom Configuration Fragments</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../sharing-applications.html">Sharing Applications</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../sustainable-software-development-practices-with-mule.html">Sustainable Software Development Practices with Mule</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../reproducible-builds.html">Reproducible Builds</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../continuous-integration.html">Continuous Integration</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../mule-configuration/general-configuration-reference.html">General Configuration Reference</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/bpm-configuration-reference.html">BPM Configuration Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../components/component-configuration-reference.html">Component Configuration Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../endpoints/endpoint-configuration-reference.html">Endpoint Configuration Reference</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../endpoints/mule-endpoint-uris.html">Mule Endpoint URIs</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../exceptions/exception-strategy-configuration-reference.html">Exception Strategy Configuration Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../filters/filters-configuration-reference.html">Filters Configuration Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/global-settings-configuration-reference.html">Global Settings Configuration Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/notifications-configuration-reference.html">Notifications Configuration Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-configuration/properties-configuration-reference.html">Properties Configuration Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../security/security-manager-configuration-reference.html">Security Manager Configuration Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transactions/transactions-configuration-reference.html">Transactions Configuration Reference</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../object-scopes/dependency-injection.html">Dependency Injection</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../mule-configuration/business-events.html">Business Events</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../administer/clustering/choosing-the-right-clustering-topology.html">Clustering Runtime Instances</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../administer/clustering/creating-and-managing-a-cluster-manually.html">Creating and Managing a Cluster Manually</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../administer/clustering/evaluating-mule-high-availability-clusters-demo.html">Configuring Mule High Availability Clusters Demo</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../administer/clustering/1-installing-the-demo-bundle.html">1 - Installing the Demo Bundle</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../administer/clustering/2-creating-a-cluster.html">2 - Creating a Cluster</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../administer/clustering/3-deploying-an-application.html">3 - Deploying an Application</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../administer/clustering/4-applying-load-to-the-cluster.html">4 - Applying Load to the Cluster</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../administer/clustering/5-witnessing-failover.html">5 - Witnessing Failover</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../administer/clustering/6-troubleshooting-and-next-steps.html">6 - Troubleshooting and Next Steps</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../transactions/reliability-patterns.html">Reliability Patterns</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../administer/passing-additional-arguments-to-the-jvm-to-control-mule.html">Passing Additional Arguments to the JVM to Control Mule</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../administer/tuning-performance.html">Tuning the Performance of Mule</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../administer/clustering/distributed-file-polling.html">Distributed File Polling</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../administer/clustering/distributed-locking.html">Distributed Locking</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../mule-configuration/about-components-supporting-streaming.html">Streaming</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../mule-configuration/improving-performance-with-the-kryo-serializer.html">Improving Performance with the Kryo Serializer</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../administer/clustering/hadr-guide.html">High Availability and Disaster Recovery</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../administer/mule-agents.html">Managing Mule Using Agents</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../administer/agent-security-disabled-weak-ciphers.html">Agent Security: Disabled Weak Ciphers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../administer/jmx-management.html">JMX Management</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../mule-configuration/configuring-reconnection-strategies.html">Configuring Reconnection Strategies</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../administer/using-the-mule-client.html">Using the Mule Client</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../non-mel-expressions/using-non-mel-expressions.html">Using Non-MEL Expressions</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../non-mel-expressions/non-mel-expressions-configuration-reference.html">Non-MEL Expressions Configuration Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../non-mel-expressions/creating-non-mel-expression-evaluators.html">Creating Non-MEL Expression Evaluators</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Choice Flow Control Reference</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/mule-runtime-docs/edit/v3.8/modules/ROOT/content/routers/choice-flow-control-reference.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Choice Flow Control Reference</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <strong>choice flow control</strong> dynamically routes messages based on message payload or properties. It adds conditional programming to a flow, similar to an <code>if/then/else</code> code block.</p>
+</div>
+<div class="paragraph">
+<p>A choice flow control uses <a href="../mel/mule-expression-language-mel.html">expressions</a> to evaluate the content of a message, then it routes the message to one of the <strong>routing options</strong> within its scope (see image below). It directs messages to the first routing option in the scope that matches the routing configurations (evaluates to true). If none of expressions evaluate to true, the choice flow control directs the message to the <strong>default</strong> (<code>else</code>) route.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/routers/choice-schematic.png" alt="Choice_schematic">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-the-choice-flow-control"><a class="anchor" href="#adding-the-choice-flow-control"></a>Adding the Choice Flow Control</h2>
+<div class="sectionbody">
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor" class="discrete view">Studio Visual Editor</h3>
+<div class="paragraph">
+<p>In Studio, drag the <strong>Choice</strong> icon from the Studio palette to the canvas, positioning it within the sequence of <a href="../flows/elements-in-a-mule-flow.html">building blocks</a> that form the flow (below).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/routers/choice-summary-flow.png" alt="choice summary flow">
+</div>
+</div>
+<h3 id="studio-xml-editor-or-standalone" class="discrete view">Studio XML Editor or Standalone</h3>
+<div class="paragraph">
+<p>Add a <code>choice</code> element in your flow, with one attribute and, at minimum, two child elements as per the table below. Refer to the code sample below.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>doc:name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unique name for the choice element (not required for Standalone)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Child Element</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Attribute</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>when</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">expression</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>otherwise</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n/a</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/&gt;
+&lt;flow name="New_Studio_ProjectFlow1" doc:name="New_Studio_ProjectFlow1"&gt;
+        &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+        &lt;expression-filter expression="#[message.inboundProperties.'http.request.uri' != '/favicon.ico']" doc:name="Expression"/&gt;
+        &lt;set-variable variableName="language" value="#[message.inboundProperties.'http.query.params'.language]" doc:name="Set Language Variable"/&gt;
+        &lt;choice doc:name="Choice"&gt;
+            &lt;when expression=""&gt;
+            &lt;/when&gt;
+            &lt;otherwise&gt;
+            &lt;/otherwise&gt;
+        &lt;/choice&gt;
+        &lt;logger message="#[payload]" level="INFO" doc:name="Logger"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-the-choice-flow-control"><a class="anchor" href="#configuring-the-choice-flow-control"></a>Configuring the Choice Flow Control</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To configure the choice flow control, you need to determine the following message routing details:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>What content the choice flow router evaluates to determine routing</p>
+</li>
+<li>
+<p>Number of routing options for the choice flow control</p>
+</li>
+<li>
+<p>What processing Mule performs for each routing option</p>
+</li>
+<li>
+<p>Default routing option</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>After you determine your routing goals, follow this procedure to define the routing options, then the routing instructions.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-2" class="discrete view">Studio Visual Editor</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Insert message processors, in this example Set Payload building blocks within the dashed line area that signifies the choice flow control scope to define the routing options. Add a Variable within the "Default" box along with another Set Payload item. The default blocks define the default routing option. You can place several message processors in a chain for each routing option, as needed. In the following example are three routing options to reply in Spanish, French, or English:</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/routers/choice-flow.png" alt="choice flow">
+</div>
+</div>
+</li>
+<li>
+<p>Click the <strong>Choice Router</strong> building block to open its Properties Editor. You can enter Mule expressions to define the routing logic that Mule applies to incoming messages (see table below; detailed instructions follow).</p>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 70%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">When</th>
+<th class="tableblock halign-left valign-top">Route Message to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>#[flowVars.language == 'Spanish']</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>Set Payload</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>#[flowVars.language == 'French']</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>Set Payload</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>Default</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>Variable</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>In the table, double-click the first empty row under <strong>When</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/routers/choiceclickhere.png" alt="ChoiceClickHere">
+</div>
+</div>
+</li>
+<li>
+<p>In the Route Properties dialog, enter:<br>
+<code>#[flowVars.language == 'Spanish']</code></p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/routers/choicerouteproperties.png" alt="ChoiceRouteProperties">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>OK</strong>. This expression tells Mule to look for a flow variable called <code>language</code> on the incoming message and check whether it equals Spanish. If this expression evaluates to true, Mule routes the message to the message processor in that path.</p>
+</li>
+<li>
+<p>Click the next empty row, and enter:<br>
+<code>#[flowVars.language == 'French']</code></p>
+<div class="paragraph">
+<p>Just as in the previous row, this expression tells Mule to look for a flow variable called <code>language</code> in the incoming message. This time, the expression indicates Mule should check whether <code>language</code> equals French. If this expression evaluates to true, Mule routes the message to the message processor in that path.</p>
+</div>
+</li>
+<li>
+<p>Click <strong>OK</strong> to save the routing configurations.</p>
+</li>
+<li>
+<p>Double-click the <strong>Default</strong> line item to open its Route Properties panel.</p>
+<div class="paragraph">
+<p>Notice that:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>You cannot edit the <strong>Expression</strong> field</p>
+</li>
+<li>
+<p>The <strong>Otherwise</strong> box is checked</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/routers/studio-choice-default-routeproperties.png" alt="Studio_Choice_default_routeproperties">
+</div>
+</div>
+<div class="paragraph">
+<p>The <strong>Otherwise</strong> box identifies this route as the <strong>Default</strong>  for the choice flow control. If the flow control cannot route a message to any of the preceding routing options in its scope, it directs the message to the default route.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Next, click the topmost <strong>Set Payload</strong> building block within your Choice Router scope to open its Properties Editor and set Value to: `Hola!  `</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/routers/holaamigos.png" alt="HolaAmigos">
+</div>
+</div>
+<div class="paragraph">
+<p>If Mule finds the flow variable <code>language=Spanish</code>, your message produces this payload as a response.</p>
+</div>
+</li>
+<li>
+<p>Click the next <strong>Set Payload</strong> building block for <strong>Reply in French</strong> and set the value to:</p>
+<div class="listingblock">
+<div class="content">
+<pre>Bonjour!</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If Mule finds the flow variable <code>language=French</code>, your message produces this payload as a response.</p>
+</div>
+</li>
+<li>
+<p>Click the <strong>Variable Transformer</strong> inside the Default box to open its Properties Editor, then configure it as:</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/routers/varsetlangtoenv.png" alt="VarSetLangToEnv">
+</div>
+</div>
+<div class="paragraph">
+<p>This Variable Transformer, and the Set Payload that follows it, are only invoked if neither of the expressions in the choice routing logic evaluate to true. Thus, if Mule does not find either the flow variable <code>language=Spanish</code> or the flow variable <code>language=French</code>, Mule routes the message to this default processing option, which sets the flow variable <code>language</code> with the value <code>English</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note that in this configuration you are setting a literal value for the variable, rather than using Mule expression language to extract a value from the message, as you did in the previous Variable Transformer.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Click the <strong>Set Payload</strong> after the Variable Transformer inside the Default box to open its Properties Editor, then configure it as:</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/routers/setpayloadenglish.png" alt="SetPayLoadEnglish">
+</div>
+</div>
+<div class="paragraph">
+<p>This Set Payload transformer sets a payload for the default option you configured above in your choice routing logic.</p>
+</div>
+<div class="paragraph">
+<p>As it processes messages, Mule evaluates the expressions defined in your routing options in order, top down, until one of them evaluates to "true".</p>
+</div>
+</li>
+<li>
+<p>If necessary, drag and drop building blocks within the choice flow control scope on the canvas to reorder routing options.</p>
+</li>
+</ol>
+</div>
+<h3 id="studio-xml-editor-or-standalone-2" class="discrete view">Studio XML Editor or Standalone</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To the first <code>when</code> element within your choice element, add message processors as child elements to form a routing option to which the choice element can direct messages. Add as many additional <code>when</code> elements as needed.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/&gt;
+&lt;flow name="New_Studio_ProjectFlow1" doc:name="New_Studio_ProjectFlow1"&gt;
+        &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+        &lt;expression-filter expression="#[message.inboundProperties.'http.request.uri' != '/favicon.ico']" doc:name="Expression"/&gt;
+        &lt;set-variable variableName="language" value="#[message.inboundProperties.'http.query.params'.language]" doc:name="Set Language Variable"/&gt;
+        &lt;choice doc:name="Choice"&gt;
+            &lt;when expression=""&gt;
+                &lt;set-payload value="Hola!" doc:name="Reply in Spanish"/&gt;
+            &lt;/when&gt;
+            &lt;when expression=""&gt;
+                &lt;set-payload value="Bonjour!" doc:name="Reply in French"/&gt;
+            &lt;/when&gt;
+            &lt;otherwise&gt;
+            &lt;/otherwise&gt;
+        &lt;/choice&gt;
+        &lt;logger message="#[payload]" level="INFO" doc:name="Logger"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure the contents of the <code>otherwise</code> child element to define the default routing option to which your choice router can direct messages if all the previous when expressions evaluate to false. Refer to code sample below.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/&gt;
+&lt;flow name="New_Studio_ProjectFlow1" doc:name="New_Studio_ProjectFlow1"&gt;
+        &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+        &lt;expression-filter expression="#[message.inboundProperties.'http.request.uri' != '/favicon.ico']" doc:name="Expression"/&gt;
+        &lt;set-variable variableName="language" value="#[message.inboundProperties.'http.query.params'.language]" doc:name="Set Language Variable"/&gt;
+        &lt;choice doc:name="Choice"&gt;
+            &lt;when expression=""&gt;
+                &lt;set-payload value="Hola!" doc:name="Reply in Spanish"/&gt;
+            &lt;/when&gt;
+            &lt;when expression=""&gt;
+                &lt;set-payload value="Bonjour!" doc:name="Reply in French"/&gt;
+            &lt;/when&gt;
+            &lt;otherwise&gt;
+                &lt;set-variable variableName="language" value="English" doc:name="Set Language to English"/&gt;
+                &lt;set-payload value="Hello!" doc:name="Reply in English"/&gt;
+            &lt;/otherwise&gt;
+        &lt;/choice&gt;
+        &lt;logger message="#[payload]" level="INFO" doc:name="Logger"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>For each <code>when</code> element, enter an expression for the choice router to use to evaluate the contents of a message. If, during processing, the expression associated with a routing option evaluates to true, Mule directs the message to that route. Refer to example expression below.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;when expression="#[flowVars.language == 'Spanish']"&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>As it processes messages, Mule evaluates the expressions defined in your routing options in the order they appear in the config, top down, until one of them evaluates to "true". Adjust the order of the <code>when</code> elements in your flow with this in mind.</p>
+</li>
+</ol>
+</div>
+<h4 id="configuration-summary" class="discrete">Configuration Summary</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>choice</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dynamically routes messages based on message payload or properties, adding conditional programming to a flow, similar to an <code>if/then/else</code> code block.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Element Attribute</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>doc:name</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Customize to display a unique name for the flow control in your application.</p>
+</div>
+<div class="paragraph">
+<p>Note: Attribute not required in Mule Standalone configuration.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Child Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>when</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use to define all non-default routing options within the choice flow control.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Child Element Attribute</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>expression</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mule expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use MEL to define an expression that the choice router will use to evaluate the contents of a message. If the expression evaluates to "true", Mule directs the message to this routing option.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Child Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>otherwise</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use to define the default routing option for the message, should none of the preceding <code>when</code> expressions evaluate to "true"</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+To run and test this example, you might find it useful to take a look at <a href="../../../solutions/getting-started/content-based-routing.html">Content-Based Routing</a>. There you&#8217;ll find details about the configuration of the other building blocks in the flow, as well as instructions on how to send requests to it.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="changing-the-default-route"><a class="anchor" href="#changing-the-default-route"></a>Changing the Default Route</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can change the choice flow control configuration to identify a different default routing option.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-3" class="discrete view">Studio Visual Editor</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the Choice Flow Control&#8217;s Properties Editor, then, in the table, double-click the line item of whichever routing option that you would like to specify as the new default route.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/routers/choice-props-set-new-default.png" alt="choice props set new default">
+</div>
+</div>
+</li>
+<li>
+<p>Check the <strong>Otherwise</strong> box (see below), then click <strong>OK</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/routers/select-default.png" alt="select+default">
+</div>
+</div>
+</li>
+<li>
+<p>Mule applies the <strong>Default</strong> label to the new default routing option in the table on the Properties Editor (below). (Note that the English routing option now needs a "when" expression defined.)</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/routers/choice-spanish-set-as-new-default.png" alt="choice spanish set as new default">
+</div>
+</div>
+</li>
+<li>
+<p>Define a <code>when</code> expression for the routing option previously identified as the default. (In the example, the English routing option.)</p>
+</li>
+</ol>
+</div>
+<h3 id="studio-xml-editor-or-standalone-3" class="discrete view">Studio XML Editor or Standalone</h3>
+<div class="paragraph">
+<p>Adjust your XML configuration to swap the contents of a <code>when</code> element and the <code>otherwise</code> element.</p>
+</div>
+<div class="paragraph">
+<p>The code sample below has been adjusted to make the Spanish language the default routing option and change the English language to a <code>when</code> element. Note that the <code>otherwise</code> element requires no further configuration, but we defined a new expression for the new <code>when</code> element.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/&gt;
+&lt;flow name="New_Studio_ProjectFlow1" &gt;
+        &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+        &lt;expression-filter expression="#[message.inboundProperties.'http.request.uri' != '/favicon.ico']" doc:name="Expression"/&gt;
+        &lt;set-variable variableName="language" value="#[message.inboundProperties.'http.query.params'.language]" doc:name="Set Language Variable"/&gt;
+        &lt;choice doc:name="Choice"&gt;
+            &lt;when expression="#[flowVars.language == 'french']"&gt;
+                &lt;set-payload value="Bonjour!" doc:name="Reply in French"/&gt;
+             &lt;/when&gt;
+            &lt;otherwise &gt;
+                &lt;set-variable variableName="language" value="spanish" doc:name="Set Language to Spanish"/&gt;
+                &lt;set-payload value="Hola!" doc:name="Reply in Spanish"/&gt;
+             &lt;/otherwise&gt;
+            &lt;when expression="#[flowVars.language == 'english']"&gt;
+                &lt;set-payload value="Hello!" doc:name="Reply in English"/&gt;
+            &lt;/when&gt;
+        &lt;/choice&gt;
+        &lt;logger message="#[payload]" level="INFO" doc:name="Logger"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="complete-example-code"><a class="anchor" href="#complete-example-code"></a>Complete Example Code</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mule xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd"&gt;
+&lt;http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/&gt;
+&lt;flow name="New_Studio_ProjectFlow1" &gt;
+        &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+        &lt;expression-filter expression="#[message.inboundProperties.'http.request.uri' != '/favicon.ico']" doc:name="Expression"/&gt;
+        &lt;set-variable variableName="language" value="#[message.inboundProperties.'http.query.params'.language]" doc:name="Set Language Variable"/&gt;
+        &lt;choice doc:name="Choice"&gt;
+            &lt;when expression="#[flowVars.language == 'french']"&gt;
+                &lt;set-payload value="Bonjour!" doc:name="Reply in French"/&gt;
+             &lt;/when&gt;
+            &lt;when expression="#[flowVars.language == 'spanish']"&gt;
+                &lt;set-payload value="Hola!" doc:name="Reply in Spanish"/&gt;
+             &lt;/when&gt;
+            &lt;otherwise &gt;
+                &lt;set-variable variableName="language" value="English" doc:name="Set Language to English"/&gt;
+                &lt;set-payload value="Hello!" doc:name="Reply in English"/&gt;
+             &lt;/otherwise&gt;
+        &lt;/choice&gt;
+        &lt;logger message="#[payload]" level="INFO" doc:name="Logger"/&gt;
+&lt;/flow&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The flow for this example is:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/routers/finalflow.png" alt="FinalFlow">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>For more information on the Choice Flow Control, see the <a href="routers.html">Choice</a> section on the Routing Message Processors page.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../../_theme/scripts/menu.js"></script>
+<script src="../../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

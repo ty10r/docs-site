@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="mq, destinations, queues, pub-sub">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-platform/mq/mq-queues.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>To Configure Queues // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../access-management/index.html">Access Management</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/managing-your-account.html">Managing Your Account</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/organization.html">Organization</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/users.html">Users</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/roles.html">Roles</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/environments.html">Environments</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../access-management/external-identity.html">About Identity Management</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/sso-prerequisites-about.html">About SSO Prerequisites and Limitations</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/managing-users.html">To Configure SAML</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/conf-openid-connect-task.html">To Configure OpenID Connect</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/change-id-mgmt-conf-about.html">About Changing an Identity Management Configuration</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/verify-saml-info-task.html">To Verify SAML Information</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/troubleshoot-saml-assertions-task.html">To Troubleshoot SAML Assertions</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/single-log-out-task.html">To Perform Single Log Out</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/map-users-roles-ldap-task.html">To Map Users to Roles in an LDAP Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/conf-ldap-private-cloud-task.html">To Configure LDAP in Anypoint Platform Private Cloud</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../access-management/managing-api-clients.html">About Client Management</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/conf-client-mgmt-openam-task.html">To Configure Client Management by OpenAM</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/conf-client-mgmt-pf-task.html">To Configure Client Management by PingFederate</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/audit-logging.html">Audit Logging</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/managing-permissions.html">Managing Permissions</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/private-cloud-edition-features.html">Private Cloud Edition Features</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/troubleshooting-anypoint-platform-access.html">Troubleshooting Anypoint Platform Access</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../analytics/index.html">Anypoint Analytics</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../analytics/viewing-api-analytics.html">Viewing API Analytics</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../analytics/analytics-event-api.html">Analytics Event API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../analytics/analytics-chart.html">Analytics Chart in API Manager</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../analytics/api-consumer-analytics.html">Anypoint Analytics - API Consumer</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../../solutions/anypoint-b2b.html">Anypoint B2B</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">TRADACOMS EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDI Schema Language Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../partner-manager/index.html">Anypoint Partner Manager</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../partner-manager/key-concepts.html">Key Concepts</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/b2b-transaction-processing-framework.html">B2B Transaction-Processing Framework</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/resolution-processes.html">Resolution Processes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/tracking.html">Tracking</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../partner-manager/examples.html">Examples</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../partner-manager/transaction-monitoring.html">Transaction Monitoring</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/central-pane-elements.html">Central Pane Elements</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/tracking-scenarios.html">Tracking Scenarios</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../partner-manager/partner-configuration.html">Partner Configuration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/company-information.html">Company Information</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/identifiers.html">Identifiers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/on-hold-inactive.html">On-Hold/Inactive</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">Certificate</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/csv-settings.html">CSV Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/document-types.html">Document Types</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/endpoints.html">Endpoints</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/maps.html">Maps</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/channels.html">Channels</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/routes.html">Routes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/partner-conversations.html">Partner Conversations</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/rosettanet-pips.html">RosettaNet PIPs</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/rosettanet-agreements.html">RosettaNet Agreements</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../partner-manager/administration.html">Administration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/environments.html">Environments</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/error-codes.html">Error Codes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/security.html">Security</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/lookup-tables.html">Lookup Tables</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../partner-manager/walkthroughs.html">Walkthroughs</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/ftps-and-edi-x12-purchase-order-walkthrough.html">FTPS and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/transaction-tracking-walkthrough.html">Transaction Tracking Walkthrough</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../partner-manager/anypoint-partner-manager-api.html">Anypoint Partner Manager API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../partner-manager/glossary.html">Glossary</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../partner-manager/partner-manager-connector.html">Partner Manager Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../partner-manager/ftps-connector.html">FTPS Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">EDI X12 Order Processing Example</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../partner-manager/supported-edi-document-types.html">Supported EDI Document Types</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../data-gateway/index.html">Anypoint Data Gateway</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../data-gateway/installing-anypoint-data-gateway.html">Installing Anypoint Data Gateway</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../data-gateway/creating-and-configuring-a-gateway.html">Creating and Configuring a Gateway</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../data-gateway/managing-gateways.html">Managing Gateways</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../data-gateway/quick-guide-to-accessing-gateways-and-objects.html">Quick Guide to Accessing Gateways and Objects</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../data-gateway/troubleshooting-data-gateway.html">Troubleshooting Data Gateway</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint MQ</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-understanding.html">About Anypoint MQ</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-tutorial.html">Tutorial: To Use Anypoint MQ</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-access-management.html">To set Environment, User, and Role Access</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-queues.html">To Configure Queues</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-exchanges.html">To Configure Message Exchanges</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-client-apps.html">To Configure Client Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-studio.html">To Set Up Studio for the MQ Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-apis.html">To Use Anypoint MQ REST APIs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-usage.html">About Usage Graphs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-ack-mode.html">About Acknowledgement Mode</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-faq.html">FAQ: About Anypoint MQ</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../api-manager/index.html">API Manager</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/tutorials.html">About the API Life Cycle</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-set-up-an-api.html">To Set Up an API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/design-raml-api-task.html">To Design a Basic RAML API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/simulate-api-task.html">To Simulate an API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/consume-api-task.html">To Consume a Web Service</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-set-up-and-deploy-an-api-proxy.html">To Set Up and Deploy an API Proxy</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/create-api-version-task.html">To Create a New API Version</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/import-api-version-task.html">To Import an API Version</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/export-api-version-task.html">To Export an API Version</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-create-an-api-portal.html">To Publish an API on the Portal</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/deprecate-api-task.html">To Deprecate an API Version</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-use-a-portal-as-an-app-developer.html">To Use a Portal as an App Developer</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-create-an-api-notebook.html">To Create an API Notebook</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/play-share-api-notebook-task.html">To Play and Share an API Notebook</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-design-an-api.html">About Designing a Basic RAML API</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/manage-api-reference.html">API Management Reference</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/designing-your-api.html">API Designer Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/configuring-endpoint-reference.html">Endpoint Configuration Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/https-reference.html">HTTPS Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/browsing-and-accessing-apis.html">Consuming an API Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/engaging-users-of-your-api.html">Portal Creation Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/creating-an-api-notebook.html">API Notebook Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/accessing-your-api-behind-a-firewall.html">Firewall Access Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/gatekeeper.html">Gatekeeper Enhanced Security Reference</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/using-policies.html">About Policies</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/setting-your-api-url.html">To Set the API URL</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-manage-an-api.html">To Apply a Resource-Level Policy and SLA Tiers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/disable-edit-remove-task.html">To Disable, Edit, or Remove a Policy</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/reorder-policies-task.html">To Re-order Policies</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-manage-consuming-applications.html">To Manage API Access Requests</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/delete-sla-tier-task.html">To Delete an SLA Tier</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/resource-level-policies-about.html">About Resource Level Policies</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../api-manager/policy-reference.html">Policy Reference</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/cors-reference.html">CORS Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/defining-sla-tiers.html">SLA Tiers Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/introduction-to-policy-management.html">Policy Management Architecture</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../api-manager/aes-oauth-faq.html">About OAuth 2.0</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/oauth-build-provider-prerequisites-about.html">About Mule OAuth Provider Prerequisites</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/building-an-external-oauth-2.0-provider-application.html">To Build a Mule OAuth 2.0 Provider</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/to-test-local-provider.html">To Test the Local Provider</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/to-deploy-provider.html">To Deploy the Provider</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/to-test-remote-provider.html">To Test the Remote Provider</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/to-use-authentication.html">To Use a Mule Provider for OAuth 2.0 Authentication</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/oauth-dance-about.html">About the OAuth Dance</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/about-configure-api-for-oauth.html">About Configuring an API for OAuth 2.0</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/oauth-service-provider-reference.html">OAuth 2.0 Service Provider Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/oauth-grant-types-about.html">About OAuth Grant Types</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/oauth-persist-obj-store-about.html">About Persisting Object Stores</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/oauth2-provider-configuration.html">Mule OAuth 2.0 Provider Configuration Reference</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../api-manager/available-policies.html">Provided Policies</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/add-remove-headers.html">Add/Remove Headers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/cors-policy.html">CORS</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/client-id-based-policies.html">Client ID-Based</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/http-basic-authentication-policy.html">HTTP Basic Authentication</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/ip-blacklist.html">IP Blacklist</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/ip-whitelist.html">IP Whitelist</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/json-xml-threat-policy.html">JSON and XML Threat Protection</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/ldap-security-manager.html">LDAP Security Manager</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/external-oauth-2.0-token-validation-policy.html">OAuth 2.0 Access Token Enforcement Using External Provider</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/openam-oauth-token-enforcement-policy.html">OpenAM OAuth Token Enforcement</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/pingfederate-oauth-token-enforcement-policy.html">PingFederate OAuth Token Enforcement</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/rate-limiting-and-throttling.html">Rate Limiting and Throttling</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/rate-limiting-and-throttling-sla-based-policies.html">Rate Limiting and Throttling - SLA-Based</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/applying-custom-policies.html">About Custom Policies</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/creating-a-policy-walkthrough.html">Workflow: Create a Custom Policy</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/create-policy-config-task.html">To Create the Custom Policy Configuration File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/create-policy-definition-task.html">To Create the Custom Policy Definition File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/add-custom-policy-task.html">To Add a Custom Policy to API Manager</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/add-rlp-support-task.html">To Add Resource Level Policy Support to a Custom Policy</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/create-policy-pcf.html">About Custom Policies in Pivotal Cloud Foundry</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../api-manager/custom-policy-reference.html">Custom Policy Reference</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/custom-pol-config-xml-props-reference.html">Configuration XML Properties Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/pointcuts-reference.html">Pointcuts Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/custom-pol-implementations-reference.html">Custom Policy Reference Implementations</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/cust-pol-exception-blocks-reference.html">Custom Policy Exception Blocks Reference</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/proxy-about.html">About Proxies</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/proxy-depl-cloudhub.html">To Deploy a Proxy to CloudHub</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/proxy-depl-hosted.html">To Deploy a Proxy to a Hosted Runtime</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/proxy-depl-pcf.html">To Deploy a Proxy to Pivotal Cloud Foundry</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/proxy-depl-api-gate.html">To Deploy a Proxy to API Gateway 2.x</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/proxy-modify.html">To Modify a Proxy</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/using-api-alerts.html">About API Alerts</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/add-api-alert-task.html">To Add an API Alert</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/view-delete-alerts-task.html">To View and Delete API Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/edit-enable-disable-alerts-task.html">To Edit, Enable, or Disable API Alerts</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/api-auto-discovery.html">API Auto-Discovery and Startup from Studio</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/api-auto-discovery-reference.html">Auto-Discovery Reference</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/api-gateway-runtime-archive.html">API Gateway Runtime&#8212;&#8203;Archive</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/configuring-an-api-gateway.html">Configuring an API Gateway</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/api-gateway-domain.html">API Gateway Domain</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/configuring-proxy-access-to-an-api.html">Configuring Proxy Access to APIs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/deploy-to-api-gateway-runtime.html">Deploying to API Gateway Runtime</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../object-store/index.html">Object Store V2 - Beta</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../object-store/osv2-concepts.html">Concepts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../object-store/osv2-tutorial.html">Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../object-store/osv2-apis.html">APIs</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../runtime-manager/index.html">Runtime Manager</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../cloudhub/tutorials.html">Tutorials</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/building-an-https-service.html">Building an HTTPS Service</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/vpc/vpc-tutorial.html">Create a VPC using Runtime Manager</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/vpc/create-vpc-cli.html">Create a VPC using Anypoint Platform CLI</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/dedicated-load-balancer-tutorial.html">Create a Dedicated Load Balancer</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../runtime-manager/deployment-strategies.html">Deployment Strategies</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/deploying-to-cloudhub.html">Deploying to CloudHub</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/deploying-to-your-own-servers.html">Deploying to Your Own Servers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/pcf/pcf-deploying.html">Deploying to Pivotal Cloud Foundry</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../runtime-manager/managing-deployed-applications.html">Managing Deployed Applications</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../cloudhub/managing-applications-on-cloudhub.html">Managing Applications on CloudHub</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/managing-queues.html">Managing Queues</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/managing-schedules.html">Managing Schedules</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/secure-application-properties.html">Secure Application Properties</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/managing-application-data-with-object-stores.html">Managing App Data using Object Stores</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../cloudhub/vpc/virtual-private-cloud.html">Virtual Private Cloud</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/custom-application-alerts.html">Custom Application Alerts</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../cloudhub/autoscaling-in-cloudhub.html">Autoscaling in CloudHub</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../runtime-manager/managing-applications-on-your-own-servers.html">Managing Applications on Your Own Servers</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/flow-management.html">Flow Management</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../runtime-manager/managing-servers.html">Managing Servers</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/runtime-manager-api.html">Runtime Manager API</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../runtime-manager/monitoring.html">Monitoring</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/alerts-on-runtime-manager.html">Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/notifications-on-runtime-manager.html">Notifications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/custom-application-alerts.html">Custom Application Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/monitoring-dashboards.html">Dashboards</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/flow-metrics.html">Flow Metrics</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../runtime-manager/troubleshooting.html">Troubleshooting</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/insight.html">Insight</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../runtime-manager/viewing-log-data.html">Viewing Log Data</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/custom-log-appender.html">Custom Log Appender</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/worker-monitoring.html">Worker Monitoring</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../runtime-manager/sending-data-from-arm-to-external-analytics-software.html">Sending data from Runtime Manager to External Analytics Software</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/about-logging-of-payload-formats.html">About Logging of Payload Formats</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/sending-api-analytics-from-arm-to-db.html">Sending API Analytics</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/sending-event-data-from-arm-to-db.html">Sending Event Data</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../cloudhub/index.html">CloudHub</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-faq.html">CloudHub FAQ</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/developing-applications-for-cloudhub.html">Developing Applications for CloudHub</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-architecture.html">CloudHub Architecture</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-impaired-worker.html">About Impaired Workers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-fabric.html">CloudHub Fabric</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/managing-cloudhub-specific-settings.html">Managing Cloudhub Settings</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-networking-guide.html">CloudHub Networking Guide</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-dedicated-load-balancer.html">Cloudhub Dedicated Load Balancer</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/penetration-testing-policies.html">Penetration Testing Policies</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-api.html">CloudHub API</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../cloudhub/maintenance-and-upgrade-policy.html">Maintenance and Upgrade Policy</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../runtime-manager-agent/1.7/index.html">Runtime Manager Agent</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/installing-and-configuring-runtime-manager-agent.html">Installing and Configuring the Agent</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/debugging-the-runtime-manager-agent.html">Debugging the Agent</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/advanced-usage.html">Advanced Usage</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../runtime-manager-agent/1.7/runtime-manager-agent-architecture.html">Runtime Manager Agent Architecture</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../../runtime-manager-agent/1.7/runtime-manager-agent-api.html">Agent API</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/administration-service.html">Administration Service</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/managing-applications-and-domains.html">Managing Applications and Domains</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/jmx-service.html">JMX Service</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/runtime-manager-agent-notifications.html">Runtime Manager Agent Notifications</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../runtime-manager-agent/1.7/event-tracking.html">Event Tracking</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../runtime-manager-agent/1.7/internal-handler-buffering.html">Internal Handler Buffering</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../runtime-manager-agent/1.7/extending-the-runtime-manager-agent.html">Extending the Runtime Manager Agent</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../runtime-manager/anypoint-platform-cli.html">Command Line Interface</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/command-line-tools.html">Deprecated Command Line Tool</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../private-cloud/index.html">About Anypoint Platform Private Cloud Edition</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/system-requirements.html">About Minimum System Requirements</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../private-cloud/prereq-workflow.html">Workflow: Verify Prerequisites</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/prereq-verify.html">To Verify System Requirements</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/prereq-create-vm-vmware.html">To Create a Virtual Machine Using VMWare</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/prereq-firewalld-forwarding.html">To Enable Forwarding When Using firewalld</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../private-cloud/install-workflow.html">Workflow: Install Anypoint Private Cloud</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/install-installer.html">To Run the Anypoint Private Cloud Edition Installer</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/install-auto-install.html">To Install Anypoint Platform Private Cloud Using the Automated Installer</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/install-create-lb.html">To Create a Load Balancer</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/install-add-tasks.html">To Perform Additional Installation Tasks</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/install-config-ldap-pce.html">To Configure LDAP in Anypoint Platform Private Cloud Edition</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/install-disable-local-user.html">To Disable the Local User after Installing Private Cloud Edition</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/backup-and-disaster-recovery.html">To Backup and Restore Your System</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/upgrade.html">To Migrate to Anypoint Platform Private Cloud Edition, Version 1.6.x</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/managing-via-the-ops-center.html">To Manage Anypoint Platform Private Cloud Edition Using Ops Center</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/config-alerts.html">To Setup Alerts for CPU and Memory Usage</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/config-add-proxy-whitelist.html">To Add Whitelist Addresses for API Platform Proxies</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/demo-ldap-server.html">About the Demo LDAP Server</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">To Configure Queues</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-platform-docs/edit/master/modules/mq/content/mq-queues.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>To Configure Queues</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Anypoint MQ is a messaging broker that lets applications communicate by publishing a Mule Message to a queue so that another application can consume the message.</p>
+</div>
+<div class="paragraph">
+<p>This guide describes how to create a queue using Anypoint Platform.</p>
+</div>
+<div class="paragraph">
+<p><strong>Notes</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Queue names can contain alphanumeric characters (a-z, A-Z, 0-9), dots (.), and dashes (-). All other characters are not allowed.</p>
+</li>
+<li>
+<p>Queue names are limited to 127 characters in length.</p>
+</li>
+<li>
+<p>The maximum size of a message is 10 MB.</p>
+</li>
+<li>
+<p>The maximum time to live (TTL) for a message is 2 weeks. The maximum lock TTL is 12 hours.</p>
+</li>
+<li>
+<p>Anypoint MQ supports up to 120,000 in flight messages per non-FIFO queue. FIFO queues are limited to 20,000 in flight messages per queue.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Organization administrators or owners can view the current and past months usage - the total number of messages and API requests. This information is accessed from the Access Management page. For more information, see <a href="mq-usage.html">Anypoint MQ Usage Information</a>.</p>
+</div>
+<div class="paragraph">
+<p>If you or another person in your organization has not created an environment, user access, and roles for accessing Anypoint MQ, see <a href="mq-access-management.html">Anypoint MQ Access Management</a> before starting this guide.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fifoqueues"><a class="anchor" href="#fifoqueues"></a>About FIFO Queues</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For applications where the order of messages needs to be strictly preserved and enforced, Anypoint MQ provides first in, first out (FIFO) processing to enable ordering of messages. With FIFO, Anypoint MQ ensures that the order in which messages are placed in a queue is the same order in which messages can be retrieved.</p>
+</div>
+<div class="paragraph">
+<p>Topics:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#fifo-notes">FIFO Notes</a></p>
+</li>
+<li>
+<p><a href="#fifo-related-documentation">FIFO-Related Documentation</a></p>
+</li>
+<li>
+<p><a href="#about-fifo-exactly-once-delivery">About FIFO Exactly Once Delivery</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="fifo-notes"><a class="anchor" href="#fifo-notes"></a>FIFO Notes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>A FIFO queue cannot be bound to a message exchange.</p>
+</li>
+<li>
+<p>Encrypting a FIFO queue does not affect the order or the contents of messages consumed.</p>
+</li>
+<li>
+<p>FIFO queues support up to 300 transactions per second. In addition, FIFO permits up to 20,000 inflight messages per queue.</p>
+</li>
+<li>
+<p>FIFO queues are only supported in the US West region (Oregon).</p>
+</li>
+<li>
+<p>Only a FIFO dead letter queue can be used as a DLQ for a FIFO queue.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mqfifo-set-to-us-west.png" alt="mqfifo set to us west">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="fifo-related-documentation"><a class="anchor" href="#fifo-related-documentation"></a>FIFO-Related Documentation</h3>
+<div class="paragraph">
+<p>Other FIFO-related information in the Anypoint MQ documentation set:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#to-create-a-queue">To Create a Queue</a> - How to create a FIFO queue.</p>
+</li>
+<li>
+<p><a href="#dlqfifo">FIFO Notes</a> - Determine if a queue is FIFO or non-FIFO.</p>
+</li>
+<li>
+<p><a href="mq-studio.html#configuring-anypoint-studio">Configuring Anypoint Studio</a> &gt; <strong>Studio Visual Editor</strong> tab &gt;
+<strong>Advanced Global Element Properties</strong> &gt; <strong>Message ID</strong> (and <strong>XML Editor or Standalone</strong> tab &gt;
+<strong>All XML Fields With Examples</strong> &gt; <strong>messageId</strong>) field description - When publishing to FIFO queues,
+if you specify a custom Message ID and the Message ID is the same on multiple messages, the
+messages with the same Message ID are not redelivered.</p>
+</li>
+<li>
+<p><a href="mq-apis.html#create-a-fifo-queue-from-the-administration-portal">Create a FIFO Queue From the Administration Portal</a> - How to create a FIFO queue using the Anypoint MQ REST API.</p>
+</li>
+<li>
+<p><a href="../../release-notes/mq/release-notes.html#version-1-5-0-january-28-2017">Release Notes</a> reference.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="to-create-a-queue"><a class="anchor" href="#to-create-a-queue"></a>To Create a Queue</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A queue is a temporary storage area for a message. You can use the MQ feature in Anypoint Platform to create a queue, and send and receive messages to a queue. You can also send and receive messages to a queue using Anypoint Studio.</p>
+</div>
+<div class="paragraph">
+<p>When you create a queue, you can optionally choose to encrypt all messages in the queue. If enabled,
+Anypoint MQ encrypts messages using PBE with MD5 and Triple DES, and with a 168-bit key.</p>
+</div>
+<div class="paragraph">
+<p>Anypoint MQ lets you create either a first-in first-out (FIFO) queue
+that ensures your messages arrive in order, or you can create a standard
+queue where message ordering is not guaranteed.
+FIFO queues are a best fit for applications requiring strict message ordering and exactly once delivery, but where message delivery speed is of less importance.
+Standard queues are a best fit for applications where messages need to be delivered quickly.</p>
+</div>
+<div class="paragraph">
+<p>See also <a href="#fifoqueues">About FIFO Queues</a>.</p>
+</div>
+<div class="paragraph">
+<p>To create a queue or FIFO queue:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log into <a href="https://anypoint.mulesoft.com/#/signin">Anypoint Platform</a>.</p>
+</li>
+<li>
+<p>Click <strong>MQ</strong> from the left navigation bar or click <strong>MQ</strong> from the main Anypoint Platform screen:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-ap-access.png" alt="mq ap access">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Destinations</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-destinations-option.png" alt="mq destinations option">
+</div>
+</div>
+</li>
+<li>
+<p>Click the blue plus circle.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-blue-create.png" alt="mq blue create">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Queue</strong> or <strong>FIFO Queue</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mqfifo-create-options.png" alt="mqfifo create options">
+</div>
+</div>
+<div class="paragraph">
+<p>In the <strong>Create Queue</strong> or <strong>Create FiFO Queue</strong> screen:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-create-q-screen-dlq.png" alt="mq create q screen dlq">
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>ID - Specify a queue name, which can contain these characters: a-z, A-Z, 0-9, period (.), and hyphen (-). Queue names cannot contain spaces or other characters, and can be up to 127 characters in length. The maximum size of a message is 10 MB.</p>
+</li>
+<li>
+<p>Default TTL - How long unprocessed messages persist before being deleted. The maximum TTL is 2 weeks.</p>
+</li>
+<li>
+<p>Default Lock TTL - If there is a server failure and a message is not acknowledged, specifies the duration that a message would wait before being put back into the queue. A locked message does not block other messages to be read. The lock makes a message unavailable to other applications while locked. The maximum Lock TTL is 12 hours.</p>
+</li>
+<li>
+<p>Encryption (Optional) - Set the queue to encrypted. Anypoint MQ uses PBE with MD5 and triple DES to encrypt messages.</p>
+</li>
+<li>
+<p><a id="qdlq"></a>Assign a Dead Letter Queue*(Optional) - Set the dead letter queue (DLQ) name. The DLQ is a previously created queue where undeliverable messages are sent to. For more information, see <a href="#about-dead-letter-queues">About Dead Letter Queues</a>.</p>
+<div class="paragraph">
+<p><strong>Note:</strong> If you are creating your first queue in a new MQ account, MQ does not support assigning the dead letter queue to the sole queue in the system - you need at least 2 queues to assign one queue to be a dead letter queue.</p>
+</div>
+</li>
+<li>
+<p>Click Save Changes.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>In the Destinations screen, click the queue name to list its details:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-queue-details2.png" alt="mq queue details2">
+</div>
+</div>
+<div class="paragraph">
+<p>If you designate a dead letter queue, the details screen appears as:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-mdq-with-dlq.png" alt="mq mdq with dlq">
+</div>
+</div>
+<div class="paragraph">
+<p>The details for the dead letter queue itself are:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-dlq-dest.png" alt="mq dlq dest">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div id="dlqfifo" class="paragraph">
+<p>After you expand the detail for a dead letter queue and if a queue is associated with the DLQ, the detail message indicates whether the DLQ is for FIFO or not:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mqfifo-dlq-types.png" alt="mqfifo dlq types">
+</div>
+</div>
+<div class="paragraph">
+<p>See <a href="#to-send-a-message-to-a-queue">To Send a Message to a Queue</a> for how Anypoint Platform lets you send
+messages to a queue and view, return the messages to the queue, or delete the messages.
+Message content (called a payload) can be text, JSON, or CSV (comma-separated values).</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> If you need to delete a queue, see <a href="mq-faq.html#how-do-i-delete-a-queue">How do I delete a queue?</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-fifo-exactly-once-delivery"><a class="anchor" href="#about-fifo-exactly-once-delivery"></a>About FIFO Exactly Once Delivery</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For applications such as those used in transactional use cases where messages need to be processed exactly once, Anypoint MQ supports exactly once delivery of messages when messages are published to FIFO queues. FIFO queues supports deduplication of messages. For example, if you retry sending a message with the same message ID within the 5-minute deduplication interval to a FIFO queue, Anypoint MQ guarantees the messages with the same message ID are retrieved and processed exactly once by the subscriber. When building applications requiring this feature on Anypoint Studio, you can set the message ID in publisher settings inside Anypoint MQ connector. If a message ID is not explicitly set, MQ auto generates a unique message ID for each message that&#8217;s sent to a queue.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-dead-letter-queues"><a class="anchor" href="#about-dead-letter-queues"></a>About Dead Letter Queues</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Anypoint MQ provides dead letter queue (DLQ) support. This ensures that messages that cannot be successfully delivered are sent for backup to a queue known as the dead letter queue. The dead letter queue enables the ability to sideline and isolate the unsuccessfully processed messages. Users can then analyze the messages sent to the DLQ and determine why those messages were not successfully processed. A DLQ is practically the same as any other queue&#8212;&#8203;it&#8217;s just a queue that receives undelivered messages. Also a queue can&#8217;t be a DLQ of itself - you need at least two queues for one to be a DLQ.</p>
+</div>
+<div class="paragraph">
+<p><strong>Important Notes on DLQs:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A dead letter queue must be either non-FIFO or FIFO. Messages sent to a FIFO dead letter queue must
+originate from a FIFO queue. Messages sent to a non-FIFO DLQ must originate from a non-FIFO queue.
+See also <a href="#fifoqueues">About FIFO Queues</a>.</p>
+</li>
+<li>
+<p>The time to live (TTL) value, or whether the queue is encrypted depends on how you created the queue you use as a DLQ.</p>
+</li>
+<li>
+<p>Both a DLQ and the queue writing to it must be in the same geographical region and environment, and owned by the same Anypoint Platform account.</p>
+</li>
+<li>
+<p>Undeliverable messages that re-route to the DLQ use the source queue&#8217;s encryption (regardless of the DLQ&#8217;s encryption setting), but messages sent directly to the DLQ by a client, use the DLQ&#8217;s encryption setting. Organizations need to ensure their operational requirements for encryption are met. If an organization&#8217;s policy is that all messages be encrypted, then all queues must be encrypted if their undeliverable messages go to the DLQ.</p>
+</li>
+<li>
+<p>If a queue has a dead letter queue enabled, then viewing the source queue&#8217;s messages in the Anypoint MQ Message Browser counts against the number of maximum deliveries. This is because viewing a message and returning it to the queue counts as a nack, and therefore is an unsuccessful delivery attempt. Deleting the message in the browser rather than returning it to the queue prevents the message from being counted against the maximum deliveries, but then of course, the message is gone.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="to-assign-a-dlq-to-a-queue"><a class="anchor" href="#to-assign-a-dlq-to-a-queue"></a>To Assign a DLQ to a Queue</h3>
+<div class="paragraph">
+<p>When you create a queue, if you check Assign a Dead Letter Queue, the following
+additional fields appear:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-create-q-dlq.png" alt="mq create q dlq">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Dead Letter Queue Name - Choose a previously created queue name from the drop-down list.</p>
+</li>
+<li>
+<p>Reroute after 10 attempts (Optional) - Indicates how many attempts Anypoint MQ tries to deliver messages in the queue before rerouting the message to the dead letter queue. If not specified, the default value is 10 tries. This value ranges from 1 to 1000 attempts.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following flowchart shows the logic for how messages are sent to a DLQ:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-dlq-flowchart.png" alt="mq dlq flowchart">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="to-recover-messages-from-a-dlq"><a class="anchor" href="#to-recover-messages-from-a-dlq"></a>To Recover Messages from a DLQ</h3>
+<div class="paragraph">
+<p>If you need to recover messages from the DLQ, use the REST API to get the message from the queue, and write the message to a new queue. For more information, see <a href="mq-apis.html#mqadminapi">MQ Administration REST API</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="to-determine-which-queues-are-dlqs"><a class="anchor" href="#to-determine-which-queues-are-dlqs"></a>To Determine Which Queues are DLQs</h4>
+<div class="paragraph">
+<p>You can view  details of each queue to see whether it has any dead letter <strong>sources</strong> (that is, whether any other queues are using this queue as a DLQ).</p>
+</div>
+<div class="paragraph">
+<p>You can also view this from the REST Administration API from the Get Queue REST endpoint. If DLQ is set, the returned entities contain the deadLetterSources field. For more information, see <a href="mq-apis.html#mqadminapi">MQ Administration REST API</a>.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+ "encrypted": false,
+ "type": "queue",
+ "queueId": "my-dlq-1",
+ "deadLetterSources": [
+   "my-queue-4",
+   "my-dls-1"
+ ],
+ "defaultTtl": 2000000,
+ "defaultLockTtl": 2000000
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="to-send-a-message-to-a-queue"><a class="anchor" href="#to-send-a-message-to-a-queue"></a>To Send a Message to a Queue</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Note:</strong> The maximum message size if 10 MB.</p>
+</div>
+<div class="paragraph">
+<p>To send a message to a queue:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log into <a href="https://anypoint.mulesoft.com/#/signin">Anypoint Platform</a>.</p>
+</li>
+<li>
+<p>In the top task bar, click <strong>MQ</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Destinations</strong>.</p>
+</li>
+<li>
+<p>Click the queue entry in Destinations to view details about
+the queue.</p>
+</li>
+<li>
+<p>Click the queue name in the details to open the Messaging feature:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-access-messaging2.png" alt="mq access messaging2">
+</div>
+</div>
+</li>
+<li>
+<p>In the settings page, click <strong>Message Sender</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-click-msg-sender2.png" alt="mq click msg sender2">
+</div>
+</div>
+</li>
+<li>
+<p>Type text in the <strong>Payload</strong> such as <code>Hello Mules</code> (leave the <strong>Type</strong> field set to <strong>Text</strong>):</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-msg-sender-text-payload2.png" alt="mq msg sender text payload2">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Send</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="to-verify-the-message-in-a-queue"><a class="anchor" href="#to-verify-the-message-in-a-queue"></a>To Verify the Message in a Queue</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To verify that the message arrived in the queue, either return to the Destinations screen to observe the number of messages in the queue, or you can assume the message is in the queue, and you can <a href="#to-get-a-message-from-a-queue">To Get a Message From a Queue</a>.</p>
+</div>
+<div class="paragraph">
+<p>To return to the Destinations screen to verify that the message is in the queue:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click <strong>Destinations</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-click-destinations2.png" alt="mq click destinations2">
+</div>
+</div>
+</li>
+<li>
+<p>Click the queue to see the queue detail. The detail shows that a message is in
+the queue:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-msgs-in-queue2.png" alt="mq msgs in queue2">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="to-get-a-message-from-a-queue"><a class="anchor" href="#to-get-a-message-from-a-queue"></a>To Get a Message From a Queue</h3>
+<div class="paragraph">
+<p>To get a message from a queue:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Follow the directions in <a href="#to-send-a-message-to-a-queue">To Send a Message to a Queue</a> and
+advance to Step 6, except click <strong>Message Browser</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-click-msg-browser2.png" alt="mq click msg browser2">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Get Messages</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-get-messages2.png" alt="mq get messages2">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> If you are retrieving messages from a FIFO queue, click the
+checkbox to acknowledge that if you view messages here through the browser, and if an
+application is also consuming messages from this same queue programmatically,
+the order of the messages received from the FIFO queue may be out of order:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mqfifo-message-browser.png" alt="mqfifo message browser">
+</div>
+</div>
+</li>
+<li>
+<p>Click the message ID value to view the message.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-click-id2.png" alt="mq click id2">
+</div>
+</div>
+</li>
+<li>
+<p>If you want to return the message to the queue, such as if other applications
+may also want to read the message, click the <strong>Return Messages</strong> icon - this
+is the default condition. If you switch screens back to the Message Sender
+or to Destinations, messages automatically return to the queue.
+In Anypoint MQ, returning the messages to the queue is known
+as <code>nack</code> - the message is not altered. However,
+the time to live (TTL) value you set when you created your queue
+determines how long the message is available before Anypoint MQ deletes it.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-click-retmsgs2.png" alt="mq click retmsgs2">
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can delete the message by clicking the trash can icon. In Anypoint MQ, deleting a message is called an <code>ack</code> - For information on how Anypoint MQ processes ack  messages for you, see <a href="mq-ack-mode.html">Acknowledgement Mode</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-message-delete-trash-can-icon2.png" alt="mq message delete trash can icon2">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Now you are able to send and receive messages in Anypoint MQ.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> In Anypoint MQ, messages are read through long polling where the server holds the request open until new data is available. Anypoint MQ delivers a batch of messages with a single read.</p>
+</div>
+<div class="paragraph">
+<p>Organization administrators or owners can view the current and past months usage - the total number of messages and API requests. This information is accessed from the Access Management page. For more information, see <a href="mq-usage.html">Anypoint MQ Usage Information</a>.</p>
+</div>
+<div class="paragraph">
+<p>In the next section, you can try alternate ways of formatting messages.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="to-send-a-csv-or-json-message"><a class="anchor" href="#to-send-a-csv-or-json-message"></a>To Send a CSV or JSON Message</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To send a JSON message:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click <strong>Message Sender</strong>.</p>
+</li>
+<li>
+<p>Set the <strong>Type</strong> to <strong>JSON</strong>.</p>
+</li>
+<li>
+<p>Set the <strong>Payload</strong> to:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+"animal that walks":"dog",
+"animal that swims":"fish",
+"animal that flies":"parrot"
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Message Browser</strong> and the message ID to view the message:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-json-get-msg2.png" alt="mq json get msg2">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To send a CSV message:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click <strong>Message Sender</strong>.</p>
+</li>
+<li>
+<p>Set the <strong>Type</strong> to <strong>CSV</strong>.</p>
+</li>
+<li>
+<p>Set the <strong>Payload</strong> to:</p>
+<div class="listingblock">
+<div class="content">
+<pre>"dog",
+"fish",
+"parrot"</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Message Browser</strong> and the message ID to view the message.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="to-purge-messages-from-a-queue"><a class="anchor" href="#to-purge-messages-from-a-queue"></a>To Purge Messages from a Queue</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After expanding a queue&#8217;s details, you can purge all the messages in the queue
+by clicking the Purge Messages icon:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mqfifo-purge-msgs-icon.png" alt="mqfifo purge msgs icon">
+</div>
+</div>
+<div class="paragraph">
+<p>An alert message appears. Click the checkbox to verify that you want to purge all
+messages in the queue:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mqfifo-purge-messages.png" alt="mqfifo purge messages">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="index.html">Anypoint MQ</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

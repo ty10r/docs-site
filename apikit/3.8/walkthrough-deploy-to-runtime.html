@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="deploy, api, runtime, apikit, gateway">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/apikit/3.8/walkthrough-deploy-to-runtime.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Deploying an APIkit project // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">APIkit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-tutorial.html">Simple REST API Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-tutorial-jsonplaceholder.html">Consuming a Web Service Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-for-soap.html">SOAP Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-using.html">Using APIkit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="walkthrough-deploy-to-runtime.html">Deploying an APIkit Project</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-an-odata-api-with-apikit.html">Creating an OData API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-odata-extension-reference.html">APIkit OData Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-an-apikit-project-with-maven.html">Creating an APIkit Project with Maven</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-basic-anatomy.html">APIkit Anatomy</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-reference.html">APIkit Reference</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Deploying an APIkit project</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/apikit-docs/edit/v3.8/modules/ROOT/content/walkthrough-deploy-to-runtime.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Deploying an APIkit project</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can deploy an APIkit project to a Mule runtime on-premises or in the cloud. You can deploy an APIkit project to the legacy API Gateway Runtime 2.x or 1.3.x if the number of connectors, other than HTTP/S, Jetty, and/or Web Service Consumer, does not exceed two.</p>
+</div>
+<div class="paragraph">
+<p>Perform the following set up to step through the deployment procedures:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="./_attachments/my-raml-implementation.zip">Download an APIkit project</a>.</p>
+</li>
+<li>
+<p>In Studio, select <strong>File</strong> &gt; <strong>Import</strong>.</p>
+</li>
+<li>
+<p>Select <strong>Anypoint Studio</strong> &gt; <strong>Anypoint Studio generated Deployable Archive (zip)</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Next</strong>.</p>
+<div class="paragraph">
+<p>The <strong>Import Mule Project</strong> dialog appears.</p>
+</div>
+</li>
+<li>
+<p>Browse to the downloaded file.</p>
+</li>
+<li>
+<p>Click <strong>Finish</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="on-premises-mule-runtime"><a class="anchor" href="#on-premises-mule-runtime"></a>On-Premises Mule Runtime</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Deploy an APIkit project to an on-premises runtime as described in the following procedure.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you have not downloaded the Mule standalone runtime, <a href="../../mule-runtime/3.8/install/installing.html">follow steps to install the latest version</a>.</p>
+</li>
+<li>
+<p>Start Mule in the command line by running:</p>
+<div class="paragraph">
+<p>Windows: <code>&lt;MULE_HOME&gt;\bin\mule</code></p>
+</div>
+<div class="paragraph">
+<p>Mac and Unix: <code>&lt;MULE_HOME&gt;/bin/mule</code></p>
+</div>
+<div class="paragraph">
+<p><code>&lt;MULE_HOME</code>&gt; is the value of the MULE_HOME variable employed by Mule, usually the root directory of the installation, such as <code>/opt/Mule/mule-standalone-3.8.0/</code></p>
+</div>
+</li>
+<li>
+<p>Navigate to the directory where the .zip file is located and copy the .zip file.</p>
+<div class="paragraph">
+<p>Ensure that your copy of the file does not have any spaces in the name.</p>
+</div>
+</li>
+<li>
+<p>Drop the copy of the .zip file into the <code>&lt;MULE_HOME&gt;/apps</code> folder.</p>
+</li>
+<li>
+<p>Mule polls this folder for new applications every five seconds. Watch your command line window to track the progress of the deployment.</p>
+</li>
+<li>
+<p>When you see the message <code>Started app 'TshirtService'</code>, then your API is deployed to the Mule runtime.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If you want to undeploy your application, navigate to the <code>app</code> directory and delete the file <code>your_application.txt</code>. This removes your application from the <code>/app</code> directory, which automatically undeploys it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cloud-based-mule-runtime"><a class="anchor" href="#cloud-based-mule-runtime"></a>Cloud-Based Mule Runtime</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This procedure assumes that you have an Anypoint Platform account.</p>
+</div>
+<div class="paragraph">
+<p>Deploy an APIkit project to a Cloud runtime as described in the following procedure.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right-click on the project in Package Explorer, and then click <strong>Anypoint Platform</strong> &gt; <strong>Deploy to Cloud</strong> from the cascading menu.</p>
+<div class="paragraph">
+<p>The Anypoint Platform Sign In dialog appears.</p>
+</div>
+</li>
+<li>
+<p>Enter your user name and password, and click <strong>Sign In</strong>.</p>
+<div class="paragraph">
+<p>The <strong>Deploy to Runtime Manager</strong> dialog opens.</p>
+</div>
+</li>
+<li>
+<p>Type an arbitrary domain name up to 42 characteris in length.</p>
+</li>
+<li>
+<p>Select an Environment and a Mule Version.</p>
+<div class="paragraph">
+<p>Click <strong>Finish</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Anypoint Studio packages, uploads, and deploys your application to CloudHub.</p>
+</div>
+</li>
+<li>
+<p>Browse to the URL of yourdomain.cloudhub.io (also shown in the pop-up window above).</p>
+<div class="paragraph">
+<p>The <a href="../../anypoint-platform/runtime-manager/index.html">Runtime Manager</a> indicates that the API is running.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To stop the application, click the <strong>Settings</strong> tab and click <strong>Cancel deployment</strong>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploying-an-apikit-project-in-studio"><a class="anchor" href="#deploying-an-apikit-project-in-studio"></a>Deploying an APIkit Project in Studio</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you created or modified the file in Anypoint Studio:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Save the project, and go to <strong>File</strong> &gt; <strong>Export&#8230;&#8203;</strong></p>
+</li>
+<li>
+<p>Select <strong>Anypoint Studio Project to Mule Deployable Archive (includes Studio metadata)</strong>, and click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Select the name of your application from the <strong>Project</strong> drop-down, and click <strong>Browse&#8230;&#8203;</strong> to select a destination for the file.</p>
+</li>
+<li>
+<p>Click <strong>Finish</strong> .</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If your organization has On Premises Auto-Deploy enabled, and you have already configured Auto-deployment, then you can also deploy your applications on premises <a href="../../anypoint-platform/runtime-manager/managing-servers.html">via the Anypoint Runtime Manager Console</a>.</p>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

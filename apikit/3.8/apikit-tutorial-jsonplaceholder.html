@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="api, raml, json">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/apikit/3.8/apikit-tutorial-jsonplaceholder.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Consuming a Web Service Tutorial // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">APIkit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-tutorial.html">Simple REST API Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-tutorial-jsonplaceholder.html">Consuming a Web Service Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-for-soap.html">SOAP Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-using.html">Using APIkit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="walkthrough-deploy-to-runtime.html">Deploying an APIkit Project</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-an-odata-api-with-apikit.html">Creating an OData API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-odata-extension-reference.html">APIkit OData Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-an-apikit-project-with-maven.html">Creating an APIkit Project with Maven</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-basic-anatomy.html">APIkit Anatomy</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-reference.html">APIkit Reference</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Consuming a Web Service Tutorial</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/apikit-docs/edit/v3.8/modules/ROOT/content/apikit-tutorial-jsonplaceholder.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Consuming a Web Service Tutorial</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Using API Designer and Anypoint Studio 6.0, you can build an interface based on RAML and add a new web service to the interface. You call the API to access services.</p>
+</div>
+<div class="paragraph">
+<p>In this example, the interface connects to a free online REST service, <a href="http://jsonplaceholder.typicode.com">JSONPlaceholder</a>.  Resources are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All user information</p>
+</li>
+<li>
+<p>Information about user having ID = <em>n</em></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The JSONPlaceholder service provides all the JSON user information. The RESTful API interface navigates the JSON resource and filters user information. One filter takes a user ID parameter and returns information about the specific user. Another filter, implemented as a DataWeave component added to the users backend flow, returns the names of all users.</p>
+</div>
+<div class="paragraph">
+<p>Assuming you have installed Anypoint Studio 6.0 and later, use the procedures in this section to create the API interface that performs these tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Consumes a web service.</p>
+</li>
+<li>
+<p>Adds logic to create an additional REST service that filters the JSON data.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="consume-a-web-service"><a class="anchor" href="#consume-a-web-service"></a>Consume a Web Service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, you create the API interface in RAML using API Designer. Next, you create an APIkit project in Studio using the RAML. You simulate calls to the API, and satisfied that all is working as expected, you modify the project to use real data to consume the web service, filter the returned data using a parameter, and add a web service to filter the data to list an attribute from each record.</p>
+</div>
+<div class="sect2">
+<h3 id="create-the-api-interface"><a class="anchor" href="#create-the-api-interface"></a>Create the API interface</h3>
+<div class="paragraph">
+<p><a href="#creating-the-raml">Creating the RAML</a> code for this interface is covered later. In this part of the tutorial, you use a provided RAML file to create the API interface to consume JSONPlaceholder web services:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="./_attachments/apikit-tutorial2.zip">Download <code>apikit-tutorial2.zip</code></a>.</p>
+</li>
+<li>
+<p>Unzip the downloaded archive.</p>
+<div class="paragraph">
+<p>The following files are unpacked:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>api.raml</p>
+</li>
+<li>
+<p>user-example.json</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://anypoint.mulesoft.com/apiplatform/">Sign into Anypoint Platform</a>.</p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/api-manager/index.html#creating-an-api">Add an API</a> named jsonplaceholder to Anypoint Platform.</p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/api-manager/designing-your-api.html#access-api-designer-from-anypoint-platform">In API Designer</a>, copy/paste the contents of the downloaded api.raml.</p>
+</li>
+<li>
+<p>Click <strong>Import</strong> and import the <code>user-example.json</code> from the downloaded archive into API Designer. Save the file using the gear icon next to the file name.</p>
+</li>
+<li>
+<p>Select <strong>Save All</strong> from the Save drop-down.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="create-an-apikit-project-in-studio"><a class="anchor" href="#create-an-apikit-project-in-studio"></a>Create an APIkit Project in Studio</h3>
+<div class="paragraph">
+<p>To create an APIkit project in Studio to enhance the API:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In Studio, create a new Mule project: <strong>File</strong> &gt; <strong>New</strong> &gt; <strong>Mule Project</strong>.
+The New Mule Project dialog appears.</p>
+</li>
+<li>
+<p>In Project Settings, set the following options:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Project Name</strong>: <code>myproject</code></p>
+</li>
+<li>
+<p><strong>Runtime</strong>: Select or accept the default <code>Mule Server 3.8.0 EE</code> or later.</p>
+</li>
+<li>
+<p><strong>Add APIkit components</strong>: Check <strong>Add APIkit components</strong>.</p>
+</li>
+<li>
+<p><strong>API Definition</strong>: Click the browse icon and select <strong>API Platform</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikit-tutorial-jsonplaceholder-2de48.png" alt="apikit tutorial jsonplaceholder 2de48" width="386" height="494">
+</div>
+</div>
+<div class="paragraph">
+<p>Sign in. The <strong>Browse API Manager for APIs</strong> dialog appears listing the APIs in your Anypoint Platform Account.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Select <code>jsonplaceholder</code> and click OK.</p>
+</li>
+<li>
+<p>Click <strong>Finish</strong>.</p>
+<div class="paragraph">
+<p>APIkit creates the following flows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="apikit-basic-anatomy.html#main-flow">api-main, the main flow</a></p>
+</li>
+<li>
+<p>api-console, the APIkit Console flow for simulating calls to the API</p>
+</li>
+<li>
+<p><a href="apikit-basic-anatomy.html#backend-flows">backend flows</a> <code>get:/users/userbyid:api-config</code> and <code>get:/users:api-config</code></p>
+</li>
+<li>
+<p><a href="apikit-basic-anatomy.html#raml-based-exception-strategy-mappings">Exception strategies flows</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Right-click the API name <code>api.xml</code> and select <strong>Run As</strong> &gt; <strong>Mule Application</strong>.</p>
+<div class="paragraph">
+<p>On the Console tab, messages indicate that the project is deployed, and the APIkit Console appears in the APIkit Console tab.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="simulate-api-calls-using-apikit-console"><a class="anchor" href="#simulate-api-calls-using-apikit-console"></a>Simulate API Calls Using APIkit Console</h3>
+<div class="paragraph">
+<p><a href="apikit-using.html#working-with-the-apikit-console">Use APIkit Console</a> to simulate calls to the API.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>On the /users resource <strong>GET</strong> tab, click <strong>Try It</strong>.</p>
+</li>
+<li>
+<p>Click <strong>GET</strong> to retrieve the RAML example in the <code>user-example.json</code> file.</p>
+<div class="paragraph">
+<p>Status 200 and the user 1 example appears:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[
+  {
+    "id": 1,
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": {
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      }
+    },
+    "phone": "1-770-736-8031 x56442",
+    "website": "hildegard.org",
+    "company": {
+      "name": "Romaguera-Crona",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    }
+  }
+]</pre>
+</div>
+</div>
+</li>
+<li>
+<p>On the /usersbyid resource <strong>GET</strong> tab, click <strong>Try It</strong>.</p>
+</li>
+<li>
+<p>Click <strong>GET</strong> to retrieve the RAML example for user 3 using the default parameter 3, as written in the RAML file.</p>
+<div class="listingblock">
+<div class="content">
+<pre> [{
+ "id": 3,
+ "name": "Clementine Bauch",
+ "username": "Samantha",
+ "email": "Nathan@yesenia.net",
+ "address": {
+   "street": "Douglas Extension",
+   "suite": "Suite 847",
+   "city": "McKenziehaven",
+   "zipcode": "59590-4157",
+   "geo": {
+     "lat": "-68.6102",
+     "lng": "-47.0653"
+   }
+ },
+ "phone": "1-463-123-4447",
+ "website": "ramiro.info",
+ "company": {
+   "name": "Romaguera-Jacobson",
+   "catchPhrase": "Face to face bifurcated interface",
+   "bs": "e-enable strategic applications"
+ } }]</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="modify-the-project-to-use-actual-data"><a class="anchor" href="#modify-the-project-to-use-actual-data"></a>Modify the Project to Use Actual Data</h3>
+<div class="paragraph">
+<p>After simulating calls to the API, prepare the API for publication. Modify and add flows that return actual data from the JSON Placeholder site instead of the data from RAML examples.</p>
+</div>
+<div class="sect3">
+<h4 id="modify-the-users-flow-to-consume-a-web-service"><a class="anchor" href="#modify-the-users-flow-to-consume-a-web-service"></a>Modify the Users Flow to Consume a Web Service</h4>
+<div class="paragraph">
+<p>To modify the users flow to get actual data from the Json Placeholder site:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select the <code>get:/users:api-config</code> flow.</p>
+</li>
+<li>
+<p>In the properties editor, in <strong>Name</strong>, rename the flow to <code>Users</code>.</p>
+</li>
+<li>
+<p>Drag an HTTP component to the Source section of the flow.</p>
+</li>
+<li>
+<p>In the properties editor of the HTTP Listener, change the <strong>Path</strong> from <code>/</code> to <code>/placeholder</code> and set <strong>Allowed Methods</strong> to GET.</p>
+</li>
+<li>
+<p>In Connector Configuration of the HTTP Listener, click <span class="image"><img src="./_images/edit-16x16.gif" alt="Edit-16x16"></span> and click OK to accept the default host 0.0.0.0 and port 8081.</p>
+</li>
+<li>
+<p>Delete the Set Payload component from the Process area of the Users flow.</p>
+</li>
+<li>
+<p>Drag an HTTP connector to the Process area of the flow.</p>
+</li>
+<li>
+<p>In the properties editor of the HTTP Requester, set the following options:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Path</strong>: <code>/users</code></p>
+</li>
+<li>
+<p><strong>Method</strong>: Select GET from the drop-down.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>In Connector Configuration of the HTTP Requester, click <span class="image"><img src="./_images/add-16x16.png" alt="Add-16x16"></span>.</p>
+<div class="paragraph">
+<p>The HTTP Request Configuration dialog appears.</p>
+</div>
+</li>
+<li>
+<p>Set the following HTTP Request Configuration options:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Accept the default <strong>Name</strong>, HTTP_Request_Configuration.</p>
+</li>
+<li>
+<p>Accept the default <strong>HTTP</strong> protocol.</p>
+</li>
+<li>
+<p>Set <strong>Host</strong> to jsonplaceholder.typicode.com.</p>
+</li>
+<li>
+<p>Set <strong>Port</strong> to 80.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Click OK.</p>
+</li>
+<li>
+<p>Save changes.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="filter-users-by-id-using-a-parameter"><a class="anchor" href="#filter-users-by-id-using-a-parameter"></a>Filter Users By ID Using a Parameter</h4>
+<div class="paragraph">
+<p>Revise the flow to filter users by ID:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select the get:/users/userbyid:api-config flow.</p>
+</li>
+<li>
+<p>In the properties editor, in <strong>Name</strong> set the name to <code>UsersByID</code>.</p>
+</li>
+<li>
+<p>Drag an HTTP component to the Source section of the flow, and in the properties editor, set <strong>Path</strong> to <code>/placeholder/byid</code>.</p>
+</li>
+<li>
+<p>Delete <strong>Set Payload</strong> from the flow, and in its place, drag an HTTP component to the Process area.</p>
+</li>
+<li>
+<p>In the properties editor, set the following HTTP Requester options:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Path</strong>: Set to <code>/users</code>.</p>
+</li>
+<li>
+<p><strong>Method</strong>: Select GET from the drop-down.</p>
+</li>
+<li>
+<p>Click <strong>Add Parameter</strong> and set the following options:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Name</strong> to <code>id</code></p>
+</li>
+<li>
+<p><strong>Value</strong> to <code>#[message.inboundProperties.'http.query.params'.id]</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add-a-service-to-get-names-only"><a class="anchor" href="#add-a-service-to-get-names-only"></a>Add a Service to Get Names Only</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To add a flow to filter users to get a list of user names:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Copy and paste the Users flow to create another flow: Select the flow, and then <strong>Edit</strong> &gt; <strong>Copy</strong>. Click a blank area of the canvas, and select <strong>Edit</strong> &gt; <strong>Paste</strong>.</p>
+<div class="paragraph">
+<p>A copy of the Users flow appears at the bottom of the canvas.</p>
+</div>
+</li>
+<li>
+<p>Select the <code>Copy_of_Users</code> flow, and in the properties editor, in <strong>Name</strong> change the flow name from <code>Copy_of_Users</code> to <code>UsersNames</code>.</p>
+</li>
+<li>
+<p>Select the HTTP listener component, and in the properties editor, change the <strong>Path</strong> from <code>/placeholder</code> to <code>/placeholder/names</code>.</p>
+</li>
+<li>
+<p>Drag a <strong>Transform Message</strong> component from the Mule palette to the right of the HTTP requester.</p>
+</li>
+<li>
+<p>In the properties editor, change the output code to specify the application/json mime type instead of application/java, and set the payload as follows:</p>
+<div class="listingblock">
+<div class="content">
+<pre>%dw 1.0
+%output application/json
+---
+  payload.name</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Save all.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="test-the-api"><a class="anchor" href="#test-the-api"></a>Test the API</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In Package Explorer, right-click the project name, and choose <strong>Run As</strong> &gt; <strong>Mule Application</strong>.</p>
+</li>
+<li>
+<p>Open a browser, and go to <code><a href="http://localhost:8081/placeholder" class="bare">http://localhost:8081/placeholder</a></code>.</p>
+<div class="paragraph">
+<p>All user information from the JSONPlaceholder service appears:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[
+   {
+      "id": 1,
+      "name": "Leanne Graham",
+      "username": "Bret",
+      "email": "Sincere@april.biz",
+      "address": {
+        "street": "Kulas Light",
+        "suite": "Apt. 556",
+        "city": "Gwenborough",
+        "zipcode": "92998-3874",
+        "geo": {
+          "lat": "-37.3159",
+          "lng": "81.1496"
+
+    ...
+    {
+    "id": 10,
+    "name": "Clementina DuBuque",
+    "username": "Moriah.Stanton",
+    "email": "Rey.Padberg@karina.biz",
+    "address": {
+      "street": "Kattie Turnpike",
+      "suite": "Suite 198",
+      "city": "Lebsackbury",
+      "zipcode": "31428-2261",
+      "geo": {
+        "lat": "-38.2386",
+        "lng": "57.2232"
+      }
+...
+]</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Get user information about only the user having ID = 4. Go to <code><a href="http://localhost:8081/placeholder/byid?id=4" class="bare">http://localhost:8081/placeholder/byid?id=4</a></code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre>[
+  {
+    "id": 4,
+    "name": "Patricia Lebsack",
+    "username": "Karianne",
+    "email": "Julianne.OConner@kory.org",
+    "address": {
+      "street": "Hoeger Mall",
+      "suite": "Apt. 692",
+      "city": "South Elvis",
+      "zipcode": "53919-4257",
+      "geo": {
+        "lat": "29.4572",
+        "lng": "-164.2990"
+      }
+    },
+    "phone": "493-170-9623 x156",
+    "website": "kale.biz",
+    "company": {
+      "name": "Robel-Corkery",
+      "catchPhrase": "Multi-tiered zero tolerance productivity",
+      "bs": "transition cutting-edge web services"
+    }
+  }
+]</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Get only the names of users. Go to <code><a href="http://localhost:8081/placeholder/names" class="bare">http://localhost:8081/placeholder/names</a></code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre>[
+  "Leanne Graham",
+  "Ervin Howell",
+  "Clementine Bauch",
+  "Patricia Lebsack",
+  "Chelsey Dietrich",
+  "Mrs. Dennis Schulist",
+  "Kurtis Weissnat",
+  "Nicholas Runolfsdottir V",
+  "Glenna Reichert",
+  "Clementina DuBuque"
+]</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="completed-flows" class="discrete view">Completed Flows</h3>
+<div class="paragraph">
+<p>The canvas after completing API interface contains these flows, stacked vertically. For example purposes, the flows are arranged to fit on the page.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikit-tutorial-jsonplaceholder-7b245.png" alt="apikit tutorial jsonplaceholder 7b245">
+</div>
+</div>
+<h3 id="configuration-xml" class="discrete view">Configuration XML</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd"&gt;
+    &lt;http:listener-config name="api-httpListenerConfig" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/&gt;
+    &lt;apikit:config name="api-config" raml="api.raml" consoleEnabled="false" doc:name="Router"/&gt;
+    &lt;http:request-config name="HTTP_Request_Configuration" host="jsonplaceholder.typicode.com" port="80" doc:name="HTTP Request Configuration"/&gt;
+    &lt;flow name="api-main"&gt;
+        &lt;http:listener config-ref="api-httpListenerConfig" path="/api/*" doc:name="HTTP"/&gt;
+        &lt;apikit:router config-ref="api-config" doc:name="APIkit Router"/&gt;
+        &lt;exception-strategy ref="api-apiKitGlobalExceptionMapping" doc:name="Reference Exception Strategy"/&gt;
+    &lt;/flow&gt;
+    &lt;flow name="api-console"&gt;
+        &lt;http:listener config-ref="api-httpListenerConfig" path="/console/*" doc:name="HTTP"/&gt;
+        &lt;apikit:console config-ref="api-config" doc:name="APIkit Console"/&gt;
+    &lt;/flow&gt;
+    &lt;flow name="UsersByID"&gt;
+        &lt;http:listener config-ref="api-httpListenerConfig" path="/placeholder/byid" doc:name="HTTP"/&gt;
+        &lt;http:request config-ref="HTTP_Request_Configuration" path="/users" method="GET" doc:name="HTTP"&gt;
+            &lt;http:request-builder&gt;
+                &lt;http:query-param paramName="id" value="#[message.inboundProperties.'http.query.params'.id]"/&gt;
+            &lt;/http:request-builder&gt;
+        &lt;/http:request&gt;
+    &lt;/flow&gt;
+    &lt;flow name="Users"&gt;
+        &lt;http:listener config-ref="api-httpListenerConfig" path="/placeholder" allowedMethods="GET" doc:name="HTTP"/&gt;
+        &lt;http:request config-ref="HTTP_Request_Configuration" path="/users" method="GET" doc:name="HTTP"/&gt;
+    &lt;/flow&gt;
+    &lt;apikit:mapping-exception-strategy name="api-apiKitGlobalExceptionMapping"&gt;
+        &lt;apikit:mapping statusCode="404"&gt;
+            &lt;apikit:exception value="org.mule.module.apikit.exception.NotFoundException" /&gt;
+            &lt;set-property propertyName="Content-Type" value="application/json" doc:name="Property"/&gt;
+            &lt;set-payload value="{ &amp;quot;message&amp;quot;: &amp;quot;Resource not found&amp;quot; }" doc:name="Set Payload"/&gt;
+        &lt;/apikit:mapping&gt;
+        &lt;apikit:mapping statusCode="405"&gt;
+            &lt;apikit:exception value="org.mule.module.apikit.exception.MethodNotAllowedException" /&gt;
+            &lt;set-property propertyName="Content-Type" value="application/json" doc:name="Property"/&gt;
+            &lt;set-payload value="{ &amp;quot;message&amp;quot;: &amp;quot;Method not allowed&amp;quot; }" doc:name="Set Payload"/&gt;
+        &lt;/apikit:mapping&gt;
+        &lt;apikit:mapping statusCode="415"&gt;
+            &lt;apikit:exception value="org.mule.module.apikit.exception.UnsupportedMediaTypeException" /&gt;
+            &lt;set-property propertyName="Content-Type" value="application/json" doc:name="Property"/&gt;
+            &lt;set-payload value="{ &amp;quot;message&amp;quot;: &amp;quot;Unsupported media type&amp;quot; }" doc:name="Set Payload"/&gt;
+        &lt;/apikit:mapping&gt;
+        &lt;apikit:mapping statusCode="406"&gt;
+            &lt;apikit:exception value="org.mule.module.apikit.exception.NotAcceptableException" /&gt;
+            &lt;set-property propertyName="Content-Type" value="application/json" doc:name="Property"/&gt;
+            &lt;set-payload value="{ &amp;quot;message&amp;quot;: &amp;quot;Not acceptable&amp;quot; }" doc:name="Set Payload"/&gt;
+        &lt;/apikit:mapping&gt;
+        &lt;apikit:mapping statusCode="400"&gt;
+            &lt;apikit:exception value="org.mule.module.apikit.exception.BadRequestException" /&gt;
+            &lt;set-property propertyName="Content-Type" value="application/json" doc:name="Property"/&gt;
+            &lt;set-payload value="{ &amp;quot;message&amp;quot;: &amp;quot;Bad request&amp;quot; }" doc:name="Set Payload"/&gt;
+        &lt;/apikit:mapping&gt;
+    &lt;/apikit:mapping-exception-strategy&gt;
+    &lt;flow name="UserNames"&gt;
+        &lt;http:listener config-ref="api-httpListenerConfig" path="/placeholder/names" allowedMethods="GET" doc:name="Copy_of_HTTP"/&gt;
+        &lt;http:request config-ref="HTTP_Request_Configuration" path="/users" method="GET" doc:name="Copy_of_HTTP"/&gt;
+        &lt;dw:transform-message doc:name="Transform Message"&gt;
+            &lt;dw:set-payload&gt;&lt;![CDATA[%dw 1.0
+%output application/json
+---
+  payload.name]]&gt;&lt;/dw:set-payload&gt;
+        &lt;/dw:transform-message&gt;
+    &lt;/flow&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+<h3 id="raml" class="discrete view">RAML</h3>
+<div class="paragraph">
+<p>The API interface in the JSONPlaceholder example uses the following RAML:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>#%RAML 1.0
+title: placeholder
+version: 1.0.development
+baseUri: http://jsonplaceholder.typicode.com
+/users:
+  get:
+    description: Retrieve a list of all the users
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include user-example.json
+  /userbyid:
+    get:
+      description: Get information about a particular user
+      queryParameters:
+        id:
+          description: Specify the id of the user you want to retrieve
+          type:        integer
+          required:    false
+          example: 3
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                  {
+                    "id": 3,
+                    "name": "Clementine Bauch",
+                    "username": "Samantha",
+                    "email": "Nathan@yesenia.net",
+                    "address": {
+                      "street": "Douglas Extension",
+                      "suite": "Suite 847",
+                      "city": "McKenziehaven",
+                      "zipcode": "59590-4157",
+                      "geo": {
+                        "lat": "-68.6102",
+                        "lng": "-47.0653"
+                    }
+                  },
+                  "phone": "1-463-123-4447",
+                  "website": "ramiro.info",
+                  "company": {
+                    "name": "Romaguera-Jacobson",
+                    "catchPhrase": "Face to face bifurcated interface",
+                    "bs": "e-enable strategic applications"
+                  }
+                  }</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The next section covers how to create this RAML.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-the-raml"><a class="anchor" href="#creating-the-raml"></a>Creating the RAML</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can create a RAML using API Designer on Anypoint Platform. API Designer checks syntax and provides instant feedback and a mocking service. The mocking service simulates the interface.</p>
+</div>
+<div class="paragraph">
+<p>The procedure in this section describes how to create the RAML that you downloaded for the JSONPlaceholder API Interface example. The RAML tab in the previous section lists the code for this RAML. The RAML connects to a free online REST service, <a href="http://jsonplaceholder.typicode.com">JSONPlaceholder</a> and provides the services previously described.</p>
+</div>
+<div class="paragraph">
+<p>To create the RAML:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Provide the required declaration of the RAML version, the version of the API you are creating, and the baseURI, which is the REST service.</p>
+<div class="listingblock">
+<div class="content">
+<pre>#%RAML 1.0
+title: placeholder
+version: development1
+baseUri: http://jsonplaceholder.typicode.com</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Include resources in the RAML using a forward slash followed by an arbitrary resource name and a colon.</p>
+<div class="paragraph">
+<p>For this example, the resources are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All user information</p>
+</li>
+<li>
+<p>User names only</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>#%RAML 1.0
+title: placeholder
+version: development1
+baseUri: http://jsonplaceholder.typicode.com
+/users:
+/names:</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enter the methods associated with the resources.</p>
+<div class="paragraph">
+<p>For this example, you need to specify the GET method to retrieve the information defined in <code><a href="http://jsonplaceholder.typicode.com" class="bare">http://jsonplaceholder.typicode.com</a></code>. Indent the /userbyid resource one level from the /user level. The /userbyid resource filters the content of the /user resource.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>#%RAML 0.8
+title: placeholder
+version: development1
+baseUri: http://jsonplaceholder.typicode.com
+/users
+  get:
+  /userbyid
+    get:</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Below each <code>get:</code>, include an indented description followed by responses (required).</p>
+<div class="paragraph">
+<p>Responses consist of a map of the HTTP status codes the API returns on success.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Include the user-example.json for the response of <code>get</code> for <code>/users</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>...
+description: Retrieve a list of all the users
+responses:
+  200:
+    body:
+      application/json:
+        example: !include user-example.json
+...</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Use the following example response of <code>get</code> for <code>/usersbyid</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>...
+description: Get information about a particular user
+      queryParameters:
+        id:
+          description: Specify the id of the user you want to retrieve
+          type:        integer
+          required:    false
+          example: 3
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                  {
+                    "id": 3,
+                    "name": "Clementine Bauch",
+                    "username": "Samantha",
+                    "email": "Nathan@yesenia.net",
+                    "address": {
+                      "street": "Douglas Extension",
+                      "suite": "Suite 847",
+                      "city": "McKenziehaven",
+                      "zipcode": "59590-4157",
+                      "geo": {
+                        "lat": "-68.6102",
+                        "lng": "-47.0653"
+                    }
+                  },
+                  "phone": "1-463-123-4447",
+                  "website": "ramiro.info",
+                  "company": {
+                    "name": "Romaguera-Jacobson",
+                    "catchPhrase": "Face to face bifurcated interface",
+                    "bs": "e-enable strategic applications"
+                  }
+                  }
+...</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

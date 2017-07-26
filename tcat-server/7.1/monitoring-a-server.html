@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="tcat, monitor, server, environment, variables, summary, memory">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/tcat-server/7.1/monitoring-a-server.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Monitoring a Server // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Tcat Server</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="using-the-rest-api.html">Using the REST API</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="apply-a-profile-to-a-server.html">Apply a Profile to a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="apply-a-profile-to-a-server-group.html">Apply a Profile to a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="create-a-deployment.html">Create a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="create-a-server-group.html">Create a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="create-or-update-a-file.html">Create or Update a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-deployment.html">Delete a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-file.html">Delete a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-server.html">Delete a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-server-group.html">Delete a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-deployment.html">Get a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-file.html">Get a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-server.html">Get a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-server-group.html">Get a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-file-metadata.html">Get File Metadata</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-the-deployment-history.html">Get the Deployment History</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-the-deployment-version-details.html">Get the Deployment Version Details</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="list-all-deployments.html">List All Deployments</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="list-all-servers.html">List All Servers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="list-all-server-groups.html">List All Server Groups</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="redeploy-a-deployment.html">Redeploy a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="register-a-server.html">Register a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="restart-a-server.html">Restart a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="undeploy-a-deployment.html">Undeploy a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="update-a-file.html">Update a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="update-a-server.html">Update a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="update-a-server-group.html">Update a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="repository-api.html">Repository API</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-server-profiles.html">Working with Server Profiles</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="applying-your-tcat-server-license.html">Applying Your Tcat Server License</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="automating-tasks.html">Automating Tasks</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-custom-policies.html">Creating Custom Policies</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-remote-workspaces.html">Creating Remote Workspaces</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-to-amazon-ec2.html">Deploying to Amazon EC2</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="integrating-with-ldap.html">Integrating with LDAP</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-the-repository.html">Managing the Repository</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-users-and-groups.html">Managing Users and Groups</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="maven-publishing-plug-in.html">Maven Publishing Plug-in</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="update-a-deployment.html">Update a Deployment</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="monitoring-repository-activity.html">Monitoring Repository Activity</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="scheduling-the-usage-statistics-script.html">Scheduling the Usage Statistics Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="troubleshooting.html">Troubleshooting</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-http-atompub-api.html">Using the HTTP AtomPub API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-servers.html">Working with Servers</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="overview-of-tcat-server.html">Overview of Tcat Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="quick-start.html">Quick Start</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installation.html">Installation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="server-profiles.html">Server Profiles</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="integrating-with-ant.html">Integrating with Ant</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="csv-save-start-script.html">CSV Save Start Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="csv-save-stop-script.html">CSV Save Stop Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="csv-save-writer-script.html">CSV Save Writer Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="saving-jmx-metric-data-to-csv-files.html">Saving JMX Metric Data to CSV Files</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-tcat-server-on-microsoft-windows.html">Installing Tcat Server on Microsoft Windows</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="add-tcat-server-capabilities-to-an-existing-tomcat-install.html">Add Tcat Server Capabilities to an Existing Tomcat Install</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="applying-a-new-tcat-server-license.html">Applying a new Tcat Server license</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="archetypes.html">Archetypes</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="mulesoft-tomcat-archetypes.html">MuleSoft Tomcat Archetypes</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="mulesoft-tcat-archetypes.html">MuleSoft Tcat Archetypes</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="common-problems-and-solutions.html">Common Problems and Solutions</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="defining-notifications-and-destinations.html">Defining Notifications and Destinations</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="disable-multicasting.html">Disable Multicasting</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="edit-server-information.html">Edit Server Information</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="global-dashboard-overview.html">Global Dashboard Overview</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-multiple-tcat-instances-on-a-single-machine.html">Installing Multiple Tcat Instances on a Single Machine</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="jmx-agent-monitoring.html">JMX Agent Monitoring</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="moving-a-tcat-installation-from-a-non-linux-os-to-linux.html">Moving a Tcat Installation from a Non-Linux OS to Linux</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="quickstart.html">QuickStart</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="release-notes.html">Release Notes</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="release-notes-tcat-6-r2.html">Release Notes Tcat 6 R3</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="release-notes-tcat-6-r3.html">Release Notes Tcat 6 R2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tcat-server-6-r2-release-notes.html">Tcat Server 6 R2 Release Notes</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="server-dashboard.html">Server Dashboard</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="user-group-permissions.html">User Group Permissions</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-cloudcat-with-amazon-ec2.html">Using Cloudcat with Amazon EC2</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-cloudcat-with-gogrid.html">Using Cloudcat with GoGrid</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="integrating-with-maven.html">Integrating with Maven</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="upgrading.html">Upgrading</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-7.1.0.html">Upgrading to 7.1.0</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-r4.html">Upgrading to R4</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-6.3.html">Upgrading to 6.3</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-tcat-server-6-r2-p1.html">Upgrading to Tcat Server 6 R2 P1</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-from-tcat-server-6-r1-to-tcat-server-6-r2.html">Upgrading from Tcat Server 6 R1 to Tcat Server 6 R2</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Monitoring a Server</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/tcat-server-docs/edit/v7.1/modules/ROOT/content/monitoring-a-server.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Monitoring a Server</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page describes how system administrators can use the MuleSoft Tcat Server to monitor the health of a server, see which applications are up and which are down, and determine memory usage. To view server details, click the server name on the Servers tab. The Server Details screen displays the information on several different tabs, which are described in the sections below.</p>
+</div>
+<div class="paragraph">
+<p>At any time when viewing the server details, you can click <strong>Restart Server</strong> at the top of the window to restart that server. If you no longer want to monitor the server, click <strong>Unregister Server</strong>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="viewing-and-editing-the-server-summary"><a class="anchor" href="#viewing-and-editing-the-server-summary"></a>Viewing and Editing the Server Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Summary tab provides an overview of the server, including its status (displays a green light if it&#8217;s running or a red light if it&#8217;s stopped), the groups it belongs to, the packages that have been deployed to it, and its environment variables (see below).</p>
+</div>
+<div class="paragraph">
+<p>To edit the summary details, click <strong>Edit Server Info</strong>, make your changes, and then click <strong>Save</strong>. To add the server to a group, select it from the drop-down list and click <strong>Add</strong>. To remove the server from a group, click the red X next to the group name.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="working-with-server-environment-variables"><a class="anchor" href="#working-with-server-environment-variables"></a>Working with Server Environment Variables</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, just the variables that have been set for the server via Tcat Server are displayed on the server&#8217;s Summary tab. To display all environment variables on the server, click the <strong>more</strong> link. The full list of variables appears in a scrolling list below.</p>
+</div>
+<div class="paragraph">
+<p>To manage the environment variables on the server, click <strong>Edit Server Info</strong>, and then do one or more of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To add an environment variable, type the variable&#8217;s name and its value, and click <strong>Add</strong>. As you type, matching variable names appear, allowing you to select one from the list.</p>
+</li>
+<li>
+<p>To change an existing variable, click its name or value box and edit  as needed.</p>
+</li>
+<li>
+<p>To delete a variable, click the red X next to its value.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When you finish making changes, click <strong>Save</strong>. To revert your changes, click <strong>Cancel</strong>.</p>
+</div>
+<div class="paragraph">
+<p>If you change an environment variable, click <strong>Restart Server</strong> to restart the server and have your changes take effect.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+If you make changes to your variables using Tcat Server, we recommend that you do <strong>not</strong> make further changes to the variables outside of Tcat Server. Otherwise, the variables get out of sync, because they are pulled into Tcat Server from the JVM when Tomcat starts and are combined with any that you have set in the Tcat Server console. Therefore, if you must make changes outside of Tcat Server, also restart Tomcat manually outside of Tcat Server. The variables then update in the JVM and are pulled into Tcat Server, and any that you set explicitly in the Tcat Server console take precedence over those set externally.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="working-with-server-configuration-files"><a class="anchor" href="#working-with-server-configuration-files"></a>Working with Server Configuration Files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Files tab displays the files and folders on the server. You can view and edit any text-based (non-binary) file, redeploy it, and then restart the server.</p>
+</div>
+<div class="paragraph">
+<p>To view a file, simply click its name. If you want to edit the file, click <strong>Edit</strong>, make your changes in the editor that appears, and then click <strong>Save</strong> at the bottom of the window. If you make a mistake, you can click <strong>Reset</strong> to reset the editor window to the original text in the file. To cancel your changes without saving and close the editor window, click <strong>Cancel</strong>.</p>
+</div>
+<div class="paragraph">
+<p>To add a new file to the server, do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the Files tab, click <strong>New File</strong>.</p>
+</li>
+<li>
+<p>Enter the name you want to display for this file.</p>
+</li>
+<li>
+<p>Specify the file (you can click <strong>Browse</strong> to select it from your file system) and click <strong>Upload</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To upload a new version of a file, click its name to view it, click <strong>Upload New File</strong>, specify the updated version of the file, and click <strong>Upload</strong>.</p>
+</div>
+<div class="paragraph">
+<p>To delete a file, click its name to view it, and then click <strong>Delete</strong>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="viewing-deployed-applications"><a class="anchor" href="#viewing-deployed-applications"></a>Viewing Deployed Applications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Applications tab displays a list of the applications that have been deployed to this server. The Status column displays whether each application is currently running or stopped. You can stop or restart an application just by clicking its status to toggle it between <strong>running</strong> and <strong>down</strong>.</p>
+</div>
+<div class="paragraph">
+<p>You can sort the list of applications by clicking any of the column headings. For example, you can click the Status column heading so that all stopped applications are grouped together at the top of the table.</p>
+</div>
+<div class="paragraph">
+<p>To <a href="monitoring-applications.html">view more details about an application</a>, click the application name.</p>
+</div>
+<div class="paragraph">
+<p>Following is a description of the columns:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Column</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Name</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The name of the application folder.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Status</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Whether the application is running or down (stopped).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Description</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The description of the application as specified in the WAR file.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Req.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The total number of requests processed by each application.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Sess.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The total number of sessions for each application. A session is a connection between the application and a specific client, such as a user accessing the application through a web browser. Each session can process multiple requests. A session closes when the client terminates the session or when the session times out.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>S.ATTR</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The total number of session attributes. Session attributes store information about the client.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>C.ATTR</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The total number of ServletContext attributes set by this application. ServletContext attributes are shared by all servlets in the same application.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Sess. Timeout</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The interval at which a session is automatically closed if there has been no activity within that time period.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>JSP</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Clicking the icon displays a list of all the JSPs in that application. You can click a specific JSP to view its code. You can also compile one or more JSPs.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>JDBC USAGE</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Displays the maximum connection usage to JDBC resources by each application. You can click the bar in this column to see the JDBC resources for that application.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>CLSTRED.?</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Whether the application is distributable and deployed in a cluster.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>SER.?</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Whether all session attributes implement <code>java.io.Serializable</code>.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="viewing-the-log-files"><a class="anchor" href="#viewing-the-log-files"></a>Viewing the Log Files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Logs tab displays the logs generated by Tomcat for each of the applications and for the Tomcat instance itself. Note that all logs are rolled over at midnight daily.</p>
+</div>
+<div class="paragraph">
+<p>The table displays the log type, such as, JDK or Log4J, the file name, file size, last-modified timestamp, and the class used to create the log. Click a log file name to view its contents, or click the download icon to save the file locally. When viewing the log file contents, you can use the zoom buttons to make the font larger or smaller, you can adjust the line wrapping, and you can clear the log file. The log is updated as it is being written; to pause it, click <strong>Pause Tailing</strong>. To resume watching it in real time, click <strong>Resume Tailing</strong>. To return to the list of logs, click <strong>Back to log files list</strong>.</p>
+</div>
+<div class="paragraph">
+<p>For details on the logs generated by Tcat Server, see <a href="working-with-logs.html">Working with Logs</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="viewing-threads"><a class="anchor" href="#viewing-threads"></a>Viewing Threads</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Threads tab allows you to view the threads that are running in the JVM. The information displayed depends on whether the server&#8217;s JVM has the JMX agent installed or is based on the thread class. The thread class view displays less-detailed information, so if you need more details, you should consider installing a JMX agent. To enable the JMX agent with Tomcat, add the -Dcom.sun.management.jmxremote option to your CATALINA_OPTS setting as described in <a href="installation.html">Installation</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="jvm-agent-information"><a class="anchor" href="#jvm-agent-information"></a>JVM Agent Information</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Column</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>ID</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>A unique identifier for this thread. This value is assigned by the JVM whenever the application creates a thread.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>NAME</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The thread name. This value is assigned by the application.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>EXEC. POINT</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The point in the code where the thread was executed. The class name and line number are displayed if available.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>STATE</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The current <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Thread.State.html">state of the thread</a>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>IN.NATIVE</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Whether this thread is executing in native code.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>SUSP.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Whether this thread is suspended (that is, <code>Thread.suspend()</code> was called on the thread).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>WC</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/management/ThreadInfo.html#getWaitedCount()">waited count</a>. This is the number of times the thread has been waiting.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>BC</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/management/ThreadInfo.html#getBlockedCount()">blocked count</a>. This is the number of times the thread has been blocked from entering a monitor. Typically, this happens when the thread has to wait when trying to enter a <code>synchronized()</code> block.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="thread-class-information"><a class="anchor" href="#thread-class-information"></a>Thread Class Information</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Column</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>NAME</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The thread name. This value is assigned by the application.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>P</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The priority of this thread. The higher the number, the higher its priority over other threads, and the more time it  gets from the CPU.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>APP</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The application to which this thread belongs.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>CLASS LOADER</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The context class loader for this thread. Click the class to see the classpath the thread can access.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>GROUP</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The thread group to which this thread belongs.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>THREAD CLASS</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The class implementation that generated this thread.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>RUNNABLE CLASS</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The class that is executed by this thread.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>D</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Whether the thread is a daemon.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>I</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Whether the thread has been interrupted.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="viewing-system-information"><a class="anchor" href="#viewing-system-information"></a>Viewing System Information</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The System Information tab displays information about the computer on which Tcat Server is installed.</p>
+</div>
+<div class="paragraph">
+<p>The memory utilization bar shows you at a glance how much memory is being used on the server. To release memory that&#8217;s being taken up by objects that are no longer in use by the applications, click <strong>Force Garbage Collection</strong>. This link runs <code>System.gc()</code>, which advises the JVM to perform the garbage collection. Alternatively, you can click "Advise GC" (also runs <code>System.gc()</code>) or "Advise Finalization" (which runs <code>System.runFinalization()</code> to suggest running finalization methods on objects) on the Memory Utilization page. These options should only be invoked in a development or test environment, because they can cause a short pause in application execution and can possibly make the JVM freeze.</p>
+</div>
+<div class="paragraph">
+<p>To view more specific information about memory utilization, click <strong>Memory Utilization</strong> in the vertical menu bar on the right side of the screen. The screen now displays memory usage for different caches and spaces and allows you to display a chart for each.</p>
+</div>
+<div class="paragraph">
+<p>The rest of this tab displays information about the operating system and Tomcat container installed on this server. To display more specific information about the operating system, including available RAM and historical usage charts, click <strong>OS Information</strong> in the vertical menu bar on the right side of the screen.</p>
+</div>
+<div class="paragraph">
+<p>To view system properties, such as the Java home directory and Tomcat&#8217;s base and home directories (catalina.base and catalina.home), click <strong>System Properties</strong> in the vertical menu bar.</p>
+</div>
+<div class="paragraph">
+<p>Lastly, if your JVM is controlled by a Java Service Wrapper, you can click <strong>Wrapper Control</strong> to view information about the wrapper, including its Java PID, whether debug is enabled, and the values of all its properties.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="viewing-the-connectors"><a class="anchor" href="#viewing-the-connectors"></a>Viewing the Connectors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Status tab allows you to view the status of the connectors used to connect client requests to the applications. The connectors are divided into groups based on the port and protocol they use. Each group displays information such as the total number of available and busy threads in that group. It also displays information for each individual connector, including the remote IP address, current stage, and the URL of the request.</p>
+</div>
+<div class="paragraph">
+<p>The Connectors tab displays charts that show traffic volume information for all available connectors. The feed is live, and the charts are automatically updated every 30 seconds. You can toggle the visibility of a connector group by clicking that group&#8217;s header panel.</p>
+</div>
+<div class="paragraph">
+<p><a href="deploying-applications.html">&lt;&lt; Previous: <strong>Deploying Applications</strong></a></p>
+</div>
+<div class="paragraph">
+<p><a href="monitoring-applications.html">Next: <strong>Monitoring Applications</strong> &gt;&gt;</a></p>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

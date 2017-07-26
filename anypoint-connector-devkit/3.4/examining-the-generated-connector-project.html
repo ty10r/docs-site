@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-connector-devkit/3.4/examining-the-generated-connector-project.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Examining the Generated Connector Project // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="devkit-shortcut-to-success.html">DevKit Shortcut to Success</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-a-devkit-development-environment.html">Setting Up a DevKit Development Environment</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="preparing-api-access-or-a-sandbox-environment.html">Preparing API Access or a Sandbox Environment</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-a-connector-project.html">Creating a Connector Project</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="examining-the-generated-connector-project.html">Examining the Generated Connector Project</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="examining-the-generated-connector-project.html">Examining the Generated Connector Project</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-and-testing-your-connector.html">Installing and Testing Your Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="authentication-and-connection-management.html">Authentication and Connection Management</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="authentication-methods.html">Authentication Methods</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="implementing-connection-management.html">Implementing Connection Management</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="implementing-oauth-1.0-authentication.html">Implementing OAuth 1.0 Authentication</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="implementing-oauth-2.0-authentication.html">Implementing OAuth 2.0 Authentication</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="connector-attributes-operations-and-data-model.html">Connector Attributes Operations and Data Model</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-configurable-connector-attributes.html">Defining Connector Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-to-java-client-library-example.html">Connector to Java Client Library Example</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-to-soap-service-via-cxf-client-example.html">Connector to a SOAP Service via CXF Client Example</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-to-restful-service-with-jersey-client-example.html">Connector to RESTful Service with Jersey Client Example</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-to-restful-api-with-restcall-annotations-example.html">Connector to RESTful API with <code>@RestCall</code> Annotations Example</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-connector-integration-with-esb-and-studio.html">Customizing Connector Integration with ESB and Studio</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-devkit-connector-documentation.html">Creating DevKit Connector Documentation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="packaging-your-connector-for-release.html">Packaging Your Connector for Release</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="devkit-connector-examples.html">DevKit Connector Examples</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="devkit-advanced-topics.html">DevKit Advanced Topics</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="http-callbacks.html">HTTP Callbacks</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="integrating-connectors-with-the-mule-lifecycle.html">Integrating Connectors with the Mule Lifecycle</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="handling-data-types-for-configurable-properties.html">Handling Data Types for Configurable Properties</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="architectural-considerations-with-connectors-and-the-mule-container.html">Architectural Considerations with Connectors and the Mule Container</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="injecting-mule-managers-into-anypoint-connectors.html">Injecting Mule Managers into Anypoint Connectors</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="supporting-datasense-with-dynamic-data-models.html">Supporting DataSense with Dynamic Data Models</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="implementing-datasense-query-language-support.html">Implementing DataSense Query Language Support</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Examining the Generated Connector Project</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs/edit/v3.4/modules/ROOT/content/examining-the-generated-connector-project.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Examining the Generated Connector Project</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document describes the folder structure and files that Maven generated for you when <a href="creating-a-connector-project.html">created your connector project</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assumptions"><a class="anchor" href="#assumptions"></a>Assumptions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes that you <a href="creating-a-connector-project.html">created a new connector project</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="source-folder"><a class="anchor" href="#source-folder"></a>Source Folder</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <strong>Source Folder</strong> gathers all of the inputs necessary to eventually build the target folder. The first Maven command you ran used the Mule connector archetype to generate a skeleton in the source folder which includes the four paths described in the following table.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Folder</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>src/main/java</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the source Java files for your connector, including the skeleton Java file for your connector. As you add additional classes, the project stores them in this folder.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>src/main/resources</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains non-code resources accessed by your connector. This folder is empty when you initially create the project.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>src/test/java</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the Java source for the test files for your connector, including the skeleton JUnit test case.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>src/test/resources</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains non-code resources accessed by your tests. This folder contains a skeleton Mule configuration file for running tests.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="connector-class"><a class="anchor" href="#connector-class"></a>Connector Class</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Open the <code>src/main/java/org/hello/HelloConnector.java</code> file. This class defines the main class for the connector and includes the important <code>@Connector</code> annotation.</p>
+</div>
+<div class="paragraph">
+<p>DevKit already created a class and a couple of methods and marked them with <strong>annotations</strong>.  The annotations tell Mule how to call and treat your classes, methods, or parameters in specific, predefined ways. They are the only point of contact with Mule that you need to manage.</p>
+</div>
+<div class="paragraph">
+<p><code>@Connector</code></p>
+</div>
+<div class="paragraph">
+<p>The top level annotation for the connector, applied to the connector class itself, is <code>@Connector</code>. The annotation informs DevKit that a Java class is intended to function as a connector.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/**
+* Cloud Connector
+*
+* @author MuleSoft, Inc.
+*/
+@Connector(name="myConnector", schemaVersion="1.0-SNAPSHOT")
+public class myConnector
+{
+
+    /**
+    * Configurable
+    */
+    @Configurable
+    private String myProperty;
+
+    [...]
+
+}
+
+[...]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The  <code>@Connector</code> annotation includes several parameters, two of which were automatically generated by the archetype: <code>name</code> and <code>schemaVersion</code>. You can define other parameters, as described in the table below.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Annotation Type Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required?</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>name</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the connector. This value must be a simple string, with no spaces.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✓</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>schemaVersion</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The version of the schema as generated by the DevKit.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1.0-SNAPSHOT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>friendlyName</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This is the human-readable name of the connector. It can contain spaces. Mule uses it only to label the connector in the palette Studio.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>description</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A longer text string describing the connector and its operation. Mule Studio displays the description as a tool tip.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>namespace</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The namespace of the connector.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="http://www.mulesoft.org/schema/mule/name" class="bare">http://www.mulesoft.org/schema/mule/name</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>schemaLocation</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The location of the schema file that writes to the <code>spring.schemas</code> file.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code><a href="http://www.mulesoft.org/schema/mule/name/schemaVersion/mule-name.xsd" class="bare">http://www.mulesoft.org/schema/mule/name/schemaVersion/mule-name.xsd</a></code></p>
+</div>
+<div class="paragraph">
+<p>and</p>
+</div>
+<div class="paragraph">
+<p><code><a href="http://www.mulesoft.org/schema/mule/name/current/mule-name.xsd" class="bare">http://www.mulesoft.org/schema/mule/name/current/mule-name.xsd</a></code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>minMuleVersion</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum Mule version with which the connector can be used. Mule checks the version at runtime and throws an error if versions are incompatible.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">current version of DevKit</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following restrictions apply to the <code>@Connector</code> annotation.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>@Connector</code> cannot be applied to interfaces</p>
+</li>
+<li>
+<p><code>@Connector</code> cannot be applied to final classes</p>
+</li>
+<li>
+<p><code>@Connector</code> cannot be applied to parametrized classes</p>
+</li>
+<li>
+<p><code>@Connector</code> cannot be applied to non-public classes</p>
+</li>
+<li>
+<p>a class with <code>@Connector</code> must contain exactly one method annotated with <code>@Connect</code></p>
+</li>
+<li>
+<p>a class with <code>@Connector</code> must contain exactly one method annotated with <code>@Disconnect</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="connector-tests"><a class="anchor" href="#connector-tests"></a>Connector Tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Open the <code>src/test/java/org/hello/HelloConnectorTest.java</code> file. DevKit creates a class, a couple of methods, and a configurable property, and marks them all with annotations. Within the methods of this class, you can write your own tests tailored to your testing needs. These tests are evaluated every time you compile your code.  You can also run these tests without building your connector by running the following Maven command from the console.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">mvn test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more details on developing tests for your connector, see <a href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pom-file"><a class="anchor" href="#pom-file"></a>POM file</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Based on the archetype used to create the project, Maven generates the project object model (POM) file.  Maven uses the <code>pom.xml</code> file to keep track of all dependencies needed to build a project, including the dependencies' version number and location. You may have to add items to the POM file during the connector development process in order to pull in additional libraries and add steps to the build process .</p>
+</div>
+<div class="paragraph">
+<p>For more details on the role of the POM file, see <a href="http://maven.apache.org/pom.html">the POM Reference at maven.apache.org</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="icons-folder"><a class="anchor" href="#icons-folder"></a>Icons Folder</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>icons</code> folder contains the visuals that Mule Studio uses to represent your connector both on the palette and on the canvas. You can easily swap these files with others of your choice. You can also <a href="customizing-connector-integration-with-esb-and-studio.html">modify the folder</a> from which Mule fetches them.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="license-and-readme-files"><a class="anchor" href="#license-and-readme-files"></a>License and README Files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Should you decide to share your connector with the Mule Community, your project includes a basic license agreement. You are free to <a href="packaging-your-connector-for-release.html">change this license agreement</a>. Use the README file to provide users with initial information about the connector. These files are written in <a href="https://help.github.com/articles/github-flavored-markdown">Github-Flavored Markdown</a> format (<code>.md`</code>)`.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="target-folder"><a class="anchor" href="#target-folder"></a>Target Folder</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When the build process is successful and the tests defined in the <code>test</code> folder all pass, the Maven build process creates several artifacts in the target folder. If you ran a build process and don&#8217;t see this folder in the Package Explorer, right-click the project name, then select <strong>Refresh </strong>to view the following new elements:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>hello-connector-1.0-SNAPSHOT.jar</code>, the connector JAR</p>
+</li>
+<li>
+<p><code>hello-connector-1.0-SNAPSHOT.zip</code>, the Mule plugin which you can drop into the <code>plugins</code> directory in Mule standalone</p>
+</li>
+<li>
+<p><code>apidocs</code>, auto-generated installation instructions, Javadoc, and Mule API docs for your connector</p>
+</li>
+<li>
+<p><code>update-site</code>, the file that you import into Mule Studio to install and update the connector</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="reference-documentation"><a class="anchor" href="#reference-documentation"></a>Reference Documentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The build also auto-generates Javadoc for your connector. The skeleton files that Maven generates already includes placeholder comments  (enclosed between <code>/<strong>*</code> and <code></strong>/</code>) which you can update further. As you add functionality to your connector, be sure to rigorously add JavaDoc annotations to your code as Mule automatically incorporates the annotations into the auto-generated documentation during the build process.</p>
+</div>
+<div class="paragraph">
+<p>To view it the documentation, open <code>target/apidocs/index.html</code> in your web browser.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/**
+     * Connect
+     *
+     * @param username A username
+     * @param password A password
+     * @throws ConnectionException
+     */
+    @Connect
+    public void connect(@ConnectionKey String username, String password)
+        throws ConnectionException {
+        /*
+         * CODE FOR ESTABLISHING A CONNECTION GOES IN HERE
+         */
+    }
+
+
+    /**
+     * Custom processor
+     *
+     * {@sample.xml ../../../doc/hello-connector.xml.sample hello:my-processor}
+     *
+     * @param content Content to be processed
+     * @return Some string
+     */
+    @Processor
+    public String myProcessor(String content)
+    {
+        /*
+         * MESSAGE PROCESSOR CODE GOES HERE
+         */
+
+        return content;
+    }</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="documentation-best-practice"><a class="anchor" href="#documentation-best-practice"></a>Documentation Best Practice</h3>
+<div class="paragraph">
+<p>DevKit enforces commenting your code. For every method you write, add a corresponding comment section so that your connector&#8217;s functionality is documented as soon as you built it. In these comment sections, list every parameter and every output of the method with the annotations <code>@param</code> and <code>@return</code>.</p>
+</div>
+<div class="paragraph">
+<p>DevKit pulls the <code>@param</code> and <code>@return</code> content from the example code above into the Javadoc, automatically organizing it, formatting it, and including additional standard content.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>NEXT STEP:</strong> <a href="authentication-and-connection-management.html">implement authentication</a> on your connector.</p>
+</li>
+<li>
+<p>Learn more about <a href="installing-and-testing-your-connector.html">Installing and Testing Your Connector</a>.</p>
+</li>
+<li>
+<p>View complete, DevKit-built <a href="devkit-connector-examples.html">Connector Examples</a> to see more fully developed code, documentation, and test suites.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

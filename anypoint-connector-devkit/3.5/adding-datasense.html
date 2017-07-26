@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-connector-devkit/3.8/adding-datasense.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Adding DataSense // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="setup.html">Setup</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-your-dev-environment.html">Setting Up Your Development Environment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-your-api-access.html">Setting up your API access</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="authentication.html">Authentication</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="basic-auth.html">Basic Auth</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="oauth-v1.html">OAuth V1</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="oauth-v2.html">OAuth V2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="authentication-methods.html">Authentication Method</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="defining-attributes-operations-and-data-model.html">Defining Attributes Operations and Data Model</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-message-sources.html">Defining Message Sources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-message-processors.html">Creating Message Processors</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-connector-attributes.html">Defining Connector Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="complex-data-types-attributes.html">Complex Data Types Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense.html">Adding DataSense</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense-query-language.html">Adding DataSense Query Language</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-query-pagination-support.html">Adding Query Pagination Support</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="building-a-batch-enabled-connector.html">Building a Batch Enabled Connector</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-and-testing-your-connector-in-studio.html">Installing and Testing Your Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-reference-documentation.html">Creating Reference Documentation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="packaging-your-connector-for-release.html">Packaging Your Connector for Release</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="implementing-a-rest-connector.html">Implementing a REST Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="annotation-reference.html">Annotation Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="anypoint-connector-examples.html">Anypoint Connector Examples</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="barn-connector.html">Barn Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-using-a-java-client-library.html">Creating a Connector Using a Java Client Library</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-soap-service-via-cxf-client.html">Creating a Connector for a SOAP Service Via CXF Client</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-restful-api-using-jersey.html">Creating a Connector for a RESTful API Using Jersey</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-restful-api-using-restcall-annotations.html">Creating a Connector for a RESTful API using @RESTCall Annotations</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Adding DataSense</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs/edit/v3.5/modules/ROOT/content/adding-datasense.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Adding DataSense</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mule DataSense is a feature that displays the metadata of entities included in the service in a friendly manner. Although this feature is optional, Mule strongly recommends that you DataSense-enable your connector to make its implementation must easier for users.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/devkit-steps-operations.png" alt="devkit steps operations">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assumptions"><a class="anchor" href="#assumptions"></a>Assumptions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes that you are familiar with the connector architecture presented in <a href="index.html">Anypoint Connector DevKit</a> and that you are familiar with <a href="../../mule-runtime/3.5/datasense.html">DataSense</a> from an end-user&#8217;s perspective.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="connectors-with-datasense"><a class="anchor" href="#connectors-with-datasense"></a>Connectors with DataSense</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Integration developers often spend great amounts of time simply trying to determine the parameters and types of data that have to be passed or are returned by a Web service. Having to resort to each API&#8217;s documentation to find out what these parameters are is an inefficient, fallible, and often frustrating experience. Thanks to DataSense, this information can be readily available with Anypoint&#8482; Studio at design-time.</p>
+</div>
+<div class="paragraph">
+<p>DataSense provides entities and their internal structure to Studio, which, in turn, presents this information to users employing the connector. DataSense also works with other Anypoint Studio features to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Access a connector&#8217;s metadata so that when the context is right, Studio intelligently makes suggestions for expected values in fields returned by connector.</p>
+</li>
+<li>
+<p>Use DataMapper&#8217;s ability to automatically infer the input or output data within a mapping (when used in conjunction with a connector that is DataSense-enabled).</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Learn more about <a href="../../mule-runtime/3.5/datasense.html">DataSense</a>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="basic-anatomy"><a class="anchor" href="#basic-anatomy"></a>Basic Anatomy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are two key steps to implementing DataSense:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Configure metadata retrieval</strong> - Obtains the metadata from the service and provides an implementation on the connector to supply this information.</p>
+</li>
+<li>
+<p><strong>Configure metadata awareness</strong> - Defines how the operations are annotated in order for Anypoint Studio to be aware of the DataSense implementation and provide information about it to end users of the connector.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="metadata-retrieval"><a class="anchor" href="#metadata-retrieval"></a>Metadata Retrieval</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The fundamental advantage of DataSene is the ability to extract metadata from the data model exposed by an application through the connector. When the connector has static data model (also known as "strongly typed" data model) - that is, when it exposes its entities as a POJO - this is straightforward: the POJO entity class definitions can be referenced and they can provide all the metadata needed in Java, available via introspection.</p>
+</div>
+<div class="paragraph">
+<p>When the connector has a dynamic data model (also known as "weekly typed") - that is, when it exposes its entities to Mule as key-value Maps - the metadata is not immediately available. To support DataSense functionality for connectors with dynamic data models, you must implement additional functionality to create the metadata based on data provided from the application.</p>
+</div>
+<div class="paragraph">
+<p>In either case, metadata retrieval requires that you include two annotated metadata-related methods on your connector which generate DataSense metadata for a dynamic schema.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>@MetadataKeyRetriever</code> retrieves a list of all the entity Type names from the connected service</p>
+</li>
+<li>
+<p><code>@MetadataRetriever</code> uses the list of metadata keys (retrieved by <code>@MetadataKeyRetriever</code>) to retrieve the entity composition of each entity Type</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@MetaDataKeyRetriever
+public List&lt;MetaDataKey&gt; getMetadataKeys() {  }
+
+@MetaDataRetriever
+public MetaData getMetadata(MetaDataKey key) {  }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="metadata-awareness"><a class="anchor" href="#metadata-awareness"></a>Metadata Awareness</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This step involves making the captured metadata accessible to the message processor. When implemented, a drop-down in the connector&#8217;s properties editor in Studio displays all of the entities returned by <code>@MetaDataKeyRetriever</code>; each of these is coupled with the properties returned by <code>@MetaDataRetriever</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/image8129.png" alt="image8129">
+</div>
+</div>
+<div class="paragraph">
+<p>For this to happen, the message processor must include a method that receives the entity type as a parameter annotated with <code>@MetaDataKeyParam</code>. This method must also receive the entity data (that was returned by <code>@MetadataRetriever</code>) on a parameter that is annotated as <code>@Default ("#[payload]")</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+When building connectors for Mule runtimes prior to <strong>3.5.0</strong>, all <code>@Default</code> parameters must also be marked with <code>@Optional</code>. In newer versions, this second annotation is considered redundant, but it is required on Mule runtime 3.4.2 and older.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The types of data expected and generated by this method vary depending on if your metadata is <strong>static</strong> or <strong>dynamic</strong>.</p>
+</div>
+<div class="paragraph">
+<p>If your metadata <strong>static</strong>, then the entity data is an <code>Object</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">public Object create(@MetaDataKeyParam String entityType, @Default("#[payload]") Object entityData) {
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If your metadata is <strong>dynamic</strong>, the entity data is a <code>Map&lt;String,Object&gt;</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">public Map&lt;String,Object&gt; create(@MetaDataKeyParam String entityType, @Default("#[payload]") Map&lt;String,Object&gt; entityData) {
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If your metadata is a list of <strong>dynamic objects</strong>, the entity data is a <code>List&lt;Map&lt;String,Object&gt;&gt;</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">public List&lt;Map&lt;String,Object&gt;&gt; getList(@MetaDataKeyParam String entityType, @Default("#[payload]") List&lt;Map&lt;String,Object&gt;&gt; entityData) {
+    }</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="preparing-a-connector-class-to-add-metadata-support"><a class="anchor" href="#preparing-a-connector-class-to-add-metadata-support"></a>Preparing a @Connector Class to Add Metadata Support</h3>
+<div class="paragraph">
+<p>To implement DataSense in your connector, you must add the following imports to the <code>@Connector</code> class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import org.mule.common.metadata.*;
+import org.mule.common.metadata.builder.DefaultMetaDataBuilder;
+import org.mule.common.metadata.builder.DynamicObjectBuilder;
+import org.mule.common.metadata.builder.EnumMetaDataBuilder;
+import org.mule.common.metadata.datatype.DataType;
+
+import org.mule.api.annotations.MetaDataKeyRetriever;
+import org.mule.api.annotations.MetaDataRetriever;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>org.mule.common.metadata</code>.* classes include the Mule classes for representing and managing metadata.</p>
+</li>
+<li>
+<p>The <code>org.mule.common.metadata.builder</code> classes are used to construct metadata representations (sets of objects which can be quite complex).</p>
+</li>
+<li>
+<p><code>The org.mule.common.metadata.datatype.DataType</code> class represents different object field datatypes and their properties.</p>
+</li>
+<li>
+<p>If you generate your DevKit connector project in Anypoint™ Studio May 2014 with the 3.5.0 runtime, DevKit automatically generates these imports.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="example-with-static-data-model"><a class="anchor" href="#example-with-static-data-model"></a>Example with Static Data Model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following section demonstrates how to build a connector that draws data from a Web service with a static data model.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Download a full working example of this static-metadata connector from <a href="https://github.com/mulesoft/example-connector/tree/basic-dynamic">GitHub</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In this example, the Web service to which the connector connects a library Web service. The Web service contains two types of elements: <strong>books</strong> and <strong>authors</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>book</strong> element contains the following fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>title</p>
+</li>
+<li>
+<p>synopsis</p>
+</li>
+<li>
+<p>author</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <strong>author</strong> element contains the following fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>firstName</p>
+</li>
+<li>
+<p>lastName</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="metadata-retrieval-2"><a class="anchor" href="#metadata-retrieval-2"></a>Metadata Retrieval</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>As already stated, the first step is to obtain the metadata from the connector. As the metadata is static, you don&#8217;t need to make a call the Web service to obtain it, you can just hard-code the information into the connector. Inside your connector class, add a new method annotated with <code>@MetaDataKeyRetriever</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@MetaDataKeyRetriever
+    public List&lt;MetaDataKey&gt; getEntities() throws Exception {
+        List&lt;MetaDataKey&gt; entities = new ArrayList&lt;MetaDataKey&gt;();
+        entities.add(new DefaultMetaDataKey("Book_id","Book"));
+        entities.add(new DefaultMetaDataKey("Author_id","Author"));
+        entities.add(new DefaultMetaDataKey("BookList_id","BookList"));
+        return entities;
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This method returns a list of the entity&#8217;s names. In this case, it retrieves a list with three keys: Book, BookList, and Author.</p>
+</div>
+</li>
+<li>
+<p>The next step is to implement <code>@MetaDataRetriever</code> method, which obtains a description of each of the entities returned by the previous method. The return type of this java method MUST be MetaData and it MUST receive one MetaDataKey parameter. In this example, assume that the entity classes of the service exist locally <code>.Book.class</code> and <code>Author.class</code> can then be directly referenced in your code when describing them. You can call the interface <code>DefaultMetadataBuilder</code>, provided by DevKit, to easily build a POJO.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@MetaDataRetriever
+    public MetaData describeEntity(MetaDataKey entityKey) throws Exception {
+        //Here we describe the entity depending on the entity key
+        if ("Author_id".equals(entityKey.getId())) {
+            MetaDataModel authorModel =  new DefaultMetaDataBuilder().createPojo(Author.class).build();
+            return new DefaultMetaData(authorModel);
+        }
+        if ("Book_id".equals(entityKey.getId())) {
+            MetaDataModel bookModel =  new DefaultMetaDataBuilder().createPojo(Book.class).build();
+            return new DefaultMetaData(bookModel);
+        }
+        if ("BookList_id".equals(entityKey.getId())) {
+            MetaDataModel bookListModel =  new DefaultMetaDataBuilder().createList().ofPojo(Book.class).build();
+            return new DefaultMetaData(bookListModel);
+        }
+        throw new RuntimeException(String.format("This entity %s is not supported",entityKey.getId()));
+   }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This method automatically describe Book, BookList, and Author with all the public fields exposed by them.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The reason why two different operations are used - one to obtain the entities, and another obtain their description - is that describing all the entities through one single method could result in a excessive number of API calls (you probably need one API call per entity). This arrangement is ideal for retrieving metadata from an external service.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="metadata-awareness-2"><a class="anchor" href="#metadata-awareness-2"></a>Metadata Awareness</h3>
+<div class="paragraph">
+<p>So far you have implemented the describing mechanism for all of the entities in the service you aim to connect. Now you must make this information accessible to the message processors.</p>
+</div>
+<div class="paragraph">
+<p>The method must receive the operation&#8217;s type as a parameter annotated with <code>@MetaDataKeyParam</code>. The method must also receive the entity data (that was returned by <code>@MetaDataRetriever</code>) on a parameter annotated with as <code>@Default ("#[payload]")</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+When building connectors for Mule runtimes prior to <strong>3.5.0</strong>, all <code>@Default</code> parameters must also be marked with <code>@Optional</code>. In newer versions, this second annotation is considered redundant, but it is required on Mule runtime 3.4.2 and older.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Processor
+    public Object create(@MetaDataKeyParam String entityType, @Default("#[payload]") Object entityData) {
+        if (entityData instanceof Book) {
+            return createBook((Book) entityData);
+        }
+        if (entityData instanceof Author) {
+            return createAuthor((Author) entityData);
+        }
+        throw new RuntimeException("Entity not recognized");
+    }
+
+    private Object createAuthor(Author entityData) {
+        //CODE FOR CREATING NEW AUTHOR GOES HERE
+        return null;
+    }
+
+    private Object createBook(Book entityData) {
+        //CODE FOR CREATING A NEW BOOK GOES HERE
+        return null;
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output metadata changes according to the entity type selected in Studio. This is especially useful when used in conjunction with a DataMapper transformer. Thanks to this method, all the entities returned by <code>@MetaDataRetriever</code> will then will be displayed in a drop-down in Studio.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/image8129.png" alt="image8129">
+</div>
+</div>
+<div class="paragraph">
+<p>Also, the metadata about the entity can then be passed on to other Mule elements such as DataMapper.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/image2.png" alt="image2">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="example-with-dynamic-data-model"><a class="anchor" href="#example-with-dynamic-data-model"></a>Example with Dynamic Data Model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following section demonstrates how to build a connector that draws data from a Web service with a dynamic data model. The most practical way to implement metadata is always dynamically. Doing things this way, if the entity&#8217;s attributes in the service you connect to vary over time, your connector effortlessly adapts to the changes.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Download a full working example of this dynamic-metadata connector from <a href="https://github.com/mulesoft/example-connector/tree/basic-dynamic">GitHub</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In this example, as in the one above, the Web service to which the connector connects a book database. It contains two types of elements: books and authors, both contain the same fields as in the previous example.</p>
+</div>
+<div class="sect2">
+<h3 id="metadata-retrieval-3"><a class="anchor" href="#metadata-retrieval-3"></a>Metadata Retrieval</h3>
+<div class="paragraph">
+<p>In tis example, because you don&#8217;t have access to a POJO with the type structure, you must obtain this structure from the Web service itself. Use <code>Map&lt;String,Object&gt;</code> to represent the dynamics entities.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+If you obtain the metadata dynamically through an API call, the <code>@Connect</code> method executes before the <code>@MetaDataKeyRetriever</code> method. This implies that end-users must first resolve any connection issues before gaining access to the metadata.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Inside your connector class, add a new method annotated with <code>@MetaDataKeyRetriever</code>. (This method is no different from the one implemented with static metadata).</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@MetaDataKeyRetriever
+    public List&lt;MetaDataKey&gt; getEntities() throws Exception {
+        List&lt;MetaDataKey&gt; entities = new ArrayList&lt;MetaDataKey&gt;();
+        entities.add(new DefaultMetaDataKey("Book_id","Book"));
+        entities.add(new DefaultMetaDataKey("Author_id","Author"));
+        entities.add(new DefaultMetaDataKey("BookList_id","BookList"));
+        return entities;
+    }</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The next step is to implement <code>@MetaDataRetriever</code> method. This obtains a description of each of the entities returned by the previous method. As in the previous example, this method uses the interface <code>DefaultMetaDataBuilder</code>, but this time it will be called to build dynamic objects instead of POJOs.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@MetaDataRetriever
+    public MetaData describeEntity(MetaDataKey entityKey) throws Exception {
+        //Here we describe the entity depending on the entity key
+        if ("Author_id".equals(entityKey.getId())) {
+            MetaDataModel authorModel =  new DefaultMetaDataBuilder().createDynamicObject("Author")
+                    .addSimpleField("firstName", DataType.STRING)
+                    .addSimpleField("lastName", DataType.STRING)
+                    .build();
+            return new DefaultMetaData(authorModel);
+        }
+        if ("Book_id".equals(entityKey.getId())) {
+            MetaDataModel bookModel =  new   DefaultMetaDataBuilder().createDynamicObject("Book")
+                    .addSimpleField("title",DataType.STRING)
+                    .addSimpleField("synopsis",DataType.STRING)
+                    .addDynamicObjectField("author")
+                    .addSimpleField("firstName",DataType.STRING)
+                    .addSimpleField("lastName",DataType.STRING)
+                    .endDynamicObject()
+                    .build();
+            return new DefaultMetaData(bookModel);
+        }
+        if ("BookList_id".equals(entityKey.getId())) {
+            MetaDataModel bookListModel =  new DefaultMetaDataBuilder().createList().ofDynamicObject("book").build();
+            return new DefaultMetaData(bookListModel);
+        }
+        throw new RuntimeException(String.format("This entity %s is not supported",entityKey.getId()));
+    }</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="metadata-awareness-3"><a class="anchor" href="#metadata-awareness-3"></a>Metadata Awareness</h3>
+<div class="paragraph">
+<p>Thus far, you have implemented the describing mechanism for all of the entities in the service you aim to connect. Now you must make this information accessible to the message processor.</p>
+</div>
+<div class="paragraph">
+<p>The message processor must receive the operation&#8217;s type as a parameter annotated with <code>@MetaDataKeyParam</code> (Studio displays the operations in a drop-down with all the entities returned by <code>@MetaDataRetreiver</code>). The message processor must also receive the entity data (returned by <code>@MetadataRetriever</code>) as a <code>Map&lt;String,Object&gt;</code> parameter, annotated as <code>@Default ("#[payload]")</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+When building connectors for Mule runtimes prior to <strong>3.5.0</strong>, all <code>@Default</code> parameters must also be marked with <code>@Optional</code>. In newer versions, this second annotation is considered redundant, but it is required on mule runtime 3.4.2 and older.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Processor
+    public Object create(@MetaDataKeyParam String entityType, @Default("#[payload]") Object entityData) {
+        if (entityData instanceof Book) {
+            return createBook((Book) entityData);
+        }
+        if (entityData instanceof Author) {
+            return createAuthor((Author) entityData);
+        }
+        throw new RuntimeException("Entity not recognized");
+    }
+
+    private Map&lt;String, Object&gt; createAuthor(Map&lt;String, Object&gt; entityData) {
+        //CODE TO CREATE BOOK GOES HERE
+        return entityData;
+    }
+    private Map&lt;String, Object&gt; createBook(Map&lt;String, Object&gt; entityData) {
+        //CODE TO CREATE AUTHOR GOES HERE
+        return entityData;
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Thanks to this method, Studio displays all the entities returned by <code>@MetaDataRetreiver</code> as items in a drop-down field.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/image3.png" alt="image3">
+</div>
+</div>
+<div class="paragraph">
+<p>Also, the metadata about the entity can then be passed on to other Mule elements such as DataMapper</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/image4.png" alt="image4">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="grouping-types"><a class="anchor" href="#grouping-types"></a>Grouping Types</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To group types, DevKit uses the annotation <code>@MetaDataCategory</code> that you can apply to a new <code>.java</code> class. Within this java class, you define the whole metadata retrieving mechanism, that is the methods annotated with <code>@MetaDataKeyRetriever</code> and <code>@MetaDataRetriever</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example, suppose you wish to offer a regular message processor and, additionally, a special message processor that provides access to a secret field on the Author entity named “books” that represents the Author’s written books. You can use group types to bundle several distinct message processors into one connector, and display different groups of entities in each.</p>
+</div>
+<div class="paragraph">
+<p>The example below displays a <code>@MetaDataCategory</code> class that contains both methods, and resides in a separate java file. In this default class, both <code>@MetaDataKeyRetriever</code> and <code>@MetaDataRetriever</code> methods are the same as in the previous example. You must establish a link between this class and your connector module; the most common way of doing this is to <code>@Inject</code> your connector class as shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@MetaDataCategory
+public class DefaultCategory {
+
+    @Inject
+    private MyConnector myconnector;
+
+    @MetaDataKeyRetriever
+    public List&lt;MetaDataKey&gt; getEntities() throws Exception {
+        List&lt;MetaDataKey&gt; entities = new ArrayList&lt;MetaDataKey&gt;();
+        entities.add(new DefaultMetaDataKey("Book_id","Book"));
+        entities.add(new DefaultMetaDataKey("Author_id","Author"));
+        entities.add(new DefaultMetaDataKey("BookList_id","BookList"));
+        return entities;
+    }
+
+    @MetaDataRetriever
+        public MetaData describeEntity(MetaDataKey entityKey) throws Exception {
+        //Here we describe the entity depending on the entity key
+        if ("Author_id".equals(entityKey.getId())) {
+            MetaDataModel authorModel =  new DefaultMetaDataBuilder().createDynamicObject("Author")
+                    .addSimpleField("firstName", DataType.STRING)
+                    .addSimpleField("lastName", DataType.STRING)
+                    .build();
+            return new DefaultMetaData(authorModel);
+        }
+        if ("Book_id".equals(entityKey.getId())) {
+            MetaDataModel bookModel =  new   DefaultMetaDataBuilder().createDynamicObject("Book")
+                    .addSimpleField("title",DataType.STRING)
+                    .addSimpleField("synopsis",DataType.STRING)
+                    .addDynamicObjectField("author")
+                    .addSimpleField("firstName",DataType.STRING)
+                    .addSimpleField("lastName",DataType.STRING)
+                    .endDynamicObject()
+                    .build();
+            return new DefaultMetaData(bookModel);
+        }
+        if ("BookList_id".equals(entityKey.getId())) {
+            MetaDataModel bookListModel =  new DefaultMetaDataBuilder().createList().ofDynamicObject("book").build();
+            return new DefaultMetaData(bookListModel);
+        }
+        throw new RuntimeException(String.format("This entity %s is not supported",entityKey.getId()));
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, define a second group for a different message processor that can access different metadata as shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@MetaDataCategory
+public class AdvancedCategory {
+
+    @Inject
+    private MyConnector myconnector;
+
+    @MetaDataKeyRetriever
+    public List&lt;MetaDataKey&gt; getEntities() throws Exception {
+        List&lt;MetaDataKey&gt; entities = new ArrayList&lt;MetaDataKey&gt;();
+        entities.add(new DefaultMetaDataKey("Book_id","Book"));
+        entities.add(new DefaultMetaDataKey("Author_id","Author"));
+        entities.add(new DefaultMetaDataKey("BookList_id","BookList"));
+        return entities;
+    }
+    @MetaDataRetriever
+    public MetaData describeEntity(MetaDataKey entityKey) throws Exception {
+
+        //Here we describe the entity depending on the entity key
+        if ("Author_id".equals(entityKey.getId())) {
+            MetaDataModel authorModel =  new DefaultMetaDataBuilder().createDynamicObject("Author")
+                    .addSimpleField("firstName", DataType.STRING)
+                    .addSimpleField("lastName", DataType.STRING)
+                    .build();
+            return new DefaultMetaData(authorModel);
+        }
+        if ("Book_id".equals(entityKey.getId())) {
+            MetaDataModel bookModel =  new   DefaultMetaDataBuilder().createDynamicObject("Book")
+                    .addSimpleField("title",DataType.STRING)
+                    .addSimpleField("synopsis",DataType.STRING)
+                    .addDynamicObjectField("author")
+                    .addSimpleField("firstName",DataType.STRING)
+                    .addSimpleField("lastName",DataType.STRING)
+                    .endDynamicObject()
+                    .build();
+            return new DefaultMetaData(bookModel);
+        }
+        if ("BookList_id".equals(entityKey.getId())) {
+            MetaDataModel bookListModel =  new DefaultMetaDataBuilder().createList().ofDynamicObject("book").build();
+            return new DefaultMetaData(bookListModel);
+        }
+        throw new RuntimeException(String.format("This entity %s is not supported",entityKey.getId()));
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, like these categories within your connector&#8217;s message processor as shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/**
+ * Connector for integration tests
+ *
+ * @author MuleSoft, inc.
+ */
+@MetaDataScope(DefaultCategory.class)
+@Connector(name = "my-connector", minMuleVersion = "3.5")
+public class MyConnector {
+..
+
+  @MetaDataScope(AdvancedCategory.class)
+    @Processor
+    public Map&lt;String,Object&gt; advancedOperation(@MetaDataKeyParam String entityType, @Default("#[payload]") Map&lt;String,Object&gt; entityData) {
+       //here you can use the books field in authors//
+
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>NEXT</strong>: Learn how to <a href="developing-devkit-connector-tests.html">add test to you Connector</a>.</p>
+</li>
+<li>
+<p>Generate the <a href="creating-reference-documentation.html">Reference Documentation</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

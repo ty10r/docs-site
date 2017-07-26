@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="release notes, devkit, migration">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/solutions/migration/anypoint-connector-devkit/3.5-to-3.6-migration-guide.html">
+  <link rel="stylesheet" href="../../../_theme/stylesheets/theme.css">
+  <title>Connector Migration Guide - DevKit 3.5 to 3.6 // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../../anypoint-b2b.html">Anypoint B2B</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">TRADACOMS EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDI Schema Language Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/index.html">Anypoint Partner Manager</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/key-concepts.html">Key Concepts</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/b2b-transaction-processing-framework.html">B2B Transaction-Processing Framework</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/resolution-processes.html">Resolution Processes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/tracking.html">Tracking</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/examples.html">Examples</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/transaction-monitoring.html">Transaction Monitoring</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/central-pane-elements.html">Central Pane Elements</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/tracking-scenarios.html">Tracking Scenarios</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/partner-configuration.html">Partner Configuration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/company-information.html">Company Information</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/identifiers.html">Identifiers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/on-hold-inactive.html">On-Hold/Inactive</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">Certificate</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/csv-settings.html">CSV Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/document-types.html">Document Types</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/endpoints.html">Endpoints</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/maps.html">Maps</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/channels.html">Channels</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/routes.html">Routes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/partner-conversations.html">Partner Conversations</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/rosettanet-pips.html">RosettaNet PIPs</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/rosettanet-agreements.html">RosettaNet Agreements</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/administration.html">Administration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/environments.html">Environments</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/error-codes.html">Error Codes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/security.html">Security</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/lookup-tables.html">Lookup Tables</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/walkthroughs.html">Walkthroughs</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/ftps-and-edi-x12-purchase-order-walkthrough.html">FTPS and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/transaction-tracking-walkthrough.html">Transaction Tracking Walkthrough</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/anypoint-partner-manager-api.html">Anypoint Partner Manager API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/glossary.html">Glossary</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/partner-manager-connector.html">Partner Manager Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/ftps-connector.html">FTPS Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">EDI X12 Order Processing Example</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/supported-edi-document-types.html">Supported EDI Document Types</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../../getting-started/index.html">Getting Started with Anypoint Platform</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/design-an-api.html">To Design an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/implement-and-test-api.html">To Implement and Test an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/sync-api.html">To Sync an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../../anypoint-platform/exchange/index.html">Anypoint Exchange</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-platform/exchange/exchange-faq.html">Anypoint Exchange FAQ</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/build-a-hello-world-application.html">Tutorial: Creating a Mule App</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/anypoint-connector.html">Anypoint Connector Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../mule-runtime/3.8/messages/mule-message.html">How to Work with a Mule Message</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/content-based-routing.html">How to Route Mule Messages Using a Switch Statement</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../anypoint-platform/cloudhub/deploy-to-cloudhub.html">Deploy to CloudHub</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../../healthcare-toolkit/index.html">Healthcare Toolkit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../healthcare-toolkit/hl7/hl7-edi.html">HL7 EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../healthcare-toolkit/mllp-connector.html">HL7 MLLP</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../healthcare-toolkit/connector-testpanel.html">Connector Testing with TestPanel</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Connector Migration Guide - DevKit 3.5 to 3.6</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/solutions-docs/edit/master/modules/migration/content/anypoint-connector-devkit/3.5-to-3.6-migration-guide.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Connector Migration Guide - DevKit 3.5 to 3.6</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>January 16, 2015</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="compatibility"><a class="anchor" href="#compatibility"></a>Compatibility</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Software</th>
+<th class="tableblock halign-left valign-top">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mule ESB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.6</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JDK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.7</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="migrating-from-devkit-3-5-to-3-6"><a class="anchor" href="#migrating-from-devkit-3-5-to-3-6"></a>Migrating from DevKit 3.5 to 3.6</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The sections that follow show how to migrate an Anypoint Connector to 3.6.</p>
+</div>
+<div class="sect2">
+<h3 id="add-the-testconnectivity-annotation-to-the-connect-method"><a class="anchor" href="#add-the-testconnectivity-annotation-to-the-connect-method"></a>Add the @TestConnectivity Annotation to the @Connect Method</h3>
+<div class="paragraph">
+<p>Before, when using the @Connect annotation, DevKit enabled by default the <strong>Test Connectivity</strong> capability:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/anypoint-connector-devkit/36testconnection.png" alt="36testconnection">
+</div>
+</div>
+<div class="paragraph">
+<p>For version 3.6 and later, DevKit enhances the Test Connectivity capability for use in Connection Management scenarios other than just the @Connect method. A method annotated with @Connect must now also be annotated with @TestConnectivty to enable Test Connectivity capability, and <code>@TestConnectivity(active=false)</code> to disable it.</p>
+</div>
+<div class="paragraph">
+<p>New - Add @TestConnectivity to enable:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ConnectionManagement(configElementName = "config-type",
+  friendlyName = "Basic Auth type strategy")
+public class ConnectorConnectionStrategy
+{
+    ...
+    @Connect
+    @TestConnectivity
+    public void connect(@ConnectionKey String username,
+      @Password String password) throws ConnectionException {
+        ...
+    }
+    ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Old - Test Connectivity capability was built into @Connect:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(...)
+public class ConnectorConnectionStrategy
+{
+    ...
+    @Connect
+    public void connect(@ConnectionKey String username,
+      @Password String password) throws ConnectionException {
+        ...
+    }
+    ...
+}</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="custom-labels"><a class="anchor" href="#custom-labels"></a>Custom Labels</h4>
+<div class="paragraph">
+<p>In version 3.6 and later, the @TestConnectivity annotation supports custom labels, so that Studio can read later to draw a different button in the UI.<br>
+<br>
+Code to make a custom button:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ConnectionManagement(configElementName = "config-type",
+    friendlyName = "Basic Auth type strategy")
+public class ConnectorConnectionStrategy
+{
+    ...
+    @Connect
+    @TestConnectivity(label="My custom button")
+    public void connect(@ConnectionKey String username,
+      @Password String password) throws ConnectionException {
+        ...
+    }
+    ...
+}</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/anypoint-connector-devkit/36basicauthtypestrategy.png" alt="36basicauthtypestrategy">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deprecated-the-connectivitytesting-property-in-the-connect-and-module-annotations"><a class="anchor" href="#deprecated-the-connectivitytesting-property-in-the-connect-and-module-annotations"></a>Deprecated: The connectivityTesting Property in the @Connect and @Module Annotations.</h3>
+<div class="paragraph">
+<p>If a connector used the connectivityTesting property in @Connector to disable the Test Connectivity capability, delete that property and in the @TestConnectivity, add an <strong>active</strong> property assigned to <strong>false</strong>.</p>
+</div>
+<div class="paragraph">
+<p>New - Disable Test Connectivity by setting @TestConnectivity to false:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name = "my", schemaVersion = "2.0", friendlyName = "MyConnector")
+@TestConnectivity(active=false)
+public class MyConnector{
+    ...
+    @Connect
+    public void connect(@ConnectionKey String accessKey, String secretKey)
+        throws ConnectionException
+    {...}
+...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Old - Disabled using  <code>connectivityTesting = ConnectivityTesting.DISABLED</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name = "my", schemaVersion = "2.0", friendlyName = "MyConnector", minMuleVersion = "3.5", metaData = MetaDataSwitch.OFF,
+connectivityTesting = ConnectivityTesting.DISABLED //DEPRECATED)
+public class MyConnector{
+    ...
+    @Connect
+    public void connect(@ConnectionKey String accessKey,
+        String secretKey) throws ConnectionException
+    {...}
+...
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-config-ref-attribute-in-processors"><a class="anchor" href="#add-config-ref-attribute-in-processors"></a>Add config-ref="" Attribute in Processors</h3>
+<div class="paragraph">
+<p>In 3.6 and later, DevKit requires that you specify the connector configuration for each processor, or Studio fails when starting the application by enforcing it through the schema. This choice occurs at Studio start up where you choose an existing connector project from <strong>File</strong> &gt; <strong>Open</strong>, or create a new project.</p>
+</div>
+<div class="paragraph">
+<p>This also affect tests of a connector, as it&#8217;s easy to omit this from the XML file for tests.</p>
+</div>
+<div class="paragraph">
+<p>New - Add <code>config-ref="&lt;connector_name&gt;-config"</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mongo:config name="mongo-config" username="user" password="pass"&gt;
+&lt;flow name="SaveObject"&gt;
+    &lt;mongo:save-object config-ref="mongo-config"
+      collection="#[map-payload:aCollectionName]" element-ref="myDbObject"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Old - config-ref not used:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mongo:config name="mongo-config" username="user" password="pass"&gt;
+&lt;flow name="SaveObject"&gt;
+    &lt;mongo:save-object collection="#[map-payload:aCollectionName]"
+        element-ref="myDbObject"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deprecated-the-metadata-property-in-the-connect-and-module-annotations"><a class="anchor" href="#deprecated-the-metadata-property-in-the-connect-and-module-annotations"></a>Deprecated: The  metaData Property in the @Connect and @Module Annotations</h3>
+<div class="paragraph">
+<p>In 3.6 and later, DevKit supports two ways of building a connector, either using Static DataSense or Dynamic DataSense. In previous versions, you could create a mix by changing values of the metaData property. In 3.6 and later, the default is Static DataSense, unless a connector implements @MetaDataCategory, and then connectors are set to Dynamic DataSense.</p>
+</div>
+<div class="paragraph">
+<p>New - Defaults to Static DataSense:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name = "my", schemaVersion = "2.0", friendlyName = "MyConnector")
+public class MyConnector
+    ...
+{</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Old - Used the metaData property to change the DataSense setting:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name = "my", schemaVersion = "2.0", friendlyName = "MyConnector",
+minMuleVersion = "3.5",
+metaData = MetaDataSwitch.OFF //DEPRECATED)
+public class MyConnector
+    ...
+{</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="disconnect-only-throws-runtimeexception"><a class="anchor" href="#disconnect-only-throws-runtimeexception"></a>@Disconnect only Throws RuntimeException</h3>
+<div class="paragraph">
+<p>In 3.6 and later @Disconnect method now only supports RuntimeException, any other exception causes a failure in a connector&#8217;s compilation.<br>
+<br>
+New - Throws RunTimeException:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(...)
+public myConnector(){
+    ...
+    @Disconnect
+    public void disconnect() throws RuntimeException{
+        ...
+    }
+    ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Old - Threw IOException:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(...)
+public myConnector(){
+    ...
+    @Disconnect
+    public void disconnect() throws IOException{
+        ...
+    }
+    ...
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="migration-to-connector-strategies"><a class="anchor" href="#migration-to-connector-strategies"></a>Migration to Connector Strategies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In 3.6 and later, connections are no longer supported at the @Connector level, but are defined in another component and injected to the @Connector by annotating a field with @ConnectionStrategy. This provides a better environment for developing a connector and the easiest way to create multiple authentication types.</p>
+</div>
+<div class="sect2">
+<h3 id="migrating-a-connector-with-connection-management"><a class="anchor" href="#migrating-a-connector-with-connection-management"></a>Migrating a Connector with Connection Management</h3>
+<div class="sect3">
+<h4 id="old-3-5-connector-with-connection-management"><a class="anchor" href="#old-3-5-connector-with-connection-management"></a>Old 3.5 Connector with Connection Management</h4>
+<div class="paragraph">
+<p>Previously, connection and domain methods were in the same class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name="connector", schemaVersion="1.0", friendlyName="My Connector")
+public class MyConnectionManagementConnector
+{
+    @Connect
+    public void connect(@ConnectionKey String username, @Password String password)
+        throws ConnectionException {
+         service.connectService(username,password);
+    }
+
+    @Disconnect
+    public void disconnect() {
+        service.disconnectService();
+    }
+
+    @ValidateConnection
+    public boolean isConnected() {
+        return service.connectionStatus();
+    }
+
+    @ConnectionIdentifier
+    public String connectionId() {
+        return service.connectionId();
+    }
+
+    @Processor
+    public String getUser(String user)
+    {
+        //Processor Logic
+    }
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="version-3-6-and-later-strategies-model"><a class="anchor" href="#version-3-6-and-later-strategies-model"></a>Version 3.6 and Later Strategies Model</h4>
+<div class="paragraph">
+<p>To update to the Connection Strategy model:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a new Java class for the Connection Strategy.</p>
+</li>
+<li>
+<p>Annotate the class with the @ConnectionManagement annotation.</p>
+</li>
+<li>
+<p>Move the four connection methods (@Connect, @Disconnect, @ValidateConnection and @ConnectionIdentifier) from the old @Connector class to the new Connection Strategy class:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ConnectionManagement(friendlyName="ConnectionManagement", configElementName="config-name")
+public class ConnectionManagementStrategy
+{
+    @Connect
+    public void connect(@ConnectionKey String username, @Password String password)
+        throws ConnectionException {
+       return true;
+    }
+
+    @Disconnect
+    public void disconnect() {
+        service.disconnectService();
+    }
+
+    @ValidateConnection
+    public boolean isConnected() {
+        return service.connectionStatus();
+    }
+
+    @ConnectionIdentifier
+    public String connectionId() {
+        return "001";
+    }
+
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>After moving the connection methods to the Connection Strategy class, set  @Connector to reference the connection strategy class by creating a @ConnectionStategy field with the reference to the new strategy. The @Connector is then detached from how it connects with a service:<br></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name="myconnector", schemaVersion="1.0", friendlyName="Connector")
+public class MyConnector
+{
+    @ConnectionStrategy
+    private ConnectionManagementStrategy strategy;
+
+    public void setMyProperty(ConnectionManagementStrategy strategy)
+    {
+        this.strategy = strategy;
+    }
+
+    public ConnectionManagementStrategy getStrategy()
+    {
+        return this.strategy;
+    }
+
+    @Processor
+    public String getUser(String user)
+    {
+        //Processor Logic
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="overrideatprocessors-annotation-deprecated"><a class="anchor" href="#overrideatprocessors-annotation-deprecated"></a>@OverrideAtProcessors Annotation - Deprecated</h3>
+<div class="paragraph">
+<p>This annotation is only used for compatibility purposes.</p>
+</div>
+<div class="paragraph">
+<p>Now in 3.6 @Connect parameters cannot be overridden from the @Processor call.</p>
+</div>
+<div class="paragraph">
+<p>For this case in only one @ConnectionManagement component of your Connector DevKit lets you add the @Connect parameters as optional parameters for the @Processor by annotating the @ConnectionStrategy with @OverrideAtProcessors. This way you can override an attribute directly from the @Processor call.</p>
+</div>
+<div class="paragraph">
+<p>The @OverrideAtProcessor is deprecated and will be removed in DevKit 4.0.0 (as this annotation exists just for backward compatibility), as it’s possible since 3.5.0 to have MEL expressions at global element, meaning that for multi-tenancy there is no longer need to specify the connectivity attributes in every processor of your Mule application.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="migrating-connector-with-oauth2"><a class="anchor" href="#migrating-connector-with-oauth2"></a>Migrating Connector with OAuth2</h3>
+<div class="paragraph">
+<p>The same happens for OAuth2 Authentication. Now the @OAuth2 annotation should be placed in another class different from the @Connector class, as a @ConnectionStrategy.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@OAuth2( configElementName = "config-oauth2", friendlyName="OAuth2 type Strategy",
+authorizationUrl = "https://api.myconnector.com/uas/oauth/authorize",
+accessTokenUrl = "https://api.myconnector.com/uas/oauth/accessToken")
+public class ConnectorOAuth2Strategy
+{
+    /**
+     * The OAuth2 access token
+     */
+    @OAuthAccessToken
+    private String accessToken;
+
+    /**
+     * The OAuth2 consumer key
+     */
+    @Configurable
+    @OAuthConsumerKey
+    private String consumerKey;
+
+    /**
+     * The OAuth2 consumer secret
+     */
+    @Configurable
+    @OAuthConsumerSecret
+    private String consumerSecret;
+
+    ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After migrating to the @ConnectionStrategy class, set  @Connector to reference the connection strategy class by creating a @ConnectionStategy field with the reference to the new strategy, as explained above.<br></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>About Connection Strategies</strong><br></p>
+</div>
+<div class="paragraph">
+<p>Connection Strategies supports  @ConnectionManagement ,  @OAuth2 , @Configuration, and  @HttpBasicAuth components.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="migrating-connector-with-oauth-v1"><a class="anchor" href="#migrating-connector-with-oauth-v1"></a>Migrating Connector with OAuth V1</h3>
+<div class="paragraph">
+<p>Currently @OAuth is not supported as a @ConnectionStrategy, @OAuth authentication in 3.6 must be implemented the same way that in 3.5.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Document</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../../../mule-runtime/3.7/connectors/anypoint-connectors.html">Anypoint Connectors</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MuleSoft connector user guides.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.mulesoft.com/exchange#!/?types=connector&amp;sortBy=name">Connectors</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connectors available from MuleSoft or third party sources.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../../../anypoint-connector-devkit/3.7/index.html">Anypoint Connector DevKit</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Connector development information.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../../../anypoint-connector-devkit/3.7/annotation-reference.html">Annotation Reference</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Describes DevKit elements that start with an at sign(@), which you can use in your connector to identify classes and functions for Anypoint functionality.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../../_theme/scripts/menu.js"></script>
+<script src="../../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

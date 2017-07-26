@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="devkit, soap, connector, maven">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-connector-devkit/3.8/creating-a-soap-connector.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Creating a SOAP Connector // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="anypoint-connector-development.html">Getting Started with Anypoint Connector Development</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-your-dev-environment.html">Setting Up Your Development Environment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="devkit-tutorial.html">Anypoint Connector DevKit Tutorial</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-project-structure.html">Connector Project Structure</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="annotation-reference.html">DevKit Java Annotation Reference</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-api-access.html">Setting up API Access</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-connection-strategies.html">Configuring Connection Strategies</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="authentication.html">Supporting Authentication</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="authentication-methods.html">Authentication Methods</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="oauth-v1.html">OAuth V1</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="oauth-v2.html">OAuth V2</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="http-basic-authentication.html">HTTP Basic Authentication</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="connection-management.html">Connection Management</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="no-authentication.html">No Authentication</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="creating-a-java-sdk-based-connector.html">Creating a Java SDK-Based Connector</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="creating-a-connector-using-a-java-sdk.html">Java SDK-Based Connector Example</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="creating-a-soap-connector.html">Creating a SOAP Connector</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="soap-connect-session-management.html">SOAP Session Management</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="creating-a-connector-for-a-soap-service-via-cxf-client.html">Creating a Connector for a SOAP Service Via CXF Client - Legacy</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="connector-attributes-and-operations.html">Adding Connector Functionality</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-message-sources.html">Defining Message Sources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-message-processors.html">Creating Message Processors</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-connector-attributes.html">Defining Connector Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="complex-data-types-attributes.html">Complex Data Types Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="mime-type-and-encoding.html">MIME Type and Encoding</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="extending-connector-functionality.html">Extending Connector Functionality</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense.html">Adding DataSense</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="multiple-level-datasense-support.html">Multiple Level DataSense Support</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense-query-language.html">Adding DataSense Query Language</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-query-pagination-support.html">Adding Query Pagination Support</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="building-a-batch-enabled-connector.html">Building a Batch Enabled Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="shading-libraries.html">Shading Libraries</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-libraries.html">Adding Libraries or JARs to Connector Build</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-testing-framework.html">Connector Testing Framework</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="installing-and-testing-your-connector-in-studio.html">Installing and Testing Your Connector in Studio</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="connector-reference-documentation.html">Creating Connector Reference Documentation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="packaging-your-connector-for-release.html">Packaging Your Connector for Release</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="connector-certification-program-guidelines.html">Connector Certification Program Guidelines</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="certified-connector-license-management.html">MuleSoft Certified Connector License Management</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Creating a SOAP Connector</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs/edit/v3.8/modules/ROOT/content/creating-a-soap-connector.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Creating a SOAP Connector</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <strong>SOAP Connect</strong> wizard generates a WSDL-based connector that receives XML elements and responds likewise. This kind of connector only runs on Mule versions 3.7 or newer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="create-a-soap-project"><a class="anchor" href="#create-a-soap-project"></a>Create a SOAP Project</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the <a href="setting-up-your-dev-environment.html">DevKit plugin in Anypoint Studio</a>.</p>
+</li>
+<li>
+<p>In Anypoint Studio, click <strong>File</strong> &gt; <strong>New</strong> &gt; <strong>Anypoint Connector Project</strong> or right-click your project name in Package Explorer and click <strong>New</strong> &gt; <strong>Anypoint Connector Project</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/newconnproj.png" alt="NewConnProj">
+</div>
+</div>
+</li>
+<li>
+<p>If Maven is not registered in Studio, this screen appears. Browse to the Maven directory location to locate where you installed <a href="https://maven.apache.org/download.cgi">Maven</a>, and click <strong>Test Maven Configuration</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mavenconfiguration.png" alt="MavenConfiguration">
+</div>
+</div>
+</li>
+<li>
+<p>Select the connector project type you want to create. In this case, select <strong>SOAP Connect</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/soapconnect.png" alt="SOAPConnect">
+</div>
+</div>
+</li>
+<li>
+<p>Specify the name of your connector and click <strong>Add WSDL</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/connectorandwsdl.png" alt="ConnectorAndWSDL">
+</div>
+</div>
+</li>
+<li>
+<p>Select whether to take the WSDL from a file or a folder. The location can be either on your computer or at a URL. Click <strong><code>&#8230;&#8203;</code></strong> to browse to a WSDL location on your computer. <strong>Note</strong>: If you select a folder, DevKit loads all the WSDLs in the folder. After specifying a file or folder, click <strong>OK</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/selectwsdllocation.png" alt="SelectWSDLLocation">
+</div>
+</div>
+</li>
+<li>
+<p>To add another WSDL, click <strong>Add WSDL</strong>. When done adding WSDLs, click <strong>Finish</strong>. WSDLs are evaluated in the order you specify. Studio aggregates the WSDLs and builds a connector.</p>
+</li>
+<li>
+<p>If needed, add code to your connector.</p>
+</li>
+<li>
+<p>When you are ready to test your connector in a Mule Project, click <strong>Anypoint Connector</strong> &gt; <strong>Install or Update. Note:</strong> You can test a connector immediately after the connector creates.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/connectorinstallupdate.png" alt="ConnectorInstallUpdate">
+</div>
+</div>
+</li>
+<li>
+<p>After your connector installs, create a test project that uses your connector by clicking <strong>File</strong> &gt; <strong>New</strong> &gt; <strong>Mule Project</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Message Flow</strong> at the lower left of the canvas, search for <strong>http</strong>, and drag the HTTP connector to the canvas.</p>
+</li>
+<li>
+<p>Click the HTTP Connector and in the <strong>Connector Configuration</strong> field, click the green Plus sign. From the new HTTP Listener Configuration window, click <strong>OK</strong> to accept the default settings.</p>
+</li>
+<li>
+<p>Search for <strong>sunset</strong> and drag the SunsetRise connector to the canvas:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/sunsetriseconnector.png" alt="SunsetRiseConnector">
+</div>
+</div>
+</li>
+<li>
+<p>Click the <strong>SunsetRise</strong> connector icon to configure the fields. In the  <strong>Connector Configuration</strong>  field, click the green Plus sign.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> SOAP Connect doesn&#8217;t support RCP-encoded WSDLs or multi-part messages.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="soap-connector-example-default-code"><a class="anchor" href="#soap-connector-example-default-code"></a>SOAP Connector Example Default Code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After creating a SOAP connector, DevKit creates these classes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>@Connector class in <strong>src/main/java</strong> &gt; <strong>org.mule.modules</strong>.<em>&lt;connector_name&gt;</em>. This class contains the @Config annotation and methods for <strong>getConfig</strong>() and <strong>setConfig</strong>().</p>
+</li>
+<li>
+<p>@WsdlProvider class in <strong>src/main/java</strong> &gt; <strong>org.mule.modules</strong>.<em>&lt;connector_name&gt;</em>.<strong>config</strong>. This class contains annotations for @WsdlServiceRetriever and @WsdlServiceEndpoint. The retriever annotation retrieves the full set of WSDL files. The service endpoint annotation provides a way to resolve endpoints across the one or more WSDLs.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="connector-class-default-code-example"><a class="anchor" href="#connector-class-default-code-example"></a>@Connector Class Default Code Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.mule.modules.sunsetrise;
+
+import org.mule.api.annotations.Config;
+import org.mule.api.annotations.Connector;
+import org.mule.modules.sunsetrise.config.ConnectorConfig;
+
+@Connector(name="sunset-rise", friendlyName="SunsetRise", minMuleVersion = "3.7")
+public class SunsetRiseConnector {
+    @Config
+    ConnectorConfig config;
+
+    public ConnectorConfig getConfig() {
+        return config;
+    }
+
+    public void setConfig(ConnectorConfig config) {
+        this.config = config;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="wsdlprovider-class-default-code-example"><a class="anchor" href="#wsdlprovider-class-default-code-example"></a>@WsdlProvider Class Default Code Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.mule.modules.sunsetrise.config;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.mule.api.annotations.components.WsdlProvider;
+import org.mule.api.annotations.ws.WsdlServiceEndpoint;
+import org.mule.api.annotations.ws.WsdlServiceRetriever;
+import org.mule.devkit.api.ws.definition.DefaultServiceDefinition;
+import org.mule.devkit.api.ws.definition.ServiceDefinition;
+
+@WsdlProvider(friendlyName = "Configuration")
+public class ConnectorConfig {
+    @WsdlServiceRetriever
+
+    public List&lt;ServiceDefinition&gt; getServiceDefinitions() {
+
+        final List&lt;ServiceDefinition&gt; serviceDefinitions = new ArrayList&lt;ServiceDefinition&gt;();
+
+        serviceDefinitions.add(new DefaultServiceDefinition(
+                "SunSetRiseService_SunSetRiseServiceSoap",
+                "sunsetriseservice (SunSetRiseServiceSoap)",
+                "wsdl/sunsetriseservice.wsdl",
+                "SunSetRiseService",
+                "SunSetRiseServiceSoap"));
+        serviceDefinitions.add(new DefaultServiceDefinition(
+                "SunSetRiseService_SunSetRiseServiceSoap12",
+                "sunsetriseservice (SunSetRiseServiceSoap12)",
+                "wsdl/sunsetriseservice.wsdl",
+                "SunSetRiseService",
+                "SunSetRiseServiceSoap12"));
+        serviceDefinitions.add(new DefaultServiceDefinition(
+                "SunSetRiseService_SunSetRiseServiceHttpPost",
+                "sunsetriseservice (SunSetRiseServiceHttpPost)",
+                "wsdl/sunsetriseservice.wsdl",
+                "SunSetRiseService",
+                "SunSetRiseServiceHttpPost"));
+        serviceDefinitions.add(new DefaultServiceDefinition(
+                "SunSetRiseService_SunSetRiseServiceHttpGet",
+                "sunsetriseservice (SunSetRiseServiceHttpGet)",
+                "wsdl/sunsetriseservice.wsdl",
+                "SunSetRiseService",
+                "SunSetRiseServiceHttpGet"));
+        return serviceDefinitions;
+    }
+    @WsdlServiceEndpoint
+    public String getServiceEndpoint(ServiceDefinition definition) {
+        String result;
+        final String id = definition.getId();
+        switch(id){
+                case "SunSetRiseService_SunSetRiseServiceSoap": {
+                result = "http://www.webservicex.net/sunsetriseservice.asmx";
+                break;
+            }
+                case "SunSetRiseService_SunSetRiseServiceSoap12": {
+                result = "http://www.webservicex.net/sunsetriseservice.asmx";
+                break;
+            }
+                case "SunSetRiseService_SunSetRiseServiceHttpPost": {
+                result = "http://www.webservicex.net/sunsetriseservice.asmx";
+                break;
+            }
+                case "SunSetRiseService_SunSetRiseServiceHttpGet": {
+                result = "http://www.webservicex.net/sunsetriseservice.asmx";
+                break;
+            }
+                default: {
+                throw new IllegalArgumentException(id + " endpoint could not be resolved.");
+            }
+        }
+        return result;
+    }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="coding-with-wsdlprovider"><a class="anchor" href="#coding-with-wsdlprovider"></a>Coding With @WsdlProvider</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section provides additional information about using @WsdlProvider in your SOAP connector.</p>
+</div>
+<div class="paragraph">
+<p>Topics:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#mandatory-annotations-within-wsdlprovider">Mandatory Annotations Within @WsdlProvider</a></p>
+</li>
+<li>
+<p><a href="#optional-attributes-and-annotations-within-wsdlserviceretriever">Optional Attributes and Annotations Within @WsdlServiceRetriever</a></p>
+</li>
+<li>
+<p><a href="#specifying-multiple-wsdl-providers">Specifying Multiple WSDL Providers</a></p>
+</li>
+<li>
+<p><a href="#multiple-level-datasense-for-wsdl-provider">Multiple Level DataSense for WSDL Provider</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="mandatory-annotations-within-wsdlprovider"><a class="anchor" href="#mandatory-annotations-within-wsdlprovider"></a>Mandatory Annotations Within @WsdlProvider</h3>
+<div class="paragraph">
+<p>Two annotations must be written included within a @WsdlProvider annotation, the annotations for @WsdlServiceRetriever and @WsdlServiceEndpoint.</p>
+</div>
+<div class="paragraph">
+<p>The following sample shows how to code the @Connector class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name="tshirt", friendlyName="T-Shirt")
+public class WsdlConnector {
+    @Config
+    private TShirtWSDLProvider wsdlProvider;
+    //setters and getters
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the @WSDLProvider strategy, add methods for providing an abstraction of the set of WSDL files and a second one to resolve an address.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@WsdlProvider(friendlyName = "Tshirt configuration")
+public class TShirtWSDLProvider {
+    @WsdlServiceRetriever //[MANDATORY], represents (a)
+    public List&lt;ServiceDefinition&gt; getDefinitions() { // Match exact signature
+        List&lt;ServiceDefinition&gt; serviceDefinitions = new ArrayList&lt;ServiceDefinition&gt;();
+        serviceDefinitions.add(new DefaultServiceDefinition("Tshirt_ID","T-Shirt","tshirt.wsdl",null, null));
+        //other valid ServiceDefinition could be
+        //  serviceDefinitions.add(new DefaultServiceDefinition("Tshirt_ID","T-Shirt",new URL("http://..."),null, null));
+        serviceDefinitions.add(new ...);
+        return serviceDefinitions;
+    }
+
+    @WsdlServiceEndpoint //[MANDATORY], represents (b)
+    public String resolveAddress(ServiceDefinition serviceDefinition){ // Match exact signature
+        StringBuilder sb = new StringBuilder();
+        sb.append("http://myinstance.tshirt.com/incident.do?WSDL")
+                .append("/service=").append(serviceDefinition.getService().get())
+                .append("/v23.0");
+        return sb.toString();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The @WsdlServiceRetriever annotation retrieves the full set of WSDL files, while the @WsdlServiceEndpoint resolves service addresses and returns a list of WSDL files that do not hit the same endpoint.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="optional-attributes-and-annotations-within-wsdlserviceretriever"><a class="anchor" href="#optional-attributes-and-annotations-within-wsdlserviceretriever"></a>Optional Attributes and Annotations Within @WsdlServiceRetriever</h3>
+<div class="paragraph">
+<p>In the following example, the generation of this connector has three types of keys: Tshirt_ID#OrderTshirt, Tshirt_ID#ListInventory and Tshirt_ID#TrackOrder. If for any reason the # character separator is not useful for a given SOAP API domain (for example, # could be a valid string name) you can overwrite it by adding the following optional "keySeparator" attribute at @WsdlServiceDefinitionRetriever:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@WsdlProvider(friendlyName = "Tshirt configuration")
+public class TShirtWSDLProvider {
+    @WsdlServiceRetriever(keySeparator = "#!@") //[MANDATORY]
+    public List&lt;ServiceDefinition&gt; getDefinitions() {...}
+
+    @WsdlServiceEndpoint //[MANDATORY]
+    public String resolveAddress(ServiceDefinition serviceDefinition){...}
+}</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="wsdl-operation-filtering"><a class="anchor" href="#wsdl-operation-filtering"></a>WSDL Operation Filtering</h4>
+<div class="paragraph">
+<p>For a particular <code>ServiceDefinition</code>, the developer is able to filter out (that is, hide from the connector user) individual operations that are declared in the WSDL file.</p>
+</div>
+<div class="paragraph">
+<p>This filtering is necessary in order to exclude login/logout operations from the operations dropdown exposed to the application developer.</p>
+</div>
+<div class="sect4">
+<h5 id="implementation"><a class="anchor" href="#implementation"></a>Implementation</h5>
+<div class="paragraph">
+<p>The set of excluded operations must be listed in the <code>ServiceDefinition</code>, so the operations that should be off-limits to the application developer are effectively ignored by DevKit in the metadata key retrieval process.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@WsdlServiceRetriever
+    public ServiceDefinition getServiceDefinition() {
+           ServiceDefinition service = new DefaultServiceDefinition(
+                          "ServiceId", "tshirt", "tshirt.wsdl","TshirtService","TshirtServicePort");
+
+           service.setExclusions(Arrays.asList("login", "logout"));
+
+            // Exclusions can also be set as:
+            // service.excludeOperation("myUnwantedOp");
+
+            return service;
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Metadata keys that match the excluded operations are removed before metadata keys are returned through invocation of <code>getMetaDataKeys()</code>.</p>
+</div>
+<div class="paragraph">
+<p>This new method generates the keys in the following format: Tshirt_ID#Unable to render embedded object: File (@OrderTshirt, Tshirt_ID#) not found.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="specifying-multiple-wsdl-providers"><a class="anchor" href="#specifying-multiple-wsdl-providers"></a>Specifying Multiple WSDL Providers</h3>
+<div class="paragraph">
+<p>For some scenarios it might be useful to have more than one @WsdlProvider to either support multiple WSDLs versioning, or grouping them by some criteria.</p>
+</div>
+<div class="paragraph">
+<p>To specify multiple providers:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use an abstract class and interface as a @ConnectionStrategy:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name="tshirt", friendlyName="T-Shirt")
+public class WsdlConnector {
+    @ConnectionStrategy
+    private AbstractTShirtWSDLProvider wsdlProvider;
+    //setters and getters
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Give the abstract class a behavior:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public abstract class AbstractTShirtWSDLProvider {
+    @Configurable
+    @Default("http://myinstance.tshirt.com/incident.do?WSDL")
+    private String address;
+
+    @WsdlServiceEndpoint //[MANDATORY]
+    public String resolveAddress(ServiceDefinition serviceDefinition){ // Match exact signature
+        StringBuilder sb = new StringBuilder();
+        sb.append(address)
+                .append("/service=").append(serviceDefinition.getService().get())
+                .append("/v23.0");
+        return sb.toString();
+    }
+    //setters and getters
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Code a first provider implementation of the abstract class, for example, for women&#8217;s Tshirts:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@WsdlProvider(configElementName = "config-woman", friendlyName = "Tshirt for woman configuration")
+public class TShirtWSDLProvider extends AbstractTShirtWSDLProvider {
+    @WsdlServiceRetriever //[MANDATORY]
+    public List&amp;lt;ServiceDefinition&amp;gt; getDefinitions() { // Match exact signature
+        List&amp;lt;ServiceDefinition&amp;gt; serviceDefinitions = new ArrayList&amp;lt;ServiceDefinition&amp;gt;();
+        serviceDefinitions.add(new DefaultServiceDefinition("Woman-Tshirt_ID","Woman-T-Shirt","woman-tshirt.wsdl",null, null));
+        return serviceDefinitions;
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Code the next provider implementation of the abstract class, in this case, for men&#8217;s Tshirts:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@WsdlProvider(configElementName = "config-man", friendlyName = "Tshirt for male configuration")
+public class TShirtWSDLProvider extends AbstractTShirtWSDLProvider {
+    @WsdlServiceRetriever //[MANDATORY]
+    public List&amp;lt;ServiceDefinition&amp;gt; getDefinitions() { // Match exact signature
+        List&amp;lt;ServiceDefinition&amp;gt; serviceDefinitions = new ArrayList&amp;lt;ServiceDefinition&amp;gt;();
+        serviceDefinitions.add(new DefaultServiceDefinition("Male-Tshirt_ID","Male-T-Shirt","male-tshirt.wsdl",null, null));
+        return serviceDefinitions;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Both steps 3 and 4 generate two global elements, one for each type of configuration as both of them represents the same type derived from the @ConnectionStrategy  <strong>AbstractTShirtWSDLProvider</strong> , where each subclass is only responsible for returning the concrete ServiceDefinitions, but they rely on the way of resolving addresses on the abstract class (see the @WsdlServiceEndpoint on AbstractTShirtWSDLProvider).</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="multiple-level-datasense-for-wsdl-provider"><a class="anchor" href="#multiple-level-datasense-for-wsdl-provider"></a>Multiple Level DataSense for WSDL Provider</h3>
+<div class="paragraph">
+<p>When implementing a WSDL-based connector using a @WsdProvider, the developer provides one or many service definitions retrieved from one or many WSLDProvider strategies. For each of this ServiceDefinitions, the connector presents multiple operations.</p>
+</div>
+<div class="paragraph">
+<p>Using this connector, then, implies that the user selects a Service and an Operation to be invoked.</p>
+</div>
+<div class="paragraph">
+<p>Currently, this selection is made with a single hashed key, for example <code><em>ServiceOne||OperationTwo</em></code> could be a key selectable via a single drop-down in Studio.</p>
+</div>
+<div class="paragraph">
+<p>Given this scenario, we provide a simpler, more descriptive way for the user to select the Service-Operation combination, using two drop-downs if many Services are defined, and a single drop-down when a single Service exists and only the operation must be specified.</p>
+</div>
+<div class="sect3">
+<h4 id="glossary"><a class="anchor" href="#glossary"></a>Glossary</h4>
+<div class="paragraph">
+<p>ServiceDefinition: A representation of a WSDL file that can be accessible either locally (for example: within a connector&#8217;s JAR) or remote (for example: URLs), that are used for runtime (Mule ESB) or design time (Anypoint Studio) purposes.</p>
+</div>
+<div class="paragraph">
+<p>ServiceDefinitionRetriever: Responsible of returning a collection of WSDL files modeled through ServiceDefinition</p>
+</div>
+<div class="paragraph">
+<p>keySeparator: One or more characters that work as a delimiter between Service and Operation in a compound service-operation key, present in the app XML once the keys are selected.</p>
+</div>
+<div class="paragraph">
+<p>keyLabels: Names to be used used as labels for the drop-downs shown in Studio.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="possible-scenarios"><a class="anchor" href="#possible-scenarios"></a>Possible Scenarios</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Case Id</th>
+<th class="tableblock halign-left valign-top">Dropdowns</th>
+<th class="tableblock halign-left valign-top">Services Defined</th>
+<th class="tableblock halign-left valign-top">Retriever Return Type</th>
+<th class="tableblock halign-left valign-top">keySeparator</th>
+<th class="tableblock halign-left valign-top">keyLabels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Many</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List&lt;ServiceDefinition&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">B</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Many</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List&lt;ServiceDefinition&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Override: 2 required</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ServiceDefinition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No Override</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Override: 1 required</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="case-a-multi-service-example-all-defaults"><a class="anchor" href="#case-a-multi-service-example-all-defaults"></a>Case A: Multi Service Example - All Defaults</h4>
+<div class="paragraph">
+<p>In this case, we have multiple Services to be declared from where can choose to invoke an operation provided by that Service. Then, we return a List of ServiceDefinitions, using the default labels for the drop-downs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>WSDL: for the drop-down containing the services displayNames</p>
+</li>
+<li>
+<p>Operation: for the second drop-down, showing all the operation exposed by the service</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@WsdlServiceDefinitionRetriever
+public List&lt;ServiceDefinition&gt; getDefinitions() {
+
+    List&lt;ServiceDefinition&gt; serviceDefinitions = new ArrayList&lt;ServiceDefinition&gt;();
+
+    serviceDefinitions.add(new DefaultServiceDefinition("ServiceId_1", "ServiceDisplayName First",
+                    "https://www.sandbox.service.com/wsdl/MySampleWsdl.wsdl", "service-name", "service-port"));
+    serviceDefinitions.add(new DefaultServiceDefinition("ServiceId_2", "ServiceDisplayName Second",
+                    "https://www.sandbox.service.com/wsdl/MyOtherWsdl.wsdl", "different-service-name", "service-port"));
+
+    return serviceDefinitions;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="case-b-multi-service-example-custom-labels"><a class="anchor" href="#case-b-multi-service-example-custom-labels"></a>Case B: Multi Service Example - Custom Labels</h4>
+<div class="paragraph">
+<p>Now, what happens if the default labels does not make sense for my domain? Then the developer is enabled to declared <strong>two</strong> labels in the <em>keyLabels</em> attribute.</p>
+</div>
+<div class="paragraph">
+<p>The labels replace, in order, the 'WSDL' and 'Operation' labels previously described.</p>
+</div>
+<div class="paragraph">
+<p>What happens if the WSDL cause IDs to clash with the default separator '||'? If this is the case, you can Override the default keySeparator as shown in the code below. This only reflects in the key written in the app XML, and have no effect on the drop-downs.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@WsdlServiceDefinitionRetriever(keySeparator="@@", keyLabels={"Table", "Module"})
+public List&lt;ServiceDefinition&gt; getDefinitions() {
+
+    List&lt;ServiceDefinition&gt; serviceDefinitions = new ArrayList&lt;ServiceDefinition&gt;();
+    serviceDefinitions.add(new DefaultServiceDefinition("ServiceId_1", "ServiceDisplayName First",
+            "https://www.sandbox.service.com/wsdl/MySampleWsdl.wsdl",
+            "service-name", "service-port"););
+    serviceDefinitions.add(new DefaultServiceDefinition("ServiceId_2", "ServiceDisplayName Second",
+            "https://www.sandbox.service.com/wsdl/MyOtherWsdl.wsdl",
+            "different-service-name", "service-port"););
+    return serviceDefinitions;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="case-c-single-service-example-single-dropdown"><a class="anchor" href="#case-c-single-service-example-single-dropdown"></a>Case C: Single Service Example - Single Dropdown</h4>
+<div class="paragraph">
+<p>For simpler cases, where we only need a single ServiceDefinition, then the return type of the ServiceDefinitionRetriever must be modified for a single ServiceDefinition instead of using a List.</p>
+</div>
+<div class="paragraph">
+<p>Returning a single ServiceDefinition impacts what keys used, because only the Operation drop-down is shown, without a visible WSDL drop-down.</p>
+</div>
+<div class="paragraph">
+<p>Also, the key is now a single <code><em>operation-id</em></code> key, instead of a composed key split by a separator. This is not the same as returning a single-element List because, in this single-element-list case, two drop-downs are shown.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@WsdlServiceDefinitionRetriever(keyLabels={"Operation"})
+public ServiceDefinition getDefinitions() {
+    return new DefaultServiceDefinition("ServiceId", "ServiceDisplayName",
+        "https://www.sandbox.service.com/wsdl/MySampleWsdl.wsdl", "service-name", "service-port");
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="multiple-wsldproviders-restriction"><a class="anchor" href="#multiple-wsldproviders-restriction"></a>Multiple WSLDProviders Restriction</h4>
+<div class="paragraph">
+<p>When declaring multiple WSDLProvider strategies, all must be consistent in the ServiceDefinitionRetriever declaration.</p>
+</div>
+<div class="paragraph">
+<p>This includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Return type must be the same for all the strategies, that is either all return List&lt;ServiceDefinition&gt; or all return ServiceDefinition.</p>
+</li>
+<li>
+<p>If overrided labels must be the same for all the retrievers.</p>
+</li>
+<li>
+<p>If overrided keySeparator must be the same for all the retrievers.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="separator-and-labels-restrictions"><a class="anchor" href="#separator-and-labels-restrictions"></a>Separator and Labels Restrictions</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><code><em>keySeparator</em></code> cannot contain the   <code># [ ]</code> characters</p>
+</li>
+<li>
+<p><code><em>keyLabels</em></code> cannot contain the comma "," character</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="authentication-options"><a class="anchor" href="#authentication-options"></a>Authentication Options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default no authentication mechanism is generated.</p>
+</div>
+<div class="paragraph">
+<p>In the last page of the wizard you can specify the authentication type you want for the connector:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/wsdlsecurity.png" alt="WSDLSecurity">
+</div>
+</div>
+<div class="paragraph">
+<p>The options modify the generated code in the @WsdlProvider annotated class.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic</a> provides username and password security for a connector. <a href="https://en.wikipedia.org/wiki/WS-Security">WS-Security</a> provides a security token for improved security for a connector.</p>
+</div>
+<div class="paragraph">
+<p>After you create a connector project, changing security from None to HTTP Basic or WS-Security requires adding or removing code from the @WsdlProvider class. If you need to do so, create a new project with the preferred security option, and add or remove the code to or from your @ WsdlProvider class.</p>
+</div>
+<div class="paragraph">
+<p>An example of the code for HTTP Basic is as follows–by comparing this code to that of the previous @WsdlProvider class without security, one can see the extent of the changes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.mule.modules.water.config;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.mule.api.annotations.ws.WsdlTransportRetriever;
+import org.mule.devkit.api.ws.transport.WsdlTransport;
+import org.mule.devkit.api.ws.transport.HttpBasicWsdlTransport;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.display.Password;
+import org.mule.api.annotations.display.Placement;
+import org.mule.api.annotations.components.WsdlProvider;
+import org.mule.api.annotations.ws.WsdlServiceEndpoint;
+import org.mule.api.annotations.ws.WsdlServiceRetriever;
+import org.mule.devkit.api.ws.definition.DefaultServiceDefinition;
+import org.mule.devkit.api.ws.definition.ServiceDefinition;
+import org.mule.api.annotations.param.Optional;
+
+@WsdlProvider(friendlyName = "Configuration")
+public class ConnectorConfig {
+    @Configurable
+    @Placement(order = 1)
+    private String username;
+
+    @Configurable
+    @Placement(order = 2)
+    @Password
+    @Optional
+    private String password;
+
+    @WsdlServiceRetriever
+    public List&lt;ServiceDefinition&gt; getServiceDefinitions() {
+        final List&lt;ServiceDefinition&gt; serviceDefinitions = new ArrayList&lt;ServiceDefinition&gt;();
+        serviceDefinitions.add(new DefaultServiceDefinition(
+                "SunSetRiseService_SunSetRiseServiceSoap",
+                "sunsetriseservice (SunSetRiseServiceSoap)",
+                "wsdl/sunsetriseservice.wsdl",
+                "SunSetRiseService",
+                "SunSetRiseServiceSoap"));
+        serviceDefinitions.add(new DefaultServiceDefinition(
+                "SunSetRiseService_SunSetRiseServiceSoap12",
+                "sunsetriseservice (SunSetRiseServiceSoap12)",
+                "wsdl/sunsetriseservice.wsdl",
+                "SunSetRiseService",
+                "SunSetRiseServiceSoap12"));
+        serviceDefinitions.add(new DefaultServiceDefinition(
+                "SunSetRiseService_SunSetRiseServiceHttpPost",
+                "sunsetriseservice (SunSetRiseServiceHttpPost)",
+                "wsdl/sunsetriseservice.wsdl",
+                "SunSetRiseService",
+                "SunSetRiseServiceHttpPost"));
+        serviceDefinitions.add(new DefaultServiceDefinition(
+                "SunSetRiseService_SunSetRiseServiceHttpGet",
+                "sunsetriseservice (SunSetRiseServiceHttpGet)",
+                "wsdl/sunsetriseservice.wsdl",
+                "SunSetRiseService",
+                "SunSetRiseServiceHttpGet"));
+        return serviceDefinitions;
+    }
+    @WsdlServiceEndpoint
+    public String getServiceEndpoint(ServiceDefinition definition) {
+        String result;
+        final String id = definition.getId();
+        switch(id){
+                case "SunSetRiseService_SunSetRiseServiceSoap": {
+                result = "http://www.webservicex.net/sunsetriseservice.asmx";
+                break;
+            }
+                case "SunSetRiseService_SunSetRiseServiceSoap12": {
+                result = "http://www.webservicex.net/sunsetriseservice.asmx";
+                break;
+            }
+                case "SunSetRiseService_SunSetRiseServiceHttpPost": {
+                result = "http://www.webservicex.net/sunsetriseservice.asmx";
+                break;
+            }
+                case "SunSetRiseService_SunSetRiseServiceHttpGet": {
+                result = "http://www.webservicex.net/sunsetriseservice.asmx";
+                break;
+            }
+                default: {
+                throw new IllegalArgumentException(id + " endpoint could not be resolved.");
+            }
+        }
+        return result;
+    }
+    @WsdlTransportRetriever
+    public WsdlTransport resolveTransport(ServiceDefinition serviceDefinition) {
+        return new HttpBasicWsdlTransport(getUsername(), getPassword());
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wsdl-and-envelope-authentication"><a class="anchor" href="#wsdl-and-envelope-authentication"></a>WSDL and Envelope Authentication</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Despite having a concrete way to hit a SOAP API through the <strong>invoke</strong> operation, a connector needs a way to sign the envelopes to authenticate against the API. DevKit provides these mechanisms:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Secure username token and</p>
+</li>
+<li>
+<p>Security timestamp</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Sign envelopes by returning a collection in an annotated method with @WsdlSecurityStrategyResolver:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@WsdlProvider(friendlyName = "Tshirt configuration")
+public class TShirtWSDLProvider {
+    @WsdlServiceDefinitionRetriever //[MANDATORY]
+    public List&lt;ServiceDefinition&gt; getDefinitions() {...}
+
+    @WsdlServiceEndpoint //[MANDATORY]
+    public String resolveAddress(ServiceDefinition serviceDefinition){...}
+
+    @WsdlSecurity //[OPTIONAL]
+    // Match exact signature
+    public List&lt;WsdlSecurityStrategy&gt; getStrategies(ServiceDefinition serviceDefinition){
+        List&lt;WsdlSecurityStrategy&gt;;
+        strategies = new ArrayList&lt;WsdlSecurityStrategy&gt;();
+        // (a) Strategy-based in security username token profile
+        strategies.add(new WsdlUsernameToken(username, password,
+          passwordType, addNonce, addCreated));
+        // (b) Strategy-based in security timestamp
+        strategies.add(new WsdlTimestamp(1000));
+        return strategies;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The key part about this strategies, within @WsdlSecurity, is that a connector developer must rely on the @Configurables already in place. This means that if it want to use username token profile, then it must have a way to parametrize the connector with username, password, etc. Once the concrete instances of @WsdlSecurityStrategy initialize, DevKit takes care of the rest, parametrizing each to the underlying engine in the Web Service Consumer.</p>
+</div>
+<div class="sect2">
+<h3 id="transport-authentication-with-http-basic-authentication"><a class="anchor" href="#transport-authentication-with-http-basic-authentication"></a>Transport Authentication with HTTP Basic Authentication</h3>
+<div class="paragraph">
+<p>The previous section discussed signing envelopes, but there&#8217;s a way to customize the underlying transport used to send the envelope, allowing among many use cases by enabling HTTP Basic Authentication.</p>
+</div>
+<div class="paragraph">
+<p>The way to achieve this is returning a concrete WsdlTransport object @WsdlTransportRetriever as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@WsdlProvider(friendlyName = "Tshirt configuration")
+public class TShirtWSDLProvider {
+    @WsdlServiceRetriever //[MANDATORY]
+    public List&lt;ServiceDefinition&gt; getDefinitions() {...}
+
+    @WsdlServiceEndpoint //[MANDATORY]
+    public String resolveAddress(ServiceDefinition serviceDefinition) {...}
+
+    @WsdlTransportRetriever //[OPTIONAL]
+    public WsdlTransport resolveTransport(ServiceDefinition serviceDefinition) {
+        return new HttpBasicWsdlTransport("PROVIDE USERNAME", "PROVIDE PASSWORD");
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A more advanced use case is when you need to configure the whole underlaying transport such as with proxies, SSL, sockets options, and more. This uses an HttpRequesterConfig element. For those advanced<strong> </strong>scenarios, you can do the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@WsdlProvider(friendlyName = "Tshirt configuration advance")
+public class TShirtWSDLProvider {
+    @Configurable
+    //Let DevKit take care of the UI and initialization from a bean
+    private HttpRequesterConfig requesterConfig;
+
+    @WsdlServiceRetriever //[MANDATORY]
+    public List&lt;ServiceDefinition&gt; getDefinitions() {...}
+
+    @WsdlServiceEndpoint //[MANDATORY]
+    public String resolveAddress(ServiceDefinition serviceDefinition){...}
+
+    @WsdlTransportRetriever //[OPTIONAL]
+    public WsdlTransport resolveTransport(ServiceDefinition serviceDefinition){
+        return new HttpRequesterConfigWsdlTransport(getRequesterConfig());
+    }
+
+    public HttpRequesterConfig getRequesterConfig() {
+      return requesterConfig;
+    }
+
+    public void setRequesterConfig(HttpRequesterConfig requesterConfig) {
+      this.requesterConfig = requesterConfig;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="envelope-headers"><a class="anchor" href="#envelope-headers"></a>Envelope Headers</h3>
+<div class="paragraph">
+<p>Some APIs need to send custom headers for each envelope that is sent. DevKit provides a hook to tune headers before executing an operation. The above code shows how to achieve this in the <strong>cookHeaders</strong> method. Take care to secure this XML parsing code against XXE attacks by following the <a href="https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Prevention_Cheat_Sheet#JAXP_DocumentBuilderFactory_and_SAXParserFactory">OWASP guidance</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@WsdlProvider(friendlyName = "Tshirt configuration")
+public class TShirtWSDLProvider {
+    @WsdlServiceRetriever //[MANDATORY]
+    public List&lt;ServiceDefinition&gt; getDefinitions() {...}
+
+    @WsdlServiceEndpoint //[MANDATORY]
+    public String resolveAddress(ServiceDefinition serviceDefinition){...}
+
+    @WsdlHeaders
+    public List&lt;Document&gt; cookHeaders(ServiceDefinition serviceDefinition,
+           String operationName)
+    {
+        List&lt;Document&gt; result= new LinkedList&lt;Document&gt;();
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = dbf.newDocumentBuilder();
+        result.add(getDocument("header1", "item", "myCustomAttr",
+               "Some fancy value attr for op["+operationName+"]",
+               "Text within element", builder));
+        result.add(getDocument("header2", "item2", "myCustomAttr2",
+               "Some fancy value attr2 for op["+operationName+"]",
+               "Text within element2", builder));
+        return result;
+    }
+
+    private Document getDocument(String rootStringValue, String itemStringValue,
+            String attrStringNameValue, String attrStringValue,
+            String textStringValue, DocumentBuilder builder)
+    {
+        Document doc = builder.newDocument();
+        // Create the root element node
+        Element element = doc.createElement(rootStringValue);
+        element.setAttributeNS("http://www.w3.org/2000/xmlns/",
+                "xmlns:ns2", "http://someurl");
+        doc.appendChild(element);
+        // Add element after the first child of the root element
+        Element itemElement = doc.createElement(itemStringValue);
+        element.appendChild(itemElement);
+        // Add an attribute to the node
+        itemElement.setAttribute(attrStringNameValue, attrStringValue);
+        // Create text for the node
+        itemElement.insertBefore(doc.createTextNode(textStringValue),
+                    itemElement.getLastChild());
+        return doc;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output from the previous headers are within the <strong>soap:Header</strong> element in the next envelope:</p>
+</div>
+<div class="paragraph">
+<p>Snippet of the envelope:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+&lt;soap:Header&gt;
+  &lt;header1 xmlns:ns2="http://someurl"&gt;
+    &lt;item myCustomAttr="some fancy value attr for op[SELECTED_OPERATION_NAME]"&gt;Text within element&lt;/item&gt;
+  &lt;/header1&gt;
+  &lt;header2 xmlns:ns2="http://someurl"&gt;
+    &lt;item2 myCustomAttr2="some fancy value attr2 for op[SELECTED_OPERATION_NAME]"&gt;text within element2&lt;/item2&gt;
+  &lt;/header2&gt;
+&lt;/soap:Header&gt;
+&lt;soap:Body&gt;
+  ...
+&lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="creating-a-java-sdk-based-connector.html">Creating a Java SDK-Based Connector</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

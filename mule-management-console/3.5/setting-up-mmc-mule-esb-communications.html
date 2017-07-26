@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/mule-management-console/3.8/setting-up-mmc-mule-esb-communications.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Setting Up MMC-Mule ESB Communications // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Mule Management Console</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-the-trial-version-of-mmc.html">Installing the Trial Version of MMC</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="installing-the-production-version-of-mmc.html">Installing the Production Version of MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="installing-and-deploying-mmc-to-weblogic.html">Installing and Deploying MMC to Weblogic</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="installing-and-deploying-mmc-to-websphere.html">Installing and Deploying MMC to WebSphere</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="upgrading-the-management-console.html">Upgrading the Management Console</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="configuration-files-for-ldap-and-external-dbs-in-mmc-before-and-after-3.4.2.html">Configuration Files for LDAP and External DBs in MMC Before and After 3.4.2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="migration-scripts-for-business-events.html">Migration Scripts for Business Events</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-mmc-3.5.0-with-an-external-database.html">Upgrading to MMC 3.5.0 with an External Database</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-mmc-3.5.0-with-ldap.html">Upgrading to MMC 3.5.0 with LDAP</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="upgrading-from-mmc-3.4.1-for-ms-sql-server-to-mmc-3.5.0-for-ms-sql-server.html">Upgrading from MMC 3.4.1 for MS-SQL Server to MMC 3.5.0 for MS-SQL Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="orientation-to-the-console.html">Orientation to the Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mmc-walkthrough.html">MMC Walkthrough</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="architecture-of-the-mule-management-console.html">Architecture of the Mule Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="setting-up-mmc.html">Setting Up MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-mmc-mule-esb-communications.html">Setting Up MMC-Mule ESB Communications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="persisting-mmc-data-on-external-databases.html">Persisting MMC Data On External Databases</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="configuring-mmc-for-external-databases-quick-reference.html">Configuring MMC for External Databases - Quick Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-ms-sql-server.html">Persisting MMC Data to MS SQL Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-mysql.html">Persisting MMC Data to MySQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-oracle.html">Persisting MMC Data to Oracle</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-postgresql.html">Persisting MMC Data to PostgreSQL</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="encrypting-ldap-and-database-passwords-in-mmc.html">Encrypting LDAP and Database Passwords in MMC</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-mmc-users-and-roles.html">Managing MMC Users and Roles</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-in-mmc.html">Setting Up and Managing Users in MMC</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="encrypting-mmc-user-passwords.html">Encrypting MMC User Passwords</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-via-ldap.html">Setting Up and Managing Users via LDAP</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="managing-with-mmc.html">Managing with MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="managing-mule-servers-clusters-and-groups.html">Managing Mule Servers Clusters and Groups</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="maintaining-the-server-application-repository.html">Maintaining the Server Application Repository</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="working-with-flows.html">Working with Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-mule-high-availability-ha-clusters.html">Managing Mule High Availability (HA) Clusters</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="configuring-mule-ha-clustering.html">Configuring Mule HA Clustering</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="creating-or-disbanding-a-cluster.html">Creating or Disbanding a Cluster</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="deploying-redeploying-or-undeploying-an-application-to-or-from-a-cluster.html">Deploying, Redeploying, or Undeploying an Application To or From a Cluster</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="dynamically-adding-or-removing-nodes-in-a-cluster.html">Dynamically Adding or Removing Nodes in a Cluster</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="monitoring-a-cluster.html">Monitoring a Cluster</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="mmc-rest-api.html">MMC REST API</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="rest-api-reference.html">REST API Reference</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="clusters.html">Clusters</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="deployments.html">Deployments</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="repository-of-applications.html">Repository of Applications</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="server-groups.html">Server Groups</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="servers.html">Servers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="user-groups.html">User Groups</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="using-the-management-console-api.html">Using the Management Console API</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-with-mmc.html">Monitoring with MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-server-alerts.html">Viewing Server Alerts</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-system-memory.html">Viewing System Memory</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-threads.html">Viewing Threads</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-server-pools.html">Viewing Server Pools</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="working-with-the-server-configuration-files.html">Working with the Server Configuration Files</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-server-properties.html">Viewing Server Properties</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="editing-server-settings.html">Editing Server Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="customizing-server-metrics-dashboard.html">Customizing Server Metrics Dashboard</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-slas-and-alerts.html">Defining SLAs and Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-and-managing-alerts-and-slas.html">Adding and Managing Alerts and SLAs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-alert-destinations-and-notifications.html">Setting Up Alert Destinations and Notifications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="analyzing-business-events.html">Analyzing Business Events</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="business-events-use-cases.html">Business Events Use Cases</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="tracking-and-querying-business-events.html">Tracking and Querying Business Events</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="analyzing-flow-processing-and-payloads.html">Analyzing Flow Processing and Payloads</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-os-resources.html">Viewing Server OS Resources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-jmx-information.html">Viewing JMX Information</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-the-dashboard.html">Customizing the Dashboard</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="accessing-server-logs.html">Accessing Server Logs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="audit-logs.html">Audit Logs</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="troubleshooting-with-mmc.html">Troubleshooting with MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="troubleshooting-tips.html">Troubleshooting Tips</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="monitoring-and-debugging-applications.html">Monitoring and Debugging Applications</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="tracking-flows.html">Tracking Flows</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="analyzing-message-flows.html">Analyzing Message Flows</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="debugging-message-processing.html">Debugging Message Processing</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="debugging-the-loan-broker-example-application.html">Debugging the Loan Broker Example Application</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="using-the-management-console-for-performance-tuning.html">Using the Management Console for Performance Tuning</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="automating-tasks-using-scripts.html">Automating Tasks Using Scripts</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Setting Up MMC-Mule ESB Communications</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/mule-management-console-docs/edit/v3.5/modules/ROOT/content/setting-up-mmc-mule-esb-communications.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Setting Up MMC-Mule ESB Communications</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page covers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>How to register or unregister a Mule ESB server in MMC</p>
+</li>
+<li>
+<p>How to configure communication settings between Mule ESB server and MMC</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Contents:</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assumptions"><a class="anchor" href="#assumptions"></a>Assumptions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes that you are familiar with the basic <a href="../3.6/architecture-of-the-mule-management-console.html">Architecture of the Mule Management Console</a>, and that you have <a href="../3.7/installing-mmc.html">installed</a> either the trial or production version of the Management Console.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mmc-server-communications"><a class="anchor" href="#mmc-server-communications"></a>MMC-Server Communications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Mule Management Console is a Web application that you can use to monitor and manage one or more Mule ESB servers, clusters, and applications. The Management Console communicates with Mule ESB servers via the MMC agent installed in each Mule ESB server. In order for communication between MMC and a Mule ESB server to take place, you need to register the server in the Management Console.</p>
+</div>
+<div class="paragraph">
+<p>Communication between MMC and a Mule ESB server begins over HTTP, but after the initial handshake and authentication, the HTTP connection is dropped and a new HTTPS connection is opened.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="registering-mule-esb-servers-with-mmc"><a class="anchor" href="#registering-mule-esb-servers-with-mmc"></a>Registering Mule ESB Servers with MMC</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Each Mule ESB server can only be registered with one MMC, but each MMC can manage an unlimited number of Mule ESB servers.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="installing-the-trial-version-of-mmc.html">trial version</a> of Mule ESB Enterprise contains a bundled MMC. In the trial version, the Mule ESB server is automatically registered to the bundled MMC. However, if you wish to register more Mule ESB servers to the bundled MMC, you will have to do so manually.</p>
+</div>
+<div class="paragraph">
+<p>When you run the <a href="../3.6/installing-the-production-version-of-mmc.html">production version</a> of MMC for the first time, it will attempt to detect any Mule ESB servers on the network, but will not try to pair with any server it finds. You must manually register your Mule ESB server.</p>
+</div>
+<div class="paragraph">
+<p>To pair the MMC with a Mule instance, you provide MMC with the URL of the Mule agent listening on the the Mule ESB server. The default port is 7777, and the path is <code>mmc-support</code>. So, if you wish to register a Mule ESB server on host 16.172.1.25, the URL would be <code>http://16.172.1.25:7777/mmc-support</code>. When you provide this URL to MMC, the Management Console will attempt to pair with the Mule agent in the specified URL, then report success or failure.</p>
+</div>
+<div class="paragraph">
+<p>To register a Mule ESB server to MMC, follow these steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to the <strong>Servers</strong> tab.</p>
+</li>
+<li>
+<p>In the left-hand pane is a list of servers divided by groups. If MMC has found any active servers, it will indicate the number of servers found in the <strong>Unregistered</strong> heading, as shown below.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/unreg-servers.png" alt="unreg_servers">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Unregistered</strong>. MMC will display a list of unregistered servers it has found, if any, including each server&#8217;s host and port.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/unreg-servers-list.png" alt="unreg_servers_list">
+</div>
+</div>
+</li>
+<li>
+<p>If the server you wish to register is on this list, click the checkbox next to the server name (see location of the mouse pointer above), then click <strong>Register</strong> in the top right corner. MMC will attempt to register the server, and will report success or failure.</p>
+</li>
+<li>
+<p>If the server you wish to register is <em>not</em> on the <strong>Unregistered Servers</strong> list, click <strong>New Server</strong> in the top right corner.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/add-server-manually.png" alt="add_server_manually">
+</div>
+</div>
+</li>
+<li>
+<p>Enter your server&#8217;s name and URL manually, then click <strong>Add</strong>. MMC will attempt to register the server, and will report success or failure.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>After you have registered your servers, click <strong>All</strong> in the left servers group pane to go to the <strong>All Servers </strong>list, where you should see all the servers that MMC has detected. Additionally, all registered servers will display their status (a red indicator for stopped servers; green for running).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/reg-servers-list.png" alt="reg_servers_list">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="registering-a-mule-esb-server-to-a-new-mmc"><a class="anchor" href="#registering-a-mule-esb-server-to-a-new-mmc"></a>Registering a Mule ESB Server to a New MMC</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Each Mule ESB server can only be registered to one MMC at a time. If you want to register a Mule ESB server to a new MMC, you must first unregister it in the MMC that the server is currently registered with. You can do this either in the MMC itself or on the server&#8217;s configuration files. Both methods are explained below.</p>
+</div>
+<div class="sect2">
+<h3 id="unregistering-a-mule-esb-server"><a class="anchor" href="#unregistering-a-mule-esb-server"></a>Unregistering a Mule ESB Server</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If the server is part of a cluster, you must disband the cluster before you unregister the server. See <a href="../3.7/creating-or-disbanding-a-cluster.html">Creating or Disbanding a Cluster</a> for details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="unregistering-a-server-via-the-registered-mmc"><a class="anchor" href="#unregistering-a-server-via-the-registered-mmc"></a>Unregistering a Server Via the Registered MMC</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the MMC where the server is registered, obtain a list of servers that includes the server you wish to unregister, for example by clicking <strong>All</strong> in the server groups pane.</p>
+</li>
+<li>
+<p>Select the desired server by clicking the checkbox next to the server name.</p>
+</li>
+<li>
+<p>Click <strong>Remove</strong>, then <strong>Unregister Server(s)</strong>. MMC will ask for confirmation; click <strong>Yes</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The server has been unregistered; you can now register it in another Management Console.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="unregistering-a-server-via-the-server-s-configuration-files"><a class="anchor" href="#unregistering-a-server-via-the-server-s-configuration-files"></a>Unregistering a Server Via the Server&#8217;s Configuration Files</h4>
+<div class="paragraph">
+<p>It is possible that you are not able to unregister a Mule server via the MMC, for example if the MMC has been undeployed and is no longer available. In this case, follow the steps below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure that the ESB server is not running.</p>
+</li>
+<li>
+<p>Go to the directory <code>$MULE_HOME/.mule/.agent</code>. This directory contains Mule ESB server-MMC pairing information.</p>
+</li>
+<li>
+<p>Find and delete the file <code>truststore.jks</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>After you delete the file, you can register the Mule ESB server to any instance of MMC, following the steps outlined <a href="#registering-mule-esb-servers-with-mmc">Registering Mule ESB Servers with MMC</a>. When you register the server, a new <code>truststore.jks</code> will be created.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="changing-the-default-esb-agent-port"><a class="anchor" href="#changing-the-default-esb-agent-port"></a>Changing the Default ESB Agent Port</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A Mule ESB server communicates with MMC using its embedded agent. By default, the agent is enabled and listening on port 7777. You can change the port with the <code>-Dmule.mmc.bind.port</code> parameter for the Java Virtual Machine (JVM). You can do this in two ways, which are listed below.</p>
+</div>
+<div class="sect2">
+<h3 id="on-the-command-line-on-mule-startup"><a class="anchor" href="#on-the-command-line-on-mule-startup"></a>On the Command Line on Mule Startup</h3>
+<div class="paragraph">
+<p>If starting the Mule ESB server from the provided startup script, you can include the port number parameter as a parameter to the startup command as shown below. If running in background, include the parameter after <code>start</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">mule@host:/opt/mule-3.4.1/bin$ ./mule start -M-Dmule.mmc.bind.port=7783</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(If you wish to use more than one parameter, include all parameters as a list separated by whitespace.)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="on-the-configuration-file"><a class="anchor" href="#on-the-configuration-file"></a>On the Configuration File</h3>
+<div class="paragraph">
+<p>Include your parameters in the configuration file <code>$MULE_HOME/conf/wrapper.conf</code>. The distribution includes this file with comments; you can edit this file or add to it as needed.</p>
+</div>
+<div class="paragraph">
+<p>You must include the agent port parameter as a <code>java.additional</code> parameter. These parameters are defined in the <code>wrapper.conf</code> file in the form <code>wrapper.java.additional.&lt;number&gt;=&lt;name&gt;=&lt;value&gt;</code>, such as <code>wrapper.java.additional.3=-Djava.net.preferIPv4Stack=TRUE</code>.</p>
+</div>
+<div class="paragraph">
+<p>To add your desired parameter, find the last added additional parameter, which will have the highest number. Then, add your parameter with the consecutive number that equals the highest number + 1.</p>
+</div>
+<div class="paragraph">
+<p>For example, if the number of the last additional parameter is 3, add:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">wrapper.java.additional.4=-Dmule.mmc.bind.port=&lt;number&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you wish to include a port range, letting Mule ESB bind to the first available port, use <code>&lt;low port&gt;-&lt;high port&gt;</code>, e.g. <code>7780-7785</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you wish to disable the agent on the Mule instance, use the <code>-Dmule.agent.enabled=&lt;boolean&gt;</code> parameter.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For more information about the <code>wrapper.conf</code> file, consult the Java Service Wrapper <a href="http://wrapper.tanukisoftware.com/doc/english/properties.html">online documentation</a> for the file.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="changing-the-default-port-for-mmc"><a class="anchor" href="#changing-the-default-port-for-mmc"></a>Changing the Default Port For MMC</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Like all Web apps, the Mule Management Console listens for incoming HTTP connections. If you deployed the MMC in a Web application server, you will access MMC via the Web app server&#8217;s listening port, for example 8080 by default in Tomcat. In that case, the only way to change MMC&#8217;s listening port is to change your Web app server&#8217;s listening port.</p>
+</div>
+<div class="paragraph">
+<p>If you run the trial version of MMC, MMC is running as an app deployed by the Mule ESB server it is bundled with. By default it listens on port 8585. To modify MMC&#8217;s listening port, follow the steps below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure that the Mule ESB server is not running.</p>
+</li>
+<li>
+<p>Open the file <code>$MULE_HOME/apps/mmc/mule-config.xml</code> for editing.</p>
+</li>
+<li>
+<p>Find the line that reads:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;jetty:webapps port="${mule.console.bind.port:8585}"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change the default port of 8585 to your desired value, then save the file.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Learn how to <a href="../3.7/managing-mule-servers-clusters-and-groups.html">stop or restart</a> a Mule server or cluster via MMC.</p>
+</li>
+<li>
+<p>Use MMC to organize servers and clusters into <a href="../3.7/managing-mule-servers-clusters-and-groups.html">groups</a>.</p>
+</li>
+<li>
+<p>Create and manage <a href="../3.7/creating-or-disbanding-a-cluster.html">High Availability (HA) clusters</a> of Mule servers.</p>
+</li>
+<li>
+<p>Learn how to <a href="../3.6/deploying-applications.html">deploy applications</a> to Mule servers.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

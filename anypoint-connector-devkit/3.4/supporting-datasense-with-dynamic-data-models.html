@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-connector-devkit/3.4/supporting-datasense-with-dynamic-data-models.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Supporting DataSense with Dynamic Data Models // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="devkit-shortcut-to-success.html">DevKit Shortcut to Success</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-a-devkit-development-environment.html">Setting Up a DevKit Development Environment</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="preparing-api-access-or-a-sandbox-environment.html">Preparing API Access or a Sandbox Environment</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-a-connector-project.html">Creating a Connector Project</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="examining-the-generated-connector-project.html">Examining the Generated Connector Project</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="examining-the-generated-connector-project.html">Examining the Generated Connector Project</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-and-testing-your-connector.html">Installing and Testing Your Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="authentication-and-connection-management.html">Authentication and Connection Management</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="authentication-methods.html">Authentication Methods</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="implementing-connection-management.html">Implementing Connection Management</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="implementing-oauth-1.0-authentication.html">Implementing OAuth 1.0 Authentication</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="implementing-oauth-2.0-authentication.html">Implementing OAuth 2.0 Authentication</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="connector-attributes-operations-and-data-model.html">Connector Attributes Operations and Data Model</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-configurable-connector-attributes.html">Defining Connector Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-to-java-client-library-example.html">Connector to Java Client Library Example</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-to-soap-service-via-cxf-client-example.html">Connector to a SOAP Service via CXF Client Example</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-to-restful-service-with-jersey-client-example.html">Connector to RESTful Service with Jersey Client Example</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-to-restful-api-with-restcall-annotations-example.html">Connector to RESTful API with <code>@RestCall</code> Annotations Example</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-connector-integration-with-esb-and-studio.html">Customizing Connector Integration with ESB and Studio</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-devkit-connector-documentation.html">Creating DevKit Connector Documentation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="packaging-your-connector-for-release.html">Packaging Your Connector for Release</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="devkit-connector-examples.html">DevKit Connector Examples</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="devkit-advanced-topics.html">DevKit Advanced Topics</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="http-callbacks.html">HTTP Callbacks</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="integrating-connectors-with-the-mule-lifecycle.html">Integrating Connectors with the Mule Lifecycle</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="handling-data-types-for-configurable-properties.html">Handling Data Types for Configurable Properties</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="architectural-considerations-with-connectors-and-the-mule-container.html">Architectural Considerations with Connectors and the Mule Container</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="injecting-mule-managers-into-anypoint-connectors.html">Injecting Mule Managers into Anypoint Connectors</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="supporting-datasense-with-dynamic-data-models.html">Supporting DataSense with Dynamic Data Models</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="implementing-datasense-query-language-support.html">Implementing DataSense Query Language Support</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Supporting DataSense with Dynamic Data Models</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs/edit/v3.4/modules/ROOT/content/supporting-datasense-with-dynamic-data-models.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Supporting DataSense with Dynamic Data Models</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The fundamental capability underlying DataSense is the ability to extract metadata from the data model exposed by an application through the connector. When the connector exposes its entities as POJOs – that is, when it has a static data model – this is straightforward: the POJO entity class definitions provide all the metadata needed in Java, available via introspection.</p>
+</div>
+<div class="paragraph">
+<p>When the connector has a dynamic data model – that is, when it exposes its entities to Mule as key-value Maps – the metadata is not immediately available.To support DataSense functionality for connectors with dynamic data models, implement additional functionality to create the metadata based on data provided from the application.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+If the connectors with dynamic data models rely on OAuth, DataSense metadata is not supported. DataSense is a design-time feature, and Mule Studio does not currently have the ability to perform the "OAuth dance" and manage tokens during the design process to get access to metadata on the target application.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The most straightforward way to understand the construction of a metadata-enabled connector is to look at an example of a connector that supports complex objects with lots of metadata. Accordingly, this discussion will draw its examples from the <a href="https://github.com/mulesoft/salesforce-connector/">Salesforce.com connector</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assumptions"><a class="anchor" href="#assumptions"></a>Assumptions</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>You are familiar with the connector architecture presented in <a href="anypoint-connector-concepts.html">Anypoint Connector Concepts</a>.</p>
+</li>
+<li>
+<p>You are familiar with <a href="../../mule-runtime/3.4/mule-datasense.html">Mule DataSense</a> from a user perspective.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="representing-datasense-metadata"><a class="anchor" href="#representing-datasense-metadata"></a>Representing DataSense Metadata</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The package <code>org.mule.common.metadata</code> defines classes that manage and represent DataSense metadata. The most important DevKit classes for building metadata include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Interface MetadataModel</p>
+</li>
+<li>
+<p>Interface MetadataKey and class DefaultMetadataKey. These represent a key used to reference metadata in the model.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The next section introduces proper use of these classes to build up a metadata representation.</p>
+</div>
+<div class="paragraph">
+<p>DevKit requires two metadata-related methods on a connector to generate DataSense metadata for a dynamic schema:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <code>@MetadataKeyRetriever</code> method retrieves a list of all the entity Type names from the application.</p>
+</li>
+<li>
+<p>A <code>@MetadataRetriever</code> method uses the list of metadata keys to retrieve metadata about each entity Type.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Operations on a DataSense-enabled connector with a dynamic schema must also include a parameter annotated  <code>@MetadataKeyParam</code> that identifies the entity Type of the passed Map.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="preparing-a-code-connector-code-class-to-add-metadata-support"><a class="anchor" href="#preparing-a-code-connector-code-class-to-add-metadata-support"></a>Preparing a <code>@Connector</code> Class to Add Metadata Support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Add the following imports to the <code>@Connector</code> class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import org.mule.common.metadata.*;
+import org.mule.common.metadata.builder.DefaultMetaDataBuilder;
+import org.mule.common.metadata.builder.DynamicObjectBuilder;
+import org.mule.common.metadata.builder.EnumMetaDataBuilder;
+import org.mule.common.metadata.datatype.DataType;
+
+import org.mule.api.annotations.MetaDataKeyRetriever;
+import org.mule.api.annotations.MetaDataRetriever;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>org.mule.common.metadata.*</code> classes include the Mule classes for representing and managing metadata.</p>
+</li>
+<li>
+<p>The <code>org.mule.common.metadata.builder</code> classes are used to construct metadata representations (sets of objects which can be quite complex).</p>
+</li>
+<li>
+<p>The <code>org.mule.common.metadata.datatype.DataType</code> class represents different object field datatypes and their properties.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Salesforce.com connector code uses these classes in context, as reviewed below.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementing-a-code-metadatakeyretriever-code-method"><a class="anchor" href="#implementing-a-code-metadatakeyretriever-code-method"></a>Implementing a <code>@MetadataKeyRetriever</code> Method</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>@MetadataKeyRetriever</code> method returns a <code>List&lt;MetaDataKey&gt;</code> that represents the list of object types defined in the application. The specifics of retrieving the object type names will depend upon the particular target application; in the case of Salesforce.com, the class <code>com.sforce.soap.partner.DescribeGlobal</code> retrieves the metadata from Salesforce, and the `@MetadataKeyRetrieve`r method builds the list of types based on the results.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@MetaDataKeyRetriever
+public List&lt;MetaDataKey&gt; getMetaDataKeys() throws Exception {
+    List&lt;MetaDataKey&gt; keys = new ArrayList&lt;MetaDataKey&gt;();
+    DescribeGlobalResult describeGlobal = describeGlobal();
+
+    if (describeGlobal != null) {
+        DescribeGlobalSObjectResult[] sobjects = describeGlobal.getSobjects();
+        for (DescribeGlobalSObjectResult sobject : sobjects) {
+            keys.add(new DefaultMetaDataKey(sobject.getName(), sobject.getLabel(), sobject.isQueryable()));
+        }
+    }
+ return keys;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>List&lt;MetaDataKey&gt;</code> keys store <a href="https://github.com/mulesoft/mule-common/blob/master/src/main/java/org/mule/common/metadata/DefaultMetaDataKey.java">DefaultMetadataKey</a> instances. DefaultMetadataKey&#8217;s constructor identifies metadata keys by a <code>String id</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">public DefaultMetaDataKey(String id, String displayName, boolean isFromCapable) {
+        this.id = id;
+        this.displayName = displayName;
+        this.isFromCapable = isFromCapable;
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>DefaultMetadataKey</code> property <code>id</code> is set to the name of the <code>sObject</code> from Salesforce.</p>
+</li>
+<li>
+<p>The <code>isFromCapable</code> attribute indicates whether a given Type can be used in a FROM clause in a DSQL query.  Some types of objects supported by an application may not be queryable.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Implement similar functionality to populate a list of metadata keys based on metadata available from your application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementing-a-code-metadataretriever-code-method"><a class="anchor" href="#implementing-a-code-metadataretriever-code-method"></a>Implementing a <code>@MetadataRetriever</code> Method</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes how Mule represents the actual metadata for an entity type named in the output of the <code>@MetadataKeyRetriever</code>.</p>
+</div>
+<div class="paragraph">
+<p>The SalesForce connector <code>@MetadataRetriever</code> method is shown below, along with helper method <code>addField()</code> – the <code>getDataType()</code> method called by <code>addField</code> follows.</p>
+</div>
+<div class="paragraph">
+<p><strong>getMetadata() and addField()</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@MetaDataRetriever
+    public MetaData getMetaData(MetaDataKey key) throws Exception {
+        DescribeSObjectResult describeSObject = describeSObject(key.getId());
+
+
+        MetaData metaData = null;
+        if (describeSObject != null) {
+            Field[] fields = describeSObject.getFields();
+            DynamicObjectBuilder dynamicObject = new DefaultMetaDataBuilder().createDynamicObject(key.getId());
+            for (Field f : fields) {
+               addField(f, dynamicObject);
+            }
+            MetaDataModel model = dynamicObject.build();
+            metaData = new DefaultMetaData(model);
+        }
+        return metaData;
+    }
+
+    private void addField(Field f, DynamicObjectBuilder dynamicObject) {
+        DataType dataType = getDataType(f.getType());
+        switch (dataType){
+            case POJO:
+                dynamicObject.addPojoField(f.getName(), Object.class);
+                break;
+            case ENUM:
+                EnumMetaDataBuilder enumMetaDataBuilder = dynamicObject.addEnumField(f.getName());
+                if (f.getPicklistValues().length != 0){
+                    String[] values = new String[f.getPicklistValues().length];
+                    int i =0;
+                    for (PicklistEntry picklistEntry : f.getPicklistValues()){
+                        values[i] = (picklistEntry.getValue());
+                        i++;
+                    }
+                    enumMetaDataBuilder.setValues(values)
+                            .isWhereCapable(f.isFilterable())
+                            .isOrderByCapable(f.isSortable());
+                }
+                break;
+            default:
+                dynamicObject.addSimpleField(f.getName(), dataType)
+                        .isWhereCapable(f.isFilterable())
+                        .isOrderByCapable(f.isSortable());
+        }
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>SalesforceConnector.getDataType()</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">private DataType getDataType(FieldType fieldType) {
+        DataType dt;
+        switch (fieldType) {
+            case _boolean:
+                dt = DataType.BOOLEAN;
+                break;
+            case _double:
+                dt = DataType.DOUBLE;
+                break;
+            case _int:
+                dt = DataType.INTEGER;
+                break;
+            case anyType:
+                dt = DataType.POJO;
+                break;
+            case base64:
+                dt = DataType.STRING;
+                break;
+            case combobox:
+                dt = DataType.ENUM;
+                break;
+            case currency:
+                dt = DataType.STRING;
+                break;
+            case datacategorygroupreference:
+                dt = DataType.STRING;
+                break;
+            case date:
+                dt = DataType.DATE_TIME;
+                break;
+            case datetime:
+                dt = DataType.DATE_TIME;
+                break;
+            case email:
+                dt = DataType.STRING;
+                break;
+            case encryptedstring:
+                dt = DataType.STRING;
+                break;
+            case id:
+                dt = DataType.STRING;
+                break;
+            case multipicklist:
+                dt = DataType.ENUM;
+                break;
+            case percent:
+                dt = DataType.STRING;
+                break;
+            case phone:
+                dt = DataType.STRING;
+                break;
+            case picklist:
+                dt = DataType.ENUM;
+                break;
+            case reference:
+                dt = DataType.STRING;
+                break;
+            case string:
+                dt = DataType.STRING;
+                break;
+            case textarea:
+                dt = DataType.STRING;
+                break;
+            case time:
+                dt = DataType.DATE_TIME;
+                break;
+            case url:
+                dt = DataType.STRING;
+                break;
+            default:
+                dt = DataType.STRING;
+        }
+        return dt;
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For the MetaDataKey passed, the <code>@MetadataRetriever</code> <code>getMetadata()</code> method calls Salesforce to extract field names and field types for the object. The <code>addField()</code> method is used to populate the <code>dynamicObject&#8217;s representation of the field metadata, including attributes such as whether a field can be used for sorting (`isOrderCapable</code>) and filtering (<code>isWhereCapable</code>) in queries. <br>
++</p>
+</li>
+<li>
+<p>The different values in the DataType enumerated type in <code>getDataType()</code> represent the different data types Mule can represent in its metadata. For many applications, the data types are richer and more domain-specific than Mule&#8217;s data types. For example, many Salesforce field types like <code>string</code>, <code>url</code>, <code>textarea</code>, <code>reference</code>, <code>email</code>, and <code>encryptedString</code> are all represented as <code>DataType.STRING. `However</code> <code>`date</code>, <code>time</code> and <code>date_time</code> are all represented as Mule&#8217;s <code>DataType.DATE_TIME</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Implement comparable logic in your connector&#8217;s <code>@MetadataRetriever</code> method and any supporting methods.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementing-metadata-enabled-operations"><a class="anchor" href="#implementing-metadata-enabled-operations"></a>Implementing Metadata-Enabled Operations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For a connector with operations that use <code>Map&lt;String, Object&gt;</code> as parameters or return values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>There is an assumption that there will only be one <code>Map&lt;String, Object&gt;</code> (or <code>List&lt;Map&lt;String,Object&gt;&gt;</code>) parameter to such an operation.</p>
+</li>
+<li>
+<p>One parameter, annotated with <code>@MetaDataKeyParam</code>, must provide the entity type name (same as the <code>DefaultMetadataKey.id</code> field for each type)  from the metadata model for the connector. The named type is used as the entity type represented by the <code>Map&lt;String, Object&gt;</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Consider the implementation of one such operation, <code>BaseSalesforceConnector.create()</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">public List&lt;SaveResult&gt; create(@MetaDataKeyParam String type,
+                                   @Optional @Default("#[payload]") List&lt;Map&lt;String, Object&gt;&gt; objects) throws Exception {
+        try {
+                return Arrays.asList(
+                   getConnection().create(toSObjectList(type, objects)));
+        } catch (Exception e) {
+                throw handleProcessorException(e);
+        }
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>@MetaDataKeyParam</code> parameter <code>type</code> identifies the Salesforce entity type being added, and is passed to the <code>toSObjectList(type, objects)</code> method that converts the list of incoming maps to a list of <code>SObjects</code>.  For another application, the implementation is the same: take the application&#8217;s type name, and use the application&#8217;s means of converting the passed object to that type.</p>
+</div>
+<div class="paragraph">
+<p>In this instance, a <code>List&lt;Map&lt;String, Object&gt;&gt;</code> is passed in, and likewise a <code>List&lt;SaveResult&gt;</code> is used to collect the success or failure of each operation.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+In some scenarios, it is valid and reasonable for a <code>@MetaDataKeyParam</code> operation that takes a Map or <code>List&lt;Map&gt;</code> as arguments to return a POJO or List of POJOs. For predictability for the user however, well-designed connectors should be consistent in using POJOs as both input and output for either all operations or for none.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Return to the <a href="devkit-advanced-topics.html">DevKit Advanced Topics</a> page</p>
+</li>
+<li>
+<p>Return to the <a href="devkit-shortcut-to-success.html">DevKit Shortcut to Success</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

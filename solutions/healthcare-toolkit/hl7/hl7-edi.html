@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="b2b, hl7, schema, EDI, edi">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/solutions/healthcare-toolkit/hl7/hl7-edi.html">
+  <link rel="stylesheet" href="../../../_theme/stylesheets/theme.css">
+  <title>HL7 EDI // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../../anypoint-b2b.html">Anypoint B2B</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">TRADACOMS EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDI Schema Language Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/index.html">Anypoint Partner Manager</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/key-concepts.html">Key Concepts</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/b2b-transaction-processing-framework.html">B2B Transaction-Processing Framework</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/resolution-processes.html">Resolution Processes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/tracking.html">Tracking</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/examples.html">Examples</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/transaction-monitoring.html">Transaction Monitoring</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/central-pane-elements.html">Central Pane Elements</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/tracking-scenarios.html">Tracking Scenarios</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/partner-configuration.html">Partner Configuration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/company-information.html">Company Information</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/identifiers.html">Identifiers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/on-hold-inactive.html">On-Hold/Inactive</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">Certificate</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/csv-settings.html">CSV Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/document-types.html">Document Types</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/endpoints.html">Endpoints</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/maps.html">Maps</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/channels.html">Channels</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/routes.html">Routes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/partner-conversations.html">Partner Conversations</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/rosettanet-pips.html">RosettaNet PIPs</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/rosettanet-agreements.html">RosettaNet Agreements</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/administration.html">Administration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/environments.html">Environments</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/error-codes.html">Error Codes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/security.html">Security</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/lookup-tables.html">Lookup Tables</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/walkthroughs.html">Walkthroughs</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/ftps-and-edi-x12-purchase-order-walkthrough.html">FTPS and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/transaction-tracking-walkthrough.html">Transaction Tracking Walkthrough</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/anypoint-partner-manager-api.html">Anypoint Partner Manager API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/glossary.html">Glossary</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/partner-manager-connector.html">Partner Manager Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/ftps-connector.html">FTPS Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">EDI X12 Order Processing Example</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../anypoint-platform/partner-manager/supported-edi-document-types.html">Supported EDI Document Types</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../../getting-started/index.html">Getting Started with Anypoint Platform</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/design-an-api.html">To Design an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/implement-and-test-api.html">To Implement and Test an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/sync-api.html">To Sync an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../../anypoint-platform/exchange/index.html">Anypoint Exchange</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../../anypoint-platform/exchange/exchange-faq.html">Anypoint Exchange FAQ</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/build-a-hello-world-application.html">Tutorial: Creating a Mule App</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/anypoint-connector.html">Anypoint Connector Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../mule-runtime/3.8/messages/mule-message.html">How to Work with a Mule Message</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../getting-started/content-based-routing.html">How to Route Mule Messages Using a Switch Statement</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../../anypoint-platform/cloudhub/deploy-to-cloudhub.html">Deploy to CloudHub</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../index.html">Healthcare Toolkit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="hl7-edi.html">HL7 EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../mllp-connector.html">HL7 MLLP</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../connector-testpanel.html">Connector Testing with TestPanel</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">HL7 EDI</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/solutions-docs/edit/master/modules/healthcare-toolkit/content/hl7/hl7-edi.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>HL7 EDI</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>HL7 EDI lets you convert HL7 ER7 messages to and from DataWeave-compatible representations using lists and maps.</p>
+</div>
+<div class="paragraph">
+<p><strong>Release Notes:</strong> <a href="https://example.com/tbd">HL7 Connector Release Notes</a></p>
+</div>
+<div class="paragraph">
+<p>HL7 EDI includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>HL7 ER7 message-reading, message-validation, and message-writing</p>
+</li>
+<li>
+<p>Integration with DataSense and DataWeave</p>
+</li>
+<li>
+<p>HL7 message packs for v2.1, v2.2, v2.3.1, v2.3, v2.4, v2.5, v2.5.1, v2.6, 2.7, 2.7.1, 2.8, and 2.8.1</p>
+</li>
+<li>
+<p>The ability to define your own schemas or customize the base HL7 schemas</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To get started using the connector, follow these steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#install-the-hl7-connector">Install the HL7 Connector</a></p>
+</li>
+<li>
+<p><a href="#create-schemas">Create Schemas</a> to describe your messages according to your implementation.</p>
+</li>
+<li>
+<p><a href="#configconnector">Configure HL7 EDI</a> for your trading partner according to your implementation convention.</p>
+</li>
+<li>
+<p><a href="#use-hl7-edi-inside-mule-flows">Use HL7 EDI Inside Mule Flows</a></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This page helps provide guidance for each of these steps.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="install-the-hl7-connector"><a class="anchor" href="#install-the-hl7-connector"></a>Install the HL7 Connector</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following sections explain how to install the HL7 connector.</p>
+</div>
+<div class="sect2">
+<h3 id="installing-hl7-edi-in-anypoint-studio"><a class="anchor" href="#installing-hl7-edi-in-anypoint-studio"></a>Installing HL7 EDI in Anypoint Studio</h3>
+<div class="paragraph">
+<p>Follow the steps below to install an HL7 EDI connector in Anypoint Studio.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+To use the HL7 EDI connector in a production environment, you must have purchased a license for Anypoint B2B.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the <strong>Help</strong> menu in <strong>Anypoint Studio</strong>, select <strong>Install New Software</strong>. The <strong>Available Software</strong> page appears.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/hl7/hl7-install-from-eclipse.png" alt="hl7 install from eclipse">
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>In the <strong>Work with</strong> box, select the <strong>Anypoint Connectors Update Site</strong>.</p>
+</li>
+<li>
+<p>In the table below the <strong>type filter text</strong> box, click to expand the <strong>Premium</strong> folder, then select <code>HL7 Module</code>.</p>
+</li>
+<li>
+<p>Click <strong>Next</strong>. The <strong>Install Details</strong> page appears.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Review the details of the item you selected, then click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Click to accept terms and conditions of the product, then click <strong>Finish</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Restart Now</strong> to complete the installation. After you install the connector and restart Studio you can see the new message processor available in the palette, under the Connectors category.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-the-hl7-edi-via-maven"><a class="anchor" href="#using-the-hl7-edi-via-maven"></a>Using the HL7 EDI via Maven</h3>
+<div class="paragraph">
+<p>To use HL7 EDI with Maven, add the following dependency to your pom.xml file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.mule.modules&lt;/groupId&gt;
+  &lt;artifactId&gt;mule-module-hl7&lt;/artifactId&gt;
+  &lt;version&gt;3.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="create-schemas"><a class="anchor" href="#create-schemas"></a>Create Schemas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Create schemas to describe your messages according to your implementation.</p>
+</div>
+<div class="sect2">
+<h3 id="edi-schema-language"><a class="anchor" href="#edi-schema-language"></a>EDI Schema Language</h3>
+<div class="paragraph">
+<p>The HL7 EDI uses a YAML format called ESL (for EDI Schema Language) to represent EDI schemas.  Basic ESLs define the structure of ER7 messages in terms of <em>structures</em> (message structures, in HL7 terminology), <em>groups</em>, <em>segments</em>, <em>composites</em>, and <em>elements</em>. ESLs for the HL7 versions <strong>v2.1, v2.2, v2.3.1, v2.3, v2.4, v2.5, v2.5.1, v2.6, 2.7, 2.7.1, 2.8,</strong> and <strong>2.8.1</strong> are included.</p>
+</div>
+<div class="paragraph">
+<p>To configure the HL7 EDI according to your implementation convention, define an <em>overlay schema</em>. An overlay schema is a special form of ESL that allows you to modify a base schema, such as an HL7 2.5.1 ADT_A01 schema, with your specific conventions. (You don&#8217;t need an overlay schema if you&#8217;re using the structure defined by the standard, but you can use an overlay to tailor the structure to your usage.)</p>
+</div>
+<div class="paragraph">
+<p>You can also define your own schemas from scratch.
+See <a href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDI Schema Language Reference</a> for more details.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>YAML uses a combination of lists and sets of key-value pairs. Order of values is not important, as long as required items are present. Quotes (either single or double quotes) are used around values which may consist of digits but are meant to be interpreted as strings (since otherwise the YAML parser treats the values as numbers). Indentation is used to show the nesting of lists.</p>
+</div>
+<div class="paragraph">
+<p>For readability, the ESL structures shown here define all simple key-value pairs before any lists that are part of the same definition.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-your-implementation-convention-with-an-overlay-schema"><a class="anchor" href="#defining-your-implementation-convention-with-an-overlay-schema"></a>Defining your Implementation Convention with an Overlay Schema</h3>
+<div class="paragraph">
+<p>To specify a schema according to your implementation convention:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create an "overlay" schema that imports the base schema you want to customize - for example, HL7 2.5.1 ADT_A01.</p>
+</li>
+<li>
+<p>Customize the overall structure - segment usage, positions, groups and counts.</p>
+</li>
+<li>
+<p>Customize segments - including usage and counts.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Overlay schemas are very similar in structure to a <a href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">complete schema definition</a>, but instead of providing all the details of the schema structure, they only list changes. Overlay schemas specify how to use implementation conventions with a particular trading partner to extend and customize the standard.</p>
+</div>
+<div class="paragraph">
+<p>The following example shows the start of a sample overlay schema that modifies the basic HL7 2.5.1 ADT_A01 message structure definition. This sample customizes the <code>PD1</code> segment and specifies that it is mandatory, so that an error occurs if the segment is not present in a receive or send message.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">form: HL7
+version: '2.5.1'
+imports: [ '/hl7/v2_5_1/ADT_A01.esl' ]
+structures:
+- idRef: 'ADT_A01'
+  data:
+  - { idRef: 'PD1', position: '05', usage: M }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="structure-overlay"><a class="anchor" href="#structure-overlay"></a>Structure Overlay</h3>
+<div class="paragraph">
+<p>A structure overlay details modifications to the base schema definition of an HL7 message structure. Most often these modifications take the form of marking segments or groups in the base definition as unused, but any usage or repetition count change is allowed. Here&#8217;s the form taken by a structure overlay:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">structures:
+- idRef: 'ADT_A01'
+  data:
+  - { idRef: 'PD1', position: '05', usage: M }
+  - { groupIdRef: 'PROCEDURE', position: '17', usage: U }
+  - { groupIdRef: 'INSURANCE', position: '22', usage: M }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The modifications in this example specify that the PD1 segment and the INSURANCE group are required in each message (usage: M for mandatory), and that the PROCEDURE group is unused (usage: U). With this overlay, errors are reported if the PD1 segment or the INSURANCE group is not present in a message, or if the PROCEDURE group is present.</p>
+</div>
+<div class="paragraph">
+<p>The key-value pairs at the structure level are:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>idRef</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The ID for the message structure being modified.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>name</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The message structure name (optional).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>data</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>List of segment and group modifications within the structure (optional, each is only used when there are modifications to that section).</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Each item in the list of structure data components is either a segment reference or a group definition. Both are shown here using a compact YAML syntax where the values for each reference are given as comma-separated key-value pairs enclosed in curly braces. The values are:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>idRef</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The referenced segment ID (optional, verified if provided but otherwise ignored – the position value is used to uniquely identify segments within the section).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>position</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The segment position within the message structure.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>usage</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Usage code (optional, base definition value used if not specified).</p>
+</div>
+<div class="paragraph">
+<p>Values may be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>C for Conditional</p>
+</li>
+<li>
+<p>M for Mandatory</p>
+</li>
+<li>
+<p>O for Optional</p>
+</li>
+<li>
+<p>U for Unused</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>count</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Maximum repetition count value, which may be a number or the special value <code>&gt;1</code> meaning any number of repeats (optional, base definition value used if not specified).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>after</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Position of segment preceding an added segment (see example below).</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The values in a group definition are:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>groupIdRef</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The referenced group ID (optional, verified if provided but otherwise ignored – the position value is used to uniquely identify a group within a section).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>position</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The segment position within the message structure (position of the first segment included in the group).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>usage</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Usage code, which may be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>C for Conditional</p>
+</li>
+<li>
+<p>M for Mandatory</p>
+</li>
+<li>
+<p>O for Optional</p>
+</li>
+<li>
+<p>U for Unused</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>count</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Maximum repetition count value, which may be a number or the special value <code>&gt;1</code> meaning any number of repeats (optional, base definition value used if not specified).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>items</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>List of segments (and potentially nested loops) making up the loop (only available with expanded YAML format).</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following is an overlay example that shows how you can add a new segment to an existing structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">form: HL7
+version: '2.6'
+imports: [ '/hl7/v2_6/ORR_O02.esl' ]
+structures:
+- idRef: 'ORR_O02'
+  data:
+  - { idRef: 'MSA', position: '02', usage: O }
+  - groupIdRef: 'RESPONSE'
+    position: '07'
+    items:
+    - groupIdRef: 'PATIENT'
+      position: '07'
+      items:
+      - { idRef: 'PV1', after: '08' }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This overlay extends the base v2.6 ORR_O02 message structure to include a PV1 segment in the PATIENT group nested in the RESPONSE group. The <code>after</code> value gives the position of the segment preceding the insertion point.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="segment-overlays"><a class="anchor" href="#segment-overlays"></a>Segment Overlays</h3>
+<div class="paragraph">
+<p>A segment overlay details modifications to the base schema definition. Most often these modifications take the form of marking elements or composites in the base definition as unused, but any usage or repetition count change is allowed. Here is a full overlay including some sample segment overlays:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">form: HL7
+version: '2.5.1'
+imports: [ '/hl7/v2_5_1/ADT_A01.esl' ]
+structures:
+- idRef: 'ADT_A01'
+  data:
+  - { idRef: 'ROL', position: '06' }
+  - { idRef: 'DG1', position: '14' }
+segments:
+- idRef: 'ROL'
+  values:
+  - { position: 2, usage: O }
+  - { position: 4, usage: O }
+- { idRef: 'DG1', trim: 4 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This example modifies the base definitions for the ROL and DG1 segments. This example makes the values at position 2 and 4 of the ROL segment optional (they are required in the base definition), and makes all values after the first four in the DG1 segment unused (which drops them from the metadata representation and means they are ignored in data).</p>
+</div>
+<div class="paragraph">
+<p>Segment modifications only affect structures included in the overlay with explicit references to the modified segments. That&#8217;s why the ROL and DG1 segment references need to be included in the structure part of the schema, even though nothing (such as usage or repetition count) is being changed for these segments at the structure level.</p>
+</div>
+<div class="paragraph">
+<p>The above example uses the compact form for segment modifications that only involve a truncate, while modifications that make changes to individual values are expressed in expanded form. As with all the other YAML examples, the two forms are actually equivalent and can be used interchangeably.</p>
+</div>
+<div class="paragraph">
+<p>The key-value pairs in a segment overlay are:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>idRef</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Segment identifier.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>trim</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Trim position in segment, meaning all values from this point on are marked as unused (optional).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>values</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>List of individual value modifications.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The <code>values</code> list references values in the segment by position. The values for these references are:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>position</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The value position within the segment.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>name</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The name of the value in the segment (optional, base definition value used if not specified)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>usage</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Usage code (optional, base definition value used if not specified).</p>
+</div>
+<div class="paragraph">
+<p>The usage value may be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>C for Conditional</p>
+</li>
+<li>
+<p>M for Mandatory</p>
+</li>
+<li>
+<p>O for Optional</p>
+</li>
+<li>
+<p>U for Unused</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>count</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Maximum repetition count value, which may be any number or the special value <code>&gt;1</code> meaning any number of repeats (optional, base definition value used if not specified).</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="determining-the-hl7-schema-location"><a class="anchor" href="#determining-the-hl7-schema-location"></a>Determining the HL7 Schema Location</h3>
+<div class="paragraph">
+<p>To use the connector, you need to know the locations of the schemas in your project. If you&#8217;re using the out of the box HL7 schemas and not customizing anything, the schema location follows the  <code>/hl7/{version}/{message structure}.esl</code> pattern. For example, if you&#8217;re using the <code>2.5.1</code> version and the ADT_A01 message structure, your schema location is <code>/hl7/v2_5_1/ADT_A01.esl</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you&#8217;re creating a custom implementation convention (whether full schemas, or overlay schemas), you should put your schemas under a directory in <code>src/main/app</code> and refer to the location using <code>${app.home}</code>. For example, if you&#8217;ve put your ADT_A01 schema under <code>src/main/app/mypartner/ADT_A01.esl</code>, your schema location is <code>${app.home}/mypartner/ADT_A01.esl</code>.
+The Mule Runtime automatically checks <code>src/main/app</code>
+for any locations that contain the <code>${app.home}</code> value.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="event-and-message-to-message-structure-map"><a class="anchor" href="#event-and-message-to-message-structure-map"></a>Event- and Message-to-Message Structure Map</h3>
+<div class="paragraph">
+<p>If you configure the connector with multiple message structure schemas (whether in separate schema definitions files, as with the provided schemas, or in a single file), you may need to define a mapping from HL7 event and message types to message structures.</p>
+</div>
+<div class="paragraph">
+<p>HL7 defines the Message Type in the component values of MSH-09. The HL7 EDI Connector uses these component values to find the structure schema to be used for processing a receive message, according to the following rules:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the MSH-09-01 Message Type values is "ACK", always use the predefined ACK schema.</p>
+</li>
+<li>
+<p>Otherwise, if the MSH-09-03 Message Structure value is present (a value such as "ADT_A01"), use the schema structure with that ID.</p>
+</li>
+<li>
+<p>Otherwise, use a configured Event- and Message-to-Message Structure Map to determine the message structure from the specified Event Type (MSH-09-02) and Message Type (MSH-09-01) values.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Event- and Message-to-Message Structure Map is an optional configuration parameter. The structure map must be a YAML file consisting of a map from each Event Type to a map for each supported Message Type to the actual Message Structure. Here&#8217;s a sample of what this looks like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">A01: { ADT: ADT_A01, ACK: ACK }
+A02: { ADT: ADT_A02, ACK: ACK }
+A03: { ADT: ADT_A03, ACK: ACK }
+A04: { ADT: ADT_A01, ACK: ACK }
+A05: { ADT: ADT_A05, ACK: ACK }
+A06: { ADT: ADT_A06, ACK: ACK }
+A07: { ADT: ADT_A06, ACK: ACK }
+A08: { ADT: ADT_A01, ACK: ACK }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each version of HL7 defines a different set of mappings from event type and message type to message structure. The default mappings are provided in the same jar as the standard HL7 schema definitions, in files named <code>event-message.yaml</code>. You use the same type of paths for these mapping definitions as for the actual message structure schemas.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configconnector"><a class="anchor" href="#configconnector"></a>Configure HL7 EDI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After you install the connector and configure your schema customizations (if any), you can start using the connector. Create separate configurations for each implementation convention.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor" class="discrete view">Studio Visual Editor</h3>
+<div class="paragraph">
+<p>To create a global HL7 EDI configuration in a Mule application:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the <strong>Global Elements</strong> tab at the base of the canvas, then click <strong>Create</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Choose Global Type</strong> wizard, use the filter to locate and select, <strong>HL7 EDI: Configuration</strong>, then click <strong>OK</strong>.</p>
+</li>
+<li>
+<p>Configure the parameters according to the connector reference.</p>
+</li>
+<li>
+<p>Click <strong>OK</strong> to save the global connector configurations.</p>
+</li>
+<li>
+<p>Return to the <strong>Message Flow</strong> tab in Studio.</p>
+</li>
+</ol>
+</div>
+<h4 id="setting-your-hl7-identification" class="discrete">Setting your HL7 Identification</h4>
+<div class="paragraph">
+<p>You can configure the Message Header (MSH) application and facility identification for you and your trading partner on the HL7 EDI connector configuration.</p>
+</div>
+<div class="paragraph">
+<p>The "Self identification" parameters identify your side of the trading partner relationship, while the "Partner identification" parameters identify your trading partner. The values you set are used when writing HL7 messages to supply the namespace ID, universal ID, and universal ID type, and are verified in receive messages. If you don&#8217;t want to restrict incoming messages you can leave these blank, and set the values for outgoing messages on the write operation or the actual outgoing message. Values set on the write operation override the connector configuration, and values set directly on the message override both the connector configuration and any values set on the write operation.</p>
+</div>
+<div class="paragraph">
+<p>In Studio, these values are set in these Global Element Properties:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Self identification:
+Mule Application Namespace ID (MSH-3-1/MSH-5-1):
+Mule Application Universal ID (MSH-3-2/MSH-5-2):
+Mule Application Universal ID Type (MSH-3-3/MSH-5-3):
+
+Partner identification:
+Partner Application Namespace ID (MSH-3-1/MSH-5-1}:
+Partner Application Universal ID (MSH-3-2/MSH-5-2}:
+Partner Application Universal ID Type (MSH-3-3/MSH-5-3):</code></pre>
+</div>
+</div>
+<h4 id="setting-parser-options" class="discrete">Setting Parser Options</h4>
+<div class="paragraph">
+<p>You can set the following options if needed:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Validate HL7 Message Version</p>
+</li>
+<li>
+<p>Event- and message-to-message structure map path (required if using multiple message structures, unless the MSH-09-03 message structure value is always present in received messages)</p>
+</li>
+<li>
+<p>Required processing ID (to specify a particular processing ID required on receive messages, such as <code>P</code> for Production)</p>
+</li>
+<li>
+<p>Pattern for generic extension segment names (to allow handling of extension segments as maps of field values)</p>
+</li>
+<li>
+<p>Fail when value length is outside allowed range</p>
+</li>
+<li>
+<p>Fail when an invalid character is in a value</p>
+</li>
+<li>
+<p>Fail when there are too many repeats of a value</p>
+</li>
+<li>
+<p>Fail when an unknown segment is in message</p>
+</li>
+<li>
+<p>Fail when a segment is out of order in a message set</p>
+</li>
+<li>
+<p>Fail when a unused segment is included in a message set</p>
+</li>
+<li>
+<p>Fail when there are too many repeats of a segment</p>
+</li>
+</ul>
+</div>
+<h3 id="xml-editor-or-standalone" class="discrete view">XML Editor or Standalone</h3>
+<div class="paragraph">
+<p>Ensure that you have included the EDI namespaces in your configuration file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:hl7-edi="http://www.mulesoft.org/schema/mule/hl7-edi" xmlns:hl7-transformer="http://www.mulesoft.org/schema/mule/hl7-transformer" xmlns:hl7="http://www.mulesoft.org/schema/mule/hl7" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/hl7-edi http://www.mulesoft.org/schema/mule/hl7-edi/current/mule-hl7-edi.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd"&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Configure HL7 EDI in your application by creating a global configuration outside and above your flows using the following global configuration code:</p>
+</div>
+<div class="paragraph">
+<p>+</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;hl7-edi:config name="MyTradingPartner" doc:name="HL7 EDI: Configuration"&gt;
+  &lt;hl7-edi:schemas&gt;
+    &lt;hl7-edi:schema&gt;/hl7/v2_5_1/ADT_A01.esl&lt;/hl7-edi:schema&gt;
+    &lt;hl7-edi:schema&gt;/hl7/v2_5_1/ADT_A02.esl&lt;/hl7-edi:schema&gt;
+  &lt;/hl7-edi:schemas&gt;
+&lt;/hl7-edi:config&gt;</code></pre>
+</div>
+</div>
+<h4 id="setting-your-hl7-identification-2" class="discrete">Setting Your HL7 Identification</h4>
+<div class="paragraph">
+<p>You can configure the Message Header (MSH) application and facility identification for you and your trading partner on the HL7 EDI connector configuration.</p>
+</div>
+<div class="paragraph">
+<p>The "Self identification" parameters identify your side of the trading partner relationship, while the "Partner identification" parameters identify your trading partner. The values you set are used when writing HL7 messages to supply the namespace ID, universal ID, and universal ID type, and are verified in receive messages. If you don&#8217;t want to restrict incoming messages you can leave these blank, and set the values for outgoing messages on the write operation or the actual outgoing message. Values set on the write operation override the connector configuration, and values set directly on the message override both the connector configuration and any values set on the write operation.</p>
+</div>
+<div class="paragraph">
+<p>Self identification parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">appNamespaceIdSelf="&lt;value&gt;"
+appUniversalIdSelf="&lt;value&gt;"
+appUniversalIdTypeSelf="&lt;value&gt;"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Partner identification parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">appNamespaceIdPartner="&lt;value&gt;"
+appUniversalIdPartner="&lt;value&gt;"
+appUniversalIdTypePartner="&lt;value&gt;"</code></pre>
+</div>
+</div>
+<h4 id="setting-parser-options-2" class="discrete">Setting Parser Options</h4>
+<div class="paragraph">
+<p>You can set the following options if needed:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>XML Value (When set to <code>true</code>)</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Visual Studio Option</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>validateHL7Version="true"</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Validate HL7 Message Version</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>eventMessageMap="/hl7/v2_5_1/event-message.yaml"</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Event and message to message structure map path (required if using multiple message structures, unless the MSH-09-03 message structure value is always present in received messages)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>processingId="PRODUCTION"</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Required processing ID (to specify a particular processing ID required on receive messages, such as <code>P</code> for Production)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>genericExtensionPattern="Z.."</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Java regular pattern for generic extension segment names (to allow handling of extension segments as maps of field values)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>valueLengthErrorFail="true"</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Fail when value length outside allowed range</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>invalidCharacterInValueFail="true"</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Fail when invalid character in value</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>wrongValuesRepeatsFail="true"</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Fail when too many repeats of value</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>unknownSegmentFail="true"</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Fail when unknown segment in message</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>segmentOutOfOrderFail="true"</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Fail when segment out of order in message set</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>unusedSegmentPresentFail="true"</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Fail when unused segment included in message set</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>wrongSegmentsRepeatsFail="true"</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Fail when too many repeats of segment</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<h4 id="setting-your-schema-locations" class="discrete">Setting Your Schema Locations</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently, you can only configure schema locations in the Anypoint Studio XML view.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In Anypoint Studio, switch to the XML view by clicking <strong>Configuration XML</strong> and modify your HL7 EDI configuration to include a list of all the schemas you wish to include by adding an <code>&lt;http://edischema[edi:schema]&gt;</code> element for each document type:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;hl7-edi:config name="MyTradingPartner" doc:name="HL7 EDI: Configuration"&gt;
+  &lt;hl7-edi:schemas&gt;
+    &lt;hl7-edi:schema&gt;/hl7/v2_5_1/ADT_A01.esl&lt;/hl7-edi:schema&gt;
+    &lt;hl7-edi:schema&gt;/hl7/v2_5_1/ADT_A02.esl&lt;/hl7-edi:schema&gt;
+  &lt;/hl7-edi:schemas&gt;
+&lt;/hl7-edi:config&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>After you create a global element for your HL7 EDI, configure the message structure, operations, and acknowledgments.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-hl7-edi-inside-mule-flows"><a class="anchor" href="#use-hl7-edi-inside-mule-flows"></a>Use HL7 EDI Inside Mule Flows</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can use HL7 EDI connector in your flows for reading and writing messages, and sending
+acknowledgments.</p>
+</div>
+<div class="paragraph">
+<p>Topics:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#understanding-hl7-message-structure">Understanding HL7 Message Structure</a></p>
+</li>
+<li>
+<p><a href="#reading-and-validating-hl7-er7-messages">Reading and Validating HL7 ER7 Messages</a></p>
+</li>
+<li>
+<p><a href="#writing-hl7-edi-messages">Writing HL7 EDI Messages</a></p>
+</li>
+<li>
+<p><a href="#sending-acknowledgments">Sending Acknowledgments</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="understanding-hl7-message-structure"><a class="anchor" href="#understanding-hl7-message-structure"></a>Understanding HL7 Message Structure</h3>
+<div class="paragraph">
+<p>The HL7 connector enables reading or writing of HL7 documents into or from the canonical ER7 message structure. This structure is represented as a hierarchy of Java Maps and Lists, which can be manipulated using DataWeave or code. Each transaction has its own structure, defined in the schemas as previously outlined.</p>
+</div>
+<div class="paragraph">
+<p>The message itself contains the following keys (some of which only apply to either the read operation or the write operation, as indicated):</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>ACK (read only)</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>ACK message generated in response to the input data. The MSA-1 acknowledgment code value is based on the parser configuration settings. To send an acknowledgment, see the Sending Acknowledgments section below.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Data</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Wrapper for message data, with a key matching the message structure ID value linking to the actual data. This allows different messages to be included in the metadata and handled in DataWeave mappings.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Delimiters (read only)</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The delimiters used for the message. The characters in the string are interpreted based on position, in the following order: (component separator), (repetition separator), (escape character), (subcomponent separator).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Errors (read only)</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>A list of errors which are associated with the input message. (See the HL7Error structure description in the Reading and Validating HL7 Messages section below.)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Id</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Message structure ID.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>MSH (read only)</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Link to received MSH segment data.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Name</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Message structure name.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Individual messages have their own maps, with keys matching the segments of the message. For instance, an ACK message would use the message structure ID "ACK", and the data for the ACK message sent or received would be present as an "ACK" value in the "Data" map. The ACK message is itself a map, and the segments and groups of the message are represented as maps (in the case of singleton instances) or lists of maps (for repeating instances) with positional keys.</p>
+</div>
+<div class="paragraph">
+<p>There are two special cases where generic handling is used for data not included in a schema definition. The first is for HL7 values of type 'varies'. Since these values may consist of any structure of components and subcomponents, and may be repeated, the parser uses a list of maps representation for each 'varies'. The keys in each map are generated as the value is parsed, matching standard HL7 value names with two digits used for each nesting level.
+So a simple text value for an OBX-05 Observation Value field, for instance, would just use the key OBX-05 in a map. If there were two components present, these would use keys OBX-05-01 and OBX-05-02.</p>
+</div>
+<div class="paragraph">
+<p>Extension segments with tags matching a pattern configured under parser options use a similar structure to the 'varies' values, but only within a single map for the entire segment. Repeated values are not supported by the extension segment parsing and writing code.</p>
+</div>
+<div class="paragraph">
+<p>The maps containing extension segment data are added to the basic message map in lists with the key <code>ExtensionSegs</code>. In addition to the actual extension segment data, the map for the extension segment contains two other keys:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Ident</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The extension segment identifier (tag)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Position</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The position of the segment within the message structure, as a two digit string. This is the same as the position of the immediately preceding defined segment, as defined in the schema (so if a ZVN extension segment were used following the EVN segment in and ADT_A01 message structure, the ZVN would be at position '03').</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If extension segments are used in nested groups, the list containing those segments will always be included in the map representing that group. Extension segments will always be ordered by position in the lists created by the parser, and must also be ordered by position when writing.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="reading-and-validating-hl7-er7-messages"><a class="anchor" href="#reading-and-validating-hl7-er7-messages"></a>Reading and Validating HL7 ER7 Messages</h3>
+<div class="paragraph">
+<p>To read an HL7 message, search the palette for "HL7 EDI" and drag the HL7 EDI building block into a flow. Then, go to the properties view, select the connector configuration you <a href="#configconnector">previously created</a> and select the <strong>Read</strong> operation:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/hl7/hl7-read-operation.png" alt="hl7 read operation">
+</div>
+</div>
+<div class="paragraph">
+<p>This operation reads any byte stream into the structure described by your HL7 schemas.</p>
+</div>
+<div class="paragraph">
+<p>HL7 EDI validates the message structure when it reads it in. Message validation includes checking the syntax and content of the MSH and all component segments of the message. Normally errors are logged and accumulated, and reported in the generated ACK message provided in the generated data structure. All messages, whether error free or with non-fatal errors are passed on for processing as part of the output message Map. Errors reading the input data cause exceptions to be thrown.</p>
+</div>
+<div class="paragraph">
+<p>Error data entered in the receive data map uses the HL7Error class, a read-only JavaBean with the following properties:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>segment</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The zero-based index within the input of the segment causing the error.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>fatal</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Flag for a fatal error, meaning the associated message was rejected as a result of the error.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>errorType</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Enumeration for the different types of errors defined by the HL7 standards (ERR-3 values).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>errorCode</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Error code, as defined by the HL7 standard for the indicated type of error.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>errorText</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Text description of the error.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Error data is returned by the read operation as an optional list with the "Errors" key.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="writing-hl7-edi-messages"><a class="anchor" href="#writing-hl7-edi-messages"></a>Writing HL7 EDI Messages</h3>
+<div class="paragraph">
+<p>To write an outgoing message, construct an outgoing HL7 EDI message according to the previously defined structure.</p>
+</div>
+<div class="paragraph">
+<p>For example, this sample creates an outgoing HL7 message that is written to a file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">  ...
+&lt;hl7-edi:write config-ref="HealthCare" doc:name="Send ACK"/&gt;
+&lt;file:outbound-endpoint responseTimeout="10000" doc:name="File" path="output" outputPattern="ack.edi"/&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sending-acknowledgments"><a class="anchor" href="#sending-acknowledgments"></a>Sending Acknowledgments</h3>
+<div class="paragraph">
+<p>An ACK (acknowledgement) message is an HL7 message that lets you acknowledge to a message sender that your application has received a message. ACK messages are the same as writing any other HL7 message, except you set the ACK message to what was generated during the read operation as the output message under a <code>Data</code> key.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;hl7-edi:read config-ref="Walmart" doc:name="Read EDI Doc"/&gt;
+  ...
+&lt;dw:transform-message doc:name="Create Outgoing Message"&gt;
+  &lt;dw:input-payload doc:sample="InMessage.dwl"/&gt;
+  &lt;dw:set-payload&gt;&lt;![CDATA[%dw 1.0
+%output application/java
+---
+{
+	Name: "ACK",
+	MSH: payload.ACK."01_MSH",
+	Id: "ACK",
+	Data: {
+		ACK: payload.ACK
+	}
+}]]&gt;&lt;/dw:set-payload&gt;
+&lt;/dw:transform-message&gt;
+&lt;hl7-edi:write config-ref="HealthCare" doc:name="ACK"/&gt;
+&lt;file:outbound-endpoint responseTimeout="10000" doc:name="File" path="output" outputPattern="ack.edi"/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The generated ACK messages have MSH data set up for sending back to the sender of the original message, so you don&#8217;t need to change anything in the data in order to do the send.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hl7-and-mllp-dataweave-example"><a class="anchor" href="#hl7-and-mllp-dataweave-example"></a>HL7 and MLLP DataWeave Example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following example shows the use of HL7, MLLP, and DataWeave to read, write, and acknowledge messages.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/hl7/hl7-mllp-example-flow.png" alt="hl7 mllp example flow">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;mule xmlns:file="http://www.mulesoft.org/schema/mule/file"
+  xmlns:json="http://www.mulesoft.org/schema/mule/json"
+  xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata"
+  xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
+  xmlns:http="http://www.mulesoft.org/schema/mule/http"
+  xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
+  xmlns:hl7-edi="http://www.mulesoft.org/schema/mule/hl7-edi"
+  xmlns:hl7-transformer="http://www.mulesoft.org/schema/mule/hl7-transformer"
+  xmlns:hl7="http://www.mulesoft.org/schema/mule/hl7"
+  xmlns="http://www.mulesoft.org/schema/mule/core"
+  xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+  xmlns:spring="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-current.xsd
+  http://www.mulesoft.org/schema/mule/core
+  http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+  http://www.mulesoft.org/schema/mule/hl7
+  http://www.mulesoft.org/schema/mule/hl7/current/mule-hl7.xsd
+  http://www.mulesoft.org/schema/mule/hl7-edi
+  http://www.mulesoft.org/schema/mule/hl7-edi/current/mule-hl7-edi.xsd
+  http://www.mulesoft.org/schema/mule/ee/dw
+  http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+  http://www.mulesoft.org/schema/mule/http
+  http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+  http://www.mulesoft.org/schema/mule/ee/tracking
+  http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+  http://www.mulesoft.org/schema/mule/json
+  http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+  http://www.mulesoft.org/schema/mule/file
+  http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd"&gt;
+  &lt;hl7-edi:config name="HL7_EDI__Configuration" doc:name="HL7 EDI: Configuration"&gt;
+      &lt;hl7-edi:schemas&gt;
+        &lt;hl7-edi:schema&gt;/hl7/v2_3_1/ADT_A01.esl&lt;/hl7-edi:schema&gt;
+      &lt;/hl7-edi:schemas&gt;
+    &lt;/hl7-edi:config&gt;
+    &lt;http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/&gt;
+    &lt;file:connector name="File" autoDelete="true" streaming="true" validateConnections="true" doc:name="File"/&gt;
+    &lt;flow name="hl7HttpTransport"&gt;
+        &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/hl7" doc:name="HTTP"/&gt;
+        &lt;hl7-edi:read config-ref="HL7_EDI__Configuration" doc:name="HL7 EDI"/&gt;
+        &lt;dw:transform-message doc:name="Transform Message"&gt;
+            &lt;dw:set-payload&gt;&lt;![CDATA[%dw 1.0
+%output application/java
+---
+{
+	Name: "ACK",
+	MSH: payload.ACK."01_MSH",
+	Id: "ACK",
+	Data: {
+		ACK: payload.ACK
+	}
+}]]&gt;&lt;/dw:set-payload&gt;
+        &lt;/dw:transform-message&gt;
+        &lt;hl7-edi:write config-ref="HL7_EDI__Configuration" messageStructure="InMessage" doc:name="HL7 EDI"/&gt;
+        &lt;logger message="#[payload]" level="INFO" doc:name="Logger"/&gt;
+    &lt;/flow&gt;
+    &lt;flow name="hl7MllpTransport"&gt;
+        &lt;hl7:inbound-endpoint host="localhost" port="8083" responseTimeout="10000" exchange-pattern="request-response" doc:name="HL7 MLLP" disableTransportTransformer="true"/&gt;
+        &lt;hl7-edi:read config-ref="HL7_EDI__Configuration" doc:name="HL7 EDI"/&gt;
+        &lt;dw:transform-message doc:name="Transform Message"&gt;
+            &lt;dw:set-payload&gt;&lt;![CDATA[%dw 1.0
+%output application/java
+---
+{
+	Name: "ACK",
+	MSH: payload.ACK."01_MSH",
+	Id: "ACK",
+	Data: {
+		ACK: payload.ACK
+	}
+}]]&gt;&lt;/dw:set-payload&gt;
+        &lt;/dw:transform-message&gt;
+        &lt;hl7-edi:write config-ref="HL7_EDI__Configuration" messageStructure="ACK" doc:name="HL7 EDI"/&gt;
+        &lt;logger message="#[payload]" level="INFO" doc:name="Logger"/&gt;
+    &lt;/flow&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hl7-connector-reference"><a class="anchor" href="#hl7-connector-reference"></a>HL7 Connector Reference</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The HL7 Transformer Module lets you send and receive HL7 messages. Received messages are parsed and converted to map structures, while sent messages are generated from matching map structures.</p>
+</div>
+<div class="paragraph">
+<p><strong>Additional Info:</strong></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Item</th>
+<th class="tableblock halign-left valign-top">Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires Mule Enterprise License</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires Entitlement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mule Version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.5.0 or higher</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="configuration-for-hl7-edi-config"><a class="anchor" href="#configuration-for-hl7-edi-config"></a>Configuration for hl7-edi:config</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of this configuration. With this name, the attribute can be later referenced.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><br>
+<strong>Required</strong>: yes<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">appNamespaceIdSelf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Namespace ID for Mule in message header (MSH segment). If this value is set, it effects both send and receive message handling. On the receive side, the MSH Receiving Application identification Namespace ID must match this value. On the send side, this value is used as the MSH Sending Application identification Namespace ID unless overridden in either the send configuration or the message parameters.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">appUniversalIdSelf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Universal ID for Mule in message header (MSH segment). If this value is set, it effects both send and receive message handling. On the receive side, the MSH Receiving Application identification Universal ID must match this value. On the send side, this value is used as the MSH Sending Application identification Universal ID unless overridden in either the send configuration or the message parameters.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">appUniversalIdTypeSelf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Universal ID Type for Mule in message header (MSH segment). If this value is set, it effects both send and receive message handling. On the receive side, the MSH Receiving Application identification Universal ID Type must match this value. On the send side, this value is used as the MSH Sending Application identification Universal ID Type unless overridden in either the send configuration or the message parameters.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">appNamespaceIdPartner</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Namespace ID for Partner in message header (MSH segment). If this value is set, it effects both send and receive message handling. On the receive side, the MSH Sending Application identification Namespace ID must match this value. On the send side, this value is used as the MSH Receiving Application identification Namespace ID unless overridden in either the send configuration or the message parameters.Application Universal ID for Partner in message header (MSH segment). If this value is set, it effects both send and receive message handling. On the receive side, the MSH Sending Application identification Universal ID must match this value. On the send side, this value is used as the MSH Receiving Application identification Universal ID unless overridden in either the send configuration or the message parameters.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">appUniversalIdPartner</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Universal ID for Partner in message header (MSH segment). If this value is set, it effects both send and receive message handling. On the receive side, the MSH Sending Application identification Universal ID must match this value. On the send side, this value is used as the MSH Receiving Application identification Universal ID unless overridden in either the send configuration or the message parameters.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">appUniversalIdTypePartner</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Universal ID Type for Partner in message header (MSH segment). If this value is set, it effects both send and receive message handling. On the receive side, the MSH Sending Application identification Universal ID Type must match this value. On the send side, this value is used as the MSH Receiving Application identification Universal ID Type unless overridden in either the send configuration or the message parameters.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">validateHL7Version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <code>true</code>, the HL7 message version in HL7 message is validated against the version configured in the global element and the message is rejected if configured version is different from the version of the message received.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html" class="bare">http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eventMessageMap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path to a YAML file defining the mapping from event code to message code to message structure identifier. If working with multiple message structures this mapping definition supports using MSH-9-1 and MSH-9-2 to determine the message structure when MSH-9-3 is not present in a message. If only a single message structure is present in the schema(s) that message structure is used for parsing all messages, and if MSH-9-3 is present in a message the MSH-9-1 and MSH-9-2 values are ignored.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">processingId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value to match for MSH-11-1 processing ID. If set, only messages with the specified processing ID will be accepted for processing; messages with other processing ID values, or with no processing ID specified, will be rejected with an exception.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="https://mulesoft.github.io/hl7-connector/3.0.0/apidocs/javadocs/org/mule/modules/edi/hl7/HL7ProcessingId.html">HL7ProcessingId</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">genericExtensionPattern</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java regular pattern for segment names to be treated as generic extension segments. If specified, segment names matching this pattern are allowed anywhere in the message and are converted to maps of string values for elements and composites.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">missingRequiredValueFail</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fail when a required value is missing flag. If <code>true</code>, a message with this error is rejected; if <code>false</code>, the value is ignored and the message is not rejected. In either case the error is logged and reported in an ERR segment.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">valueLengthErrorFail</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fail when a received value length is outside the allowed range flag. If <code>true</code>, a message with this error is rejected; if <code>false</code>, the value is used anyway and the message is not rejected. In either case the error is logged and reported in an ERR segment.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">invalidCharacterInValueFail</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fail when a received value contains invalid characters flag. If <code>true</code>, a message with this error is rejected; if <code>false</code>, the character is either passed through or substituted and the message is not rejected. In either case the error is reported in an ERR segment.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wrongValuesRepeatsFail</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fail when a received value is repeated too many times. If <code>true</code>, a message with this error is rejected; if <code>false</code>, the value is accepted and the message is not rejected. In either case the error is reported in an ERR segment.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unknownSegmentFail</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fail when an unknown segment is present in a message. If <code>true</code>, a message with this error is rejected; if <code>false</code>, the segment is ignored and the message is not rejected. In either case the error is reported in an ERR segment.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">segmentOutOfOrderFail</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fail when a segment is out of order in a message set. If <code>true</code>, a message with this error is rejected; if <code>false</code> and the segment can be reordered, the message is not rejected. In either case the error is reported in an ERR segment.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unusedSegmentPresentFail</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fail when a segment marked as Unused is included in a message set. If <code>true</code>, a message with this error is rejected; if <code>false</code>, the message is not rejected and the unused segment is ignored. In either case the error is reported in an ERR segment.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wrongSegmentsRepeatsFail</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fail when a segment occurs too many times in a message set. If <code>true</code>, a message with this error is rejected; if <code>false</code>, the message is not rejected. In either case the error is reported in an ERR segment.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fieldSeparator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default data element separator character. The configured value is used by default for all output messages, but can be overridden at the message level.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Character.html">Character</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">componentSeparator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default component separator character. The configured value is used by default for all output messages, but can be overridden at the message level.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Character.html">Character</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <strong>^</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">subcompSeparator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default sub component separator character. The configured value is used by default for all output messages, but can be overridden at the message level.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Character.html">Character</a> <br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <strong>'</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">escapeCharacter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default escape character. The configured value is used by default for all output messages, but can be overridden at the message level.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Character.html">Character</a> <br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <strong>&#92;</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">characterEncoding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Character encoding for HL7 messages.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="https://mulesoft.github.io/hl7-connector/3.0.0/apidocs/javadocs/org/mule/modules/edi/hl7/HL7CharacterEncoding.html">HL7CharacterEncoding</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: ASCII</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">schemas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of paths for schemas to be used by module. The paths may be either for file system or classpath.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a>&gt;<br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="processors"><a class="anchor" href="#processors"></a>Processors</h3>
+<div class="sect3">
+<h4 id="read"><a class="anchor" href="#read"></a>Read</h4>
+<div class="paragraph">
+<p><strong>&lt;hl7-edi:read&gt;</strong></p>
+</div>
+<div class="paragraph">
+<p>Transforms an ER7-encoded HL7 message into a Map:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{@sample.xml ../../../doc/hl7-transformer-connector.xml.sample hl7-transformer:read}</pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">config-ref</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify which config to use.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><br>
+<strong>Required</strong>: yes<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ediContent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native EDI content.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html">InputStream</a><br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <code>&#x0023;[payload]</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Returns</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Return Java Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://docs.oracle.com/javase/8/docs/api/java/util/Map.html">Map</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a>,http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html[Object]&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Map</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">config-ref</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify which config to use.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><br>
+<strong>Required</strong>: yes<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">messageStructure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HL7 Message and Event Type.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><br>
+<strong>Required</strong>: yes<br>
+<strong>Default</strong>: none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map containing the HL7 message.</p>
+<p class="tableblock"><strong>Type</strong>: <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Map.html">Map</a>&lt;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a>,http://docs.oracle.com/javase/8/docs/api/java/lang/Object.html[Object]&gt;<br>
+<strong>Required</strong>: no<br>
+<strong>Default</strong>: <code>&#x0023;[payload]</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Returns</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Return Java Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map String containing the HL7 Message.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../../_theme/scripts/menu.js"></script>
+<script src="../../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="devkit, barn, connector, javadoc, studio, ui">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-connector-devkit/3.8/tutorial-barn-connector.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Tutorial - Barn Connector // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="devkit-tutorial.html">DevKit Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="anypoint-connector-development.html">Anypoint Connector Development</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-your-dev-environment.html">Setting Up Your Development Environment</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-java-sdk-based-connector.html">Creating a Java SDK-Based Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-soap-connector.html">Creating a SOAP Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-rest-connector.html">Creating a REST Connector</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="connector-project-structure.html">Connector Project Structure</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-api-access.html">Setting Up API Access</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="authentication.html">Authentication</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="authentication-methods.html">Authentication Methods</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="connector-connection-strategies.html">Connector Connection Strategies</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="connection-management.html">Connection Management</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="oauth-v1.html">OAuth V1</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="oauth-v2.html">OAuth V2</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="http-basic-authentication.html">HTTP Basic Authentication</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="no-authentication.html">No Authentication</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="connector-attributes-and-operations.html">Connector Attributes and Operations</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-message-sources.html">Defining Message Sources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-message-processors.html">Creating Message Processors</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-connector-attributes.html">Defining Connector Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="complex-data-types-attributes.html">Complex Data Types Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="mime-type-and-encoding.html">MIME Type and Encoding</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-testing-framework.html">Connector Testing Framework</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="installing-and-testing-your-connector-in-studio.html">Installing and Testing Your Connector in Studio</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="extending-connector-functionality.html">Extending Connector Functionality</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="adding-datasense.html">Adding DataSense</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="multiple-level-datasense-support.html">Multiple Level DataSense Support</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense-query-language.html">Adding DataSense Query Language</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-query-pagination-support.html">Adding Query Pagination Support</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="building-a-batch-enabled-connector.html">Building a Batch Enabled Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="shading-libraries.html">Shading Libraries</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="connector-reference-documentation.html">Connector Reference Documentation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="packaging-your-connector-for-release.html">Packaging Your Connector for Release</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="connector-certification-program-guidelines.html">Connector Certification Program Guidelines</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="anypoint-connector-examples.html">Anypoint Connector Examples</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tutorial-barn-connector.html">Tutorial - Barn Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-using-a-java-sdk.html">Creating a Connector Using a Java SDK</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-soap-service-via-cxf-client.html">Creating a Connector for a SOAP Service Via CXF Client</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-restful-api-using-restcall-annotations.html">Creating a Connector for a RESTful API using @RestCall Annotations</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="annotation-reference.html">Annotation Reference</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Tutorial - Barn Connector</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs/edit/v3.7/modules/ROOT/content/tutorial-barn-connector.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Tutorial - Barn Connector</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document describes the steps needed to build, install, and test a connector in Anypoint Studio.</p>
+</div>
+<div class="paragraph">
+<p>The following tutorial describes how to create a simple connector that displays "Mule has been placed in the barn" in a browser. You can use the user interface for the connector in Anypoint Studio to change which animal is put in the barn.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="before-creating-a-connector"><a class="anchor" href="#before-creating-a-connector"></a>Before Creating a Connector</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html">Java 7</a></p>
+</li>
+<li>
+<p><a href="http://maven.apache.org/download.cgi">Maven</a></p>
+</li>
+<li>
+<p><a href="http://www.mulesoft.org/download-mule-esb-community-edition">Studio</a></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Start Anypoint Studio.</p>
+</li>
+<li>
+<p>Configure Maven:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click <strong>Anypoint Studio</strong> &gt; <strong>Preferences</strong> &gt; <strong>Anypoint Studio</strong> &gt; <strong>Maven Settings</strong>. In DevKit 3.7, when you first create a connector, if Maven is not configured, you are prompted to install it.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Install the DevKit Plugin:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click <strong>Install New Software</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Work with</strong> &gt; <strong>Anypoint Addons Update Site</strong> &gt; <strong>Anypoint Devkit Plugin</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Next</strong>, <strong>Finish</strong>, and restart Studio.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-a-connector-project"><a class="anchor" href="#creating-a-connector-project"></a>Creating a Connector Project</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create your initial Barn connector. Use <strong>File</strong> &gt; <strong>New</strong> &gt; <strong>Project</strong> &gt; <strong>Anypoint Connector Project</strong>. Name the connector <strong>Barn</strong>. You can leave all other fields the same. Click <strong>Finish</strong>. You can ignore any warning messages in the Studio Console.</p>
+</li>
+<li>
+<p>Review the scaffolded connector:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">/**
+ * (c) 2003-2015 MuleSoft, Inc. The software in this package is published under the terms of the CPAL v1.0 license,
+ * a copy of which has been included with this distribution in the LICENSE.md file.
+ */
+package org.mule.modules.barn;
+import org.mule.api.annotations.ConnectionStrategy;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.param.Default;
+import org.mule.modules.barn.strategy.ConnectorConnectionStrategy;
+/**
+ * Anypoint Connector
+ *
+ * @author MuleSoft, Inc.
+ */
+@Connector(name="barn", schemaVersion="1.0", friendlyName="Barn")
+public class BarnConnector
+{
+    /**
+     * Configurable
+     */
+    @Configurable
+    @Default("value")
+    private String myProperty;
+    @ConnectionStrategy
+    ConnectorConnectionStrategy connectionStrategy;
+    /**
+     * Custom processor
+     *
+     * {@sample.xml ../../../doc/barn-connector.xml.sample barn:my-processor}
+     *
+     * @param content Content to be processed
+     * @return Some string
+     */
+    @Processor
+    public String myProcessor(String content) {
+        /*
+         * MESSAGE PROCESSOR CODE GOES HERE
+         */
+        return content;
+    }
+    /**
+     * Set property
+     *
+     * @param myProperty My property
+     */
+    public void setMyProperty(String myProperty) {
+        this.myProperty = myProperty;
+    }
+    /**
+     * Get property
+     */
+    public String getMyProperty() {
+        return this.myProperty;
+    }
+    public ConnectorConnectionStrategy getConnectionStrategy() {
+        return connectionStrategy;
+    }
+    public void setConnectionStrategy(ConnectorConnectionStrategy connectionStrategy) {
+        this.connectionStrategy = connectionStrategy;
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="coding-a-connector"><a class="anchor" href="#coding-a-connector"></a>Coding a Connector</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To code the connector:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In Studio, open the main Java file,  <strong><code>src/main/java/org/mule/modules/barn/BarnConnector.java</code></strong></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/barnjava.png" alt="BarnJava">
+</div>
+</div>
+</li>
+<li>
+<p>Paste the following code in the connector class, before the final closing curly brackets, and after the existing <code>@Processor</code> block:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">/**
+ * Custom processor that places an animal in the barn.
+ *
+ * {@sample.xml ../../../doc/barn-connector.xml.sample barn:putInBarn}
+ *
+ * @param animal Name of the animal to be place in the barn
+ * @return returns processed message
+ */
+@Processor(friendlyName="Put an animal in the barn")
+public String putInBarn(@Placement(group="Parameters")
+  @FriendlyName("The animal's name") String animal) {
+        return animal + " has been placed in the barn";
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The path name in the <code>@Sample</code> statement indicates the path to the Javadoc *.xml.sample file in Studio–it&#8217;s not a filesystem path. For each Javadoc sample file in your connector, specify corresponding statements in the xml.sample file.<br>
+<br>
+The line starting with <code>@Processor</code> identifies the processor function, which specifies the user interface for the connector.<br>
+The line starting with <code>@FriendlyName</code> indicates what the UI elements that display in the browser when the connector runs in Anypoint Studio.</p>
+</div>
+<div class="paragraph">
+<p>This code changes the operation name to "Put an animal in the barn", and changes the Animal prompt to "The animal&#8217;s name". After inserting, <code>@Placement</code> and <code>@FriendlyName</code> are underscored as an error condition. Mouse over each annotation and select the <strong>import</strong> command from the popup menu to add import commands to your connector:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/barnimportanno2.png" alt="BarnImportAnno2">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/barnimportannotation.png" alt="BarnImportAnnotation">
+</div>
+</div>
+</li>
+<li>
+<p>Add loading statements for future Javadoc documentation in your connector by providing map-payload statements:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Open <strong>doc/barn-connector.xml.sample:</strong></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;!-- BEGIN_INCLUDE(barn:my-processor) --&gt;
+  &lt;barn:my-processor config-ref="" content="#[map-payload:content]" /&gt;
+&lt;!-- END_INCLUDE(barn:my-processor) --&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Include one BEGIN/END block for each <code>@Processor</code> statement block in your connector. For the second <code>@Processor</code> statement block, add these lines:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">&lt;!-- BEGIN_INCLUDE(barn:my-processor) --&gt;
+  &lt;barn:put-in-barn config-ref="" animal="#[map-payload:content]" /&gt;
+&lt;!-- END_INCLUDE(barn:my-processor) --&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Save this file.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Disable spell checking by mousing over text with a red underline and clicking <strong>Disable spell checking</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/barndisablespellchecking.png" alt="BarnDisableSpellChecking">
+</div>
+</div>
+</li>
+<li>
+<p>The completed connector code appears as follows:</p>
+<div class="paragraph">
+<p>View the Completed Connector&#8217;s Code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">/**
+ * (c) 2003-2014 MuleSoft, Inc. The software in this package is published under the terms of the CPAL v1.0 license,
+ * a copy of which has been included with this distribution in the LICENSE.md file.
+ */
+package org.mule.modules.barn;
+import org.mule.api.annotations.ConnectionStrategy;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.display.FriendlyName;
+import org.mule.api.annotations.display.Placement;
+import org.mule.api.annotations.param.Default;
+import org.mule.modules.barn.strategy.ConnectorConnectionStrategy;
+/**
+ * Anypoint Connector
+ *
+ * @author MuleSoft, Inc.
+ */
+@Connector(name="barn", schemaVersion="1.0", friendlyName="Barn")
+public class BarnConnector
+{
+    /**
+     * Configurable
+     */
+    @Configurable
+    @Default("value")
+    private String myProperty;
+    @ConnectionStrategy
+    ConnectorConnectionStrategy connectionStrategy;
+    /**
+     * Custom processor
+     *
+     * {@sample.xml ../../../doc/barn-connector.xml.sample barn:my-processor}
+     *
+     * @param content Content to be processed
+     * @return Some string
+     */
+    @Processor
+    public String myProcessor(String content) {
+        /*
+         * MESSAGE PROCESSOR CODE GOES HERE
+         */
+        return content;
+    }
+    /**
+     * Custom processor that places an animal in the barn.
+     *
+     * {@sample.xml ../../../doc/barn-connector.xml.sample barn:putInBarn}
+     *
+     * @param animal Name of the animal to be place in the barn
+     * @return returns processed message
+     */
+    @Processor(friendlyName="Put an animal in the barn")
+    public String putInBarn(@Placement(group="Parameters")
+      @FriendlyName("The animal's name") String animal) {
+            return animal + " has been placed in the barn";
+    }
+    /**
+     * Set property
+     *
+     * @param myProperty My property
+     */
+    public void setMyProperty(String myProperty) {
+        this.myProperty = myProperty;
+    }
+    /**
+     * Get property
+     */
+    public String getMyProperty() {
+        return this.myProperty;
+    }
+    public ConnectorConnectionStrategy getConnectionStrategy() {
+        return connectionStrategy;
+    }
+    public void setConnectionStrategy(ConnectorConnectionStrategy connectionStrategy) {
+        this.connectionStrategy = connectionStrategy;
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="identifying-your-connector-in-studio"><a class="anchor" href="#identifying-your-connector-in-studio"></a>Identifying Your Connector in Studio</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you create an Anypoint Connector Project, Studio creates the <code>@Connector</code> annotation containing a name, schema version, and friendly name.</p>
+</div>
+<div class="paragraph">
+<p>Connectors use the <code>@Connector</code> annotation to describe the contents of a connector. The <code>friendlyName</code> parameter defines the connector&#8217;s label in the Studio palette.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">@Connector(name="barn", schemaVersion="1.0", friendlyName="Barn")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After you install your connector in Studio, when users create a Mule Project, the friendlyName identifies your connector:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/connector-display.png" alt="connector display">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-your-connector"><a class="anchor" href="#installing-your-connector"></a>Installing Your Connector</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install your project: Right-click the connector project&#8217;s name in Package Explorer, and click <strong>Anypoint Connector</strong> &gt; <strong>Install or Update</strong>.</p>
+</li>
+<li>
+<p>Follow the prompts to accept the details, the terms of the license agreement, and installing software with unsigned content. Restart Studio for the changes to take effect. The connector then becomes available to include in a Mule Project.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-a-mule-project-with-your-connector"><a class="anchor" href="#creating-a-mule-project-with-your-connector"></a>Creating a Mule Project With Your Connector</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>After Studio restarts, create a Mule project using <strong>File</strong> &gt; <strong>New</strong> &gt; <strong>Mule Project</strong>.</p>
+</li>
+<li>
+<p>Search for "http" and drag the HTTP connector to the canvas. The default settings are correct.</p>
+</li>
+<li>
+<p>Search for "barn" and drag the Barn connector to the canvas. <br>
+The canvas appears as:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/barnflow.png" alt="BarnFlow">
+</div>
+</div>
+<div class="paragraph">
+<p>To configure the Barn connector:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click the green plus:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/barnpanel1.png" alt="BarnPanel1">
+</div>
+</div>
+</li>
+<li>
+<p>Ensure that the screen appears as follows and click <strong>OK</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/barnpanel2.png" alt="BarnPanel2">
+</div>
+</div>
+<div class="paragraph">
+<p>The two values for My Property and My Strategy Property are supplied by the default connector. You can ignore these.</p>
+</div>
+</li>
+<li>
+<p>In the first screen, click <strong>Operation</strong> and click <strong>Put in barn</strong>. In the <strong>Animal</strong> field specify a name such as the<strong> <code>Mule</code></strong> animal:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/barnpanel3.png" alt="BarnPanel3">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Deploy your Mule project by clicking <strong>Run</strong> &gt; <strong>Run As</strong> &gt; <strong>Mule Application</strong>.</p>
+</li>
+<li>
+<p>Open a browser and set the address to <a href="http://0.0.0.0:8081" class="bare">http://0.0.0.0:8081</a> - The browser displays:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/barnbrowser.png" alt="BarnBrowser">
+</div>
+</div>
+</li>
+<li>
+<p>You can change the Animal value, save your project, and refresh your browser to put other animals in the barn.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>NEXT STEP:</strong>  Implement <a href="authentication.html">authentication</a> in your connector</p>
+</li>
+<li>
+<p>More tutorials? See <a href="anypoint-connector-examples.html">Anypoint Connector Examples</a></p>
+</li>
+<li>
+<p><a href="installing-and-testing-your-connector-in-studio.html">Building and Installing your Connector</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

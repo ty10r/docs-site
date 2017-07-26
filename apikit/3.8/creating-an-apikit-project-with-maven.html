@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="apikit, maven, raml">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/apikit/3.8/creating-an-apikit-project-with-maven.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Creating an APIkit Project with Maven // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">APIkit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-tutorial.html">Simple REST API Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-tutorial-jsonplaceholder.html">Consuming a Web Service Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-for-soap.html">SOAP Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-using.html">Using APIkit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="walkthrough-deploy-to-runtime.html">Deploying an APIkit Project</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-an-odata-api-with-apikit.html">Creating an OData API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-odata-extension-reference.html">APIkit OData Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-an-apikit-project-with-maven.html">Creating an APIkit Project with Maven</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-basic-anatomy.html">APIkit Anatomy</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-reference.html">APIkit Reference</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Creating an APIkit Project with Maven</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/apikit-docs/edit/v3.8/modules/ROOT/content/creating-an-apikit-project-with-maven.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Creating an APIkit Project with Maven</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can add APIkit components to an existing maven project, for example a legacy project that you want to modernize using RAML and APIkit by using Maven commands. You need to have <a href="http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html">Apache Maven</a> installed on your local system.</p>
+</div>
+<div class="paragraph">
+<p>Familiarity with the following topics is recommended:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>mvn man page or <a href="http://www.manpagez.com/man/1/mvn/">mvn help page</a></p>
+</li>
+<li>
+<p><a href="../../mule-runtime/3.8/maven/using-maven-with-mule.html">Using Maven with Mule</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="maven-settings-file"><a class="anchor" href="#maven-settings-file"></a>Maven Settings File</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You need a Maven <code>settings.xml</code> file in the <code>.m2</code> directory that includes the Mule repositories. If you do not have a <code>settings.xml</code> file, create one that points to Mule Repositories. Add the following content to your <code>settings.xml</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;settings&gt;
+    &lt;pluginGroups&gt;
+        &lt;pluginGroup&gt;org.mule.tools&lt;/pluginGroup&gt;
+    &lt;/pluginGroups&gt;
+    &lt;profiles&gt;
+        &lt;profile&gt;
+            &lt;activation&gt;
+                &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+            &lt;/activation&gt;
+            &lt;id&gt;mule-repositories&lt;/id&gt;
+            &lt;repositories&gt;
+                &lt;repository&gt;
+                    &lt;id&gt;mulesoft-releases&lt;/id&gt;
+                    &lt;name&gt;MuleSoft Releases Repository&lt;/name&gt;
+                    &lt;url&gt;http://repository.mulesoft.org/releases/&lt;/url&gt;
+                &lt;/repository&gt;
+                &lt;repository&gt;
+                    &lt;id&gt;mulesoft-snapshots&lt;/id&gt;
+                    &lt;name&gt;MuleSoft Snapshots Repository&lt;/name&gt;
+                    &lt;url&gt;http://repository.mulesoft.org/snapshots/&lt;/url&gt;
+                &lt;/repository&gt;
+            &lt;/repositories&gt;
+            &lt;pluginRepositories&gt;
+                &lt;pluginRepository&gt;
+                    &lt;id&gt;mulesoft-releases&lt;/id&gt;
+                    &lt;name&gt;MuleSoft Releases&lt;/name&gt;
+                    &lt;url&gt;http://repository.mulesoft.org/releases/&lt;/url&gt;
+                &lt;/pluginRepository&gt;
+                &lt;pluginRepository&gt;
+                    &lt;id&gt;mulesoft-snapshots&lt;/id&gt;
+                    &lt;name&gt;MuleSoft Snapshots&lt;/name&gt;
+                    &lt;url&gt;http://repository.mulesoft.org/snapshots/&lt;/url&gt;
+                &lt;/pluginRepository&gt;
+            &lt;/pluginRepositories&gt;
+        &lt;/profile&gt;
+    &lt;/profiles&gt;
+
+&lt;/settings&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="maven-archetype-command"><a class="anchor" href="#maven-archetype-command"></a>Maven Archetype Command</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You use the <code>mvn archetype</code> command to create <a href="apikit-basic-anatomy.html">APIkit parts</a> for the project. Maven stores the instructions for building the project and associated settings in a template called an <em>archetype.</em> APIkit provides a specialized Maven archetype tailored to the needs of creating APIkit projects. It is hosted in Mule&#8217;s public repositories so you don&#8217;t need to download it; you can simply reference its virtual address in your Maven commands.</p>
+</div>
+<div class="paragraph">
+<p>The <code>mvn archetype</code> command creates a new project, directory structure, and an empty <code>api.raml</code> file. The command sets up required dependencies.</p>
+</div>
+<div class="sect2">
+<h3 id="mvn-archetype-parameters"><a class="anchor" href="#mvn-archetype-parameters"></a>mvn archetype parameters</h3>
+<div class="paragraph">
+<p>The <code>mvn archetype</code> parameters define where to find the archetype.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>archetypeGroupId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.mule.tools</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>archetypeArtifactId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>apikit-archetype</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>archetypeVersion</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>3.8.3</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>archetypeRepository</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>http://repository.mulesoft.org/releases</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The archetype version is the APIKit project archetype and the APIKit version used for the generated artifact.</p>
+</div>
+<div class="paragraph">
+<p>You can include the following parameters in the <code>mvn archetype</code> command, using values specific to your project.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>groupId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The standard Maven group Id for the project.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>artifactId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The file name Maven will give to your project.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>package</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Java package under which the message processor will live.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The version of the new project.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If you don&#8217;t include these parameters, Maven prompts you for values upon execution.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="generating-a-new-project"><a class="anchor" href="#generating-a-new-project"></a>Generating a New Project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To generate a new project in Studio:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In a terminal, navigate to the directory where you want to create the project, then run the following Maven generation command from within your Anypoint Studio workspace folder, for example <code>C:\Users\Aaron\workspace</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre>mvn archetype:generate -DarchetypeGroupId=org.mule.tools -DarchetypeArtifactId=apikit-archetype -DarchetypeVersion=3.8.3 -DarchetypeRepository=http://repository.mulesoft.org/releases -DgroupId=org.mule.tools -DartifactId=APIKit-project -Dpackage=package-name -Dversion=1.0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Maven stores the project files in the Studio workspace.</p>
+</div>
+</li>
+<li>
+<p>Maven prompts you to ensure that the parameters listed above are correct. Type <strong><code>Y</code></strong>, then press <strong>enter</strong> to confirm. <br></p>
+<div class="paragraph">
+<p>Maven generates a new project in the specified directory that includes the latest Mule runtime available.  To use an earlier runtime, open the pom.xml file and change the contents of the <code>&lt;mule.version&gt;</code> XML tag.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="preparing-a-raml-file"><a class="anchor" href="#preparing-a-raml-file"></a>Preparing a RAML File</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="apikit-basic-anatomy.html"><code>api.raml</code></a> file in <code>src/main/api</code> is initially empty. To populate the file, complete one of the following tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Edit the <code>api.raml</code> file to define your API.</p>
+</li>
+<li>
+<p>Use the provided <a href="./_attachments/sample_RAML.raml">sample RAML file</a> as an example.</p>
+</li>
+<li>
+<p>If you have a RAML file defines your API:<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Replace the contents of the default <code>api.raml</code> file with your description<br>
+OR</p>
+</li>
+<li>
+<p>Edit the <code>mule-config.xml</code> file to point to the file that contains your RAML description.</p>
+<div class="paragraph">
+<p>In the <code>apikit:config</code> tag, the attribute <code>raml</code> specifies the file from which to acquire the API definition. Replace the default value, <code>api.raml</code>, with the path to the RAML file, as follows.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;apikit:config name="apiConfig" raml="CUSTOM FILE NAME" consoleEnabled="true" consolePath="console" /&gt;</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="generating-backend-flows"><a class="anchor" href="#generating-backend-flows"></a>Generating Backend Flows</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You need to generate <a href="apikit-basic-anatomy.html#backend-flows">backend flows</a> for each resource-action pairing in the RAML you create.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From the command line, navigate to the newly-created folder that contains your project.</p>
+</li>
+<li>
+<p>Run the following Maven command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">mvn org.mule.tools:apikit-maven-plugin:create</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From the information in <code>api.raml</code>, the plugin creates the backend flows.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="importing-the-project-into-anypoint-studio"><a class="anchor" href="#importing-the-project-into-anypoint-studio"></a>Importing the Project into Anypoint Studio</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After creating the basic structure for a project, import the project into Anypoint Studio, and then enhance the backend flows to map RAML resources to actions.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In Studio, under the <strong>File</strong> menu, select <strong>Import</strong>.</p>
+</li>
+<li>
+<p>In the Import wizard, expand the <strong>Mule</strong> folder, then select <code>Maven-based Mule project from pom.xml</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/import-maven.png" alt="import maven">
+</div>
+</div>
+</li>
+<li>
+<p>Complete the remaining steps in the wizard to identify the <strong>name</strong> and <strong>location</strong> of your project&#8217;s <code>pom.xml</code> on your local drive, then click <strong>Finish</strong> to import the project.</p>
+</li>
+<li>
+<p><a href="apikit-using.html#backend-first-design-process">Enhance backend flows</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/mule-management-console/3.2/managing-servers-using-rest-apis.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Managing Servers Using REST APIs // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Mule Management Console</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-mule-server-instances.html">Working with Mule Server Instances</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-users.html">Setting Up Users</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-alerts.html">Viewing Server Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-system-memory.html">Viewing System Memory</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-threads.html">Viewing Threads</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-pools.html">Viewing Server Pools</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="working-with-the-server-configuration-files.html">Working with the Server Configuration Files</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-properties.html">Viewing Server Properties</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-os-resources.html">Viewing Server OS Resources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-jmx-information.html">Viewing JMX Information</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="editing-server-settings.html">Editing Server Settings</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-server-metrics-dashboard.html">Customizing Server Metrics Dashboard</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="installing-the-management-console.html">Installing the Management Console</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="configuring-the-management-console-to-use-an-external-database.html">Configuring the Management Console to Use an External Database</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="installing-the-management-console-with-an-external-database.html">Installing the Management Console with an External Database</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="running-the-webapp-example-with-jboss.html">Running the WebApp Example with JBoss</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="running-the-webapp-example-with-tomcat.html">Running the WebApp Example with Tomcat</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="running-the-webapp-example-with-weblogic.html">Running the WebApp Example with WebLogic</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="how-to-use-the-management-console.html">How to Use the Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="architecture-of-the-management-console.html">Architecture of the Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="troubleshooting-tips.html">Troubleshooting Tips</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-and-debugging-applications.html">Monitoring and Debugging Applications</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-flows.html">Tracking Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="analyzing-message-flows.html">Analyzing Message Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-message-processing.html">Debugging Message Processing</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-the-loan-broker-example-application.html">Debugging the Loan Broker Example Application</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="adding-and-managing-alerts-and-slas.html">Adding and Managing Alerts and SLAs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="how-to-run-the-management-console.html">How to Run the Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="enabling-authentication-through-ldap.html">Enabling Authentication Through LDAP</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="defining-slas-and-alerts.html">Defining SLAs and Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="quick-start-guide-to-mule-esb-server-and-the-management-console.html">Quick Start Guide to Mule ESB Server and the Management Console</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="evaluating-mule-ha-clustering.html">Evaluating Mule HA Clustering</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="analyzing-business-events.html">Analyzing Business Events</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-and-querying-business-events.html">Tracking and Querying Business Events</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="business-events-use-cases.html">Business Events Use Cases</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="configuring-a-database-for-business-event-data-persistence.html">Configuring a Database for Business Event Data Persistence</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="common-tasks.html">Common Tasks</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="validating-the-license.html">Validating the License</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="mule-high-availability-ha-clusters.html">Mule High Availability (HA) Cluster Overview</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-mule-high-availability-ha-clusters.html">Managing Mule High Availability (HA) Clusters</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="creating-or-disbanding-a-cluster.html">Creating or Disbanding a Cluster</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="deploying-redeploying-or-undeploying-an-application-to-or-from-a-cluster.html">Deploying, Redeploying, or Undeploying an Application To or From a Cluster</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="monitoring-a-cluster.html">Monitoring a Cluster</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="using-the-management-console-api.html">Using the Management Console APIs</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-servers-using-rest-apis.html">Managing Servers Using REST APIs</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="create-a-server-group.html">Create a Server Group</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="create-or-update-a-file.html">Create or Update a File</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="delete-a-file.html">Delete a File</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="delete-a-server.html">Delete a Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="delete-a-server-group.html">Delete a Server Group</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="get-a-file.html">Get a File</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="get-a-server.html">Get a Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="get-a-server-group.html">Get a Server Group</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="get-file-metadata.html">Get File Metadata</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="list-all-server-groups.html">List All Server Groups</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="list-all-servers.html">List All Servers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="register-a-server.html">Register a Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="restart-a-server.html">Restart a Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="update-a-file.html">Update a File</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="update-a-server.html">Update a Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="update-a-server-group.html">Update a Server Group</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="managing-clusters-using-rest-apis.html">Managing Clusters Using REST APIs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="managing-applications-using-rest-apis.html">Managing Applications Using REST APIs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="managing-deployments-using-rest-apis.html">Managing Deployments Using REST APIs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="managing-flows-in-a-server-using-rest-apis.html">Managing Flows in a Server Using REST APIs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="managing-flows-in-a-cluster-using-rest-apis.html">Managing Flows in a Cluster Using REST APIs</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-alert-destinations-and-notifications.html">Setting Up Alert Destinations and Notifications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="automating-tasks-using-scripts.html">Automating Tasks Using Scripts</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-users-and-roles.html">Managing Users and Roles</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="customizing-the-dashboard.html">Customizing the Dashboard</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-management-console-for-performance-tuning.html">Using the Management Console for Performance Tuning</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-flows.html">Working with Flows</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="maintaining-the-server-application-repository.html">Maintaining the Server Application Repository</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="analyzing-flow-processing-and-payloads.html">Analyzing Flow Processing and Payloads</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="accessing-server-logs.html">Accessing Server Logs</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Managing Servers Using REST APIs</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/mule-management-console-docs/edit/v3.2/modules/ROOT/content/managing-servers-using-rest-apis.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Managing Servers Using REST APIs</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>[ <a href="#managing-servers">Managing Servers</a> ] [ <a href="#working-with-server-groups">Working with Server Groups</a> ]</p>
+</div>
+<div class="paragraph">
+<p>The management console provides REST APIs that you can use to programmatically access much of the console&#8217;s functionality. Among the operations that you can request with the REST APIs are operations related to managing servers. This includes registering new servers, managing existing servers, starting and restarting servers, as well as managing server groups.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+See <a href="using-the-management-console-api.html">Using the Management Console APIs</a> for an overview of the REST APIs, including a basic example of use, and a summary of returned status codes and error handling codes.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This page summarizes the REST APIs for managing servers, server groups, and files. In addition, it describes the properties that you can specify when you query or update servers, server groups, and files. You&#8217;ll find tables below that summarize each of the REST APIs. You&#8217;ll also find links embedded in the API summary tables for more details about each API method.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> The notation \{mmc base} refers to the console base address.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="managing-servers"><a class="anchor" href="#managing-servers"></a>Managing Servers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You use the server APIs to find, create, update, and delete servers. In addition, you can perform other operations related to managing a server, such as restarting a server or uploading files to a server. You can perform operations on all servers, individual servers, and server-related files.</p>
+</div>
+<div class="paragraph">
+<p>The three tables below summarize the operations you can perform on servers and the resource you specify to invoke each operation. The tables are divided into those operations that you can perform on all servers, those that are specific to a single server, and those that operate on files. Click on the link for a specific task to get more details about performing that task using its REST API.</p>
+</div>
+<div class="paragraph">
+<p>Notice that the same resource may carry out different operations depending on the HTTP command you use to invoke it. For example, the resource /mmc/api/servers lists all servers if you invoke it with the GET command. If you call it with the POST command, the same resource registers a server.</p>
+</div>
+<div class="paragraph">
+<p><strong>APIs for All Servers</strong><br>
+These API(s) may be performed on all servers.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Task</th>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">HTTP Invocation Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="list-all-servers.html">List All Servers</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/servers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lists all servers on the resource</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>APIs for Individual Servers</strong><br>
+Use these APIs to perform operations on individual servers. Note that &lt;myServerId&gt; is a placeholder for the URL identifying a specific server.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Task</th>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">HTTP Invocation Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="get-a-server.html">Get a Server</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/servers/&lt;myServerId&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gets a server identifier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="register-a-server.html">Register a Server</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/servers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Registers a new server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="restart-a-server.html">Restart a Server</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/servers/&lt;myServerId&gt;/restart</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restarts a server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="update-a-server.html">Update a Server</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/servers/&lt;myServerId&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Updates a server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PUT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="delete-a-server.html">Delete a Server</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/servers/&lt;myServerId&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deletes a server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DELETE</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>APIs for Actions on Files</strong><br>
+Use these APIs to perform actions on files that are located on the specified server. Note that &lt;myServerId&gt; is a placeholder for the URL identifying a specific server. Also note that &lt;myFile.xml&gt; is a placeholder for the path to a file.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Task</th>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">HTTP Invocation Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="get-a-file.html">Get a File</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/servers/&lt;myServerId&gt;/files/&lt;myFile.xml&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gets a file located on the specified server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="get-file-metadata.html">Get File Metadata</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/servers/files/&lt;myServerId&gt;/\\ &lt;myFile.xml&gt;?metadata=true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gets the metadata for a file located on the specified server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="create-or-update-a-file.html">Create or Update a File</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/servers/files/&lt;myServerId&gt;/\\ &lt;myFile.xml&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Updates or creates a file located on the specified server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="update-a-file.html">Update a File</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/servers/files/&lt;myServerId&gt;/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Updates a file located on the specified server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PUT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="delete-a-file.html">Delete a File</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/servers/files/&lt;myServerId&gt;/\\ &lt;myFile.xml&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deletes a file located on the server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DELETE</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For example, the following is a request to list all servers.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">GET http://{mmc base}/api/servers</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is what the response might look like.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">200 OK
+Content-Type: application/json
+Server: Apache-Coyote/1.1
+Date: Sun, 08 Nov 2009 00:12:55 GMT
+{
+  "total" : 1,
+  "data" : [
+    {
+      "name" : "Test",
+      "id" : "local$b15ecba1-9f97-4b16-8127-9b137cdbb2e1",
+      "href" : "http://localhost:9003/mmc/api/servers/local$b15ecba1-9f97-4b16-8127-9b137cdbb2e1",
+      "agentUrl" : "https://localhost:7777/mmc-support",
+      "hostIp" : "192.168.0.13",
+      "muleServerId" : "d9505d40-2c5c-11df-b832-a32a5a09ec4e",
+      "started" : "Wed Mar 10 16:51:59 CET 2010",
+      "version" : "2.2.5",
+      "agents": [
+        {
+          "name" : "mmc-support",
+          "description" : "Mule Management Console Support (0.0.0.0:7777)"
+        },
+        {
+          "name" : "jmx-agent",
+          "description" : "JMX Agent"
+         }
+       ],
+      "groups" : [
+        {
+          "name" : "Development",
+          "href" : "http://localhost:8080/mmc/api/serverGroups/73d89173-290e-4cb3-a61c-e11deb74767d"
+        }
+      ],
+      "status": "STOPPED",
+      "runningServices" : 3,
+      "pausedServices" : 0,
+      "stoppedServices": 0
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Keep in mind that unless otherwise noted, all resources (methods) that either return or accept a type, use the server JSON type, as shown in the response received from the <code>/mmc/api/servers</code> API shown above.</p>
+</div>
+<div class="sect2">
+<h3 id="server-properties"><a class="anchor" href="#server-properties"></a>Server Properties</h3>
+<div class="paragraph">
+<p>To request server operations successfully, you need to know the server properties. This section provides a brief listing of the properties you pass to and from server-specific methods. All method calls require that you set values for at least some of these properties. The response you get back includes the properties and the values they hold at the time of the method call.</p>
+</div>
+<div class="paragraph">
+<p>In addition to illustrating a JSON type, the previous code example illustrates the values that a response might return for a set of server properties, such as <code>name,</code> and <code>agentUrl</code>. The JSON object includes all values set at the time of the call for the server properties. The table below shows the server properties.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the server</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The unique ID of the server</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">href</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The URL where the server is located</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">agentUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The URL used for communication between the console and the Mule server. This is the complete URL designation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hostIp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The host IP of the Mule server, such as 192.168.0.13</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">muleServerId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Mule server id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">started</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The date and time when the server was last started</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The status of the server (eg. STOPPED, OK, etc)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Mule version in use, for example, 2.2.5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">agents</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A list of agents running on the server. Additional agent properties are shown below.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">groups</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A list of the groups to which this server belongs. Additional group properties are shown below.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">runningServices</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of running services</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pausedServices</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of paused services</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stoppedServices</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of stopped services</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="agent-properties"><a class="anchor" href="#agent-properties"></a>Agent Properties</h3>
+<div class="paragraph">
+<p>The following table shows the sub-properties of the <code>agents</code> property. You can see examples of these properties in the above JSON code sample.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the agent, such as, <code>jmx-agent</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The description of the agent, such as JMX-Agent</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="server-group-properties"><a class="anchor" href="#server-group-properties"></a>Server Group Properties</h3>
+<div class="paragraph">
+<p>The table below shows the sub-properties of the <code>groups</code> server property. The previous JSON code sample provides examples of the values of these properties.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the server group</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">href</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The URL where the server group is located</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="working-with-server-groups"><a class="anchor" href="#working-with-server-groups"></a>Working with Server Groups</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As with servers, you can perform operations on all server groups at once or on an individual server group. All resources/methods that return or accept a type, except where noted, use the server group JSON type. Here is an example of a server group JSON type returned for a server group-related request:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">{
+  "name" : "renamed",
+  "id" : "c4f7d8ce-21a7-4730-9447-37d8a7f8aab0",
+  "serverCount" : 0,
+  "href" : "http://localhost:8080/mmc/api/serverGroups/c4f7d8ce-21a7-4730-9447-37d8a7f8aab0"
+}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="server-group-properties-2"><a class="anchor" href="#server-group-properties-2"></a>Server Group Properties</h3>
+<div class="paragraph">
+<p>The following properties apply to server groups. These properties appear in a response when you retrieve a server group. You specify the server group <code>name</code> property when taking actions such as creating a new server group.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the group</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The unique ID of the group</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">href</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The URL where the server group is located</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serverCount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of servers currently in this group</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="apis-for-server-groups"><a class="anchor" href="#apis-for-server-groups"></a>APIs for Server Groups</h3>
+<div class="paragraph">
+<p>The tables below summarize the operations you can perform on either an individual server group or on all server groups. The tables indicate the resource you specify for each operation and the HTTP command to invoke the resource.</p>
+</div>
+<div class="paragraph">
+<p><strong>All Server Groups</strong></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Task</th>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">HTTP Invocation Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="list-all-server-groups.html">List All Server Groups</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/serverGroups</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lists all server groups on the resource</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Individual Server Groups</strong><br>
+Use these resources to perform operations on individual server groups. Be sure to substitute the identifier of the specific server group for &lt;serverGroupId&gt;.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Task</th>
+<th class="tableblock halign-left valign-top">Resource</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">HTTP Invocation Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="create-a-server-group.html">Create a Server Group</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/serverGroups</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creates a new server group</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="get-a-server-group.html">Get a Server Group</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/serverGroups/&lt;serverGroupId&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gets a server group</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="update-a-server-group.html">Update a Server Group</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/serverGroups/&lt;serverGroupId&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Updates a server group</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PUT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="delete-a-server-group.html">Delete a Server Group</a><br></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{mmc base}/api/serverGroups/&lt;serverGroupId&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deletes a server group</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DELETE</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><a href="using-the-management-console-api.html">&lt;&lt; Previous: <strong>Using the Management Console API</strong></a></p>
+</div>
+<div class="paragraph">
+<p><a href="managing-clusters-using-rest-apis.html">Next: <strong>Managing Clusters Using REST APIs</strong></a> &gt;&gt;</p>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

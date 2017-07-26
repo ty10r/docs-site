@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-connector-devkit/3.8/creating-a-connector-for-a-soap-service-via-cxf-client.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Creating a Connector for a SOAP Service Via CXF Client // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="setup.html">Setup</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-your-dev-environment.html">Setting Up Your Development Environment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-your-api-access.html">Setting up your API access</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="authentication.html">Authentication</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="basic-auth.html">Basic Auth</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="oauth-v1.html">OAuth V1</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="oauth-v2.html">OAuth V2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="authentication-methods.html">Authentication Method</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="defining-attributes-operations-and-data-model.html">Defining Attributes Operations and Data Model</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-message-sources.html">Defining Message Sources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-message-processors.html">Creating Message Processors</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-connector-attributes.html">Defining Connector Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="complex-data-types-attributes.html">Complex Data Types Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense.html">Adding DataSense</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense-query-language.html">Adding DataSense Query Language</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-query-pagination-support.html">Adding Query Pagination Support</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="building-a-batch-enabled-connector.html">Building a Batch Enabled Connector</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-and-testing-your-connector-in-studio.html">Installing and Testing Your Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-reference-documentation.html">Creating Reference Documentation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="packaging-your-connector-for-release.html">Packaging Your Connector for Release</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="implementing-a-rest-connector.html">Implementing a REST Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="annotation-reference.html">Annotation Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="anypoint-connector-examples.html">Anypoint Connector Examples</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="barn-connector.html">Barn Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-using-a-java-client-library.html">Creating a Connector Using a Java Client Library</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-soap-service-via-cxf-client.html">Creating a Connector for a SOAP Service Via CXF Client</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-restful-api-using-jersey.html">Creating a Connector for a RESTful API Using Jersey</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-restful-api-using-restcall-annotations.html">Creating a Connector for a RESTful API using @RESTCall Annotations</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Creating a Connector for a SOAP Service Via CXF Client</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs/edit/v3.5/modules/ROOT/content/creating-a-connector-for-a-soap-service-via-cxf-client.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Creating a Connector for a SOAP Service Via CXF Client</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This example demonstrates how to build a connector for a SOAP service, given a WSDL file. The client is built using Apache CXF, which can generate most of the required code for you from the WSDL metadata.</p>
+</div>
+<div class="paragraph">
+<p>Apache CXF is a complex framework that enables many different models for accessing Web services. The focus here is on a straightforward path that should produce results for any service for which you have a WSDL. For more details on the full range of possible client models using CXF, see the Apache CXF documentation for <a href="http://cxf.apache.org/docs/how-do-i-develop-a-client.html">building clients</a>, especially <a href="http://cxf.apache.org/docs/developing-a-consumer.html">Developing a Consumer with CXF</a>.</p>
+</div>
+<div class="paragraph">
+<p>The model for development is:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>create the major classes that make up the connector</p>
+</li>
+<li>
+<p>add authentication-related functionality to the <code>@Connector</code> class</p>
+</li>
+<li>
+<p>apply a test-driven development process to add individual operations to the connector</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/6-package.png" alt="6 package">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes you are familiar with SOAP Web Services, including WSDL definitions. (You can get important concepts and terms on WSDL from the <a href="http://www.w3.org/TR/wsdl20/">WSDL specifications at the W3C web site</a>.) It further assumes you have some understanding of CXF and wsdl2java and how they can be used to build Web Service clients. (For background on these topics, see <a href="http://cxf.apache.org/docs/how-do-i-develop-a-client.html">Apache CXF: How do I develop a client?</a> and especially <a href="http://cxf.apache.org/docs/developing-a-consumer.html">Apache CXF: Developing a Consumer with CXF</a>.) This document also assumes you have created a Maven project for a connector as described in <a href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cxf-based-connector-architecture"><a class="anchor" href="#cxf-based-connector-architecture"></a>CXF-Based Connector Architecture</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Follow the steps in this document to build the connector client, starting with the WSDL that describes the service.</p>
+</div>
+<div class="paragraph">
+<p>Starting with a new connector project (possibly with authentication logic built in):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Obtain a WSDL file for the service and add it to the project</p>
+</li>
+<li>
+<p>Run wsdl2java from Maven to generate CXF stub client code that can call the service operations</p>
+</li>
+<li>
+<p>Write a proxy class that wraps the stub client</p>
+</li>
+<li>
+<p>Build a DevKit Connector class whose methods call methods on the proxy class</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The final architecture looks like the image below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/create-connector-architecture.png" alt="create connector architecture">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-example-service-sunsetriseservice"><a class="anchor" href="#the-example-service-sunsetriseservice"></a>The Example Service: SunSetRiseService</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Web service for the demo is the <a href="http://www.webservicex.net/ws/WSDetails.aspx?WSID=65&amp;CATID=12">SunSetRise Web service</a> at <a href="http://www.webservicex.net/">WebserviceX.net</a>.</p>
+</div>
+<div class="paragraph">
+<p>The request and response are both represented by an XML document that specifies:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Your location in latitude and longitude. Note that you need use negative latitude values for the Southern Hemisphere and negative longitude values for the Eastern Hemisphere. Coordinates are in decimal rather than degrees, minutes and seconds</p>
+</li>
+<li>
+<p>A target date for providing sunrise and sunset times</p>
+</li>
+<li>
+<p>The time zone of the final results (offset from GMT).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here is a sample request message of GetSunSetRiseTime in SOAP 1.1 to get sunrise and sunset times:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+   xmlns:web="http://www.webserviceX.NET/"&gt;
+   &lt;soap:Header/&gt;
+   &lt;soap:Body&gt;
+      &lt;web:GetSunSetRiseTime&gt;
+         &lt;web:L&gt;
+            &lt;web:Latitude&gt;0.0&lt;/web:Latitude&gt;
+            &lt;web:Longitude&gt;0.0&lt;/web:Longitude&gt;
+            &lt;web:TimeZone&gt;0&lt;/web:TimeZone&gt;
+            &lt;web:Day&gt;21&lt;/web:Day&gt;
+            &lt;web:Month&gt;3&lt;/web:Month&gt;
+            &lt;web:Year&gt;2011&lt;/web:Year&gt;
+         &lt;/web:L&gt;
+      &lt;/web:GetSunSetRiseTime&gt;
+   &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The SunSetTime and SunRiseTime elements are omitted because those are computed by the service. The response includes them populated.</p>
+</div>
+<div class="paragraph">
+<p>Here is a sample response:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;soap:Envelope
+    xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+    &lt;soap:Body&gt;
+        &lt;GetSunSetRiseTimeResponse
+            xmlns="http://www.webserviceX.NET/"&gt;
+            &lt;GetSunSetRiseTimeResult&gt;
+                &lt;Latitude&gt;0&lt;/Latitude&gt;
+                &lt;Longitude&gt;0&lt;/Longitude&gt;
+                &lt;SunSetTime&gt;17.9877033&lt;/SunSetTime&gt;
+                &lt;SunRiseTime&gt;5.87441826&lt;/SunRiseTime&gt;
+                &lt;TimeZone&gt;0&lt;/TimeZone&gt;
+                &lt;Day&gt;21&lt;/Day&gt;
+                &lt;Month&gt;3&lt;/Month&gt;
+                &lt;Year&gt;2011&lt;/Year&gt;
+            &lt;/GetSunSetRiseTimeResult&gt;
+        &lt;/GetSunSetRiseTimeResponse&gt;
+    &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that SunSetTime and SunRiseTime are in decimal rather than hours, minutes and seconds.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-the-cxf-stub-client-from-wsdl"><a class="anchor" href="#creating-the-cxf-stub-client-from-wsdl"></a>Creating the CXF Stub Client from WSDL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All SOAP APIs provide a WSDL file that defines how and at what endpoint and ports a SOAP Web service can be called, what operations and parameters it expects, and what data types (simple or complex) the operations return.</p>
+</div>
+<div class="paragraph">
+<p>CXF includes the wsdl2java utility that can generate Java stub client code to call any method on the service, and marshall and unmarshall request parameters and responses as Java objects for further processing. This generated stub client becomes the core of your connector.</p>
+</div>
+<div class="paragraph">
+<p>The sections below describe the steps to create the stub client and add it to your project.</p>
+</div>
+<div class="sect2">
+<h3 id="preparations"><a class="anchor" href="#preparations"></a>Preparations</h3>
+<div class="paragraph">
+<p>You must download a copy of the WSDL file to your local disk and include it in your Maven project.  For the Web service in this example, you can download the WSDL from <code>http://www.webservicex.net/sunsetriseservice.asmx?WSDL</code>.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="setting-up-your-api-access.html">Setting Up Your API Access</a> for steps that may be required to gain access to other APIs, including how to get access to the WSDL file.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="step-1-adding-the-wsdl-file-to-your-project"><a class="anchor" href="#step-1-adding-the-wsdl-file-to-your-project"></a>Step 1: Adding the WSDL File to Your Project</h3>
+<div class="paragraph">
+<p>In your project, under <code>/src/main/resources</code>, create a subdirectory called <code>wsdl</code> and copy your WSDL there.</p>
+</div>
+<div class="paragraph">
+<p>For this example, copy the WSDL to  <code>/src/main/resources/wsdl/sunsetriseservice.wsdl</code>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+You must save this WSDL file as a local file in your project. The CXF release included with Mule fails if you reference a remote WSDL by its URL directly.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="step-2-updating-your-pom-file"><a class="anchor" href="#step-2-updating-your-pom-file"></a>Step 2: Updating Your POM File</h3>
+<div class="paragraph">
+<p>The default POM file (where Maven stores all instructions for the build) does not include properties, dependencies and Maven plugins specific to accessing SOAP using CXF. You must add these manually into your <code>pom.xml</code> file.</p>
+</div>
+<div class="sect3">
+<h4 id="adding-wsdl-and-cxf-properties-to-the-pom"><a class="anchor" href="#adding-wsdl-and-cxf-properties-to-the-pom"></a>Adding WSDL and CXF Properties to the POM</h4>
+<div class="paragraph">
+<p>The first block of code adds several properties to your POM. These identify the CXF version to use, set the package name, and specify the location of the WSDL in the project and in the connector jar file.</p>
+</div>
+<div class="listingblock">
+<div class="title">SOAP CXF Connector: Maven Properties:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;!-- Maven should build the update site Zip file --&gt;
+&lt;devkit.studio.package.skip&gt;false&lt;/devkit.studio.package.skip&gt;
+
+&lt;!--  CXF version info --&gt;
+&lt;cxf.version&gt;2.5.9&lt;/cxf.version&gt;
+&lt;cxf.version.boolean&gt;2.6.0&lt;/cxf.version.boolean&gt;
+
+&lt;!-- Package name, WSDL file path and location in the JAR --&gt;
+&lt;connector.package&gt;
+    org.tutorial.sunsetrise.definition
+&lt;/connector.package&gt;
+&lt;connector.wsdl&gt;
+    ${basedir}/src/main/resources/wsdl/sunsetriseservice.wsdl
+&lt;/connector.wsdl&gt;
+&lt;connector.wsdlLocation&gt;
+    classpath:wsdl/sunsetriseservice.wsdl
+&lt;/connector.wsdlLocation&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add these elements within the <code>&lt;properties&gt;</code> element, and update <code>connector.wsdl</code> and <code>connector.wsdlLocation</code> to reflect the name of your WSDL file.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="adding-a-maven-dependency-on-cxf"><a class="anchor" href="#adding-a-maven-dependency-on-cxf"></a>Adding a Maven Dependency on CXF</h4>
+<div class="paragraph">
+<p>The second POM update adds a dependency on the CXF module included in Mule:</p>
+</div>
+<div class="listingblock">
+<div class="title">CXF Dependency:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.mule.modules&lt;/groupId&gt;
+    &lt;artifactId&gt;mule-module-cxf&lt;/artifactId&gt;
+    &lt;version&gt;${mule.version}&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Copy and paste this block of code inside the <code>&lt;dependencies&gt;</code> tag, near the end of the file, alongside the other &lt;dependency&gt; elements that are already listed. You do not have to edit this block, just add it.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="adding-a-maven-plugin-for-wsdl2java"><a class="anchor" href="#adding-a-maven-plugin-for-wsdl2java"></a>Adding a Maven Plugin for wsdl2java</h4>
+<div class="paragraph">
+<p>The third POM update is a <code>wsdl2java</code> Maven plugin, that generates Java classes from the WSDL file. Paste this plugin element in the <code>&lt;plugins&gt;</code> element inside the <code>&lt;build&gt;</code> element. (Make sure you don&#8217;t place it in the <code>&lt;pluginManagement&gt;</code> element.)</p>
+</div>
+<div class="paragraph">
+<p>You do not have to edit this block, just add it.</p>
+</div>
+<div class="listingblock">
+<div class="title">Wsdl2Java POM Update:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.cxf&lt;/groupId&gt;
+  &lt;artifactId&gt;cxf-codegen-plugin&lt;/artifactId&gt;
+  &lt;version&gt;${cxf.version}&lt;/version&gt;
+  &lt;executions&gt;
+     &lt;execution&gt;
+	&lt;!-- Note that validate phase is not the usual phase
+	 to run wsdl2java. This is done because DevKit requires
+	 that the class be generated so it can be used in
+	 the generate-sources phase by DevKit. DevKit generates
+	 code from annotations etc and references the wsdl2java
+	 generated output.
+	--&gt;
+	&lt;phase&gt;validate&lt;/phase&gt;
+	&lt;goals&gt;
+	    &lt;goal&gt;wsdl2java&lt;/goal&gt;
+	&lt;/goals&gt;
+	&lt;configuration&gt;
+	    &lt;wsdlOptions&gt;
+		&lt;wsdlOption&gt;
+	&lt;!-- WSDL file path --&gt;
+	&lt;wsdl&gt;${connector.wsdl}&lt;/wsdl&gt;
+	&lt;!-- Pick up the WSDL from within the JAR --&gt;
+	&lt;wsdlLocation&gt;${connector.wsdlLocation}&lt;/wsdlLocation&gt;
+	&lt;autoNameResolution&gt;true&lt;/autoNameResolution&gt;
+	&lt;extraargs&gt;
+	    &lt;!-- Package Destination --&gt;
+	    &lt;extraarg&gt;-p&lt;/extraarg&gt;
+	    &lt;!-- Name of the output package specified following -p argument
+		to wsdl2java --&gt;
+	    &lt;extraarg&gt;
+		${connector.package}
+	    &lt;/extraarg&gt;
+		&lt;!-- DataMapper compatibility requires that the
+		     boolean getters and setters follow naming conventions
+		     for other getters and setters.
+		--&gt;
+	    &lt;extraarg&gt;-xjc-Xbg&lt;/extraarg&gt;
+	    &lt;extraarg&gt;-xjc-Xcollection-setter-injector&lt;/extraarg&gt;
+	&lt;/extraargs&gt;
+		&lt;/wsdlOption&gt;
+	    &lt;/wsdlOptions&gt;
+	&lt;/configuration&gt;
+     &lt;/execution&gt;
+  &lt;/executions&gt;
+	&lt;dependencies&gt;
+	  &lt;!-- Boolean getters --&gt;
+	  &lt;dependency&gt;
+			&lt;groupId&gt;org.apache.cxf.xjcplugins&lt;/groupId&gt;
+			&lt;artifactId&gt;cxf-xjc-boolean&lt;/artifactId&gt;
+			&lt;version&gt;${cxf.version.boolean}&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;!-- Collection Setters --&gt;
+	  &lt;dependency&gt;
+			&lt;groupId&gt;net.java.dev.vcc.thirdparty&lt;/groupId&gt;
+			&lt;artifactId&gt;collection-setter-injector&lt;/artifactId&gt;
+			&lt;version&gt;0.5.0-1&lt;/version&gt;
+	  &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Notes</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>connector.package</code>, <code>connector.wsdl</code>, and <code>connector.wsdlLocation</code> properties you added are referenced here</p>
+</li>
+<li>
+<p>The xjc-Xbg argument is included to enable wsdl2java to generate getters and setters that follow the naming convention of other Java bean getters and setters. This is required for compatibility with DataSense and DataMapper</p>
+</li>
+<li>
+<p>The wsdl2java code generation is performed during the Maven validate phase. The generated code from wsdl2java is required in the generate-sources phase of the build process, where DevKit code generation references these sources.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Below is the full <code>pom.xml</code> file contents with the required changes for this tutorial.</p>
+</div>
+<div class="listingblock">
+<div class="title">Complete POM file:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;org.tutorial&lt;/groupId&gt;
+    &lt;artifactId&gt;sunsetriseconnector&lt;/artifactId&gt;
+    &lt;version&gt;1.0&lt;/version&gt;
+    &lt;packaging&gt;mule-module&lt;/packaging&gt;
+    &lt;name&gt;Sunset Sunrise Service&lt;/name&gt;
+    &lt;properties&gt;
+        &lt;mule.version&gt;3.4.0&lt;/mule.version&gt;
+        &lt;mule.devkit.version&gt;3.4.0&lt;/mule.devkit.version&gt;
+        &lt;junit.version&gt;4.9&lt;/junit.version&gt;
+        &lt;mockito.version&gt;1.8.2&lt;/mockito.version&gt;
+        &lt;jdk.version&gt;1.6&lt;/jdk.version&gt;
+
+        &lt;!-- Maven should build the update site Zip file --&gt;
+        &lt;devkit.studio.package.skip&gt;false&lt;/devkit.studio.package.skip&gt;
+        &lt;!--  CXF version info --&gt;
+        &lt;cxf.version&gt;2.5.9&lt;/cxf.version&gt;
+        &lt;cxf.version.boolean&gt;2.6.0&lt;/cxf.version.boolean&gt;
+        &lt;!-- WSDL file path and location in the JAR --&gt;
+        &lt;connector.wsdl&gt;
+            ${basedir}/src/main/resources/wsdl/sunsetriseservice.wsdl
+        &lt;/connector.wsdl&gt;
+        &lt;connector.wsdlLocation&gt;
+            classpath:wsdl/sunsetriseservice.wsdl
+        &lt;/connector.wsdlLocation&gt;
+        &lt;connector.package&gt;
+            org.tutorial.sunsetrise.definition
+        &lt;/connector.package&gt;
+    &lt;/properties&gt;
+    &lt;build&gt;
+        &lt;pluginManagement&gt;
+            &lt;plugins&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.mule.tools.devkit&lt;/groupId&gt;
+                    &lt;artifactId&gt;mule-devkit-maven-plugin&lt;/artifactId&gt;
+                    &lt;version&gt;${mule.devkit.version}&lt;/version&gt;
+                    &lt;extensions&gt;true&lt;/extensions&gt;
+                &lt;/plugin&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.eclipse.m2e&lt;/groupId&gt;
+                    &lt;artifactId&gt;lifecycle-mapping&lt;/artifactId&gt;
+                    &lt;version&gt;1.0.0&lt;/version&gt;
+                    &lt;configuration&gt;
+                        &lt;lifecycleMappingMetadata&gt;
+                            &lt;pluginExecutions&gt;
+                                &lt;pluginExecution&gt;
+                                    &lt;pluginExecutionFilter&gt;
+                                        &lt;groupId&gt;org.mule.tools.devkit&lt;/groupId&gt;
+                                        &lt;artifactId&gt;mule-devkit-maven-plugin&lt;/artifactId&gt;
+                                        &lt;versionRange&gt;[2.0,)&lt;/versionRange&gt;
+                                        &lt;goals&gt;
+                                            &lt;goal&gt;attach-test-resources&lt;/goal&gt;
+                                            &lt;goal&gt;filter-resources&lt;/goal&gt;
+                                            &lt;goal&gt;generate-sources&lt;/goal&gt;
+                                        &lt;/goals&gt;
+                                    &lt;/pluginExecutionFilter&gt;
+                                    &lt;action&gt;
+                                        &lt;ignore /&gt;
+                                    &lt;/action&gt;
+                                &lt;/pluginExecution&gt;
+                            &lt;/pluginExecutions&gt;
+                        &lt;/lifecycleMappingMetadata&gt;
+                    &lt;/configuration&gt;
+                &lt;/plugin&gt;
+            &lt;/plugins&gt;
+        &lt;/pluginManagement&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.cxf&lt;/groupId&gt;
+                &lt;artifactId&gt;cxf-codegen-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${cxf.version}&lt;/version&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;!-- Note that this phase is not the usual phase to run wsdl2java...
+                            this is done because DevKit requires the class be generated so it can be
+                            inspected in another phase --&gt;
+                        &lt;phase&gt;validate&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;wsdl2java&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;wsdlOptions&gt;
+                                &lt;wsdlOption&gt;
+                                    &lt;!-- wsdl file path --&gt;
+                                    &lt;wsdl&gt;${connector.wsdl}&lt;/wsdl&gt;
+                                    &lt;!-- pick up the WSDL from within the JAR --&gt;
+                                    &lt;wsdlLocation&gt;${connector.wsdlLocation}&lt;/wsdlLocation&gt;
+                                    &lt;autoNameResolution&gt;true&lt;/autoNameResolution&gt;
+                                    &lt;extraargs&gt;
+                                        &lt;!-- Package Destination --&gt;
+                                        &lt;extraarg&gt;-p&lt;/extraarg&gt;
+                                        &lt;extraarg&gt;
+                                            ${connector.package}
+                                        &lt;/extraarg&gt;
+                                        &lt;!-- For DataMapper compatibility, force boolean getters and setters
+                                            to follow naming convention for other getters and setters. --&gt;
+                                        &lt;extraarg&gt;-xjc-Xbg&lt;/extraarg&gt;
+                                        &lt;extraarg&gt;-xjc-Xcollection-setter-injector&lt;/extraarg&gt;
+                                    &lt;/extraargs&gt;
+                                &lt;/wsdlOption&gt;
+                            &lt;/wsdlOptions&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+                &lt;dependencies&gt;
+                    &lt;!-- Boolean getters --&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;org.apache.cxf.xjcplugins&lt;/groupId&gt;
+                        &lt;artifactId&gt;cxf-xjc-boolean&lt;/artifactId&gt;
+                        &lt;version&gt;${cxf.version.boolean}&lt;/version&gt;
+                    &lt;/dependency&gt;
+                    &lt;!-- Collection Setters --&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;net.java.dev.vcc.thirdparty&lt;/groupId&gt;
+                        &lt;artifactId&gt;collection-setter-injector&lt;/artifactId&gt;
+                        &lt;version&gt;0.5.0-1&lt;/version&gt;
+                    &lt;/dependency&gt;
+                &lt;/dependencies&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.5&lt;/version&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;default-compile&lt;/id&gt;
+                        &lt;configuration&gt;
+                            &lt;compilerArgument&gt;-proc:none&lt;/compilerArgument&gt;
+                            &lt;source&gt;${jdk.version}&lt;/source&gt;
+                            &lt;target&gt;${jdk.version}&lt;/target&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;default-testCompile&lt;/id&gt;
+                        &lt;configuration&gt;
+                            &lt;compilerArgument&gt;-proc:none&lt;/compilerArgument&gt;
+                            &lt;source&gt;${jdk.version}&lt;/source&gt;
+                            &lt;target&gt;${jdk.version}&lt;/target&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.mule.tools.devkit&lt;/groupId&gt;
+                &lt;artifactId&gt;mule-devkit-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${mule.devkit.version}&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.8&lt;/version&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;attach-javadocs&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;jar&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+                &lt;configuration&gt;
+                    &lt;excludePackageNames&gt;org.mule.tooling.ui.contribution:*&lt;/excludePackageNames&gt;
+                    &lt;docletArtifact&gt;
+                        &lt;groupId&gt;org.mule.tools.devkit&lt;/groupId&gt;
+                        &lt;artifactId&gt;mule-devkit-doclet&lt;/artifactId&gt;
+                        &lt;version&gt;${mule.devkit.version}&lt;/version&gt;
+                    &lt;/docletArtifact&gt;
+                    &lt;doclet&gt;org.mule.devkit.doclet.Doclava&lt;/doclet&gt;
+                    &lt;bootclasspath&gt;${sun.boot.class.path}&lt;/bootclasspath&gt;
+                    &lt;additionalparam&gt;
+                        -quiet
+                        -federate JDK http://download.oracle.com/javase/6/docs/api/index.html?
+                        -federationxml JDK
+                        http://doclava.googlecode.com/svn/static/api/openjdk-6.xml
+                        -hdf project.artifactId "${project.artifactId}"
+                        -hdf project.groupId "${project.groupId}"
+                        -hdf project.version "${project.version}"
+                        -hdf project.name "${project.name}"
+                        -hdf project.repo.name
+                        "${project.distributionManagement.repository.name}"
+                        -hdf project.repo.id "${project.distributionManagement.repository.id}"
+                        -hdf project.repo.url
+                        "${project.distributionManagement.repository.url}"
+                        -hdf project.snapshotRepo.name
+                        "${project.distributionManagement.snapshotRepository.name}"
+                        -hdf project.snapshotRepo.id
+                        "${project.distributionManagement.snapshotRepository.id}"
+                        -hdf project.snapshotRepo.url
+                        "${project.distributionManagement.snapshotRepository.url}"
+                        -d ${project.build.directory}/apidocs
+                    &lt;/additionalparam&gt;
+                    &lt;useStandardDocletOptions&gt;false&lt;/useStandardDocletOptions&gt;
+                    &lt;additionalJOption&gt;-J-Xmx1024m&lt;/additionalJOption&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-enforcer-plugin&lt;/artifactId&gt;
+                &lt;version&gt;1.0-alpha-4&lt;/version&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;enforce-maven-version&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;enforce&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;rules&gt;
+                                &lt;requireMavenVersion&gt;
+                                    &lt;version&gt;[3.0.0,)&lt;/version&gt;
+                                &lt;/requireMavenVersion&gt;
+                                &lt;requireJavaVersion&gt;
+                                    &lt;version&gt;[1.6.0,)&lt;/version&gt;
+                                &lt;/requireJavaVersion&gt;
+                            &lt;/rules&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+        &lt;resources&gt;
+            &lt;resource&gt;
+                &lt;filtering&gt;false&lt;/filtering&gt;
+                &lt;directory&gt;src/main/resources&lt;/directory&gt;
+            &lt;/resource&gt;
+            &lt;resource&gt;
+                &lt;filtering&gt;true&lt;/filtering&gt;
+                &lt;directory&gt;src/test/resources&lt;/directory&gt;
+            &lt;/resource&gt;
+        &lt;/resources&gt;
+    &lt;/build&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mule&lt;/groupId&gt;
+            &lt;artifactId&gt;mule-core&lt;/artifactId&gt;
+            &lt;version&gt;${mule.version}&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mule.modules&lt;/groupId&gt;
+            &lt;artifactId&gt;mule-module-spring-config&lt;/artifactId&gt;
+            &lt;version&gt;${mule.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mule.tools.devkit&lt;/groupId&gt;
+            &lt;artifactId&gt;mule-devkit-annotations&lt;/artifactId&gt;
+            &lt;version&gt;${mule.devkit.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.eclipse&lt;/groupId&gt;
+            &lt;artifactId&gt;eclipse-workbench&lt;/artifactId&gt;
+            &lt;version&gt;3.6.1.M20100826-1330&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.eclipse&lt;/groupId&gt;
+            &lt;artifactId&gt;eclipse-runtime&lt;/artifactId&gt;
+            &lt;version&gt;3.6.0.v20100505&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.osgi&lt;/groupId&gt;
+            &lt;artifactId&gt;core&lt;/artifactId&gt;
+            &lt;version&gt;4.3.0&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;${junit.version}&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mockito&lt;/groupId&gt;
+            &lt;artifactId&gt;mockito-all&lt;/artifactId&gt;
+            &lt;version&gt;${mockito.version}&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mule.tests&lt;/groupId&gt;
+            &lt;artifactId&gt;mule-tests-functional&lt;/artifactId&gt;
+            &lt;version&gt;${mule.version}&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mule.modules&lt;/groupId&gt;
+            &lt;artifactId&gt;mule-module-cxf&lt;/artifactId&gt;
+            &lt;version&gt;${mule.version}&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    &lt;repositories&gt;
+        &lt;repository&gt;
+            &lt;id&gt;mulesoft-releases&lt;/id&gt;
+            &lt;name&gt;MuleSoft Releases Repository&lt;/name&gt;
+            &lt;url&gt;http://repository.mulesoft.org/releases/&lt;/url&gt;
+            &lt;layout&gt;default&lt;/layout&gt;
+        &lt;/repository&gt;
+        &lt;repository&gt;
+            &lt;id&gt;mulesoft-snapshots&lt;/id&gt;
+            &lt;name&gt;MuleSoft Snapshots Repository&lt;/name&gt;
+            &lt;url&gt;http://repository.mulesoft.org/snapshots/&lt;/url&gt;
+            &lt;layout&gt;default&lt;/layout&gt;
+        &lt;/repository&gt;
+        &lt;repository&gt;
+            &lt;id&gt;codehaus-releases&lt;/id&gt;
+            &lt;name&gt;CodeHaus Releases&lt;/name&gt;
+            &lt;url&gt;http://repository.codehaus.org/&lt;/url&gt;
+        &lt;/repository&gt;
+    &lt;/repositories&gt;
+    &lt;pluginRepositories&gt;
+        &lt;pluginRepository&gt;
+            &lt;id&gt;mulesoft-plugin-releases&lt;/id&gt;
+            &lt;name&gt;MuleSoft Release Repository&lt;/name&gt;
+            &lt;url&gt;http://repository.mulesoft.org/releases/&lt;/url&gt;
+            &lt;releases&gt;
+                &lt;enabled&gt;true&lt;/enabled&gt;
+            &lt;/releases&gt;
+            &lt;snapshots&gt;
+                &lt;enabled&gt;false&lt;/enabled&gt;
+            &lt;/snapshots&gt;
+        &lt;/pluginRepository&gt;
+        &lt;pluginRepository&gt;
+            &lt;id&gt;mulesoft-plugin-snapshots&lt;/id&gt;
+            &lt;name&gt;MuleSoft Snapshot Repository&lt;/name&gt;
+            &lt;url&gt;http://repository.mulesoft.org/snapshots/&lt;/url&gt;
+            &lt;releases&gt;
+                &lt;enabled&gt;false&lt;/enabled&gt;
+            &lt;/releases&gt;
+            &lt;snapshots&gt;
+                &lt;enabled&gt;true&lt;/enabled&gt;
+            &lt;/snapshots&gt;
+        &lt;/pluginRepository&gt;
+    &lt;/pluginRepositories&gt;
+&lt;/project&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="step-3-rebuilding-the-project-with-new-dependencies"><a class="anchor" href="#step-3-rebuilding-the-project-with-new-dependencies"></a>Step 3: Rebuilding the Project with New Dependencies</h3>
+<div class="paragraph">
+<p>Now that your POM file includes these additions, you need to perform a clean build and install of your project.</p>
+</div>
+<div class="paragraph">
+<p>You can run the following Maven command on the command line, from the directory where the project exists:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>mvn clean install</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command invokes Maven with two goals:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>clean</code> tells Maven to wipe out all previous build contents</p>
+</li>
+<li>
+<p><code>install</code> tells Maven to use wsdl2java to generate the CXF client code; compile all the code for the project; run any defined tests, package the compiled code as an Eclipse update site, and install it in the local Maven repository. (Any failure during this process, such as a failed build or test, stops Maven from attempting subsequent goals.)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For more details on this process, see <a href="http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html">Introduction to the Build Lifecycle</a> at the Apache Maven project.</p>
+</div>
+<div class="paragraph">
+<p>Your preferred IDE should include support for this process as well. For example, in Eclipse you can select the project, then invoke <strong>Run as &gt; Maven Build.</strong></p>
+</div>
+<div class="paragraph">
+<p>When the build is complete, you finds the files generated by Maven using <code>wsdl2java</code> in the folder <code>target/generated-sources/cxf</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/folder-structure.png" alt="folder structure">
+</div>
+</div>
+<div class="sect3">
+<h4 id="adding-the-generated-source-folder-to-the-ide-build-path"><a class="anchor" href="#adding-the-generated-source-folder-to-the-ide-build-path"></a>Adding the Generated Source Folder to the IDE Build Path</h4>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+If the target/generate-sources/cxf source folder generated in the previous step is not present in your build path, follow the steps below.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You must add the target/generated-sources/cxf folder from the previous step to the build path as recognized by your IDE.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Import or re-import your Maven project to your IDE, as described in "Importing a Maven Project into Eclipse/Mule Studio" in <a href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>.</p>
+</li>
+<li>
+<p>Look for the folder <code>target/generated-sources/cxf</code>.</p>
+</li>
+<li>
+<p>Right-click the folder name, then select <strong>Build Path</strong> &gt; <strong>Use as Source Folder</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/soap1.png" alt="SOAP1">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This tells your IDE that this folder should by default be treated as part of the source code.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+In general, you should not modify these generated classes, because every time wsdl2java is run, these files are recreated. If the service definition changes, update the local WSDL, then run <code>mvn clean</code> before your next build.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="understanding-the-stub-client-code-generated-by-wsdl2java"><a class="anchor" href="#understanding-the-stub-client-code-generated-by-wsdl2java"></a>Understanding the Stub Client Code Generated by WSDL2JAVA</h3>
+<div class="paragraph">
+<p>The Java source files generated correspond to the service as described by the contents of the WSDL.</p>
+</div>
+<div class="paragraph">
+<p>The WSDL describes a service,  accessible via several ports (or endpoints). Each port supports a specific protocol and exposes a set of operations for the service. Each operation accepts and returns objects (in XML format), of types also defined in the WSDL.</p>
+</div>
+<div class="paragraph">
+<p>The generated code from wsdl2java provides a Java stub client implementation for the Web service. Classes and interfaces defined in the generated code correspond to the service, ports, operations, and types defined in the WSDL.</p>
+</div>
+<div class="paragraph">
+<p>For this example, the most interesting generated code is:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>SunSetRiseService</code> class – the top-level class, corresponding to the service</p>
+</li>
+<li>
+<p><code>SunSetRiseServiceSoap</code> interface – exposes an interface that describes the <code>getSunSetRiseTime()</code> method, which corresponds to the operation available on the SOAP port</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once you have these, it takes only a few lines of code to call any operation on the service:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Instantiate the service and the port</p>
+</li>
+<li>
+<p>Call operations against the port object, using the type classes to create arguments and responses as Java objects</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>CXF and JAX-WS Web Service Annotations</strong></p>
+</div>
+<div class="paragraph">
+<p>The generated stub client code makes extensive use of JAX-WS annotations, and can thus be a bit difficult to decipher completely. Fortunately, you do not need to understand the details of this generated code to use it. For details about the individual annotations used, see <a href="http://cxf.apache.org/docs/developing-a-service.html#DevelopingaService-AnnotatingtheCode">Apache CXF: Developing a Service</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Also important is class <code>LatLonDate</code>, the entity class that defines the object used to pass latitude/longitude/date data to and return it from the <code>getSunSetRiseTime()</code> operation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-the-soap-proxy-class"><a class="anchor" href="#creating-the-soap-proxy-class"></a>Creating the SOAP Proxy Class</h3>
+<div class="paragraph">
+<p>Now, build the proxy class that calls the stub client. This class is produced by hand-coding; DevKit does not generate any of this for you.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-the-proxy-client-class-definition"><a class="anchor" href="#creating-the-proxy-client-class-definition"></a>Creating the Proxy Client Class Definition</h3>
+<div class="paragraph">
+<p>Here you create a class of your own – for this example, in package <code>org.tutorial.sunsetrise.client</code>, create class <code>SunSetRiseProxyClient</code>.</p>
+</div>
+<div class="paragraph">
+<p>First, add the following imports:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">import java.net.URL;
+import org.mule.api.ConnectionException;
+import org.mule.api.ConnectionExceptionCode;
+import org.tutorial.sunsetrise.definition.SunSetRiseService;
+import org.tutorial.sunsetrise.definition.SunSetRiseServiceSoap;
+import org.tutorial.sunsetrise.definition.LatLonDate;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, add the following code to the class definition, that creates the service and port instances:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class SunSetRiseProxyClient {
+
+        private SunSetRiseServiceSoap port;
+
+        public SunSetRiseProxyClient() {}
+
+        public void initialize() throws ConnectionException {
+            SunSetRiseService svc;
+            // pick up the WSDL from the location in the JAR
+            URL url= SunSetRiseService.class.getClassLoader().getResource("wsdl/sunsetriseservice.wsdl");
+            svc = new SunSetRiseService(url);
+
+            port = svc.getSunSetRiseServiceSoap();
+
+            // Configure Authentication headers here, if the service uses them.
+            // Add parameters as needed to initialize() to pass them in from connector
+        }
+
+/* Add operations here */
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>initialize()</code> method, which creates the port instance used to call methods on the stub client, is ultimately called from the <code>@Connect</code> method of the <code>@Connector</code> class.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Authentication in the Proxy Client Class</strong></p>
+</div>
+<div class="paragraph">
+<p>This example does not include any authentication. The API at WebserviceX.net used in this sample does not require authentication. It does use the connection management annotations which provide for multitenancy support.</p>
+</div>
+<div class="paragraph">
+<p>In a connector that does support authentication, the proxy class is responsible for providing any authentication-related logic that wraps around the CXF stub class. For example, the proxy client class may have to add headers or additional URL parameters to the request, to pass any tokens or credentials. The <code>@Connector</code> class should have properties that hold credentials that are then passed to the proxy client instance.</p>
+</div>
+<div class="paragraph">
+<p>The different authentication methods are discussed in <a href="authentication-methods.html">Authentication Methods</a>; find your authentication method and refer to the examples for guidance on how to add authentication handling in the proxy client.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="preparing-the-connector-class"><a class="anchor" href="#preparing-the-connector-class"></a>Preparing the @Connector Class</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The main <code>@Connector</code> class wraps the client logic class created in the previous step and includes the annotations needed for a Mule Connector. It defines the methods for operations that your connector  exposes in Mule.</p>
+</div>
+<div class="paragraph">
+<p>The skeleton <code>@Connector</code> class created from the DevKit Maven archetype is the starting point for this work.</p>
+</div>
+<div class="listingblock">
+<div class="title">sunsetriseConnector.java – as generated by DevKit:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/**
+ * This file was automatically generated by the Mule DevKit
+ */
+package org.tutorial.sunsetrise;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Connect;
+import org.mule.api.annotations.ValidateConnection;
+import org.mule.api.annotations.ConnectionIdentifier;
+import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.param.ConnectionKey;
+import org.mule.api.ConnectionException;
+import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.Processor;
+/**
+ * Cloud Connector
+ *
+ * @author MuleSoft, Inc.
+ */
+@Connector(name="sunsetrise", schemaVersion="1.0-SNAPSHOT")
+public class SunsetriseConnector
+{
+    /**
+     * Configurable
+     */
+    @Configurable
+    private String myProperty;
+    /**
+     * Set property
+     *
+     * @param myProperty My property
+     */
+    public void setMyProperty(String myProperty)
+    {
+        this.myProperty = myProperty;
+    }
+    /**
+     * Get property
+     */
+    public String getMyProperty()
+    {
+        return this.myProperty;
+    }
+    /**
+     * Connect
+     *
+     * @param username A username
+     * @param password A password
+     * @throws ConnectionException
+     */
+    @Connect
+    public void connect(@ConnectionKey String username, String password)
+        throws ConnectionException {
+        /**
+         * CODE FOR ESTABLISHING A CONNECTION GOES IN HERE
+         */
+    }
+    /**
+     * Disconnect
+     */
+    @Disconnect
+    public void disconnect() {
+        /**
+         * CODE FOR CLOSING A CONNECTION GOES IN HERE
+         */
+    }
+    /**
+     * Are we connected
+     */
+    @ValidateConnection
+    public boolean isConnected() {
+        return true;
+    }
+    /**
+     * Are we connected
+     */
+    @ConnectionIdentifier
+    public String connectionId() {
+        return "001";
+    }
+    /**
+     * Custom processor
+     *
+     * {@sample.xml ../../../doc/sunsetrise-connector.xml.sample sunsetrise:my-processor}
+     *
+     * @param content Content to be processed
+     * @return Some string
+     */
+    @Processor
+    public String myProcessor(String content)
+    {
+        /**
+         * MESSAGE PROCESSOR CODE GOES HERE
+         */
+        return content;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Make the following changes to the <code>@Connector</code> class skeleton to link the <code>@Connector</code> class to the underlying proxy class and add connection management support.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Import the the proxy client class definition:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">import org.tutorial.sunsetrise.client.SunSetRiseProxyClient;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add to the class a property that holds the instance of the connector class:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class SunSetRiseConnector
+{
+    private SunSetRiseProxyClient client;
+
+...</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To support connection management, add the <code>@Connect</code>, <code>@Disconnect</code>, <code>@ValidateConnection</code> and <code>@ConnectionIdentifier</code> methods inside the class definition, as well as the <code>@ConnectionKey</code>, as shown below.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/**
+     * Connect
+     *
+     * @param username A username
+     * @param password A password. (Ignored, for this connector.)
+     * @throws ConnectionException
+     */
+    @Connect
+    public void connect(@ConnectionKey String username, String password)
+        throws ConnectionException {
+        /**
+         * "Establish connection" here =
+         * "create proxy client and port for later method calls"
+         */
+
+        client = new SunSetRiseProxyClient();
+        client.initialize();
+    }
+    /**
+     * Disconnect
+     */
+    @Disconnect
+    public void disconnect() {
+        client=null;
+    }
+    /**
+     * Are we connected
+     */
+    @ValidateConnection
+    public boolean isConnected() {
+        return (client!=null);
+    }
+    /**
+     * Connection Identifier
+     */
+    @ConnectionIdentifier
+    public String connectionId() {
+        return "SunSetRise-";
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that the <code>@Connect</code> method here instantiates and initializes the port from the proxy client the first time <code>connect()</code> is called, and saves the proxy client instance in <code>client</code>.</p>
+</div>
+<div class="paragraph">
+<p>You may need to add the client class as a variable of the connector. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">SunSetRiseProxyClient client = null ;</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-an-operation-to-the-connector"><a class="anchor" href="#adding-an-operation-to-the-connector"></a>Adding an Operation to the Connector</h3>
+<div class="paragraph">
+<p>Adding an operation to the connector requires the following steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Import any entity classes referenced in the operation</p>
+</li>
+<li>
+<p>Add a method for the operation in the proxy class that calls the stub client</p>
+</li>
+<li>
+<p>Add a <code>@Processor</code> method in the <code>@Connector</code> class that calls the new proxy class method</p>
+</li>
+<li>
+<p>Add any required Javadoc (including XML snippets) to the <code>@Processor</code> method</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You may also have to add <code>@Configurable</code> properties to the connector, depending on your situation.</p>
+</div>
+<div class="paragraph">
+<p>Finally, you should add unit tests to validate the behavior of the operation on a variety of inputs and failure situations.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Apply a Test-Driven Approach</strong></p>
+</div>
+<div class="paragraph">
+<p>Based on MuleSoft experience, most successful connector implementation projects follow a cycle similar to test-driven development when building out operations on a connector:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Determine detailed requirements for the operation – entities (POJOs or Maps with specific content) that it can accept as input or return as responses; any edge cases like invalid values, values of the wrong type, and so on; and what exceptions the operation may raise</p>
+</li>
+<li>
+<p>Implement JUnit tests that cover those requirements</p>
+</li>
+<li>
+<p>Implement enough of your operation to pass those tests, including creating new entity classes and exceptions</p>
+</li>
+<li>
+<p>Update your <code>@Connector</code> class and other code with the comments that populate the Javadoc related to the operation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Iterate until you cover all the scenarios covered in your requirements for a given operation. Then use the same cycle to implement each operation, until your connector functionality is complete.</p>
+</div>
+<div class="paragraph">
+<p>If your client library is well-documented, the expected behaviors for operations should be clear, and you may be able to get away with less unit testing for edge cases and certain exceptional situations – but bear in mind that your connector is only as reliable as the Java client you based it on.</p>
+</div>
+<div class="paragraph">
+<p>You may ask, "When do I try my connector in Studio?" It is useful, as well as gratifying, to manually test each operation as you go, in addition to the automated JUnit tests. Testing each operation allows you to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>See basic operation functionality in action as you work on it, which gives you a sense of progress</p>
+</li>
+<li>
+<p>See how the connector appears in the Studio UI, something the automated unit tests cannot show you. For example, text from the Javadoc comments is used to populate tooltips for the fields in the dialog boxes in the connector</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Manual testing provides the opportunity to polish the appearance of the connector, improve the experience with sensible defaults, and so on.</p>
+</div>
+<div class="paragraph">
+<p>However, this does not diminish the value of the test-driven approach. Many connector development projects have bogged down or produced hard-to-use connectors because of a failure to define tests as you define the operations, which it seems like (and is) more work up front, but does pay off – you get a better result, faster.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-proxy-class-method-for-the-operation"><a class="anchor" href="#adding-a-proxy-class-method-for-the-operation"></a>Adding a Proxy Class Method for the Operation</h3>
+<div class="paragraph">
+<p>For each operation you plan to expose on the final connector, add a method to the proxy class that calls the corresponding method on the stub client. The stub client exposes all methods described in the WSDL; if you do not want to expose all operations of the service in your connector, simply omit the unneeded operations from the proxy client and <code>@Connector</code> class.</p>
+</div>
+<div class="paragraph">
+<p>For this example, update class <code>SunSetRiseProxyClient</code> to expose the <code>getSunSetRiseTime()</code> operation, which uses instances of <code>org.tutorial.sunsetrise.definition.LatLonDate</code> as both parameter and return value. Import <code>LatLonDate</code> into the proxy class definition.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">// Add to imports
+import org.tutorial.sunsetrise.definition.LatLonDate;
+...
+// Add proxy class method for getSunSetRiseTime() operation
+  public LatLonDate getSunSetRiseTime(LatLonDate in) {
+// One can do pre-call validation here on the input parameter etc.
+  return port.getSunSetRiseTime(in);
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Complete code for <code>SunSetRiseProxyClient</code> is:</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.tutorial.sunsetrise.client;
+import java.net.MalformedURLException;
+import java.net.URL;
+import org.mule.api.ConnectionException;
+import org.mule.api.ConnectionExceptionCode;
+import org.tutorial.sunsetrise.definition.SunSetRiseService;
+import org.tutorial.sunsetrise.definition.SunSetRiseServiceSoap;
+import org.tutorial.sunsetrise.definition.LatLonDate;
+public class SunSetRiseProxyClient {
+
+        private SunSetRiseServiceSoap port;
+
+        public SunSetRiseProxyClient() {}
+
+        public void initialize(String wsdlLocation) throws ConnectionException {
+            SunSetRiseService svc;
+
+            try {
+                svc = new SunSetRiseService(new URL(wsdlLocation));
+            } catch (MalformedURLException e) {
+                // This is an Exception used by Mule at Connection Time
+                throw new ConnectionException(ConnectionExceptionCode.UNKNOWN,
+                     "", "The URL of the WSDL location is malformed");
+            }
+
+            port = svc.getSunSetRiseServiceSoap();
+
+            // Configure Authentication headers if the service uses them.
+
+        }
+        public LatLonDate getSunSetRiseTime(LatLonDate in) {
+            return port.getSunSetRiseTime(in);
+        }
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-processor-method-to-connector-class"><a class="anchor" href="#adding-processor-method-to-connector-class"></a>Adding @Processor Method to @Connector Class</h3>
+<div class="paragraph">
+<p>In the <code>@Connector</code> class, you must:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Import any entity classes needed for the operation</p>
+</li>
+<li>
+<p>Add a <code>@Processor</code> method for the operation that calls the operation&#8217;s method on the proxy client class</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For this example, import the <code>LatLonDate</code> class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">import org.tutorial.sunsetrise.definition.LatLonDate;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then add the <code>getSunSetRiseTime()</code> method as shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/**
+ * Custom processor
+ *
+ * {@sample.xml ../../../doc/sunsetrise-connector.xml.sample sunsetrise-connector:get-sun-set-rise-time}
+ *
+ * @param in A LatLonDate object, with latitude, longitude, month, date, and year initialized. Defaults to the payload.
+ * @return Latitude, Longitude, Date, Sunrise and Sunset times, and a Timezone value in a LatLonDate
+ */
+@Processor
+public LatLonDate getSunSetRiseTime(@Optional @Default("#[payload]") LatLonDate in)
+{
+	return client.getSunSetRiseTime(in);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note the use of the <code>@Optional</code> and <code>@Default</code> annotations. These specify that if no argument is specified, the operation should take the payload as its argument.</p>
+</div>
+<div class="paragraph">
+<p>The parameters to the <code>@Processor</code> method are automatically exposed in the property dialog for the connector as operation parameters, with the tooltips determined by the corresponding <code>@param</code> comments.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-xml-configuration-examples-for-javadoc"><a class="anchor" href="#adding-xml-configuration-examples-for-javadoc"></a>Adding XML Configuration Examples for JavaDoc</h3>
+<div class="paragraph">
+<p>DevKit enforces JavaDoc documentation of your methods. One of the things you must add is an XML sample of the inputs required by each connector method. <a href="creating-reference-documentation.html">Learn more about JavaDoc annotations for DevKit</a>.</p>
+</div>
+<div class="paragraph">
+<p>In the <code>@Connector</code> class source code, the following comment text links the method to its required XML sample:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">* {@sample.xml ../../../doc/sunsetrise-connector.xml.sample sunsetrise-connector:get-sun-set-rise-time}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can see the sample code snippets file in the doc folder in the DevKit generated project.</p>
+</div>
+<div class="paragraph">
+<p>DevKit created this file, but you need to populate it with example Mule XML configurations for each operation. For this example, add the following to the file to document the <code>getSunSetRiseTime()</code> operation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;!-- BEGIN_INCLUDE(sunsetrise-connector:get-sun-set-rise-time) --&gt;
+&lt;sunsetrise:get-sun-set-rise-time latitude="40.4" longitude="32.25" month="7" day="12" year="2013" /&gt;
+&lt;!-- END_INCLUDE(sunsetrise-connector:get-sun-set-rise-time) --&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you build the JavaDoc, the sample above is inserted into the documentation.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="creating-reference-documentation.html">Creating DevKit Connector Documentation</a>
+for full information on filling in the JavaDoc for your connector.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="putting-it-all-together"><a class="anchor" href="#putting-it-all-together"></a>Putting It All Together</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can build and test your connector once you have completed at least the following tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Created the stub client with wsdl2java and maven</p>
+</li>
+<li>
+<p>Created the proxy client class with an initialize method and at least one operation</p>
+</li>
+<li>
+<p>Added a <code>@Processor</code> method on the <code>@Connector</code> class that calls the operation</p>
+</li>
+<li>
+<p>Provided the required documentation and unit tests</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once you complete this process, you can locate the SunSetRise connector in the palette.</p>
+</div>
+<div class="paragraph">
+<p>You can build a simple flow to demo the connector, as shown below.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/studio-config-2.png" alt="studio config 2">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/studio-config.png" alt="studio config">
+</div>
+</div>
+<h3 id="xml-editor" class="discrete view">XML Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mule xmlns:sunsetrise="http://www.mulesoft.org/schema/mule/sunsetrise" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+    http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+    http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+    http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+    http://www.mulesoft.org/schema/mule/sunsetrise http://www.mulesoft.org/schema/mule/sunsetrise/1.0-SNAPSHOT/mule-sunsetrise.xsd"&gt;
+    &lt;sunsetrise:config name="SunSetRise_Service" username="foo" doc:name="SunSetRise Service"&gt;
+        &lt;sunsetrise:connection-pooling-profile initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/&gt;
+        &lt;reconnect/&gt;
+    &lt;/sunsetrise:config&gt;
+    &lt;flow name="SunRiseFlowFlow1" doc:name="SunRiseFlowFlow1"&gt;
+        &lt;http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" doc:name="HTTP" path="demoflow"/&gt;
+
+        &lt;sunsetrise:get-sun-set-rise-time config-ref="SunSetRise" doc:name="SunSetRise"&gt;
+            &lt;sunsetrise:in latitude="15" longitude="0" timeZone="0" day="12" month="12" year="2014" sunRiseTime="0.0" sunSetTime="0.0"/&gt;
+        &lt;/sunsetrise:get-sun-set-rise-time&gt;
+        &lt;json:object-to-json-transformer doc:name="Object to JSON"/&gt;
+        &lt;http:response-builder status="200" contentType="application/json" doc:name="HTTP Response Builder"&gt;
+            &lt;http:cache-control noCache="true" noStore="true"/&gt;
+        &lt;/http:response-builder&gt;
+    &lt;/flow&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="next-steps"><a class="anchor" href="#next-steps"></a>Next Steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once you get through the process above, you have a working SOAP CXF connector. You can:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add more operations using the same process</p>
+</li>
+<li>
+<p>Check out other <a href="anypoint-connector-examples.html">examples</a></p>
+</li>
+<li>
+<p>See <a href="installing-and-testing-your-connector-in-studio.html">Installing and Testing Your Connector</a> for the steps to follow in order to build your connector and install it into Studio.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

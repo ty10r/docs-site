@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="anypoint studio, studio, mule esb, version control, versioning, subversion">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-studio/6/using-subversion-with-studio.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Using Subversion with Studio // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Studio</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="setting-up-your-development-environment.html">Development Environment Setup</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="hardware-and-software-requirements.html">Hardware and Software Requirements</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="download-and-launch-anypoint-studio.html">Download and Launch Anypoint Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="install-update-items-in-studio.html">Updating Studio, Mule and Components</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="mule-runtime/adding-community-runtime.html">Installing Mule Runtime in Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="install-update-items-in-studio.html">Installing Extensions</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="install-studio-gw.html">Installing API Gateway Runtime</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="maven/using-maven-in-anypoint-studio.html">Using Maven in Studio</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="maven/maven-support-in-anypoint-studio.html">Maven Support in Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="maven/building-a-mule-application-with-maven-in-studio.html">Building Mule Applications with Maven in Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="maven/enabling-maven-support-for-a-studio-project.html">Enabling Maven Support on Studio Projects</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="maven/importing-a-maven-project-into-studio.html">Importing Maven Projects</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="studio-in-eclipse.html">Studio in Eclipse</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="using-subversion-with-studio.html">Using Subversion</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="preparing-a-gitignore-file.html">Preparing a .gitignore file</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="troubleshooting-studio.html">Troubleshooting Studio Issues</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="basic-studio-tutorial.html">Basic Studio Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="anypoint-studio-features.html">Studio Reference</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="datasense/datasense.html">DataSense</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="about-defining-metadata.html">Defining Metadata</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="testing-connections.html">Testing Connections</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="using-perceptive-flow-design.html">Using Perceptive Flow Design</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datasense/datasense-enabled-connectors.html">DataSense-enabled Connectors</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datasense/using-the-datasense-explorer.html">Using the DataSense Explorer</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="raml-1-0-data-types-support.html">RAML 1.0 Data Types Support</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datasense/datasense-query-editor.html">DataSense Query Editor</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datasense/datasense-query-language.html">DataSense Query Language</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="transform-message/transform-message-component-concept-studio.html">About Transform Message Component</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="transform-message/workflow-create-mapping-ui-studio.html">Workflow: Create a Mapping</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="transform-message/input-output-structure-transformation-studio-task.html">To Define Input and Output Structure of a Transformation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="transform-message/graphically-construct-mapping-studio-task.html">To Graphically Construct a Mapping</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="transform-message/preview-transformation-output-studio-task.html">To Preview the Output of a Transformation</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="transform-message/tips-transform-message-ui-studio.html">Tips on the Transform Message UI</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="transform-message/change-target-output-transformation-studio-task.html">To Change the Target Output of a Transformation</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="transform-message/add-another-output-transform-studio-task.html">To Add Another Output Target</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="transform-message/move-transformations-separate-file-studio-task.html">To Move Transformations to Separate Files</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="studio-visual-debugger.html">Studio Visual Debugger</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="import-export-projects-studio.html">Importing and Exporting</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="api-sync-reference.html">API Sync</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="mule-runtime/changing-runtimes-in-studio.html">Changing Runtimes in Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="studio-policy-editor.html">Studio Policy Editor (Beta)</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="keyboard-shortcuts-in-studio.html">Keyboard Shortcuts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-source-attachments-to-studio.html">Adding Source Attachments to Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="deploy-more-than-one-application.html">Deploy More than One Application</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="mule-runtime/starting-the-runtime-in-cluster-mode-in-studio.html">Starting the Studio Runtime in Cluster Mode</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="datamapper/datamapper-user-guide-and-reference.html">DataMapper (Deprecated)</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper/datamapper-concepts.html">DataMapper Concepts</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper/datamapper-visual-reference.html">DataMapper Visual Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="datamapper/defining-datamapper-input-and-output-metadata.html">Defining DataMapper Input and Output Metadata</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="defining-metadata-using-edit-fields.html">Defining Metadata Using Edit Fields</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="pojo-class-bindings-and-factory-classes.html">POJO Class Bindings and Factory Classes</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="building-a-mapping-flow-in-the-graphical-mapping-editor.html">Building a Mapping Flow in the Graphical Mapping Editor</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="mapping-flow-input-and-output-properties.html">Mapping Flow Input and Output Properties</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper/datamapper-input-error-policy-for-bad-input-data.html">DataMapper Input Error Policy for Bad Input Data</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper/using-datamapper-lookup-tables.html">Using DataMapper Lookup Tables</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper/streaming-data-processing-with-datamapper.html">Streaming Data Processing with DataMapper</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="updating-metadata-in-an-existing-mapping.html">Updating Metadata in an Existing Mapping</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="mapping-elements-inside-lists.html">Mapping Elements Inside Lists</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper/previewing-datamapper-results-on-sample-data.html">Previewing DataMapper Results on Sample Data</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper/datamapper-examples.html">DataMapper Examples</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="datamapper/datamapper-supplemental-topics.html">DataMapper Supplemental Topics</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="choosing-mel-or-ctl2-as-scripting-engine.html">Choosing MEL or CTL2 as Scripting Engine</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper/datamapper-fixed-width-input-format.html">DataMapper Fixed Width Input Format</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper/datamapper-flat-to-structured-and-structured-to-flat-mapping.html">DataMapper Flat-to-Structured and Structured-to-Flat Mapping</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper/including-the-datamapper-plugin.html">Including the DataMapper Plugin</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Using Subversion with Studio</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-studio-docs/edit/v6/modules/ROOT/content/using-subversion-with-studio.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Using Subversion with Studio</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="http://subversion.apache.org/">Subversion</a> facilitates the tracking and versioning of changes developers make to a software project; this enables several people to work on the same project simultaneously without creating conflicts among the changes and additions they make.</p>
+</div>
+<div class="paragraph">
+<p>Studio enables you to work with Subversion (SVN) in two ways: you can save your Studio project to an SVN repository, or you can import your existing projects from SVN into Studio. To move projects between Studio and SVN, you must first install Subversion&#8217;s <strong>Subeclipse plugin</strong> in Studio.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-the-subversion-plugin"><a class="anchor" href="#installing-the-subversion-plugin"></a>Installing the Subversion Plugin</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From Studio, click <strong>Help</strong>, then select <strong>Install New Software&#8230;&#8203;</strong></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/installnewsoftware-copy.png" alt="InstallNewSoftware+copy">
+</div>
+</div>
+</li>
+<li>
+<p>In the <strong>Available Software</strong> panel, click <strong>Add</strong> and provide the following name and URL.</p>
+<div class="paragraph">
+<p><strong>Note</strong>: Use "1.8.x" as shown (the .x is not a placeholder):</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Subclipse Update Site – http://subclipse.tigris.org/update_1.8.x</pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/subeclipse-select.png" alt="subeclipse_select">
+</div>
+</div>
+</li>
+<li>
+<p>Click the check box to select both <strong>Subclipse</strong> and <strong>SVNKit</strong>.</p>
+</li>
+<li>
+<p><em>DESELECT</em>   ` Subclipse Integration for Mylyn 3.x (Optional) 3.0.0  ` so that Studio does not install this portion.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/subeclipse.png" alt="subeclipse">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Next</strong> to continue.</p>
+</li>
+<li>
+<p>In the <strong>Install Details</strong> panel, click <strong>Next</strong> to continue installation.</p>
+</li>
+<li>
+<p>In the <strong>Review Licenses</strong> panel, select <strong>I accept the terms of the license agreement</strong> then click <strong>Finish</strong>.</p>
+</li>
+<li>
+<p>When Mule completes installation of the <code>Subeclipse</code> plugin, click <strong>Restart Now</strong> to complete the installation and restart Studio.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/restart.png" alt="restart">
+</div>
+</div>
+</li>
+<li>
+<p>Starting from Studio&#8217;s application menu, click <strong>Window</strong>, (or <strong>Application Studio</strong> in Mac), and click <strong>Preferences</strong>.</p>
+</li>
+<li>
+<p>Click the expand arrow next to <strong>Team</strong>, then select <strong>SVN</strong>.</p>
+</li>
+<li>
+<p>In the <strong>SVN Interface</strong> pane, use the drop down menu in the <strong>Client</strong> field to select <strong>SVNKit</strong> and click <strong>OK</strong>:</p>
+<div class="literalblock">
+<div class="content">
+<pre>SVNKit (Pure Java) SVNKit v1.7.9.9659`</pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/preferences.png" alt="preferences">
+</div>
+</div>
+</li>
+<li>
+<p>If you are using Mac OS, see <a href="http://subclipse.tigris.org/wiki/JavaHL" class="bare">http://subclipse.tigris.org/wiki/JavaHL</a> for additional information.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="committing-a-project"><a class="anchor" href="#committing-a-project"></a>Committing a Project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can save a Studio project to an SVN repository so that multiple developers can save changes to the project in a single, shared location. When you have completed your individual work on a Studio project, you can check the project into the SVN repository, thus avoiding version conflicts with other users.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This procedure assumes that you have already created and have read-write access to a shared Subversion repository.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In <strong>Package Explorer</strong>, right click your project name, navigate to <strong>Team</strong>, then select <strong>Share Project&#8230;&#8203;</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/team-share.png" alt="team_share">
+</div>
+</div>
+</li>
+<li>
+<p>In the <strong>Share Project</strong> wizard, specify the location of your SVN project in the <strong>URI</strong> field, then click <strong>Next</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/repo-info2.png" alt="repo_info2">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you have already configured an SVN repository in Studio, you can select <strong>Use existing repository location</strong> to commit your project to the existing repository.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/existing-repo.png" alt="existing_repo">
+</div>
+</div>
+</li>
+<li>
+<p>In the next wizard panel, specify the name of your project&#8217;s folder within the SVN repository.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/folder-name.png" alt="folder_name">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Next</strong>, then edit the commit comments, if you wish, to describe the changes you have made to the project.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/comment-2.png" alt="comment_2">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Finish</strong>.</p>
+</li>
+<li>
+<p>Studio displays a panel that gives you the option to automatically open <strong>Synchronize View</strong>, which ensures that your local workspace does not conflict with your team&#8217;s repository. Click <strong>Yes</strong> to open the view and begin synchronizing your workspaces; click <strong>No</strong> to simply return to your local workspace in Studio.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/perspective-1.png" alt="perspective 1">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="checking-out-a-project"><a class="anchor" href="#checking-out-a-project"></a>Checking Out a Project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You may wish to check out a Subversion project and import it into Studio in order to leverage Studio&#8217;s graphical user interface. To do so, you must first install an SVN plugin, then access your SVN project from Studio.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This procedure assumes that you have already created and have read-write access to a shared Subversion repository, and that you have saved to that repository the project you wish to access in Studio.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Starting from Studio&#8217;s application menu, click <strong>Window</strong>, navigate to <strong>Open Perspective,</strong> then select <strong>Other&#8230;&#8203;</strong></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/open-persp-crop.png" alt="open_persp_crop">
+</div>
+</div>
+</li>
+<li>
+<p>In the pop-up panel, select <strong>SVN Repository Exploring</strong>, then click <strong>OK</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/svn-repo.png" alt="SVN_repo">
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+To switch back to the <strong>Mule</strong> perspective, click the Mule icon next to <strong>SVN Repository Exploring</strong>. You can switch back and forth between perspectives as needed.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/perspectives.png" alt="perspectives">
+</div>
+</div>
+</li>
+<li>
+<p>After Studio opens the new perspective, <strong>SVN Repository Exploring</strong>, right-click within the <strong>SVN Repositories</strong> explorer tab, select <strong>New</strong>, then <strong>Repository Location&#8230;&#8203;</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/repo-location2.png" alt="repo_location2">
+</div>
+</div>
+</li>
+<li>
+<p>In the <strong>Url</strong> field, enter the location of your SVN repository and click <strong>Finish</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/add-svn-cropped.png" alt="add_SVN_cropped">
+</div>
+</div>
+</li>
+<li>
+<p>In the SVN Repository Exploring tab, right click your project name and select <strong>Checkout</strong>. Within context of Subversion, you are checking out the project from your SVN repository.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/checkout-2.png" alt="checkout_2">
+</div>
+</div>
+</li>
+<li>
+<p>Click the <strong>Mule</strong> perspective to work on the project in Studio.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mule-pers.png" alt="mule_pers">
+</div>
+</div>
+</li>
+<li>
+<p>After you have completed your changes to your Studio project, you must commit your changes to the SVN repository. In the Mule perspective, click <strong>File</strong>, then <strong>Save</strong>.</p>
+</li>
+<li>
+<p>In <strong>Package Explorer</strong>, right click your project name, navigate to <strong>Team</strong>, then select <strong>Commit&#8230;&#8203;</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/commit-3.png" alt="commit_3">
+</div>
+</div>
+</li>
+<li>
+<p>In the <strong>Commit message</strong> field of the <strong>Commit Changes</strong> panel, enter notes to describe what you have added or changed in the Studio project.</p>
+</li>
+<li>
+<p>Click the check box next to all items listed in the <strong>Files</strong> pane, then click <strong>Commit</strong> to save the changes to the SVN repository.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-connector-devkit/3.4/creating-a-connector-project.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Creating a Connector Project // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="devkit-shortcut-to-success.html">DevKit Shortcut to Success</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-a-devkit-development-environment.html">Setting Up a DevKit Development Environment</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="preparing-api-access-or-a-sandbox-environment.html">Preparing API Access or a Sandbox Environment</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-a-connector-project.html">Creating a Connector Project</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="examining-the-generated-connector-project.html">Examining the Generated Connector Project</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="examining-the-generated-connector-project.html">Examining the Generated Connector Project</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-and-testing-your-connector.html">Installing and Testing Your Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="authentication-and-connection-management.html">Authentication and Connection Management</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="authentication-methods.html">Authentication Methods</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="implementing-connection-management.html">Implementing Connection Management</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="implementing-oauth-1.0-authentication.html">Implementing OAuth 1.0 Authentication</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="implementing-oauth-2.0-authentication.html">Implementing OAuth 2.0 Authentication</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="connector-attributes-operations-and-data-model.html">Connector Attributes Operations and Data Model</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-configurable-connector-attributes.html">Defining Connector Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-to-java-client-library-example.html">Connector to Java Client Library Example</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-to-soap-service-via-cxf-client-example.html">Connector to a SOAP Service via CXF Client Example</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-to-restful-service-with-jersey-client-example.html">Connector to RESTful Service with Jersey Client Example</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-to-restful-api-with-restcall-annotations-example.html">Connector to RESTful API with <code>@RestCall</code> Annotations Example</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-connector-integration-with-esb-and-studio.html">Customizing Connector Integration with ESB and Studio</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-devkit-connector-documentation.html">Creating DevKit Connector Documentation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="packaging-your-connector-for-release.html">Packaging Your Connector for Release</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="devkit-connector-examples.html">DevKit Connector Examples</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="devkit-advanced-topics.html">DevKit Advanced Topics</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="http-callbacks.html">HTTP Callbacks</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="integrating-connectors-with-the-mule-lifecycle.html">Integrating Connectors with the Mule Lifecycle</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="handling-data-types-for-configurable-properties.html">Handling Data Types for Configurable Properties</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="architectural-considerations-with-connectors-and-the-mule-container.html">Architectural Considerations with Connectors and the Mule Container</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="injecting-mule-managers-into-anypoint-connectors.html">Injecting Mule Managers into Anypoint Connectors</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="supporting-datasense-with-dynamic-data-models.html">Supporting DataSense with Dynamic Data Models</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="implementing-datasense-query-language-support.html">Implementing DataSense Query Language Support</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Creating a Connector Project</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs/edit/v3.4/modules/ROOT/content/creating-a-connector-project.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Creating a Connector Project</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document describes how to use Maven and our IDE of choice (IntelliJ or Eclipse/Mule Studio) to create a new Anypoint connector project. DevKit relies on Maven to create the initial structure for a new connector project and to build the project as you develop it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assumptions"><a class="anchor" href="#assumptions"></a>Assumptions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes you have installed Maven with Eclipse, IntelliJ, or Mule Studio to use as your IDE.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-a-new-connector-project-using-maven"><a class="anchor" href="#creating-a-new-connector-project-using-maven"></a>Creating a New Connector Project using Maven</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DevKit comes with a <a href="http://maven.apache.org/guides/introduction/introduction-to-archetypes.html">maven archetype</a> for Mule connectors. Using this archetype, you can create a new project that follows the proper folder structure and that already includes class skeletons containing some predefined elements. This archetype also helps Maven set up all necessary dependencies for a custom connector.</p>
+</div>
+<div class="paragraph">
+<p>To create your new connector project, you can either use Maven through your Java IDE, or use it directly through the command line. The tabs below describe IDE-specific instructions for creating your new connector project.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The recommended method for creating a connector project is to use the command line and then import the project into your IDE of choice.
+</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="command-line-and-studio" class="discrete view">Command Line and Studio</h3>
+<div class="paragraph">
+<p>From a macro level, creating a new project involves three steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>generating</strong> the project from the command line</p>
+</li>
+<li>
+<p><strong>importing</strong> the project into your IDE</p>
+</li>
+<li>
+<p><strong>updating</strong> the Maven <code>pom.xml</code> file</p>
+</li>
+</ol>
+</div>
+<h4 id="generating-a-project-using-maven" class="discrete">Generating a Project Using Maven</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open a Terminal or Command Line console.</p>
+</li>
+<li>
+<p>From within the directory in which you want to create your new project, run the following command to generate a project from an archetype. Adjust the parameters of the command according to the table below.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+To easily import the archetype-generated project into Studio, run the Maven <code>generate</code> command below with your current working directory set to your Mule Studio workspace folder. This ensures that Studio stores the project files in the workspace.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">mvn archetype:generate -DarchetypeGroupId=org.mule.tools.devkit -DarchetypeArtifactId=mule-devkit-archetype-cloud-connector -DarchetypeVersion=3.4.3 -DgroupId=org.hello -DartifactId=hello-connector -Dversion=1.0-SNAPSHOT -DmuleConnectorName=Hello -Dpackage=org.hello -DarchetypeRepository=http://repository.mulesoft.org/releases</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Standard Value for All Projects</th>
+<th class="tableblock halign-left valign-top">Value Specific to Your Project</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archetypeGroupId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.mule.tools.devkit</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archetypeArtifactId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mule-devkit-archetype-cloud-connector</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archetypeVersion</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version of DevKit</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archetypeRepository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://repository.mulesoft.org/releases" class="bare">http://repository.mulesoft.org/releases</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">groupId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The group Id of the connector you are creating. A suggested value begins with the reverse of your company domain name, such as : <code>com.mycompany `or `com.mycompany.connectors</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">artifactId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The artifact Id of the connector you are creating. Follow the mule naming pattern: <code>mule-module-xxx</code> where <code>xxx</code> is the name of your connector in camelCase</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A version identifier for your connector. Usually <code>1.0-SNAPSHOT</code> for a new connector project.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">muleConnectorName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the connector, in camelCase. If you set artifactId to <code>mule-module-myConnector</code> then <code>myConnector</code> would be the value of this parameter.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">package</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Java package for your connector, usually the same as the groupId.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Note the following:
+* The <strong>muleConnectorName</strong> and <strong>muleConnectorPackage</strong> are the class and package names, respectively, which your IDE uses in generating the Java code for the project.
+* There is a <strong>known issue with Windows</strong>: DevKit process will fail if run from a file path that includes spaces anywhere in the name, such as <code>C:\Documents and Settings...</code> Ensure there are no spaces in the path of your connector project directory.</p>
+</div>
+</li>
+<li>
+<p>The command line prompts you to confirm the configuration of the properties you specified (see below). Enter "Y", then press enter to confirm.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Confirm properties configuration:
+groupId: org.hello
+artifactId: hello-connector
+version: 1.0-SNAPSHOT
+package: org.hello
+muleConnectorName: Hello
+Y: :</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>DevKit generates your connector project in the <code>hello-connector</code> directory. Navigate to the folder and verify that the structure exists.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For help on the Maven&#8217;s mvn command for Unix, including a description of available parameters, consult the main page by running <code>man mvn</code> or <code>mvn -?</code> at the shell command prompt; for Window, consult the <a href="http://www.manpagez.com/man/1/mvn/">online version</a>.</p>
+</div>
+<h4 id="importing-a-maven-project-into-studio" class="discrete">Importing a Maven Project into Studio</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In Mule Studio, select <strong>File &gt; Import…</strong></p>
+</li>
+<li>
+<p>In the Import wizard, expand the <strong>Maven</strong> folder, then select <strong>Existing Maven Projects</strong>.</p>
+</li>
+<li>
+<p>In the wizard, enter or browse to the directory in which you created your Maven project. Select the folder for your new connector project, then click <strong>OK</strong>.</p>
+</li>
+<li>
+<p>Studio analyzes the <code>pom.xml</code> file. When complete, it displays your project as a checked item in the <strong>Projects</strong> field (see below). Click <strong>Finish</strong> to import the project into your workspace. Mule Studio imports the project and downloads all the required libraries; this may take several minutes.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Maven build automatically generates the Mule schema and namespace handler for your connector. However, Maven tooling for Studio <strong>does not perform the full build every time you save the project</strong>. Consequently, you must manually update your project every time you add or remove methods to your connector class.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right-click the connector project in Mule Studio&#8217;s Package Explorer.</p>
+</li>
+<li>
+<p>Select <strong>Maven</strong> &gt; <strong>Update Project</strong>.</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<h4 id="updating-pom-to-package-connector" class="discrete">Updating POM to Package Connector</h4>
+<div class="paragraph">
+<p>So that you can install and test your connector, Maven should build an Eclipse plugin update site as a zip file at the end of the build process. A property <code>devkit.studio.package.skip</code> in the <code>pom.xml</code> controls whether this is built; if set to <code>false</code> then the build happens.</p>
+</div>
+<div class="paragraph">
+<p>By default, the <code>pom.xml</code> provided by the Maven archetype for connectors in 3.4.0 <em>does not</em> set this property. You must confirm that this property is set and add it if it is missing. Access your <code>pom.xml</code> file to confirm the existence of, or add, the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;properties&gt;
+...
+ &lt;jdk.version&gt;1.6&lt;/jdk.version&gt;
+        &lt;!-- Maven should build the update site zip file --&gt;
+        &lt;devkit.studio.package.skip&gt;false&lt;/devkit.studio.package.skip&gt;
+    &lt;/properties&gt;</code></pre>
+</div>
+</div>
+<h3 id="command-line-and-eclipse" class="discrete view">Command Line and Eclipse</h3>
+<div class="paragraph">
+<p>From a macro level, creating a new project involves three steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>generating</strong> the project from the command line</p>
+</li>
+<li>
+<p><strong>importing</strong> the project into your IDE</p>
+</li>
+<li>
+<p><strong>updating</strong> the Maven <code>pom.xml</code> file</p>
+</li>
+</ol>
+</div>
+<h4 id="generating-a-project-using-maven-2" class="discrete">Generating a Project Using Maven</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open a Terminal or Command Line console.</p>
+</li>
+<li>
+<p>From within the directory in which you want to create your new project, run the following command to generate a project from an archetype. Adjust the parameters of the command according to the table below.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+To easily import the archetype-generated project into Studio, run the Maven <code>generate</code> command below with your current working directory set to your Mule Studio workspace folder. This ensures that Studio stores the project files in the workspace.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">mvn archetype:generate -DarchetypeGroupId=org.mule.tools.devkit -DarchetypeArtifactId=mule-devkit-archetype-cloud-connector -DarchetypeVersion=3.4.3 -DgroupId=org.hello -DartifactId=hello-connector -Dversion=1.0-SNAPSHOT -DmuleConnectorName=Hello -Dpackage=org.hello -DarchetypeRepository=http://repository.mulesoft.org/releases</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Standard Value for All Projects</th>
+<th class="tableblock halign-left valign-top">Value Specific to Your Project</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archetypeGroupId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.mule.tools.devkit</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archetypeArtifactId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mule-devkit-archetype-cloud-connector</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archetypeVersion</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version of DevKit</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archetypeRepository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://repository.mulesoft.org/releases" class="bare">http://repository.mulesoft.org/releases</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">groupId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The group Id of the connector you are creating. A suggested value begins with the reverse of your company domain name, such as : <code>com.mycompany `or `com.mycompany.connectors</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">artifactId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The artifact Id of the connector you are creating. Follow the mule naming pattern: <code>mule-module-xxx</code> where <code>xxx</code> is the name of your connector in camelCase</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A version identifier for your connector. Usually <code>1.0-SNAPSHOT</code> for a new connector project.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">muleConnectorName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the connector, in camelCase. If you set artifactId to <code>mule-module-myConnector</code> then <code>myConnector</code> would be the value of this parameter.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">package</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Java package for your connector, usually the same as the groupId.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Note the following:
+* The <strong>muleConnectorName</strong> and <strong>muleConnectorPackage</strong> are the class and package names, respectively, which your IDE uses in generating the Java code for the project.
+* There is a <strong>known issue with Windows</strong>: DevKit process will fail if run from a file path that includes spaces anywhere in the name, such as <code>C:\Documents and Settings...</code> Ensure there are no spaces in the path of your connector project directory.</p>
+</div>
+</li>
+<li>
+<p>The command line prompts you to confirm the configuration of the properties you specified (see below). Enter "Y", then press enter to confirm.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Confirm properties configuration:
+groupId: org.hello
+artifactId: hello-connector
+version: 1.0-SNAPSHOT
+package: org.hello
+muleConnectorName: Hello
+Y: :</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>DevKit generates your connector project in the <code>hello-connector</code> directory. Navigate to the folder and verify that the structure exists.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For help on the Maven&#8217;s mvn command for Unix, including a description of available parameters, consult the main page by running <code>man mvn</code> or <code>mvn -?</code> at the shell command prompt; for Window, consult the <a href="http://www.manpagez.com/man/1/mvn/">online version</a>.</p>
+</div>
+<h4 id="importing-a-maven-project-into-eclipse" class="discrete">Importing a Maven Project into Eclipse</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In Eclipse, select <strong>File &gt; Import…</strong></p>
+</li>
+<li>
+<p>In the Import wizard, expand the <strong>Maven</strong> folder, then select <strong>Existing Maven Projects</strong>.</p>
+</li>
+<li>
+<p>In the wizard, enter or browse to the directory in which you created your Maven project. Select the folder for your new connector project, then click <strong>OK</strong>.</p>
+</li>
+<li>
+<p>Eclipse analyzes the <code>pom.xml</code> file. When complete, it displays your project as a checked item in the <strong>Projects</strong> field (see below). Click <strong>Finish</strong> to import the project into your workspace. Eclipse imports the project and downloads all the required libraries; this may take several minutes.</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Maven build automatically generates the Mule schema and namespace handler for your connector. However, Maven tooling for Studio <strong>does not perform the full build every time you save the project</strong>. Consequently, you must manually update your project every time you add or remove methods to your connector class.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right-click the connector project in Mule Studio&#8217;s Package Explorer.</p>
+</li>
+<li>
+<p>Select <strong>Maven</strong> &gt; <strong>Update Project</strong>.</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<h4 id="updating-pom-to-package-connector-2" class="discrete">Updating POM to Package Connector</h4>
+<div class="paragraph">
+<p>So that you can install and test your connector, Maven should build an Eclipse plugin update site as a zip file at the end of the build process. A property <code>devkit.studio.package.skip</code> in the <code>pom.xml</code> controls whether this is built; if set to <code>false</code> then the build happens.</p>
+</div>
+<div class="paragraph">
+<p>By default, the <code>pom.xml</code> provided by the Maven archetype for connectors in 3.4.0 <em>does not</em> set this property. You must confirm that this property is set and add it if it is missing. Access your <code>pom.xml</code> file to confirm the existence of, or add, the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;properties&gt;
+...
+ &lt;jdk.version&gt;1.6&lt;/jdk.version&gt;
+        &lt;!-- Maven should build the update site zip file --&gt;
+        &lt;devkit.studio.package.skip&gt;false&lt;/devkit.studio.package.skip&gt;
+    &lt;/properties&gt;</code></pre>
+</div>
+</div>
+<h3 id="eclipse" class="discrete view">Eclipse</h3>
+<div class="paragraph">
+<p>From a macro level, creating a new project involves two steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>creating</strong> a new Maven project within Eclipse</p>
+</li>
+<li>
+<p><strong>updating</strong> the Maven <code>pom.xml</code> file</p>
+</li>
+</ol>
+</div>
+<h4 id="creating-a-project-using-maven" class="discrete">Creating a Project Using Maven</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In order to use Maven through Eclipse, you must first install the m2e extension. If you haven&#8217;t already done so, follow the instructions to install <a href="http://www.sonatype.org/m2eclipse/">m2e in Eclipse</a>.</p>
+</li>
+<li>
+<p>From the <strong>File</strong> menu in Eclipse, select <strong>New</strong> &gt; <strong>Other</strong>.</p>
+</li>
+<li>
+<p>Expand the <strong>Maven</strong> folder, then select <strong>Maven Project</strong>. Click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Define the location in which you want to store your project. Click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>As this is the first time you are creating a project, the DevKit connector archetype you need is not one of the default Maven archetypes, so you must add it. Click <strong>Add Archetype&#8230;&#8203;</strong></p>
+</li>
+<li>
+<p>Input the following values, then click OK.</p>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Archetype GroupId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.mule.tools.devkit</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Archetype Artifact Id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mule-devkit-archetype-cloud-connector</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Archetype Version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.4.3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repository URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://repository.mulesoft.org/nexus/content/repositories/releases" class="bare">https://repository.mulesoft.org/nexus/content/repositories/releases</a></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Select <strong>org.mule.tools.devkit</strong> that you just created, then click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>In the final panel of the wizard, input the following values.</p>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GroupId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.mule.modules</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ArtifactId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hello-connector</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0.1–SNAPSHOT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Package</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.mule.modules.hello_connector</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Click the <strong>Add&#8230;&#8203;</strong> button to configure one extra parameter.</p>
+</li>
+<li>
+<p>Name: <code>muleConnectorName</code></p>
+<div class="paragraph">
+<p>Value: <code>hello-connector</code></p>
+</div>
+</li>
+<li>
+<p>Name: <code>muleConnectorCategory</code></p>
+<div class="paragraph">
+<p>Value: <code>Community</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/maven-last-wizard1.png" alt="maven_last_wizard1">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Click <strong>Finish</strong>.</div>
+<p>+</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Maven build automatically generates the Mule schema and namespace handler for your connector. However, Maven tooling for Eclipse <strong>does not perform the full build every time you save the project</strong>. Consequently, you must manually update your project every time you add or remove methods to your connector class.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right-click the connector project in Mule Studio&#8217;s Package Explorer.</p>
+</li>
+<li>
+<p>Select <strong>Maven</strong> &gt; <strong>Update Project</strong>.</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<h4 id="updating-pom-to-package-connector-3" class="discrete">Updating POM to Package Connector</h4>
+<div class="paragraph">
+<p>So that you can install and test your connector, Maven should build an Eclipse plugin update site as a zip file at the end of the build process. A property <code>devkit.studio.package.skip</code> in the <code>pom.xml</code> controls whether this is built; if set to <code>false</code> then the build happens.</p>
+</div>
+<div class="paragraph">
+<p>By default, the <code>pom.xml</code> provided by the Maven archetype for connectors in 3.4.0 <em>does not</em> set this property. You must confirm that this property is set and add it if it is missing. Access your <code>pom.xml</code> file to confirm the existence of, or add, the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;properties&gt;
+...
+ &lt;jdk.version&gt;1.6&lt;/jdk.version&gt;
+        &lt;!-- Maven should build the update site zip file --&gt;
+        &lt;devkit.studio.package.skip&gt;false&lt;/devkit.studio.package.skip&gt;
+    &lt;/properties&gt;</code></pre>
+</div>
+</div>
+<h3 id="command-line-and-intellij" class="discrete view">Command Line and IntelliJ</h3>
+<div class="paragraph">
+<p>From a macro level, creating a new project involves four steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>generating</strong> the project from the command line</p>
+</li>
+<li>
+<p><strong>importing</strong> the project into your IDE</p>
+</li>
+<li>
+<p><strong>resolving</strong> the schema</p>
+</li>
+<li>
+<p><strong>updating</strong> the Maven <code>pom.xml</code> file</p>
+</li>
+</ol>
+</div>
+<h4 id="generating-a-project-using-maven-3" class="discrete">Generating a Project Using Maven</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open a Terminal or Command Line console.</p>
+</li>
+<li>
+<p>From within the directory in which you want to create your new project, run the following command to generate a project from an archetype. Adjust the parameters of the command according to the table below.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+To easily import the archetype-generated project into Studio, run the Maven <code>generate</code> command below with your current working directory set to your Mule Studio workspace folder. This ensures that Studio stores the project files in the workspace.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">mvn archetype:generate -DarchetypeGroupId=org.mule.tools.devkit -DarchetypeArtifactId=mule-devkit-archetype-cloud-connector -DarchetypeVersion=3.4.3 -DgroupId=org.hello -DartifactId=hello-connector -Dversion=1.0-SNAPSHOT -DmuleConnectorName=Hello -Dpackage=org.hello -DarchetypeRepository=http://repository.mulesoft.org/releases</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Standard Value for All Projects</th>
+<th class="tableblock halign-left valign-top">Value Specific to Your Project</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archetypeGroupId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.mule.tools.devkit</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archetypeArtifactId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mule-devkit-archetype-cloud-connector</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archetypeVersion</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version of DevKit</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">archetypeRepository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://repository.mulesoft.org/releases" class="bare">http://repository.mulesoft.org/releases</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">groupId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The group Id of the connector you are creating. A suggested value begins with the reverse of your company domain name, such as : <code>com.mycompany `or `com.mycompany.connectors</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">artifactId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The artifact Id of the connector you are creating. Follow the mule naming pattern: <code>mule-module-xxx</code> where <code>xxx</code> is the name of your connector in camelCase</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A version identifier for your connector. Usually <code>1.0-SNAPSHOT</code> for a new connector project.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">muleConnectorName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the connector, in camelCase. If you set artifactId to <code>mule-module-myConnector</code> then <code>myConnector</code> would be the value of this parameter.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">package</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Java package for your connector, usually the same as the groupId.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Note the following:
+* The <strong>muleConnectorName</strong> and <strong>muleConnectorPackage</strong> are the class and package names, respectively, which your IDE uses in generating the Java code for the project.
+* There is a <strong>known issue with Windows</strong>: DevKit process will fail if run from a file path that includes spaces anywhere in the name, such as <code>C:\Documents and Settings...</code> Ensure there are no spaces in the path of your connector project directory.</p>
+</div>
+</li>
+<li>
+<p>The command line prompts you to confirm the configuration of the properties you specified (see below). Enter "Y", then press enter to confirm.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Confirm properties configuration:
+groupId: org.hello
+artifactId: hello-connector
+version: 1.0-SNAPSHOT
+package: org.hello
+muleConnectorName: Hello
+Y: :</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>DevKit generates your connector project in the <code>hello-connector</code> directory. Navigate to the folder and verify that the structure exists.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For help on the Maven&#8217;s mvn command for Unix, including a description of available parameters, consult the main page by running <code>man mvn</code> or <code>mvn -?</code> at the shell command prompt; for Window, consult the <a href="http://www.manpagez.com/man/1/mvn/">online version</a>.</p>
+</div>
+<h4 id="importing-the-project-into-intellij" class="discrete">Importing the Project into IntelliJ</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When starting IntelliJ, select <strong>Import project</strong>.</p>
+</li>
+<li>
+<p>Browse to the directory in which you saved your <code>hello-connector</code> project, then click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Select <strong>Import project from external model</strong>, then select <strong>Maven</strong>. Click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Confirm settings, click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Confirm the selection of the Maven project to import, then click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Confirm the selection Java SDK, click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Confirm the name for your project, then click <strong>Finish</strong>.</p>
+</li>
+</ol>
+</div>
+<h4 id="resolving-the-schema" class="discrete">Resolving the Schema</h4>
+<div class="paragraph">
+<p>So that you can take advantage of auto-complete and validation in your project, follow the steps below to instruct IntelliJ to find your newly generated schema.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the namespace handler xml that the archetype generated.</p>
+</li>
+<li>
+<p>Use the external resource drop-down to select <strong>Manually Setup External Resource</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/externalresource-1.png" alt="ExternalResource+(1)">
+</div>
+</div>
+</li>
+<li>
+<p>Select the schema under <code>target/generated-resources/mule</code>.</p>
+</li>
+</ol>
+</div>
+<h4 id="updating-pom-to-package-connector-4" class="discrete">Updating POM to Package Connector</h4>
+<div class="paragraph">
+<p>So that you can install and test your connector, Maven should build an Eclipse plugin update site as a zip file at the end of the build process. A property <code>devkit.studio.package.skip</code> in the <code>pom.xml</code> controls whether this is built; if set to <code>false</code> then the build happens.</p>
+</div>
+<div class="paragraph">
+<p>By default, the <code>pom.xml</code> provided by the Maven archetype for connectors in 3.4.0 <em>does not</em> set this property. You must confirm that this property is set and add it if it is missing. Access your <code>pom.xml</code> file to confirm the existence of, or add, the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;properties&gt;
+...
+ &lt;jdk.version&gt;1.6&lt;/jdk.version&gt;
+        &lt;!-- Maven should build the update site zip file --&gt;
+        &lt;devkit.studio.package.skip&gt;false&lt;/devkit.studio.package.skip&gt;
+    &lt;/properties&gt;</code></pre>
+</div>
+</div>
+<h3 id="intellij" class="discrete view">IntelliJ</h3>
+<div class="paragraph">
+<p>From a macro level, creating a new project involves three steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>creating</strong> the project into your IDE</p>
+</li>
+<li>
+<p><strong>resolving</strong> the schema</p>
+</li>
+<li>
+<p><strong>updating</strong> the Maven <code>pom.xml</code> file</p>
+</li>
+</ol>
+</div>
+<h4 id="creating-a-project" class="discrete">Creating a Project</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a <strong>New Project</strong> selecting Maven Module. Define a <strong>Name</strong> and <strong>Location</strong> for the project; use no SDK. Click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Enter values in the following fields (refer to screenshot below).</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>GroupId</strong>: <code>org.hello</code></p>
+</li>
+<li>
+<p><strong>ArtifactID</strong>: <code>hello-connector</code></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Select <strong>Create</strong> from archetype, then click <strong>Add archetype&#8230;&#8203;</strong></p>
+</li>
+<li>
+<p>To add the DevKit connector archetype, enter information according to the table below, then click <strong>OK</strong>.</p>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GroupId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.mule.tools.devkit</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ArtifactId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mule-devkit-archetype-cloud-connector</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>3.4.3</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Repository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="https://repository.mulesoft.org/nexus/content/repositories/releases" class="bare">https://repository.mulesoft.org/nexus/content/repositories/releases</a></code></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Select the archetype that you just created, then click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>IntelliJ displays the project&#8217;s Maven parameters. You can edit these values, or add and remove parameters, if you wish, but you must manually add the <strong><code>muleConnectorName</code></strong> and` muleConnectorCategory` parameters. (These parameters are required for Maven to run correctly and fully generate the POM file.) Click the <strong>plus sign</strong> in the lower left corner to add each parameter.</p>
+</li>
+<li>
+<p>Enter values in the following fields, then click <strong>OK</strong>, then repeat for the second parameter.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>Name</strong>: <code>muleConnectorName</code></p>
+<div class="paragraph">
+<p><strong>Value</strong>: <code>Hello-Connector</code></p>
+</div>
+</li>
+<li>
+<p><strong>Name</strong>: <code>muleConnectgorCategory</code></p>
+<div class="paragraph">
+<p><strong>Value</strong>: <code>Community</code></p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Click <strong>Finish</strong>. IntelliJ launches the project (see below).</p>
+</li>
+</ol>
+</div>
+<h4 id="resolving-the-schema-2" class="discrete">Resolving the Schema</h4>
+<div class="paragraph">
+<p>So that you can take advantage of auto-complete and validation in your project, follow the steps below to instruct IntelliJ to find your newly generated schema.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the namespace handler xml that the archetype generated.</p>
+</li>
+<li>
+<p>Use the external resource drop-down to select <strong>Manually Setup External Resource</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/externalresource.png" alt="ExternalResource">
+</div>
+</div>
+</li>
+<li>
+<p>Select the schema under <code>target/generated-resources/mule</code>.</p>
+</li>
+</ol>
+</div>
+<h4 id="updating-pom-to-package-connector-5" class="discrete">Updating POM to Package Connector</h4>
+<div class="paragraph">
+<p>So that you can install and test your connector, Maven should build an Eclipse plugin update site as a zip file at the end of the build process. A property <code>devkit.studio.package.skip</code> in the <code>pom.xml</code> controls whether this is built; if set to <code>false</code> then the build happens.</p>
+</div>
+<div class="paragraph">
+<p>By default, the <code>pom.xml</code> provided by the Maven archetype for connectors in 3.4.0 <em>does not</em> set this property. You must confirm that this property is set and add it if it is missing. Access your <code>pom.xml</code> file to confirm the existence of, or add, the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;properties&gt;
+...
+ &lt;jdk.version&gt;1.6&lt;/jdk.version&gt;
+        &lt;!-- Maven should build the update site zip file --&gt;
+        &lt;devkit.studio.package.skip&gt;false&lt;/devkit.studio.package.skip&gt;
+    &lt;/properties&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-your-new-project"><a class="anchor" href="#about-your-new-project"></a>About Your New Project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Regardless of the method you choose, the Maven archetype generates the same skeleton. The table below describes the four sources folders contained in the skeleton project.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Folder</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>src/main/java</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the source Java files for your connector, including the skeleton Java file for your connector. As you add additional classes, the project stores them in this folder.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>src/main/resources</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains non-code resources accessed by your connector. This folder is empty when you initially create the project.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>src/test/java</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the Java source for the test files for your connector, including the skeleton JUnit test case.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>src/test/resources</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains non-code resources accessed by your tests. This folder contains a skeleton Mule configuration file for running tests.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Maven also creates several files within these folders. The most important of these files are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>src/main/java/org.mulesoft.hello/Helloconnector.java</code> stored in the hello-connector/src/main/java/org/mule/module/helloconnector package. This file contains the bulk of the code your write to build your connector. Upon creation, DevKit has already created some foundational classes and methods. Edit this file to add functionality specific to your target application.</p>
+</li>
+<li>
+<p><code>pom.xml</code> Project Object Model (POM) is an XML representation of a Maven project, including all of the project&#8217;s external dependencies and all instructions on how to build the project. Read more about the POM at <a href="http://maven.apache.org/pom.html">maven.apache.org</a>.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you are not familiar with Maven or POM files, please see this <a href="http://maven.apache.org/guides/getting-started/">excellent tutorial</a>.</p>
+</div>
+<div class="paragraph">
+<p>If your project uses libraries or dependencies other than the basic Mule core (for example, if you use any of Mule&#8217;s transports or modules, or third party libraries) you will need to include them as dependencies in the POM file. For this, you will need to add one or more <code>&lt;dependency&gt;</code> sections to the set that already exists in your POM. Each <code>&lt;dependency&gt;</code> section has the information for a Maven artifact (e.g. a library) your project depends on. For example, if your project uses Mule&#8217;s HTTP transport you will want to add the following dependency:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.mule.transports&lt;/groupId&gt;
+    &lt;artifactId&gt;mule-transport-http&lt;/artifactId&gt;
+    &lt;version&gt;${mule.version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, the value of <code>${mule.version}</code> is defined at the top of the POM file.</p>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t know the artifact name of a library, you can search for it in <a href="http://mvnrepository.com/" class="bare">http://mvnrepository.com/</a>. The website will give you the <code>&lt;dependency&gt;</code> section you will need to use.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>NEXT:</strong>  add a "sayHello" operation to your connector, then <a href="installing-and-testing-your-connector.html">build it</a>, install it in Studio, and test it in a flow.</p>
+</li>
+<li>
+<p>Learn more about the contents of your archetype- generated project by <a href="examining-the-generated-connector-project.html">examining the results of your work</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

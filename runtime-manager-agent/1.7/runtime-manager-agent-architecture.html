@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="agent, mule, esb, servers, monitor, notifications, external systems, third party, get status, metrics">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/runtime-manager-agent/1.7/runtime-manager-agent-architecture.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Runtime Manager Agent Architecture // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Runtime Manager Agent Architecture</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/runtime-manager-agent-docs/edit/v1.7/modules/ROOT/content/runtime-manager-agent-architecture.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Runtime Manager Agent Architecture</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-cloud-disabled.png" alt="logo cloud disabled" title="CloudHub"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-hybrid-active.png" alt="logo hybrid active" title="Hybrid Deployment"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-server-active.png" alt="logo server active" title="Anypoint Platform Private Cloud Edition"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-pcf-disabled.png" alt="logo pcf disabled" title="Pivotal Cloud Foundry"></a></span></p>
+</div>
+<div class="paragraph">
+<p>The Runtime Manager Agent is a Mule plugin that exposes the Mule ESB JAVA API as a service, allowing users to manipulate and monitor Mule ESB instances from external systems.</p>
+</div>
+<div class="paragraph">
+<p>This document shows an overview of the Runtime Manager Agent architecture and its main components.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="runtime-manager-agent-main-components"><a class="anchor" href="#runtime-manager-agent-main-components"></a>Runtime Manager Agent Main Components</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="mule-service"><a class="anchor" href="#mule-service"></a>Mule Service</h3>
+<div class="paragraph">
+<p>Connects to the Mule API. This component is not aware of the transport layer (how the messages are going to be communicated by/to the user).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="transport"><a class="anchor" href="#transport"></a>Transport</h3>
+<div class="paragraph">
+<p>Handles the communication layer. Includes keep-alive status, security and protocol.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="external-message-handler"><a class="anchor" href="#external-message-handler"></a>External Message handler</h3>
+<div class="paragraph">
+<p>Exposes a Web Service API to users. Any incoming message (e.g. a deployment request) is handled by an external message handler. Depending on the request, a Mule service or multiple Mule services may be executed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="internal-message-handler"><a class="anchor" href="#internal-message-handler"></a>Internal Message Handler</h3>
+<div class="paragraph">
+<p>Called by a Mule service every time it receives a Mule notification.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="messaging"><a class="anchor" href="#messaging"></a>Messaging</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The agent has three ways to communicate with Mule, outlined below.</p>
+</div>
+<div class="sect2">
+<h3 id="synchronous-communication"><a class="anchor" href="#synchronous-communication"></a>Synchronous communication</h3>
+<div class="paragraph">
+<p>Example: Get deployed applications.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/synchronous.png" alt="synchronous">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="asynchronous-communication"><a class="anchor" href="#asynchronous-communication"></a>Asynchronous Communication</h3>
+<div class="paragraph">
+<p>Example: Deploy and notify about the deployment stages.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/asynchronous-agent.png" alt="asynchronous">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="push-communication"><a class="anchor" href="#push-communication"></a>Push Communication</h3>
+<div class="paragraph">
+<p>Example: Push JMX information to an external system.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/push-agent.png" alt="push">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="architecture-diagram"><a class="anchor" href="#architecture-diagram"></a>Architecture Diagram</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The agent&#8217;s architecture is quite simple:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The transports handle communication</p>
+</li>
+<li>
+<p>The external message handlers dispatch messages</p>
+</li>
+<li>
+<p>The services connect to Mule API</p>
+</li>
+<li>
+<p>The internal message handlers dispatch Mule notifications</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The interaction of each component is shown in the diagram below for each of the three types of messages (synchronous, asynchronous and push):</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/architecture-agent.png" alt="architecture">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how-components-interact"><a class="anchor" href="#how-components-interact"></a>How Components Interact</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Below is an outline of a typical sequence of component interaction:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>An external system sends a request to the agent.</p>
+</li>
+<li>
+<p>An external message handler is executed, and calls a Mule service using the interface.</p>
+</li>
+<li>
+<p>The Mule service calls Mule to perform the corresponding action.</p>
+</li>
+<li>
+<p>Mule responds with a notification.</p>
+</li>
+<li>
+<p>The service maps the notification to an agent notification, and looks for the internal message handlers that may handle the notification type.</p>
+</li>
+<li>
+<p>The corresponding internal message handlers are executed.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="runtime-manager-agent-configuration"><a class="anchor" href="#runtime-manager-agent-configuration"></a>Runtime Manager Agent Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At startup, the Runtime Manager Agent reads its configuration from the file <code>$MULE_HOME/conf/mule-agent.yml</code>. You must manually add, then edit this file with your installation&#8217;s configuration parameters. The format is self-explanatory; a sample file is available for download.</p>
+</div>
+<div class="paragraph">
+<p>During installation, you also have the option to configure the Runtime Manager Agent via a quick-start script. For details, see <a href="installing-and-configuring-runtime-manager-agent.html">installing and configuring Runtime Manager Agent</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configurable-components"><a class="anchor" href="#configurable-components"></a>Configurable Components</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can configure component attributes in the <code>mule-agent.yml</code> file. For this purpose, you can annotate the class attributes as <code>@Configurable</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Singleton
+public class MyRequestHandler implements ExternalMessageHandler
+{
+    @Inject
+    private MuleService muleService;
+
+    @Configurable
+    public String host;
+    ...
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-runtime-manager-agent-websocket-protocol"><a class="anchor" href="#the-runtime-manager-agent-websocket-protocol"></a>The Runtime Manager Agent WebSocket Protocol</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Communication over WebSockets to the agent implements the HTTP protocol. All messages sent to and from the agent are HTTP messages sent as binary messages or text (depending on the agent configuration) over WebSocket. These HTTP messages are the same as those used in the agent REST communication.</p>
+</div>
+<div class="sect2">
+<h3 id="the-websocket-handshake"><a class="anchor" href="#the-websocket-handshake"></a>The WebSocket Handshake</h3>
+<div class="paragraph">
+<p>Handshaking is a process specific to the WebSocket transport. On startup, the agent sends a handshake request to the WebSocket address corresponding to the console (obtained from the agent configuration). After this, the agent ignores all incoming messages not recognizable as a handshake response. When it receives a message that it identifies as a handshake response, it checks that the response is valid. If it is, the agent begins responding to all incoming messages.</p>
+</div>
+<div class="sect3">
+<h4 id="the-handshake-request"><a class="anchor" href="#the-handshake-request"></a>The Handshake Request</h4>
+<div class="paragraph">
+<p>Below is an example of a handshake request.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>POST handshake HTTP/1.1
+Content-Type: application/json
+Message-Id: ${messageId}
+accept: application/json
+Content-length: 1234
+
+{
+"agentVersion": "1.0.0",
+"muleVersion": "${muleVersion}",
+"uniqueId": "${uniqueId}"
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="handshake-response"><a class="anchor" href="#handshake-response"></a>Handshake Response</h4>
+<div class="paragraph">
+<p>Authorized:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>HTTP 200 OK
+Message-Id: ${messageId}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unauthorized:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>HTTP 401 UNAUTHORIZED
+Message-Id: ${messageId}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

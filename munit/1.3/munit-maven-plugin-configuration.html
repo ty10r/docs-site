@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/munit/1.3/munit-maven-plugin-configuration.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>MUnit Maven Plugin Configuration // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">MUnit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-suite.html">Test Suite</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-munit-in-anypoint-studio.html">Using MUnit in Anypoint Studio</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="munit-maven-support.html">Maven Support</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-maven-plugin.html">Maven Plugin</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-maven-plugin-configuration.html">Maven Plugin Configuration</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-domain-support.html">Domain Support</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-coverage-report.html">Coverage Report</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="message-processors.html">Message Processors</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="assertion-message-processor.html">Assertion</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="set-message-processor.html">Set</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="mock-message-processor.html">Mock</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="verify-message-processor.html">Verify</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="spy-message-processor.html">Spy</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-matchers.html">Matchers</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="munit-utils.html">Utilities</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-database-server.html">Database Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-ftp-server.html">FTP Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="run-and-wait-scope.html">Run and Wait Scope</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="munit-examples.html">Examples</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-short-tutorial.html">Short Tutorial</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="example-testing-apikit.html">Testing APIkit</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="logging-in-munit.html">Logging</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="testing-sap.html">Testing SAP</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-tests-with-java.html">Tests With Java</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../solutions/migration/munit/1.3-migration-guide.html">MUnit 1.3 Migration Guide</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">MUnit Maven Plugin Configuration</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/munit-docs/edit/v1.3/modules/ROOT/content/munit-maven-plugin-configuration.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>MUnit Maven Plugin Configuration</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The MUnit Maven Plugin offers a set of optional parameters that can be configured.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. Maven Plugin Parameters</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 22.2222%;">
+<col style="width: 44.4445%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-center valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#additional-classpath-elements">additionalClasspathElements</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">List</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Additional entries to be appended to the classpath.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#additional-argument-lines">argLines</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">List</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Additional JVM argument lines to set on the test run.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#exclude-dependencies-from-the-classpath">classpathDependencyExcludes</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">List</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dependencies to be excluded from the classpath. Must follow the format <code>groupId:artifactId</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#coverage">coverage</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Coverage configuration to be set on the test run.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#dynamic-ports">dynamicPorts</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">List</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dynamic ports to be set on the test run.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#enable-surefire-reports">enableSurefireReports</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set value to <code>true</code> to generate MUnit test results in the surefire format.<br>
+<strong>Default value: <code>true</code></strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#environment-variables">environmentVariables</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Map</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Additional environment variables to be set on the test run.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#mule-working-directory">muleWorkingDirectory </a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">File</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Directory to be used as Mule working directory.<br>
+<strong>Default value: <code>${project.build.directory}/.mule</code></strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#redirect-test-output-to-file">redirectTestOutputToFile</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set value to <code>true</code> to redirect the MUnit tests standard output to a file.<br>
+<strong>Default value: <code>false</code></strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#system-properties-variables">systemPropertyVariables</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Map</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System properties to be set on the test run.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#test-output-directory">testOutputDirectory</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">File</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Directory where the test outputs will be written to.<br>
+<strong>Default value: <code>${project.build.directory}/munit-reports/output/</code></strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="additional-classpath-elements"><a class="anchor" href="#additional-classpath-elements"></a>Additional Classpath Elements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>During a test run, you may want to add additional elements to the classpath such as a resource or an external library. The path of this entry must be specified, and it will be added at the end of the classpath. The path specified can be absolute or written as a maven placeholder.</p>
+</div>
+<div class="listingblock">
+<div class="title">Additional Classpath Element using absolute paths</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;additionalClasspathElements&gt;
+    &lt;additionalClasspathElement&gt;/path/to/myfile.jar&lt;/additionalClasspathElement&gt;
+&lt;/additionalClasspathElements&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Additional Classpath Element using a maven placeholder</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;additionalClasspathElements&gt;
+    &lt;additionalClasspathElement&gt;${project.basedir}/lib/myfile.jar&lt;/additionalClasspathElement&gt;
+&lt;/additionalClasspathElements&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="additional-argument-lines"><a class="anchor" href="#additional-argument-lines"></a>Additional argument lines</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since the tests are being run in a new JVM, additional argument lines can be specified
+to the JVM. Each argument should be specified in separate <code>argLine</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Argument lines</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;argLines&gt;
+    &lt;argLine&gt;-XX:MaxPermSize=512m&lt;/argLine&gt;
+    &lt;argLine&gt;-Xmx1024m&lt;/argLine&gt;
+&lt;/argLines&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="exclude-dependencies-from-the-classpath"><a class="anchor" href="#exclude-dependencies-from-the-classpath"></a>Exclude Dependencies from the Classpath</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In contrast to adding elements to the classpath, there is a way of excluding dependencies from
+the classpath by specifying its <code>groupId</code> and <code>artifactId</code> with the format <code>groupId:artifactId</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Exclude dependency from classpath</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;classpathDependencyExcludes&gt;
+    &lt;classpathDependencyExclude&gt;com.example:myproject&lt;/classpathDependencyExclude&gt;
+&lt;/classpathDependencyExcludes&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="coverage"><a class="anchor" href="#coverage"></a>Coverage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MUnit used to have a basic coverage feature only available from Anypoint Studio.
+Since MUnit version <code>1.2.0</code> this feature is also available from the command line by the use of the MUnit Maven Plugin.</p>
+</div>
+<div class="sect2">
+<h3 id="configuration"><a class="anchor" href="#configuration"></a>Configuration</h3>
+<div class="paragraph">
+<p>The following section covers how to configure MUnit Coverage.</p>
+</div>
+<div class="paragraph">
+<p>A basic set of Coverage related features is in Anypoint Studio. However, the full set of features is only
+available when running from Maven. Thus all of the configuration is done through the <code>pom.xml</code> file.</p>
+</div>
+<div class="sect3">
+<h4 id="enabling-coverage"><a class="anchor" href="#enabling-coverage"></a>Enabling Coverage</h4>
+<div class="paragraph">
+<p>To enable MUnit Coverage, add the following configuration to the MUnit Plugin:</p>
+</div>
+<div class="listingblock">
+<div class="title">MUnit Coverage - Minimal Configuration</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;plugin&gt;
+  &lt;groupId&gt;com.mulesoft.munit.tools&lt;/groupId&gt;
+  &lt;artifactId&gt;munit-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;${project.version}&lt;/version&gt;
+  ...
+  &lt;configuration&gt;
+    &lt;coverage&gt;
+      &lt;runCoverage&gt;true&lt;/runCoverage&gt;   <i class="conum" data-value="1"></i><b>(1)</b>
+    &lt;/coverage&gt;
+  &lt;/configuration&gt;
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This enables the coverage feature</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When enabling MUnit Coverage, you only see a summary report in the console.
+By default no other action is taken so it&#8217;s merely informative.</p>
+</div>
+<div class="paragraph">
+<p>This is how a summary report looks like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">[INFO] [CoverageManager] Printing Coverage Report...
+[INFO] ===============================================================================
+[INFO] MUnit Coverage Summary
+[INFO] ===============================================================================
+[INFO]  * Resources: 3 - Flows: 6 - Message Processors: 7
+[INFO]  * Application Coverage: 71.43%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To configure the JSON report generation for the MUnit Plugin, you need to add the following configuration in your <code>pom.xml</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;coverage&gt;
+&lt;runCoverage&gt;true&lt;/runCoverage&gt;
+  &lt;formats&gt;
+    &lt;format&gt;json&lt;/format&gt;
+  &lt;/formats&gt;
+&lt;/coverage&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="failing-build"><a class="anchor" href="#failing-build"></a>Failing Build</h4>
+<div class="paragraph">
+<p>One of the features of MUnit Coverage is to fail the build if a certain coverage level is not reached.</p>
+</div>
+<div class="paragraph">
+<p>To make the build fail, add the following lines to the configuration:</p>
+</div>
+<div class="listingblock">
+<div class="title">MUnit Coverage - Fail Build</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;coverage&gt;
+  &lt;runCoverage&gt;true&lt;/runCoverage&gt;
+  &lt;failBuild&gt;true&lt;/failBuild&gt;       <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;/coverage&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Enable <strong>Fail Build Feature</strong></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now, the next logical step is to define the coverage levels.</p>
+</div>
+<div class="paragraph">
+<p>MUnit Coverage handles three different levels:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Application</p>
+</li>
+<li>
+<p>Resource</p>
+</li>
+<li>
+<p>Flow</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here is how to define the required coverage level:</p>
+</div>
+<div class="listingblock">
+<div class="title">MUnit Coverage - Require Coverage</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;coverage&gt;
+  &lt;runCoverage&gt;true&lt;/runCoverage&gt;
+  &lt;failBuild&gt;true&lt;/failBuild&gt;
+
+  &lt;requiredApplicationCoverage&gt;20&lt;/requiredApplicationCoverage&gt;
+  &lt;requiredResourceCoverage&gt;10&lt;/requiredResourceCoverage&gt;
+  &lt;requiredFlowCoverage&gt;5&lt;/requiredFlowCoverage&gt;
+&lt;/coverage&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Each value represents a percentage.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you define coverage levels, but set the property <code>failBuild</code> to <strong>false</strong>, and if the levels are not reached, a warning shows up in the MUnit Coverage summary.</p>
+</div>
+<div class="paragraph">
+<p>Something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">INFO] [CoverageManager] Printing Coverage Report...
+[INFO] ===============================================================================
+[INFO] MUnit Coverage Summary
+[INFO] ===============================================================================
+[INFO]  * Resources: 3 - Flows: 6 - Message Processors: 7
+[INFO]  * Application Coverage: 71.43%
+[NOTE]
+[WARNING] ----------------------------- WARNING --------------------------------------
+[WARNING]  * Application coverage is below defined limit. Required: 100.0% - Current: 71.43%  <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Warning detailing which coverage level wasn&#8217;t meet</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If no level is defined, -1 is assumed, which indicates that the build won&#8217;t fail due to lack of coverage.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ignoring-flows"><a class="anchor" href="#ignoring-flows"></a>Ignoring Flows</h4>
+<div class="paragraph">
+<p>Another feature we provide is the ability to ignore a flow. This way the flow:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Doesn&#8217;t count as coverage data.</p>
+</li>
+<li>
+<p>Doesn&#8217;t affect the overall number of message processors.</p>
+</li>
+<li>
+<p>Doesn&#8217;t cause a build to fail if the flow is not tested or if the flow doesn&#8217;t reach coverage metrics.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To ignore a flow, add the following lines to the configuration:</p>
+</div>
+<div class="listingblock">
+<div class="title">MUnit Coverage - Ignoring Flows</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;coverage&gt;
+  &lt;ignoreFlows&gt;
+	  &lt;ignoreFlow&gt;the-name-of-your-flow&lt;/ignoreFlow&gt;       <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;/ignoreFlows&gt;
+&lt;/coverage&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The name of the flow you want to ignore.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This is a list, so you can ignore as many flows as you need.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="reports"><a class="anchor" href="#reports"></a>Reports</h4>
+<div class="paragraph">
+<p>As we&#8217;ve shown before by default, MUnit Coverage shows summary report in the console. But that&#8217;s not the only option.
+MUnit Coverage currently offers two types of reports:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Console</p>
+</li>
+<li>
+<p>HTML</p>
+</li>
+<li>
+<p>JSON</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <strong>Console</strong> report is printed in the console. It works with the summary report and
+shows details of each resource, flow, sub-flow, and batch, and its coverage level.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>HTML</strong> report shows the same information, which you can view in any web browser.
+To access the <strong>HTML</strong> report, browse your application folder structure:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>${application.path}/target/munit-reports/coverage</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Locate the file <strong>summary.html</strong>, which is the starting point of the report and lets you navigate through all the data.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>JSON</strong> report shows the same information as the <em>HTML</em> report, in a JSON format.<br>
+To access the JSON report file, browse your application folder structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>${application.path}/target/munit-reports/coverage-json/report.json</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To enable the reports, add the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="title">MUnit Coverage - Report Configuration</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">&lt;coverage&gt;
+  &lt;runCoverage&gt;true&lt;/runCoverage&gt;
+
+  &lt;formats&gt;
+    &lt;format&gt;console&lt;/format&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+    &lt;format&gt;html&lt;/format&gt;     <i class="conum" data-value="2"></i><b>(2)</b>
+    &lt;format&gt;json&lt;/format&gt;     <i class="conum" data-value="3"></i><b>(3)</b>
+  &lt;/formats&gt;
+&lt;/coverage&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Console report</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>HTML report</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>JSON report</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can have none, one, or all the report types added to your configuration.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dynamic-ports"><a class="anchor" href="#dynamic-ports"></a>Dynamic Ports</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When testing a Mule application in a continuous integration (CI) environment, you might encounter the following scenario:</p>
+</div>
+<div class="paragraph">
+<p><code>Your application tries to open a specific port. The port is already in use. The application fails with a port binding exception.</code></p>
+</div>
+<div class="paragraph">
+<p>The easy solution to this problem is to have your application use a free port.
+The MUnit Maven Plugin comes with a built-in feature to do just that.</p>
+</div>
+<div class="paragraph">
+<p><code>MUnit Dynamic Ports</code> instructs the MUnit Maven Plugin to look for unbound ports and reserve them before running the tests over the Mule application. Each port selected is placed in a system property under the name indicated in the configuration.
+The application can acquire the port number through the use of placeholders afterward.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The Ports to be selected by the plugin are taken from the following range: <code>[40000,50000)</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Dynamic Ports feature is only available as part of the MUnit Maven Plugin.<br>
+You can not expect this feature to work when running tests from inside Anypoint Studio.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="enabling-dynamic-ports"><a class="anchor" href="#enabling-dynamic-ports"></a>Enabling Dynamic Ports</h3>
+<div class="paragraph">
+<p>To enable the feature, you need to add the following code to the <code>configuration</code> section of the MUnit Maven Plugin:</p>
+</div>
+<div class="listingblock">
+<div class="title">Dynamic Ports Configuration</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dynamicPorts&gt;
+  &lt;dynamicPort&gt;a.dynamic.port&lt;/dynamicPort&gt;
+&lt;/dynamicPorts&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you have the <code>${http.port}</code> placeholder in your application, the configuration looks something like:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dynamicPorts&gt;
+  &lt;dynamicPort&gt;http.port&lt;/dynamicPort&gt;
+&lt;/dynamicPorts&gt;</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="preparing-your-application"><a class="anchor" href="#preparing-your-application"></a>Preparing Your Application</h4>
+<div class="paragraph">
+<p>A placeholder must parametrize the part of the application trying to make use of a port.<br>
+For instance, you may want to have your Mule application listening for HTTP traffic. To do that you should provide the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="title">HTTP Simple Application</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081"/&gt;
+&lt;flow name="httpFlow"&gt;
+    &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now this application always listens in port <code>8081</code>. To make it dynamic, change it to:</p>
+</div>
+<div class="listingblock">
+<div class="title">HTTP Simple Application with dynamic port</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="${http.port}"/&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;flow name="httpFlow"&gt;
+    &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" /&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Notice the placeholder <code>${http.port}</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>With the application coded in this way and the configuration of Dynamic Ports in place, your application starts each run listening on a different port.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="enable-surefire-reports"><a class="anchor" href="#enable-surefire-reports"></a>Enable surefire reports</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MUnit has built-in support for Surefire. No additional configuration is needed for this but it can be disabled if not needed.</p>
+</div>
+<div class="listingblock">
+<div class="title">Disabling surefire reports</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;enableSurefireReports&gt;false&lt;/enableSurefireReports&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The reports can be found under <code>${project.build.directory}/surefire-reports</code>.</p>
+</div>
+<div class="paragraph">
+<p>By default, it is set to <code>true</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="environment-variables"><a class="anchor" href="#environment-variables"></a>Environment Variables</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To set additional environment variables during the test run, you can specify
+them with the respective key and value.</p>
+</div>
+<div class="listingblock">
+<div class="title">Additional Environment Variables</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;environmentVariables&gt;
+  &lt;MY_ENV&gt;exampleValue&lt;/MY_ENV&gt;
+&lt;/environmentVariables&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Environment variables can be used to replace placeholders such as <code>${MY_ENV}</code>
+(using the example above).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mule-working-directory"><a class="anchor" href="#mule-working-directory"></a>Mule Working Directory</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Changing the mule working directory can be useful if there is a need to specify
+a different directory that won&#8217;t be overridden by another run.<br>
+The path specified can be absolute or written as a maven placeholder.</p>
+</div>
+<div class="listingblock">
+<div class="title">Mule Working Directory using an absolute path</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;muleWorkingDirectory&gt;/My/Absolute/Path&lt;/muleWorkingDirectory&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Mule Working Directory using maven placeholder</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;muleWorkingDirectory&gt;${project.build.directory}/mymulefolder&lt;/muleWorkingDirectory&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, the mule working directory is <code>${project.build.directory}/.mule</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="redirect-test-output-to-file"><a class="anchor" href="#redirect-test-output-to-file"></a>Redirect Test Output to File</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When running several tests, the build output can get very complex to read. You may want
+to redirect the output of each Test suite to a file. This way what remains in the build
+output will be the test results and to check the standard output of each test suite you can find it
+in its respective file.</p>
+</div>
+<div class="paragraph">
+<p>These files will be located in the <code>testOutputDirectory</code> folder following this naming convention:
+<code>munit.${suiteName}-output.txt</code>, where the <code>suiteName</code> represents the name of the XML file relative to the
+MUnit test folder.</p>
+</div>
+<div class="paragraph">
+<p>The test run output that doesn&#8217;t belong to a particular suite won&#8217;t be printed to keep the build output clean, but it can be enabled by running maven in <em>debug</em> mode.</p>
+</div>
+<div class="listingblock">
+<div class="title">Redirect test output to file</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;redirectTestOutputToFile&gt;true&lt;/redirectTestOutputToFile&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, it is set to <code>false</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="system-properties-variables"><a class="anchor" href="#system-properties-variables"></a>System Properties Variables</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You may wish to define specific system variables needed for your MUnit test to run successfully. The example below shows how you can send them.</p>
+</div>
+<div class="listingblock">
+<div class="title">Setting system property variables</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">    &lt;systemPropertyVariables&gt;
+      &lt;my.property.key&gt;my.property.value&lt;/my.property.key&gt;
+    &lt;/systemPropertyVariables&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>System Property variables override any property set in the <code>mule-
+app.properties</code> file or with a property placeholder.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Depending on the execution context, the system properties values may vary. When referencing these properties, it is a good practice to override their value to enforce test reproducibility.</p>
+</div>
+<div class="paragraph">
+<p>You can do so using the ­<code>-D</code> argument when running MUnit with Maven.<br>
+Variables passed with the <code>-D</code> argument take full priority over any other property.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="paragraph">
+<p><code>-Dmy.property.key=my.property.another.value</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="test-output-directory"><a class="anchor" href="#test-output-directory"></a>Test Output Directory</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You may want to choose the location where the test output files will be created.
+The path specified can be absolute or written as a maven placeholder.</p>
+</div>
+<div class="listingblock">
+<div class="title">Test output directory with absolute path</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;testOutputDirectory&gt;/my/absolute/path&lt;/testOutputDirectory&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Test output directory using maven placeholders</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;testOutputDirectory&gt;${project.build.directory}/my/output/folder&lt;/testOutputDirectory&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, the files will be created in <code>${project.build.directory}/munit-reports/output/</code>.</p>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

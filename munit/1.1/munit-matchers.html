@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="munit, testing, unit testing">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/munit/1.3/munit-matchers.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>MUnit Matchers // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">MUnit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-munit-in-anypoint-studio.html">Using MUnit in Anypoint Studio</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-suite.html">MUnit Suite</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mock-message-processor.html">Mock Message Processor</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="verify-message-processor.html">Verify Message Processor</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="set-message-processor.html">Set Message Processor</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="spy-message-processor.html">Spy Message Processor</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="assertion-message-processor.html">Assertion Message Processor</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-matchers.html">MUnit Matchers</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-database-server.html">MUnit Database Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-ftp-server.html">MUnit FTP Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-maven-support.html">MUnit Maven Support</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-short-tutorial.html">MUnit Short Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="example-testing-apikit.html">Example: Testing APIKit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="logging-in-munit.html">Logging in MUnit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="run-and-wait-scope.html">Run and Wait Scope</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-tests-with-java.html">MUnit Tests With Java</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../solutions/migration/munit/1.1-migration-guide.html">MUnit 1.1 Migration Guide</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">MUnit Matchers</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/munit-docs/edit/v1.1/modules/ROOT/content/munit-matchers.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>MUnit Matchers</h1>
+    <div class="sect1">
+<h2 id="overview"><a class="anchor" href="#overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MUnit matchers are a set of MEL functions that help in the creation of mocks and validations (verifications/assertions). They enable you to define mocks, verifications and assertions in terms of general values rather than specific hardcoded values.</p>
+</div>
+<div class="paragraph">
+<p>A matcher is a boolean function. In most of the MUnit matchers, this function is a class type comparison. Its purpose is to validate if an argument belongs to a certain class type.</p>
+</div>
+<div class="paragraph">
+<p>A matcher does not receive parameters; rather, it&#8217;s a parameter itself.</p>
+</div>
+<div class="paragraph">
+<p>The table bellow lists the available MUnit matchers.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. MUnit Matcher Functions</caption>
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Matcher Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>isNull()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is <code>Null</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>isNotNull()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is not <code>Null</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anyObject()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is an <code>Object</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anyBoolean()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is a <code>Boolean</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anyByte()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is a <code>Byte</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anyByteArray()</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is a <code>ByteArray</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anyInt()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is an <code>Integer</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anyDouble()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is a <code>Double</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anyFloat()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is a <code>Float</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anyShort()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is a <code>Short</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anyString()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is a <code>String</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anyCollection()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is a <code>Collection</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anyList()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is a <code>List</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anySet()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is a <code>Set</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anyMap()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the evaluated object is a <code>Map</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>MUnit also offers some additional, rather specific, type of matchers. These matchers evaluate the <em>content</em> of the parameter, not its type; even so, they do not evaluate by specific values.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. MUnit Matcher Functions</caption>
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Matchers Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>matchRegex(&lt;regex&gt;)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the value of the attribute during the test run verifies the user-provided regular expression.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>matchContains(&lt;string_to_look_for&gt;)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Matches if the value of the attribute during the test run <em>contains</em> the specified user-provided string.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="applying-munit-matchers"><a class="anchor" href="#applying-munit-matchers"></a>Applying MUnit Matchers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For the purposes of this document, we assume we are testing the following Mule code:</p>
+</div>
+<div class="listingblock">
+<div class="title">Code to be tested</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="exampleFlow"&gt;
+  &lt;set-variable variableName="#['my_variable']" value="#['some_string]" doc:name="Variable"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+MUnit matchers are <em>always</em> used in combination with the Mocks, Throws, Spy, Verify and
+Assert message processors, but never on their own.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="using-munit-matchers-in-a-mock-definition"><a class="anchor" href="#using-munit-matchers-in-a-mock-definition"></a>Using MUnit Matchers in a Mock Definition</h3>
+<div class="paragraph">
+<p>Used in combination with MUnit Matchers, the Mock message processor allows you to create mocks that match by information other than values, such as content type of a specific attribute. In the example below, the mock matches if and only if the content of the attribute <code>value</code> is of type <code>String</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">MUnit matchers - Mock example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mock:when messageProcessor="mule:set-variable"&gt;
+  &lt;mock:with-attributes&gt;
+    &lt;mock:with-attribute whereValue="#['my_variable']" name="variableName"/&gt;
+    &lt;mock:with-attribute whereValue="#[anyString()]" name="value"/&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;/mock:with-attributes&gt;
+&lt;/mock:when&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The match is produced by the <code>anyString()</code> matcher.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In the above example, the mock definition is triggered when the code being tested reaches the <code>set-payload</code> message processor, if and only if the content of attribute <code>value</code> is of type <code>String</code>, disregarding the actual string value.</p>
+</div>
+<div class="paragraph">
+<p>If not using a matcher, the only way to produce a match is to evaluate for the literal value. If the test code evolves and changes, chances are the contents of attribute <code>value</code> would also change, and your test would fail.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-munit-matchers-in-a-verification-definition"><a class="anchor" href="#using-munit-matchers-in-a-verification-definition"></a>Using MUnit Matchers in a Verification Definition</h3>
+<div class="paragraph">
+<p>Used in combination with MUnit Matchers, the Verify message processor allows you to verify when a message processor is called by matching information other than values, such as the content type of a specific attribute. In the example below, the verification is successful if and only if the <code>set-variable</code> message processor has set variable <code>my_variable</code>, of content type <code>String</code>.
+solve use cases like:</p>
+</div>
+<div class="listingblock">
+<div class="title">MUnit matchers - Mock example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mock:verify-call messageProcessor="mule:set-variable" times="1" doc:name="Verify Call"&gt;
+  &lt;mock:attributes&gt;
+    &lt;mock:with-attribute whereValue="#['my_variable']" name="variableName"/&gt;
+    &lt;mock:attribute whereValue="#[anyString()]" name="value"/&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;/mock:attributes&gt;
+&lt;/mock:verify-call&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The match is produced by the <code>anyString()</code> matcher.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-munit-matchers-in-spy-definition"><a class="anchor" href="#using-munit-matchers-in-spy-definition"></a>Using MUnit Matchers in Spy Definition</h3>
+<div class="paragraph">
+<p>Used in combination with MUnit Matchers, the Spy message processor allows you to spy message processors matched by information other than values, such as the content type of a specific attribute. In the example below, the message processor in the test code can be spied if and only if the <code>set-variable</code> message processor has set the variable <code>my_variable</code>, of content type <code>String</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">MUnit Matchers - Mock example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mock:spy messageProcessor="mule:set-payload" doc:name="Spy"&gt;
+  &lt;mock:with-attributes&gt;
+    &lt;mock:with-attribute whereValue="#['my_variable']" name="variableName"/&gt;
+    &lt;mock:attribute whereValue="#[anyString()]" name="value"/&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;/mock:with-attributes&gt;
+  &lt;mock:assertions-before-call&gt;
+    &lt;!-- Define actions --&gt;
+  &lt;/mock:assertions-before-call&gt;
+  &lt;mock:assertions-after-call&gt;
+    &lt;!-- Define actions --&gt;
+  &lt;/mock:assertions-after-call&gt;
+&lt;/mock:spy&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The match is produced by the <code>anyString()</code> matcher.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-munit-matchers-in-an-assertion-definition"><a class="anchor" href="#using-munit-matchers-in-an-assertion-definition"></a>Using MUnit Matchers in an Assertion Definition</h3>
+<div class="paragraph">
+<p>You can greatly enhance the power of the Assert message processors when using them in conjunction with MUnit matchers, for example by validating that the content of a Mule message is of a specific type.</p>
+</div>
+<div class="paragraph">
+<p>The example below validates that the content of a Mule message is a boolean.</p>
+</div>
+<div class="listingblock">
+<div class="title">MUnit Matchers - Assert payload example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:assert-true message="oops!" condition="#[valueOf(payload).is(anyBoolean())]" /&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice the content of the attribute <code>condition</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-mel hljs" data-lang="mel">#[
+valueOf(payload)    <i class="conum" data-value="1"></i><b>(1)</b>
+.is(anyBoolean())   <i class="conum" data-value="2"></i><b>(2)</b>
+]</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Create <code>ElementMatcher</code> for payload.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Run <code>anyBoolean()</code> MUnit matcher over the payload of the Mule message.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In this example we first need to create an <em>ElementMatcher</em> for the payload. Then, we can ask the <code>ElementMatcher</code> to run the <code>anyBoolean()</code> matcher over itself, by calling the method <code>is()</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="munit-matchers-over-mule-message-properties"><a class="anchor" href="#munit-matchers-over-mule-message-properties"></a>MUnit Matchers over Mule Message Properties</h4>
+<div class="paragraph">
+<p>If you wish to run assertions over Mule message properties and use MUnit matchers, you can use the <code>valueOf()</code> function. For instance:</p>
+</div>
+<div class="listingblock">
+<div class="title">MUnit Matchers - Assert invocation property example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:assert-true message="oops!" condition="#[valueOf(flowVars['my_variable']).is(anyBoolean())]" /&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To make it easier to write this type of assertions, MUnit offers a another set of MEL functions that provide direct access for Mule message&#8217;s properties <code>ElementMatcher</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 3. MUnit matchers - Message Property ElementMatcher builders</caption>
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>messageInboundProperty(propertyName)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an ElementMatcher for the <code>inbound</code> property with the name provided.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>messageOutboundProperty(propertyName)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an ElementMatcher for the <code>outbound</code> property with the name provided.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>messageInvocationProperty(propertyName)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an ElementMatcher for the <code>invocation</code> property with the name provided.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>messageInboundAttachment(propertyName)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an ElementMatcher for the <code>inbound</code> attachment with the name provided.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>messageOutboundAttachment(propertyName)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns an ElementMatcher for the <code>outbound</code> attachment with the name provided.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>With these functions you could change the example above to:</p>
+</div>
+<div class="listingblock">
+<div class="title">MUnit matchers - Assert invocation property example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:assert-true condition="#[messageInvocationProperty('my_variable').is(anyBoolean())]"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

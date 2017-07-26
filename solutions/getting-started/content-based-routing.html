@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="anypoint, if, for each, conditional, tutorial">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/solutions/getting-started/content-based-routing.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>How to Route Messages Using a Switch Statement // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../anypoint-b2b.html">Anypoint B2B</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">TRADACOMS EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDI Schema Language Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/index.html">Anypoint Partner Manager</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/key-concepts.html">Key Concepts</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/b2b-transaction-processing-framework.html">B2B Transaction-Processing Framework</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/resolution-processes.html">Resolution Processes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/tracking.html">Tracking</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/examples.html">Examples</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/transaction-monitoring.html">Transaction Monitoring</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/central-pane-elements.html">Central Pane Elements</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/tracking-scenarios.html">Tracking Scenarios</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/partner-configuration.html">Partner Configuration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/company-information.html">Company Information</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/identifiers.html">Identifiers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/on-hold-inactive.html">On-Hold/Inactive</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">Certificate</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/csv-settings.html">CSV Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/document-types.html">Document Types</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/endpoints.html">Endpoints</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/maps.html">Maps</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/channels.html">Channels</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/routes.html">Routes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/partner-conversations.html">Partner Conversations</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/rosettanet-pips.html">RosettaNet PIPs</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/rosettanet-agreements.html">RosettaNet Agreements</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/administration.html">Administration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/environments.html">Environments</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/error-codes.html">Error Codes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/security.html">Security</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/lookup-tables.html">Lookup Tables</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/walkthroughs.html">Walkthroughs</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/ftps-and-edi-x12-purchase-order-walkthrough.html">FTPS and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/transaction-tracking-walkthrough.html">Transaction Tracking Walkthrough</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/anypoint-partner-manager-api.html">Anypoint Partner Manager API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/glossary.html">Glossary</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/partner-manager-connector.html">Partner Manager Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/ftps-connector.html">FTPS Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">EDI X12 Order Processing Example</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/supported-edi-document-types.html">Supported EDI Document Types</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Getting Started with Anypoint Platform</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="design-an-api.html">To Design an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="implement-and-test-api.html">To Implement and Test an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="sync-api.html">To Sync an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../anypoint-platform/exchange/index.html">Anypoint Exchange</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../anypoint-platform/exchange/exchange-faq.html">Anypoint Exchange FAQ</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="build-a-hello-world-application.html">Tutorial: Creating a Mule App</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="anypoint-connector.html">Anypoint Connector Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../mule-runtime/3.8/messages/mule-message.html">How to Work with a Mule Message</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="content-based-routing.html">How to Route Mule Messages Using a Switch Statement</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../anypoint-platform/cloudhub/deploy-to-cloudhub.html">Deploy to CloudHub</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../healthcare-toolkit/index.html">Healthcare Toolkit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../healthcare-toolkit/hl7/hl7-edi.html">HL7 EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../healthcare-toolkit/mllp-connector.html">HL7 MLLP</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../healthcare-toolkit/connector-testpanel.html">Connector Testing with TestPanel</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">How to Route Messages Using a Switch Statement</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/solutions-docs/edit/master/modules/getting-started/content/content-based-routing.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>How to Route Messages Using a Switch Statement</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial walks you through how to use Anypoint Studio to build a "Hello, World" application that switches, or routes, messages according to their content. The application uses the <strong>Choice Router</strong> to execute Mule code based on conditions, similar to a switch statement in a conventional programming language. After creating and running the example in this tutorial locally, you should be able to apply what you have learned to create more complex applications.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the <a href="../../anypoint-studio/6/basic-studio-tutorial.html">Basic Studio Tutorial</a>, you can get to know Anypoint Studio and build a simple "Hello, World" application.</p>
+</div>
+<div class="paragraph">
+<p>This tutorial assumes that you have <a href="../../anypoint-studio/6/download-and-launch-anypoint-studio.html">downloaded and installed Anypoint Studio</a>. If you do not have any previous experience with Eclipse or an Eclipse-based IDE, please review the brief introduction to the <a href="../../anypoint-studio/6/index.html">Anypoint Studio interface</a> or complete the <a href="../../anypoint-studio/6/basic-studio-tutorial.html">Basic Studio Tutorial</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="goals"><a class="anchor" href="#goals"></a>Goals</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this tutorial, your goals are to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create an application in Anypoint Studio that routes messages according to the logic you supply in a Choice Router.</p>
+</li>
+<li>
+<p>Set and invoke flow variables using Mule Expression Language.</p>
+</li>
+<li>
+<p>Run the application on a local runtime embedded in Anypoint Studio.</p>
+</li>
+<li>
+<p>Test the application using a browser.</p>
+</li>
+<li>
+<p>Adjust the application while it is running, effectively invoking a "hot deployment."</p>
+</li>
+<li>
+<p>Edit the application to move some processing into a Subflow.</p>
+</li>
+<li>
+<p><em>(Optional)</em> Apply your knowledge to an extra credit challenge.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="modeling-a-flow-with-choice-routing"><a class="anchor" href="#modeling-a-flow-with-choice-routing"></a>Modeling a Flow with Choice Routing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Launch Anypoint Studio and create a new Mule Project named CBR Tutorial. If you need more directions on launching Studio and creating a project, refer to the <a href="../../anypoint-studio/6/basic-studio-tutorial.html">Basic Studio Tutorial</a>.</p>
+</div>
+<div class="paragraph">
+<p>Next, use the building blocks in the Studio palette to model an application that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Receives an HTTP request</p>
+</li>
+<li>
+<p>Filters out any "favicon.ico" browser requests</p>
+</li>
+<li>
+<p>Transforms an inbound property into a flow variable</p>
+</li>
+<li>
+<p>Routes the message according to the flow variable associated with the message</p>
+</li>
+<li>
+<p>Sets a new payload based on the routing logic</p>
+</li>
+<li>
+<p>Supplies that payload as an HTTP response</p>
+</li>
+<li>
+<p>Logs a summary of the results to the console</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can create this application by searching for and dragging these building blocks to the Canvas in Studio:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong><a href="../../mule-runtime/3.8/connectors/http/http-connector.html">HTTP Connector</a></strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Allows your Mule application to connect to Web resources through the HTTP or HTTPS protocol.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>Expression Filter</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Filters messages according to a Mule expression.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong><a href="../../mule-runtime/3.8/transformers/variable-transformer-reference.html">Variable Transformer</a></strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Sets a flow variable on the message that can be invoked elsewhere in the flow.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><a href="../../mule-runtime/3.8/routers/choice-flow-control-reference.html"><strong>Choice Router</strong></a></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Routes incoming messages according to configured logic.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong><a href="../../mule-runtime/3.8/transformers/set-payload-transformer-reference.html">Set Payload Transformer</a></strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Modifies your payload into a different message, depending on the results of the choice routing.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><a href="../../mule-runtime/3.8/components/logger-component-reference.html"><strong>Logger</strong></a></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Logs messages or activity based on the value of a Mule expression.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Drag the building blocks to the Canvas and rename them as shown:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/full-flow.png" alt="full+flow">
+</div>
+</div>
+<div class="sect2">
+<h3 id="visually-modeling-the-choice-router"><a class="anchor" href="#visually-modeling-the-choice-router"></a>Visually Modeling the Choice Router</h3>
+<div class="paragraph">
+<p>Dragging and dropping within the choice scope requires some precise positioning. Here are the detailed step-by-step instructions for modeling the choice router.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First, drop the appropriate message processors into the Default box on the canvas.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/add-component.png" alt="add+component">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/add-component2.png" alt="add+component2">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/add-component3.png" alt="add+component3">
+</div>
+</div>
+</li>
+<li>
+<p>Then, drag another message processor into that same space, positioning your mouse so that you see the black vertical line that indicates you are creating another choice.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/add-component4.png" alt="add+component4">
+</div>
+</div>
+</li>
+<li>
+<p>Your choice router should now match the image shown.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/choice-closeup.png" alt="choice+closeup">
+</div>
+</div>
+</li>
+<li>
+<p>Add the <strong>Logger</strong> after the Choice block.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/cbr-add-logger.png" alt="cbr add logger">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>With just a few clicks, you have created a full application on the Studio canvas.</p>
+</div>
+<div class="paragraph">
+<p>After you configure the individual elements within a flow, which you  do in the next section, the flow  accomplishes the goals that you set out to achieve with this application. Each building block that you select and place on the canvas  becomes part of the functionality of your application, as shown in the image below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/studio-cbrtutorial-step1-unconfigured-notes.png" alt="Studio-CBRTutorial_step1_unconfigured_notes">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-the-flow-elements"><a class="anchor" href="#configuring-the-flow-elements"></a>Configuring the Flow Elements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Next, configure the flow elements to make the application respond to you in a few different languages based on a query parameter you pass in the URL when you invoke the inbound endpoint. For example, if you invoke <code><a href="http://localhost:8081/?language=French" class="bare">http://localhost:8081/?language=French</a></code>, the application should respond to you in French.</p>
+</div>
+<div class="paragraph">
+<p>Nearly all Mule elements provide configuration options, which you can set in one of two ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Using the building block <strong>Properties Editor</strong> in the console of Studio&#8217;s visual editor</p>
+</li>
+<li>
+<p>Using XML code in Studio&#8217;s <strong>XML</strong> editor, or in any other XML editing environment.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The following instructions walk you through how to configure each building block in the visual editor and via XML. Use the tabs to switch back and forth between the instructions for the visual editor and the XML editor.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="http-connector"><a class="anchor" href="#http-connector"></a>HTTP Connector</h3>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor" class="discrete view">Studio Visual Editor</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the HTTP building block in your flow to open its
+<a href="../../anypoint-studio/6/index.html">Properties Editor</a>. For this element to work, you must reference an abstract element called a <strong>Connector Configuration</strong>, which contains several of the high level necessary configuration properties. One single Connector Configuration element can be referenced by as many HTTP connectors as you like. Create a new Conector Configuration element by clicking the plus sign <span class="image"><img src="./_images/plus-1.png" alt="plus"></span> next to the Connector Configuration field.</p>
+</li>
+<li>
+<p>A new window opens. Fill in the two required fields: <strong>Host</strong> and <strong>Port</strong>. Set <code>localhost</code> as the host and leave the default value <code>8081</code> as the port:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/http-global-config.png" alt="http global config">
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HTTP_Listener_Configuration</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Host</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>localhost</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Port</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8081</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Click <strong>Ok</strong> to close this dialogue. Notice how the Connector Configuration field now contains a reference to the HTTP_Listener_Configuration element. You can edit the Global Element Properties further by clicking the <code>edit</code> icon. Click the HTTP Connector in the Canvas and the error notification indicator disappears.</p>
+</li>
+</ol>
+</div>
+<h3 id="xml-editor-or-standalone" class="discrete view">XML Editor or Standalone</h3>
+<div class="paragraph">
+<p>Configure the HTTP connector as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>config-ref</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HTTP_Listener_Configuration</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>path</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>doc:name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HTTP</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For this element to work, you must reference an abstract element called a <strong>Connector Configuration</strong>, which contains several of the high level necessary configuration properties. One single Connector Configuration element can be referenced by as many HTTP connectors as you like. The <code>config-ref</code> field in the connector references a configuration element named HTTP_Listener_Configuration. You must now create a configuration element that matches the name that the connector is referencing. Configure this element as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/&gt;</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 70%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>name</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>HTTP_Listener_Configuration</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>host</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>localhost</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>port</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>8081</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>doc:name</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>HTTP Listener Configuration</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="expression-filter"><a class="anchor" href="#expression-filter"></a>Expression Filter</h3>
+<div class="paragraph">
+<p>The expression filter tells Mule to check that the payload  <em>is not equal to</em>  the string <code>'/favicon.ico'</code>. If the expression evaluates to true, Mule passes the message on to the next step in the flow. If the expression evaluates to false, Mule stops processing the message.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-2" class="discrete view">Studio Visual Editor</h3>
+<div class="paragraph">
+<p>Click the <strong>Expression Filter</strong> building block on the Canvas to open its Properties Editor, and set the <strong>Expression</strong> as:</p>
+</div>
+<div class="paragraph">
+<p><code>#[message.inboundProperties.'http.request.uri' != '/favicon.ico']</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/filter-new.png" alt="filter+new">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Notice that when you start typing a value in the <strong>expression</strong> field, a menu displays all of the available options, saving you from having to remember the exact names as you type them in.
+</td>
+</tr>
+</table>
+</div>
+<h3 id="xml-editor-or-standalone-2" class="discrete view">XML Editor or Standalone</h3>
+<div class="paragraph">
+<p>Configure the expression filter as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;expression-filter expression="#[message.inboundProperties.'http.request.uri' != '/favicon.ico']" doc:name="Expression"/&gt;</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 90%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>expression</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>#[message.inboundProperties.'http.request.uri' != '/favicon.ico']</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>doc:name</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>Expression</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="variable-transformer"><a class="anchor" href="#variable-transformer"></a>Variable Transformer</h3>
+<div class="paragraph">
+<p>This transformer instructs Mule to look for an inbound property called <code>language</code> on all incoming messages, and, if found, set it (and its value) as a <strong>flow variable —</strong> metadata that is carried along with the message in the form of a key/value pair.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-3" class="discrete view">Studio Visual Editor</h3>
+<div class="paragraph">
+<p>Click the <strong>Variable Transformer</strong> to open its Properties Editor, then configure as per the table below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/set-variable.png" alt="set+variable">
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 90%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>Display Name</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>Set Language Variable</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>Operation</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>Set Variable</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>Name</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>language</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>Value</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>#[message.inboundProperties.'http.query.params'.language]</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Notice that when you start typing a value into the <strong>value</strong> field, a menu  displays all of the available options, saving you from having to remember the exact names as you type them in.
+</td>
+</tr>
+</table>
+</div>
+<h3 id="xml-editor-or-standalone-3" class="discrete view">XML Editor or Standalone</h3>
+<div class="paragraph">
+<p>If you model the flow on the canvas, then switch to the XML editor, the placeholder XML for this element looks like the following code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;variable-transformer doc:name="Variable"/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Change the <code>variable-transformer</code> placeholder element to the element <code>set-variable</code> , then configure the set-variable transformer as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;set-variable variableName="language" value="#[message.inboundProperties.'http.query.params'.language]" doc:name="Set Language Variable"/&gt;</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>variableName</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>language</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>value</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>#[message.inboundProperties.'http.query.params'.language]</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>doc:name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Set Language Variable</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="choice-router-and-constituent-message-processors"><a class="anchor" href="#choice-router-and-constituent-message-processors"></a>Choice Router and Constituent Message Processors</h3>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-4" class="discrete view">Studio Visual Editor</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the <strong>Choice Router</strong> building block to open its Properties Editor. Here, enter Mule expressions to define the routing logic that Mule applies to incoming messages (see table below; detailed instructions follow).</p>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">When</th>
+<th class="tableblock halign-left valign-top">Route Message to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>#[flowVars.language == 'Spanish']</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Set Payload</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>#[flowVars.language == 'French']</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Set Payload</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Default</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Variable</code></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>In the table, click the first empty row under <strong>When</strong>, then enter <code>#[flowVars.language == 'Spanish']</code></p>
+</li>
+<li>
+<p>This expression tells Mule to look for a flow variable called <code>language</code> on the incoming message and check whether it equals Spanish. If this expression evaluates to true, Mule routes the message to the message processor in that path.</p>
+</li>
+<li>
+<p>Click the next empty row, then enter <code>#[flowVars.language == 'French']</code></p>
+<div class="paragraph">
+<p>Just as in the previous row, this expression tells Mule to look for a flow variable called <code>language</code> on the incoming message. This time, the expression indicates Mule should check whether <code>language</code> equals French. If this expression evaluates to true, Mule routes the message to the message processor in that path.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/cbr-choice.png" alt="cbr choice">
+</div>
+</div>
+</li>
+<li>
+<p>Next, click the topmost <strong>Set Payload</strong> building block within your Choice Router scope to open its Properties Editor, then configure it as shown below so that the Display Name is set to <strong>Reply in Spanish</strong> and the Value is <strong>Hola!</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/hola.png" alt="hola">
+</div>
+</div>
+<div class="paragraph">
+<p>This Set Payload transformer corresponds to the first option you configured above in your choice routing logic. If Mule finds the flow variable <code>language=Spanish</code>, your message produces this payload as a response.</p>
+</div>
+</li>
+<li>
+<p>Click the next <strong>Set Payload</strong> building block within the Choice Router scope to open its Properties Editor, then configure it as shown below so that the Display Name is set to <strong>Reply in French</strong> and the value is <strong>Bonjour!</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/bonjour.png" alt="bonjour">
+</div>
+</div>
+<div class="paragraph">
+<p>This Set Payload transformer corresponds to the second option you configured above in your choice routing logic. If Mule finds the flow variable <code>language=French</code>, your message produces this payload as a response.</p>
+</div>
+</li>
+<li>
+<p>Click the <strong>Variable Transformer</strong> inside the Default box to open its Properties Editor, then configure it as shown so that the Display Name is <strong>Set Language to English</strong>, the Name is <strong>language</strong>, and the Value is <strong>English</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/set-english.png" alt="set+english">
+</div>
+</div>
+<div class="paragraph">
+<p>This Variable Transformer, and the Set Payload that follows it, are only invoked if neither of the expressions in the choice routing logic evaluate to true. Thus, if Mule does not find either the flow variable <code>language=Spanish</code> or the flow variable <code>language=French</code>, Mule routes the message to this default processing option, which sets the flow variable <code>language</code> with the value <code>English</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note that in this configuration you are setting a literal value for the variable, rather than using Mule expression language to extract a value from the message, as you did in the previous Variable Transformer.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Click the <strong>Set Payload</strong> after the Variable Transformer inside the Default box to open its Properties Editor, then configure it as shown.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/hello.png" alt="hello">
+</div>
+</div>
+<div class="paragraph">
+<p>This Set Payload transformer sets a payload for the default option you configured above in your choice routing logic.</p>
+</div>
+</li>
+</ol>
+</div>
+<h3 id="xml-editor-or-standalone-4" class="discrete view">XML Editor or Standalone</h3>
+<div class="paragraph">
+<p>If you model the flow on the canvas, then switch to the XML editor, the placeholder XML for this element as per the following code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;choice doc:name="Choice"&gt;
+   &lt;when expression=""&gt;
+       &lt;set-payload doc:name="Set Payload"/&gt;
+   &lt;/when&gt;
+   &lt;when expression=""&gt;
+       &lt;set-payload doc:name="Set Payload"/&gt;
+   &lt;/when&gt;
+   &lt;otherwise&gt;
+       &lt;variable-transformer doc:name="Variable"/&gt;
+       &lt;set-payload doc:name="Set Payload"/&gt;
+   &lt;/otherwise&gt;
+&lt;/choice&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Configure the two <code>when</code> and the <code>otherwise</code> child elements and each of their nested elements as shown.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;choice doc:name="Choice"&gt;
+   &lt;when expression="#[flowVars.language == 'Spanish']"&gt;
+       &lt;set-payload value="Hola!" doc:name="Reply in Spanish"/&gt;
+   &lt;/when&gt;
+   &lt;when expression="#[flowVars.language == 'French']"&gt;
+       &lt;set-payload value="Bonjour!" doc:name="Reply in French"/&gt;
+   &lt;/when&gt;
+   &lt;otherwise&gt;
+       &lt;set-variable variableName="language" value="English" doc:name="Set Language to English"/&gt;
+       &lt;set-payload value="Hello!" doc:name="Reply in English"/&gt;
+   &lt;/otherwise&gt;
+&lt;/choice&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In each of the <code>when</code> child elements of the choice router, the expression tells Mule to look for a flow variable called <code>language</code> on the incoming message and check whether it equals Spanish or French. If either expression evaluates to true, Mule routes the message to the corresponding nested set-payload message processor.</p>
+</div>
+<div class="paragraph">
+<p>If both of the expressions in the <code>when</code> elements evaluate to false, Mule routes the message via the processing defining in the <code>otherwise</code> child element. Messages that are routed this way have a variable language=English set, then return a payload in English.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logger"><a class="anchor" href="#logger"></a>Logger</h3>
+<div class="paragraph">
+<p>This logger produces one of three possible messages, depending on the result of the Choice routing.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-5" class="discrete view">Studio Visual Editor</h3>
+<div class="paragraph">
+<p>Click the <strong>Logger</strong> to open its Properties Editor, then configure as per the table below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/logger.png" alt="logger">
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Display Name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Logger</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Message</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>The reply "#[payload]" means "hello" in #[flowVars.language].</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Level</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>INFO</code></p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="xml-editor-or-standalone-5" class="discrete view">XML Editor or Standalone</h3>
+<div class="paragraph">
+<p>Configure the logger as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;logger message="The reply "#[payload]" means "hello" in #[flowVars.language]." level="INFO" doc:name="Logger"/&gt;</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>message</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>The reply "#[payload]" means "hello" in #[flowVars.language].</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>level</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>INFO</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>doc:name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Logger</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Note that Studio automatically escapes the quotes, as per the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;logger message="The reply &amp;quot;#[payload]&amp;quot; means &amp;quot;hello&amp;quot; in #[flowVars.language]." level="INFO" doc:name="Logger"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Save your application by clicking  <strong>File</strong> &gt; <strong>Save</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Download the <a href="./_attachments/choiceproject.zip">Studio deployable archive</a> for the application.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-the-application"><a class="anchor" href="#running-the-application"></a>Running the Application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Having built, configured, and saved your new application, you are ready to run it on the embedded Mule server (included as part of the bundled download of Anypoint Studio).</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the <strong>Package Explorer</strong> pane, right-click the <code>cbr_tutorial</code> project, then select <strong>Run As</strong> &gt; <strong>Mule Application</strong>. (If you have not already saved, Mule prompts you to save now.)</p>
+</li>
+<li>
+<p>Mule immediately kicks into gear, starting your application and letting it run. When the startup process is complete, Studio displays a message in the console that reads, <code>Started app 'cbr_tutorial'</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/cbr-deploy-readout.png" alt="cbr deploy readout">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-the-application"><a class="anchor" href="#using-the-application"></a>Using the Application</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open any Web browser and go to <code><a href="http://localhost:8081/?language=Spanish" class="bare">http://localhost:8081/?language=Spanish</a></code></p>
+</li>
+<li>
+<p>Your browser presents a message that reads "Hola!"</p>
+</li>
+<li>
+<p>Check the console log in Studio and look for this log message:</p>
+<div class="listingblock">
+<div class="content">
+<pre>INFO  2016-05-02 12:30:28,850 [[cbr_tutorial].connector.http.mule.default.receiver.02] org.mule.api.processor.LoggerMessageProcessor: The reply "Hola!" means "hello" in Spanish.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>In your browser’s address bar, replace the URL with  <code><a href="http://localhost:8081/?language=French" class="bare">http://localhost:8081/?language=French</a></code>, and press <strong>Enter</strong>.</p>
+<div class="paragraph">
+<p>Your browser presents a message that reads "Bonjour!"</p>
+</div>
+</li>
+<li>
+<p>Check the console log in Studio again and look for this log message:</p>
+<div class="listingblock">
+<div class="content">
+<pre>INFO  2016-05-02 12:31:50,990 [[cbr_tutorial].connector.http.mule.default.receiver.03] org.mule.api.processor.LoggerMessageProcessor: The reply "Bonjour!" means "hello" in French.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Try requesting the URL without a query parameter:</p>
+<div class="paragraph">
+<p><code><a href="http://localhost:8081" class="bare">http://localhost:8081</a></code></p>
+</div>
+</li>
+<li>
+<p>Your browser displays a message that reads "Hello!"</p>
+</li>
+<li>
+<p>Check the console log in Studio again and look for this log message:</p>
+<div class="listingblock">
+<div class="content">
+<pre>INFO  2016-05-02 12:40:32,376 [[cbr_tutorial].connector.http.mule.default.receiver.02] org.mule.api.processor.LoggerMessageProcessor: The reply "Hello!" means "hello" in English.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>This last log message is not terribly interesting or informative. You can fix that in the <a href="#extra-credit">Extra Credit</a> section, below.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="editing-the-running-application"><a class="anchor" href="#editing-the-running-application"></a>Editing the Running Application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you make and save changes to your application while it is running, Mule automatically redeploys your application, something that is commonly referred to as "hot deployment".</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To see this feature in action, add another Logger to the chain of message processors that comprises the default option in the Choice scope.</p>
+</li>
+<li>
+<p>Drag the Logger in front of the two message processors already in the Default box.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/cbrtutorial-addlogger.png" alt="CBRtutorial_addlogger">
+</div>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-6" class="discrete view">Studio Visual Editor</h3>
+<div class="paragraph">
+<p>Click the <strong>Logger</strong> to open its Properties Editor, then configure as per the table below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/cbrlogger2.png" alt="cbrlogger2">
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>Display Name</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>Logger</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>Message</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>No language specified. Using English as a default.</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>Level</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>INFO</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<h3 id="xml-editor-or-standalone-6" class="discrete view">XML Editor or Standalone</h3>
+<div class="paragraph">
+<p>Configure the logger as follows:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>message</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>No language specified. Using English as a default.</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>level</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>INFO</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>doc:name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Logger</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The full code of the choice scope now appears as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">  ...
+&lt;choice doc:name="Choice"&gt;
+  &lt;when expression="#[flowVars.language == 'Spanish']"&gt;
+      &lt;set-payload value="Hola!" doc:name="Reply in Spanish"/&gt;
+  &lt;/when&gt;
+  &lt;when expression="#[flowVars.language == 'French']"&gt;
+      &lt;set-payload value="Bonjour!" doc:name="Reply in French"/&gt;
+  &lt;/when&gt;
+  &lt;otherwise&gt;
+      &lt;logger message="No language specified. Using English as a default." level="INFO" doc:name="Logger"/&gt;
+      &lt;set-variable variableName="language" value="English" doc:name="Set Language to English"/&gt;
+      &lt;set-payload value="Hello!" doc:name="Reply in English"/&gt;
+  &lt;/otherwise&gt;
+&lt;/choice&gt;
+  ...</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Click the <strong>Console</strong> tab underneath the canvas to view the running log of your application, then save your application by clicking <strong>File</strong> &gt; <strong>Save</strong>.</p>
+</li>
+<li>
+<p>Watch the console and note that Mule redeploys the application immediately.</p>
+</li>
+<li>
+<p>To test this change and verify that your new logger is working, return to your browser and request <code><a href="http://localhost:8081" class="bare">http://localhost:8081</a></code> again.</p>
+</li>
+<li>
+<p>Check the console log in Studio and look for this log message:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">INFO  2016-05-01 12:48:22,694 [[cbr_tutorial].connector.http.mule.default.receiver.02] org.mule.api.processor.LoggerMessageProcessor: No language specified. Using English as a default.</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You have now successfully made a change to your application and performed a hot deployment of the update!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-a-subflow"><a class="anchor" href="#adding-a-subflow"></a>Adding a Subflow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You&#8217;ve successfully routed messages in your application via a simple, limited set of options. In this example, the most complex routing option has only three message processors in a chain, but in a more complex application you might have many more message processing steps, possibly with additional branching or routing logic. To keep your code organized and break it into reusable chunks, you can move discrete sections of processing into separate flows or subflows and refer to those flows or subflows with a flow reference component to invoke them when needed.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>What is the difference between a flow and subflow?</strong></p>
+</div>
+<div class="paragraph">
+<p>Flows and subflows are both constructs within which you link together several individual building blocks to handle the receipt, processing, and routing of a message. For the purposes of this tutorial, you could use either a flow or a subflow to complete the steps below, but in more advanced situations you might need one or the other. A <strong>flow</strong> has more advanced configuration options, such as the ability to change the processing strategy and define an exception strategy. A <strong>subflow</strong> always has a synchronous processing strategy and it inherits the exception strategy of the flow from which it is referenced. Both a flow and subflow are invoked using a flow reference component.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Edit your application to add a subflow and move the processing that currently occurs within the Default box in your Choice Router into the subflow. To do this, you need to add two building blocks to your application:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <strong><a href="../../mule-runtime/3.8/flows/flow-reference-component-reference.html">Flow Reference Component</a></strong>, which invokes another flow in the application. Find this in the Components section of the palette.</p>
+</li>
+<li>
+<p>A <strong>Subflow Scope</strong>, which creates another flow in your application that you can reference using the above Flow Reference Component. You can find this in the Scopes section of the palette – but using the procedure shown below, Studio  adds it for you.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Moving message processors into a subflow is particularly easy to do using Studio&#8217;s visual editor.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Shift + click the three message processors in the Default box of the Choice scope so that all three are highlighted, then right-click and select <strong>Extract to&#8230;&#8203; &gt; Sub Flow</strong>.<br></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/cbr-extracttosubflow.png" alt="CBR-extracttosubflow">
+</div>
+</div>
+</li>
+<li>
+<p>Studio  prompts you to name your subflow. You can give it any unique name. This example uses the name <code>CBR_TutorialFlow2</code>.</p>
+</li>
+<li>
+<p>Studio creates the subflow underneath your existing flow, replacing the contents of the Default box with a Flow Ref component.<br></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/addasubflow.png" alt="AddaSubflow">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="create-a-sub-flow-with-drag-and-drop"><a class="anchor" href="#create-a-sub-flow-with-drag-and-drop"></a>Create a Sub Flow with Drag and Drop</h3>
+<div class="paragraph">
+<p>You can also drag and drop to create the sub flow, or use the XML editor.</p>
+</div>
+<div class="paragraph">
+<p>Add a sub flow scope below your existing flow.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-7" class="discrete view">Studio Visual Editor</h3>
+<div class="paragraph">
+<p>Drag and drop the <strong>Sub Flow</strong> scope onto your canvas in the empty space underneath your existing flow.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/altaddsubflow1.png" alt="altaddsubflow1">
+</div>
+</div>
+<h3 id="xml-editor-or-standalone-7" class="discrete view">XML Editor or Standalone</h3>
+<div class="paragraph">
+<p>Add a sub flow element beneath your existing flow and before the closing <code>mule</code> tag.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">  ...
+    &lt;/flow&gt;
+    &lt;sub-flow name="CBR_TutorialFlow2" doc:name="CBR_TutorialFlow2"/&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Move the two message processors from the default path of your choice router into the new sub flow.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-8" class="discrete view">Studio Visual Editor</h3>
+<div class="paragraph">
+<p>Drag and drop the message processors into their new positions in the sub flow scope.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/altaddsubflow2.png" alt="altaddsubflow2">
+</div>
+</div>
+<h3 id="xml-editor-or-standalone-8" class="discrete view">XML Editor or Standalone</h3>
+<div class="paragraph">
+<p>Copy and paste the code for these three processors into the scope of the sub flow element.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;sub-flow name="CBR_TutorialFlow2" doc:name="CBR_TutorialFlow2"&gt;
+    &lt;logger message="No language specified. Using English as a default." level="INFO" doc:name="Logger"/&gt;
+    &lt;set-variable variableName="language" value="English" doc:name="Set Language to English"/&gt;
+    &lt;set-payload value="Hello!" doc:name="Reply in English"/&gt;
+&lt;/sub-flow&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Add a flow reference in the default path of the choice router.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-9" class="discrete view">Studio Visual Editor</h3>
+<div class="paragraph">
+<p>Drag and drop a <strong>Flow Reference Component</strong> into the Default box within the Choice scope.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/altaddsubflow3.png" alt="altaddsubflow3">
+</div>
+</div>
+<h3 id="xml-editor-or-standalone-9" class="discrete view">XML Editor or Standalone</h3>
+<div class="paragraph">
+<p>Add a <code>flow-ref</code> element as a nested element within the <code>otherwise</code> child element of the choice router.</p>
+</div>
+<div class="paragraph">
+<p>+</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;otherwise&gt;
+    &lt;flow-ref name="" doc:name="Flow Reference"/&gt;
+&lt;/otherwise&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Configure the flow reference to point to the subflow you just created.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-10" class="discrete view">Studio Visual Editor</h3>
+<div class="paragraph">
+<p>Click the <strong>Flow Reference</strong> building block to open its properties tab, then click <code>CBR_TutorialFlow2</code> from the <strong>Flow name</strong> drop down menu.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/configflowref.png" alt="configflowref">
+</div>
+</div>
+<div class="paragraph">
+<p>Insert the name of the subflow as the value for the <code>name</code> attribute.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow-ref name="CBR_TutorialFlow2" doc:name="Flow Reference"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="verify-the-code"><a class="anchor" href="#verify-the-code"></a>Verify the Code</h3>
+<div class="paragraph">
+<p>Check that your complete application code now matches the code shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd"&gt;
+    &lt;http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/&gt;
+    &lt;flow name="CBR_TutorialFlow1" doc:name="CBR_TutorialFlow1"&gt;
+        &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+        &lt;expression-filter expression="#[message.inboundProperties.'http.request.uri' != '/favicon.ico']" doc:name="Expression"/&gt;
+        &lt;set-variable doc:name="Set Language Variable" value="#[message.inboundProperties.'http.query.params'.language]" variableName="language"/&gt;
+        &lt;choice doc:name="Choice"&gt;
+            &lt;when expression="#[flowVars.language == 'Spanish']"&gt;
+                &lt;set-payload doc:name="Reply in Spanish" value="Hola!"/&gt;
+            &lt;/when&gt;
+            &lt;when expression="#[flowVars.language == 'French']"&gt;
+                &lt;set-payload doc:name="Reply in French" value="Bonjour!"/&gt;
+            &lt;/when&gt;
+            &lt;otherwise&gt;
+                &lt;flow-ref name="CBR_TutorialFlow2" doc:name="Flow Reference"/&gt;
+            &lt;/otherwise&gt;
+        &lt;/choice&gt;
+        &lt;logger level="INFO" doc:name="Logger" message="The reply &amp;quot;#[payload]&amp;quot; means &amp;quot;hello&amp;quot; in #[flowVars.language]."/&gt;
+    &lt;/flow&gt;
+    &lt;sub-flow name="CBR_TutorialFlow2" doc:name="CBR_TutorialFlow2"&gt;
+        &lt;logger message="No language specified. Using English as a default." level="INFO" doc:name="Logger"/&gt;
+        &lt;set-variable variableName="language" value="English" doc:name="Set Language to English"/&gt;
+        &lt;set-payload value="Hello!" doc:name="Reply in English"/&gt;
+    &lt;/sub-flow&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Save your project, and watch the console as it redeploys your changed application.</p>
+</div>
+<div class="paragraph">
+<p>Repeat the steps in <a href="#using-the-application">Using the Application</a>, above.</p>
+</div>
+<div class="paragraph">
+<p>Note that the behavior doesn&#8217;t change at all – organizing those three message processors into a subflow and then invoking that flow using a flow-ref has no affect on the functionality of the application. However, as you see in the <a href="#extra-credit">Extra Credit</a> section below, separating out chunks of processing into subflows can help keep your application code (and its visual representation on the Studio canvas) organized and easy to read. For some realistic use case examples of how you might use multiple flows or subflows to organize your applications, take a look at some of the <a href="../../anypoint-platform/exchange/index.html">Mule Examples</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extra-credit"><a class="anchor" href="#extra-credit"></a>Extra Credit</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that you know your way around content-based routing in Studio, try applying your knowledge to this extra task:</p>
+</div>
+<div class="paragraph">
+<p>Revise your application so that an incoming message without an inbound property set to French or Spanish does not automatically default to English, but instead replies in one of three other random languages (your choice!), selected according to a round robin principle.</p>
+</div>
+<div class="paragraph">
+<p>To achieve this, replace the contents of the subflow that you just created. You  need another flow control designed to route incoming messages according to a round robin mechanism, and you  need to define three possible processing branches within the scope of the round robin flow control. In each of those three processing branches, set a language property and set the payload to respond in the language that you select.</p>
+</div>
+<div class="paragraph">
+<p>Use the hints below if you need help.</p>
+</div>
+<div class="sect2">
+<h3 id="hints"><a class="anchor" href="#hints"></a>Hints</h3>
+<table class="tableblock frame-all grid-all" style="width: 80%;">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><span class="image"><img src="./_images/icon-question-blue-big.png" alt="icon question blue big"></span></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>How do I add round robin logic to my application?</strong></p>
+</div>
+<div class="paragraph">
+<p>Use the Round Robin flow control to add round robin logic to your application. Find this processor in the Flow Control section of the palette, or add a <code>round-robin</code> element into your XML.</p>
+</div>
+<div class="paragraph">
+<p><strong>How do I define options for a round robin mechanism?</strong></p>
+</div>
+<div class="paragraph">
+<p>In the visual editor, within the dotted line illustrating the scope of the Round Robin flow control, drag and drop three Variable Transformers. As you did above with the Choice flow control, position your mouse so that a vertical black line appears to create additional routing options. After each Variable Transformer, add a Set Payload Transformer.</p>
+</div>
+<div class="paragraph">
+<p>Or, in the XML editor, nest three set-variable elements below the round-robin element. Add a set-payload element immediately after each set-variable. In order to instruct Mule that the set-payload transformer that follows each set-variable transformer should be the next step of processing rather than a different round robin option, wrap each set-variable and set-payload pair in a processor-chain tag, like this:</p>
+</div>
+<div class="paragraph">
+<p><strong>How do I configure additional language responses?</strong></p>
+</div>
+<div class="paragraph">
+<p>Do exactly what you did when you configured the default option in the <a href="#choice-router-and-constituent-message-processors">Choice Router and Constituent Message Processors</a>, above, only with different languages.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="answer"><a class="anchor" href="#answer"></a>Answer</h3>
+<table class="tableblock frame-all grid-all" style="width: 80%;">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><span class="image"><img src="./_images/icon-checkmark-blue-big.png" alt="blue checkmark indicates the answer"></span></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>There is more than one way to achieve the goals outlined above, but here is the fastest way:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Drag a Round Robin router into the subflow, as shown.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/addrr.png" alt="AddRR">
+</div>
+</div>
+</li>
+<li>
+<p>Drag the existing three message processors into the Round Robin scope, as shown.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/cbr-ec2.png" alt="cbr ec2">
+</div>
+</div>
+</li>
+<li>
+<p>Switch to the <strong>Configuration XML</strong> tab to edit in XML.</p>
+</li>
+<li>
+<p>Highlight the portion of the code wrapped in <code>processor-chain</code> tags and copy it to your clipboard:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/cbr-ec3.png" alt="cbr ec3">
+</div>
+</div>
+<div class="paragraph">
+<p>The code is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;processor-chain&gt;
+   &lt;logger message="No language specified. Using English as a default." level="INFO" doc:name="Logger"/&gt;
+   &lt;set-variable variableName="language" value="English" doc:name="Set Language to English"/&gt;
+   &lt;set-payload value="Hello!" doc:name="Reply in English"/&gt;
+&lt;/processor-chain&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Press <strong>enter</strong> to start a new line, then paste the code twice to create three sets of processor chains.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/cbr-ec4.png" alt="cbr ec4">
+</div>
+</div>
+<div class="paragraph">
+<p>The Round Robin code is now:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;round-robin doc:name="Round Robin"&gt;
+    &lt;processor-chain&gt;
+        &lt;logger message="No language specified. Using English as a default." level="INFO" doc:name="Logger"/&gt;
+        &lt;set-variable variableName="language" value="English" doc:name="Set Language to English"/&gt;
+        &lt;set-payload value="Hello!" doc:name="Reply in English"/&gt;
+    &lt;/processor-chain&gt;
+     &lt;processor-chain&gt;
+        &lt;logger message="No language specified. Using English as a default." level="INFO" doc:name="Logger"/&gt;
+        &lt;set-variable variableName="language" value="English" doc:name="Set Language to English"/&gt;
+        &lt;set-payload value="Hello!" doc:name="Reply in English"/&gt;
+    &lt;/processor-chain&gt;
+     &lt;processor-chain&gt;
+        &lt;logger message="No language specified. Using English as a default." level="INFO" doc:name="Logger"/&gt;
+        &lt;set-variable variableName="language" value="English" doc:name="Set Language to English"/&gt;
+        &lt;set-payload value="Hello!" doc:name="Reply in English"/&gt;
+    &lt;/processor-chain&gt;
+&lt;/round-robin&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Edit the attributes for the three routing options you have created to set three new language variables and respond with payloads in those languages. Edit the loggers to match. For example:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/cbr-ec5.png" alt="cbr ec5">
+</div>
+</div>
+<div class="paragraph">
+<p>The updated code for this example is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;round-robin doc:name="Round Robin"&gt;
+    &lt;processor-chain&gt;
+        &lt;logger message="No language specified. Using Klingon." level="INFO" doc:name="Logger"/&gt;
+        &lt;set-variable variableName="language" value="Klingon" doc:name="Set Language to Klingon"/&gt;
+        &lt;set-payload value="tlhIngan mah!" doc:name="Reply in Klingon"/&gt;
+    &lt;/processor-chain&gt;
+     &lt;processor-chain&gt;
+        &lt;logger message="No language specified. Using Turkish." level="INFO" doc:name="Logger"/&gt;
+        &lt;set-variable variableName="language" value="Turkish" doc:name="Set Language to Turkish"/&gt;
+        &lt;set-payload value="Merhaba!" doc:name="Reply in Turkish"/&gt;
+    &lt;/processor-chain&gt;
+     &lt;processor-chain&gt;
+        &lt;logger message="No language specified. Using Basque." level="INFO" doc:name="Logger"/&gt;
+        &lt;set-variable variableName="language" value="Basque" doc:name="Set Language to Basque"/&gt;
+        &lt;set-payload value="Kaixo!" doc:name="Reply in Basque"/&gt;
+    &lt;/processor-chain&gt;
+&lt;/round-robin&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the visual editor, the subflow looks like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/cbr-ec-subflow.png" alt="cbr ec subflow">
+</div>
+</div>
+</li>
+<li>
+<p>Save the application again, wait for the redeployment to complete, and observe the results when you repeatedly visit <code><a href="http://localhost:8081" class="bare">http://localhost:8081</a></code> without specifying either French or Spanish using a query parameter.</p>
+</li>
+<li>
+<p>Examine the Console messages. You should see messages that end with:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/cbr-log-msgs.png" alt="cbr log msgs">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Congratulations! You earned your extra credit. You&#8217;re all set to go on to the <a href="anypoint-connector.html">Anypoint Connector quickstart</a>.</p>
+</div>
+<div class="paragraph">
+<p>View the code of the revised application:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd"&gt;
+    &lt;http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/&gt;
+    &lt;flow name="cbr_tutorialFlow"&gt;
+        &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+        &lt;expression-filter expression="#[message.inboundProperties.'http.request.uri' != '/favicon.ico']" doc:name="Expression"/&gt;
+        &lt;set-variable doc:name="Set Language Variable" value="#[message.inboundProperties.'http.query.params'.language]" variableName="language"/&gt;
+        &lt;choice doc:name="Choice"&gt;
+            &lt;when expression="#[flowVars.language == 'Spanish']"&gt;
+                &lt;set-payload doc:name="Reply in Spanish" value="Hola!"/&gt;
+            &lt;/when&gt;
+            &lt;when expression="#[flowVars.language == 'French']"&gt;
+                &lt;set-payload doc:name="Reply in French" value="Bonjour!"/&gt;
+            &lt;/when&gt;
+            &lt;otherwise&gt;
+                &lt;flow-ref name="cbr_tutorialSub_Flow" doc:name="cbr_tutorialSub_Flow"/&gt;
+            &lt;/otherwise&gt;
+        &lt;/choice&gt;
+        &lt;logger level="INFO" doc:name="Logger" message="The reply &amp;quot;#[payload]&amp;quot; means &amp;quot;hello&amp;quot; in #[flowVars.language]."/&gt;
+    &lt;/flow&gt;
+    &lt;sub-flow name="cbr_tutorialSub_Flow"&gt;
+        &lt;round-robin doc:name="Round Robin"&gt;
+            &lt;processor-chain&gt;
+                &lt;logger message="No language specified. Using Klingon." level="INFO" doc:name="Logger"/&gt;
+                &lt;set-variable variableName="language" value="Klingon" doc:name="Set Language to Klingon"/&gt;
+                &lt;set-payload value="tlhIngan mah!" doc:name="Reply in Klingon"/&gt;
+            &lt;/processor-chain&gt;
+             &lt;processor-chain&gt;
+                &lt;logger message="No language specified. Using Turkish." level="INFO" doc:name="Logger"/&gt;
+                &lt;set-variable variableName="language" value="Turkish" doc:name="Set Language to Turkish"/&gt;
+                &lt;set-payload value="Merhaba!" doc:name="Reply in Turkish"/&gt;
+            &lt;/processor-chain&gt;
+             &lt;processor-chain&gt;
+                &lt;logger message="No language specified. Using Basque." level="INFO" doc:name="Logger"/&gt;
+                &lt;set-variable variableName="language" value="Basque" doc:name="Set Language to Basque"/&gt;
+                &lt;set-payload value="Kaixo!" doc:name="Reply in Basque"/&gt;
+            &lt;/processor-chain&gt;
+        &lt;/round-robin&gt;
+    &lt;/sub-flow&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="stopping-the-application"><a class="anchor" href="#stopping-the-application"></a>Stopping the Application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To stop the application, click the red, square <strong>Terminate</strong> icon above the console.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/studio-stopcbrapp.png" alt="Studio-stopcbrapp">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>NEXT STEP:</strong> Test yourself with the next, slightly more complex <a href="anypoint-connector.html">Anypoint Connector quickstart</a>.</p>
+</li>
+<li>
+<p>Want to learn more about Mule Expression Language (MEL)? Check out the <a href="../../mule-runtime/3.8/mel/mule-expression-language-mel.html">complete reference</a>.</p>
+</li>
+<li>
+<p>Get a deeper explanation about the <a href="../../mule-runtime/3.8/messages/about-mule-message.html">Mule message</a> and anatomy of a <a href="../../mule-runtime/3.8/flows/index.html">Mule application</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

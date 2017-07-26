@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="mmc, flow processing, debug, payload, monitoring">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/mule-management-console/3.8/analyzing-message-flows.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Analyzing Message Flows // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Mule Management Console</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-the-trial-version-of-mmc.html">Installing the Trial Version of MMC</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-the-production-version-of-mmc.html">Installing the Production Version of MMC</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="upgrading-the-management-console.html">Upgrading the Management Console</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="installing-or-upgrading-mule-management-console-3.4.2.html">Installing or Upgrading Mule Management Console 3.4.2</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="upgrading-to-mmc-3.4.2-with-an-external-database.html">Upgrading to MMC 3.4.2 with an External Database</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="upgrading-to-mmc-3.4.2-with-ldap.html">Upgrading to MMC 3.4.2 with LDAP</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="upgrading-from-mmc-3.4.1-for-ms-sql-server-to-mmc-3.4.2-for-ms-sql-server.html">Upgrading from MMC 3.4.1 for MS-SQL Server to MMC 3.4.2 for MS-SQL Server</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="orientation-to-the-console.html">Orientation to the Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mmc-walkthrough.html">MMC Walkthrough</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="setting-up-mmc.html">Setting Up MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-mmc-mule-esb-communications.html">Setting Up MMC-Mule ESB Communications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="persisting-mmc-data-on-external-databases.html">Persisting MMC Data On External Databases</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-oracle.html">Persisting MMC Data to Oracle</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-postgresql.html">Persisting MMC Data to PostgreSQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-mysql.html">Persisting MMC Data to MySQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-ms-sql-server.html">Persisting MMC Data to MS SQL Server</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="persisting-mmc-data-on-external-databases-in-mmc-3.4.2.html">Persisting MMC Data On External Databases in MMC 3.4.2</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="configuring-mmc-3.4.2-for-external-databases-quick-reference.html">Configuring MMC 3.4.2 for External Databases - Quick Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-postgresql.html">Persisting MMC 3.4.2 Data to PostgreSQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-mysql.html">Persisting MMC 3.4.2 Data to MySQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-oracle.html">Persisting MMC 3.4.2 Data to Oracle</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-ms-sql-server.html">Persisting MMC 3.4.2 Data to MS SQL Server</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="encrypting-the-mmc-tracking-database-password.html">Encrypting the MMC Tracking Database Password</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="encrypting-ldap-and-database-passwords-in-mmc-3.4.2.html">Encrypting LDAP and Database Passwords in MMC 3.4.2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-mmc-users-and-roles.html">Managing MMC Users and Roles</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-in-mmc.html">Setting Up and Managing Users in MMC</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="encrypting-mmc-user-passwords.html">Encrypting MMC User Passwords</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-via-ldap.html">Setting Up and Managing Users via LDAP</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="encrypting-the-mmc-ldap-password.html">Encrypting the MMC LDAP Password</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="architecture-of-the-mule-management-console.html">Architecture of the Mule Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-mule-servers-clusters-and-groups.html">Managing Mule Servers Clusters and Groups</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-alerts.html">Viewing Server Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-system-memory.html">Viewing System Memory</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-threads.html">Viewing Threads</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-pools.html">Viewing Server Pools</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="working-with-the-server-configuration-files.html">Working with the Server Configuration Files</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-properties.html">Viewing Server Properties</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-os-resources.html">Viewing Server OS Resources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-jmx-information.html">Viewing JMX Information</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="editing-server-settings.html">Editing Server Settings</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-server-metrics-dashboard.html">Customizing Server Metrics Dashboard</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="troubleshooting-tips.html">Troubleshooting Tips</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-and-debugging-applications.html">Monitoring and Debugging Applications</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-flows.html">Tracking Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="analyzing-message-flows.html">Analyzing Message Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-message-processing.html">Debugging Message Processing</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-the-loan-broker-example-application.html">Debugging the Loan Broker Example Application</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="adding-and-managing-alerts-and-slas.html">Adding and Managing Alerts and SLAs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="defining-slas-and-alerts.html">Defining SLAs and Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-alert-destinations-and-notifications.html">Setting Up Alert Destinations and Notifications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="analyzing-business-events.html">Analyzing Business Events</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-and-querying-business-events.html">Tracking and Querying Business Events</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="business-events-use-cases.html">Business Events Use Cases</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="managing-mule-high-availability-ha-clusters.html">Managing Mule High Availability (HA) Clusters</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="configuring-mule-ha-clustering.html">Configuring Mule HA Clustering</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-or-disbanding-a-cluster.html">Creating or Disbanding a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="deploying-redeploying-or-undeploying-an-application-to-or-from-a-cluster.html">Deploying, Redeploying, or Undeploying an Application To or From a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="dynamically-adding-or-removing-nodes-in-a-cluster.html">Dynamically Adding or Removing Nodes in a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="monitoring-a-cluster.html">Monitoring a Cluster</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="accessing-server-logs.html">Accessing Server Logs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="audit-logs.html">Audit Logs</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="automating-tasks-using-scripts.html">Automating Tasks Using Scripts</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="customizing-the-dashboard.html">Customizing the Dashboard</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-management-console-for-performance-tuning.html">Using the Management Console for Performance Tuning</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-flows.html">Working with Flows</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="maintaining-the-server-application-repository.html">Maintaining the Server Application Repository</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="analyzing-flow-processing-and-payloads.html">Analyzing Flow Processing and Payloads</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-management-console-api.html">Using the Management Console API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="rest-api-reference.html">REST API Reference</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="clusters.html">Clusters</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="deployments.html">Deployments</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="repository-of-applications.html">Repository of Applications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="server-groups.html">Server Groups</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="servers.html">Servers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="user-groups.html">User Groups</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Analyzing Message Flows</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/mule-management-console-docs/edit/v3.4/modules/ROOT/content/analyzing-message-flows.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Analyzing Message Flows</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#define-selection-parameters">Define Selection Parameters</a></p>
+</li>
+<li>
+<p><a href="#start-data-collection">Start Data Collection</a></p>
+</li>
+<li>
+<p><a href="#control-data-collection">Control Data Collection</a></p>
+</li>
+<li>
+<p><a href="#search-the-message-list">Search the Message List</a></p>
+</li>
+<li>
+<p><a href="#get-details-about-a-message">Get Details About a Message</a></p>
+</li>
+<li>
+<p><a href="#understanding-the-message-processors-and-message-content">Understanding the Message Processors and Message Content</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Shift to the Flow Analyzer tab after verifying (via the Flows tab) that your application processes are running and identifying possible problems.</p>
+</div>
+<div class="paragraph">
+<p>The Flow Analyzer tab enables you to see the cause of many problems and gives you insight into how to fix them. (Be sure that the flow you want to analyze is started and running. Use the Control Flows button from the Flows tab if you need to start a particular flow. See <a href="../3.7/tracking-flows.html">Tracking Flows</a> for more information on the Flows tab.)</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Flow analysis is not available for clusters. It is primarily a development-time tool. However, you can use it on a standalone server running an application that you plan to deploy to a cluster.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>System administrators and developers alike will find the Flow Analyzer screens particularly useful for diagnosing problems, such as memory and performance bottlenecks. You use the Flow Analyzer tab to verify message payload content and message properties for flows. You can see the processing trail that a message takes, the message payload at each processing step, and debug the flow performance.</p>
+</div>
+<div class="paragraph">
+<p>Developers in particular will find it useful to delve into payload content at each point in the message processing. They can not only see if the payload is as it is intended, but they can also look at the associated message properties at each point in the processing. Furthermore, when debugging an application, developers, if they need to see the complete payload for certain types of messages, have the option of turning encryption off or using other special transformer tools to decrypt messages.</p>
+</div>
+<div class="paragraph">
+<p>This topic takes you through the basic steps for using the Flow Analyzer tab. In a nutshell, you:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Define the selection parameters for a flow - Select the server, application(s), and flow(s) to track or audit.</p>
+</li>
+<li>
+<p>Start the data collection process</p>
+</li>
+<li>
+<p>Control data collection - Use Pause/Continue and Clear buttons to control the collection of flow messages.</p>
+</li>
+<li>
+<p>Search the message list - Find specific messages of interest.</p>
+</li>
+<li>
+<p>Select a message id for details - View message details.</p>
+</li>
+<li>
+<p>Examine the message content and navigate the message processors - Learn what is key about the message content and how to navigate them.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="define-selection-parameters"><a class="anchor" href="#define-selection-parameters"></a>Define Selection Parameters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before you can analyze a flow&#8217;s message payload, you need to define the flow selection parameters. You select the server, application, and flows within the applications, then explicitly start collecting the message processing data. The management console starts collecting data when you click the Start button, accumulating information about the message payloads passed among the application&#8217;s flows. You can examine the message payloads even as data collection continues. At any point, you can pause or stop the collecting process, or clear out the collected statistics to start with a clean slate.</p>
+</div>
+<div class="paragraph">
+<p>Suppose you want to look closely at the hello world example application, which you have deployed on your server. You have verified that the application flows have been started. Click the Flow Analyzer tab and define the parameters in the left pane. Select the server first from the pull-down list. After selecting the server, the pane expands and displays all applications running on the server. Click the applications to track, then the Flows section expands and displays all applicable flows. You can select all flows or individual flows. The figure below shows how the pane changes as you make your sequence of selections.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/define-audit.png" alt="define audit">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="start-data-collection"><a class="anchor" href="#start-data-collection"></a>Start Data Collection</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When all selections are complete (server, application, flows), be sure to click the Start button, which will no longer be grayed out, to start collecting messaging data for analysis.</p>
+</div>
+<div class="paragraph">
+<p>Once you start data collection, the selection pane displays the list of flows currently being tracked. The Message List panel in the center displays a table listing identifying and summary information about each message payload in the order they are processed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/audit-list.png" alt="audit list">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="control-data-collection"><a class="anchor" href="#control-data-collection"></a>Control Data Collection</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At any time, you can click the Pause button and pause tracking (that is, suspend the collection of message processing data). You might do so when you have collected a sufficient amount of data for your debugging purposes. When you pause data collection, the Pause button changes to Continue. Click Continue at any time to resume data collection from a paused state. When tracking is resumed, processed messages are added to the end of the previously collected message list.</p>
+</div>
+<div class="paragraph">
+<p>Click the Stop button to completely stop the tracking process. Use the Stop button when you have completed a particular tracking session. You can start a new data collection with different parameters or restart the collection with the previously entered parameters. However, unlike resuming from a paused state, previously collected messages are no longer available.</p>
+</div>
+<div class="paragraph">
+<p>Click the Clear button to clear out messages in the message list. Data collection continues without a pause and new messages are added to the list.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="search-the-message-list"><a class="anchor" href="#search-the-message-list"></a>Search the Message List</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Very likely, the application you are auditing will have a multitude of messages. Use the Search box to filter the list of messages and narrow the display to the messages of interest. Start typing a filter string in the Search box and the Message List changes to show only matching messages. Erase what you have typed in and the display again lists all messages.</p>
+</div>
+<div class="paragraph">
+<p>The figure below illustrates narrowing the message list display to flows that match "hello".</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/audit-search.png" alt="audit search">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="get-details-about-a-message"><a class="anchor" href="#get-details-about-a-message"></a>Get Details About a Message</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To get detailed information about a message, click a particular message payload in the table. The Message Flow section (in the Message Details section in the lower half of the screen), displays the message processors for that message.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/msg-details1.png" alt="msg details1">
+</div>
+</div>
+<div class="paragraph">
+<p>Select a message processor from the Message Processor list. The other Message Details panes display detailed information. For example, after clicking a message in the list, these panes display data pertaining to the selected message:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/msg-details2.png" alt="msg details2">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="understanding-the-message-processors-and-message-content"><a class="anchor" href="#understanding-the-message-processors-and-message-content"></a>Understanding the Message Processors and Message Content</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Message Details panes give you detailed information about the message processors, the message payload data, and message properties. These panes are in sync with the selected message processor in the Message Flow pane. Each detail pane can be expanded, making it easier to view all the data in the pane.</p>
+</div>
+<div class="paragraph">
+<p>The Message Flow pane shows the message processors that act on the message as it moves through the system.</p>
+</div>
+<div class="paragraph">
+<p>You use the Message Flow details pane in conjunction with the other message detail panes to navigate the message processors. When you click a processor in the message processor list, the two payload and message properties panes sync up with the selected processor. This enables you to examine the selected processor&#8217;s before and after payload content and look at its three types of message properties.</p>
+</div>
+<div class="paragraph">
+<p>For example, the figure below shows the before and after payloads, along with an expanded Inbound Properties folder, for the highlighted processor.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/details-1.png" alt="details 1">
+</div>
+</div>
+<div class="paragraph">
+<p>The next figure shows different before and after payloads and message properties when a different processor is highlighted.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/details-2.png" alt="details 2">
+</div>
+</div>
+<div class="sect2">
+<h3 id="message-processors"><a class="anchor" href="#message-processors"></a>Message Processors</h3>
+<div class="paragraph">
+<p>An application uses message processors to control message flow; that is, to control how messages are sent and received within a flow.</p>
+</div>
+<div class="paragraph">
+<p>Looking at the Message Processor list in the previous figures, notice the ChoiceRouter message processor. ChoiceRouter is an implementation of the standard Choice router. Its function is to send a message to the first matching message processor. MessageFilter is also an implementation of the standard Idempotent Message Filter, which filters out duplicate messages using the message ID.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="../../mule-runtime/3.4/routing-message-processors.html">Using Message Processors to Control Message Flow</a> to find out more about these standard message processors and how to use them to control message flow.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="what-s-in-the-payload-data"><a class="anchor" href="#what-s-in-the-payload-data"></a>What&#8217;s in the Payload Data</h3>
+<div class="paragraph">
+<p>The payload data shows the business-related content of the message. For example, for an order entry application the message payload might be a product number or an actual sales order. For the simple hello world application, the payload is the name of the individual entered via the browser.</p>
+</div>
+<div class="paragraph">
+<p>There are two parts to the message payload panes: Before Payload and After Payload. The Before Payload pane shows the message content when the message is received by the processor node and the After Payload pane shows the payload when the message exits the node. The payload data indicates how transforms are being applied. You need to look closely at the payload data itself to ensure that the application transforms are working properly.</p>
+</div>
+<div class="paragraph">
+<p>As noted earlier, message data may be encrypted for security reasons. Although not possible in production, during the debugging phase of development it is possible to access sensitive or encrypted message data. For example, the payload may be streamed data, which is unreadable as is, or object data. You can read streamed or encrypted data by either temporarily turning off encryption, using an object-to-byte-array transformer, or using some other third-party transformer or decryption tool.</p>
+</div>
+<div class="paragraph">
+<p>For more information on reading stream-based payloads, such as CXF streams, see how to apply an object-to-byte-array stream transformer in the section "Viewing Message Payload When Using Streams" in the <a href="../3.6/analyzing-flow-processing-and-payloads.html">Analyzing Flow Processing and Payloads</a> topic.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="message-properties"><a class="anchor" href="#message-properties"></a>Message Properties</h3>
+<div class="paragraph">
+<p>The Message Properties pane contains three sets of message properties: Inbound, Invocation, and Outbound properties. These message properties are the meta-data used, in part, to control the message flow through the system. These message properties also determine message routing, end point invocations, and so forth.</p>
+</div>
+<div class="paragraph">
+<p>The figure below is an example of message property meta-data. (Note that some properties have been removed from the figure.) A message&#8217;s properties differ depending on its particular configuration.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/properties.png" alt="properties">
+</div>
+</div>
+<div class="paragraph">
+<p>You need to look at the message properties to diagnose routing issues and potential third-party issues, such as if end points are not correctly invoked.</p>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="apikit, soap">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/apikit/3.8/apikit-for-soap.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>APIkit for SOAP Tutorial // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">APIkit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-tutorial.html">Simple REST API Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-tutorial-jsonplaceholder.html">Consuming a Web Service Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-for-soap.html">SOAP Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-using.html">Using APIkit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="walkthrough-deploy-to-runtime.html">Deploying an APIkit Project</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-an-odata-api-with-apikit.html">Creating an OData API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-odata-extension-reference.html">APIkit OData Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-an-apikit-project-with-maven.html">Creating an APIkit Project with Maven</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-basic-anatomy.html">APIkit Anatomy</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-reference.html">APIkit Reference</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">APIkit for SOAP Tutorial</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/apikit-docs/edit/v3.8/modules/ROOT/content/apikit-for-soap.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>APIkit for SOAP Tutorial</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>APIkit for SOAP helps you implement a SOAP interface for accessing data resources and integrating the interface with backend processes to function as an API. Using APIkit for SOAP you can transition the implementation to REST.</p>
+</div>
+<div class="paragraph">
+<p>In this tutorial, you create an API using Studio and APIkit for SOAP. You can <a href="./_attachments/apikit-for-soap-tutorial.xml">download the XML code</a> for the API or follow the steps in this document to create the flows and corresponding XML in Studio.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.soapui.org/downloads/soapui.html">SoapUI client</a></p>
+</li>
+<li>
+<p>Mule EE Runtime</p>
+</li>
+<li>
+<p>The <a href="./_attachments/tshirt2.wsdl">tshirt2.wsdl</a> file</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>APIkit for SOAP supports consuming a remote WSDL. This tutorial, however, uses a local WSDL.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="create-a-new-project"><a class="anchor" href="#create-a-new-project"></a>Create a New Project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You create a new project, specify the use of APIkit components, and refer to a WSDL file that you download.</p>
+</div>
+<div class="paragraph">
+<p>To create an APIkit for SOAP project:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check that you are using a version of Studio that includes the Anypoint APIkit SOAP Extension: <strong>Help</strong> &gt; <strong>Installation Details</strong>. If not, <a href="../../anypoint-studio/6/download-and-launch-anypoint-studio.html">install Studio 6.0</a> or later.</p>
+</li>
+<li>
+<p>Download the example <a href="./_attachments/tshirt2.wsdl">tshirt2.wsdl</a> file to your local drive.</p>
+</li>
+<li>
+<p>Under the <strong>File menu</strong>, select <strong>New</strong> &gt; <strong>Mule Project</strong>.</p>
+<div class="paragraph">
+<p>The New Mule Project wizard appears.</p>
+</div>
+</li>
+<li>
+<p>In <strong>Project Name</strong>, enter a name for the project. Select or accept the default <strong>EE runtime</strong>, for example Mule Server 3.8.1 EE.</p>
+</li>
+<li>
+<p>Check the <strong>Add APIkit components</strong> checkbox, and browse to the tshirt2.wsdl file you downloaded.</p>
+</li>
+<li>
+<p>Select a service and port from the drop-down menus. For example, select TshirtService and TshirtServicePort.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikit-for-soap-47fb8.png" alt="apikit for soap 47fb8">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Finish</strong>.</p>
+<div class="paragraph">
+<p>The new project having a <code>src/main/wsdl</code> folder that contains the WSDL file appears.</p>
+</div>
+</li>
+<li>
+<p>Right-click a blank area of the canvas and run the project.</p>
+</li>
+<li>
+<p>Go to <code>http://localhost:8081/TshirtService/TshirtServicePort?wsdl</code>.</p>
+<div class="paragraph">
+<p>The contents of the TShirtService WSDL file appear.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementing-an-operation"><a class="anchor" href="#implementing-an-operation"></a>Implementing an Operation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, each flow you generate in Studio has a payload that identifies the current operation that needs to be implemented by returning a <a href="http://whatis.techtarget.com/definition/SOAP-fault">SOAP fault</a>.</p>
+</div>
+<div class="paragraph">
+<p>In this part of the tutorial, you use the SoapUI tool to identify an operation that you need to implement by requesting the API that fails. Use the <code>OrderTshirt</code> operation to create a request in SOAP UI to place an order for a large t-shirt for John. The API cannot handle this operation and a SOAP fault occurs.</p>
+</div>
+<div class="paragraph">
+<p>To resolve the fault, you modify the API. You add the <strong>Transform Message</strong> component to the flow and specify a message in <a href="../../mule-runtime/3.8/dataweave/dataweave.html"><strong>DataWeave</strong></a> transformation language for responding to the request, effectively implementing the operation. In the DataWeave code, you use the proper namespace to avoid a <code>soap:Server faultcode</code> at the beginning of the response to the request.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>Transform Message</strong> component works on the process side after the endpoint defined in the WSDL has been hit, triggering the main flow of the Mule application to execute, which then calls the backend flow.</p>
+</div>
+<div class="paragraph">
+<p>To generate a SOAP fault:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a SoapUI project using the <code><a href="http://localhost:8081/TshirtService/TshirtServicePort?wsdl" class="bare">http://localhost:8081/TshirtService/TshirtServicePort?wsdl</a></code> for the initial WSDL:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/soapui-new-project.png" alt="soapui new project">
+</div>
+</div>
+</li>
+<li>
+<p>In the SoapUI client, request a large t-shirt for John by entering some values into the request envelope. For example:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Enter <strong>L</strong> between the <code>&lt;size&gt;</code> tags.</p>
+</li>
+<li>
+<p>Enter <strong>John</strong> between the <code>&lt;name&gt;</code> tags.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Submit the request.</p>
+<div class="paragraph">
+<p>The result is the SOAP fault.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+   &lt;soap:Body&gt;
+      &lt;soap:Fault xmlns:soap="http://www.w3.org/2003/05/soap-envelope"&gt;
+         &lt;faultcode&gt;soap:Server&lt;/faultcode&gt;
+         &lt;faultstring&gt;Operation [OrderTshirt:/TshirtService/TshirtServicePort/api-config] not implemented&lt;/faultstring&gt;
+      &lt;/soap:Fault&gt;
+   &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To implement an operation to prevent the SOAP fault:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Remove the <strong>Set Payload</strong> element from the flow <code>OrderTshirt:api-config</code>.</p>
+</li>
+<li>
+<p>Drag a <strong>Transform Message</strong> component from the Mule palette to replace Set Payload.</p>
+<div class="paragraph">
+<p>Leave the Source section of the APIkit backend flow empty.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikit-for-soap-e8679.png" alt="apikit for soap e8679">
+</div>
+</div>
+</li>
+<li>
+<p>Select the Transform Message component.</p>
+<div class="paragraph">
+<p>The user interface displays the input and output for the current operation, <code>OrderTshirt</code> as input, and <code>OrderTshirtResponse</code> as output.</p>
+</div>
+</li>
+<li>
+<p>In the properties editor, specify the payload as follows:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-raml hljs" data-lang="raml">%dw 1.0
+%output application/xml
+%namespace ns0 http://mulesoft.org/tshirt-service
+---
+{
+  ns0#OrderTshirtResponse: {
+    orderId: "I got a request from "
+    ++ payload.ns0#OrderTshirt.name
+  }
+}</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikit-for-soap-475c0.png" alt="apikit for soap 475c0">
+</div>
+</div>
+</li>
+<li>
+<p>Save and rerun the project.</p>
+</li>
+<li>
+<p>In the SoapUI client, repeat the request.</p>
+<div class="paragraph">
+<p>The output changes to a valid response:</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+   &lt;soap:Body&gt;
+      &lt;ns0:OrderTshirtResponse xmlns:ns0="http://mulesoft.org/tshirt-service"&gt;
+         &lt;orderId&gt;I got a request from John&lt;/orderId&gt;
+      &lt;/ns0:OrderTshirtResponse&gt;
+   &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="working-with-headers"><a class="anchor" href="#working-with-headers"></a>Working with Headers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the SoapUI, the request window shows the soap Envelope header.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikit-for-soap-53dc2.png" alt="apikit for soap 53dc2">
+</div>
+</div>
+<div class="paragraph">
+<p>In this part of the tutorial, you modify the API to get header information from the request and add header information to the outbound response. Additional header information that complies with the WSDL document is called APIUsageInformation.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the SoapUI, modify the OrderTshirt request by entering a value for the API key. For example, enter <code>987654321</code> between the <code>&lt;apiKey&gt;</code> tags.</p>
+</li>
+<li>
+<p>In Studio, edit the DataWeave code to get the API key, which is an inbound property, from the header:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-raml hljs" data-lang="raml">%dw 1.0
+%output application/xml
+%namespace ns0 http://mulesoft.org/tshirt-service
+---
+{
+  ns0#OrderTshirtResponse: {
+    orderId: "I got a request from "
+    ++ payload.ns0#OrderTshirt.name
+    ++ ", using the following auth header "
+    ++ inboundProperties['soap.AuthenticationHeader'].ns0#AuthenticationHeader.apiKey
+  }
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Save and rerun the project.</p>
+</li>
+<li>
+<p>In SoapUI, send a request, and check that the response changes to the following:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+   &lt;soap:Body&gt;
+      &lt;ns0:OrderTshirtResponse xmlns:ns0="http://mulesoft.org/tshirt-service"&gt;
+         &lt;orderId&gt;I got a request from John, using the following auth header 987654321&lt;/orderId&gt;
+      &lt;/ns0:OrderTshirtResponse&gt;
+   &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To add a header to the outgoing message that complies with the WSDL document:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In Studio, open the tshirt2.wsdl in <code>src/main/wsdl</code> and scroll to APIUsageInformation element, which is the element expected by the contract. Copy the name of the element to the clipboard.</p>
+</li>
+<li>
+<p>On the canvas, select Transform message in the <code>OrderTshirt:/TshirtService/TshirtServicePort/api-config</code> flow, and in the properties editor, click <strong>Add new target</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikit-for-soap-3005f.png" alt="apikit for soap 3005f" width="700" height="440">
+</div>
+</div>
+<div class="paragraph">
+<p>The <strong>Selection dialog</strong> for selecting a target appears.</p>
+</div>
+</li>
+<li>
+<p>Select <strong>Property</strong> instead of <strong>Variable</strong> from the drop-down.</p>
+</li>
+<li>
+<p>In <strong>Variable name</strong>, paste the contents of the clipboard, and add <code>soap.</code> as a prefix. or type <code>soap.APIUsageInformation</code>.</p>
+<div class="paragraph">
+<p>The complete variable name looks like this:</p>
+</div>
+<div class="paragraph">
+<p><code>soap.APIUsageInformation</code></p>
+</div>
+</li>
+<li>
+<p>Click OK.</p>
+</li>
+<li>
+<p>Double-click the <code>apiCallsRemaining: <em>Integer</em></code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikit-for-soap-41732.png" alt="apikit for soap 41732" width="700" height="440">
+</div>
+</div>
+<div class="paragraph">
+<p>Double-clicking apiCallsRemaining: <em>Integer</em> adds <code>APIUsageInformation: { apiCallsRemaining: null }</code> to the DataWeave code for the outbound property:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-raml hljs" data-lang="raml">%dw 1.0
+%output application/xml
+%namespace ns0 http://mulesoft.org/tshirt-service
+---
+{
+  ns0#APIUsageInformation: {
+    apiCallsRemaining: null
+  }
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Change <code>null</code> to <code>10</code>.</p>
+</li>
+<li>
+<p>Save and rerun the project.</p>
+</li>
+<li>
+<p>In the SoapUI, execute the OrderTshirt request again. The response envelope from APIkit for SOAP is:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+   &lt;soap:Header&gt;
+      &lt;ns0:APIUsageInformation xmlns:ns0="http://mulesoft.org/tshirt-service"&gt;
+         &lt;apiCallsRemaining&gt;10&lt;/apiCallsRemaining&gt;
+      &lt;/ns0:APIUsageInformation&gt;
+   &lt;/soap:Header&gt;
+   &lt;soap:Body&gt;
+      &lt;ns0:OrderTshirtResponse xmlns:ns0="http://mulesoft.org/tshirt-service"&gt;
+         &lt;orderId&gt;I got a request from John, using the following auth header 987654321&lt;/orderId&gt;
+      &lt;/ns0:OrderTshirtResponse&gt;
+   &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-typed-faults"><a class="anchor" href="#using-typed-faults"></a>Using Typed Faults</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>APIkit for SOAP supports typed SOAP Faults. The SOAP Fault processor has generic faults and the following types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Soap Fault 1.1</p>
+</li>
+<li>
+<p>Soap Fault 1.2</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can select either type using any WSDL file, even for those files that do not contain typed faults.</p>
+</div>
+<div class="paragraph">
+<p>For the <code>tshirt2.wsdl</code> file, there is just one typed fault named <code>TshirtFault</code>, which is mapped to every operation that the WSDL has: OrderTshirt, ListInventory, and TrackOrder.</p>
+</div>
+<div class="paragraph">
+<p>To make the ListInventory operation display the typed fault:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In Studio, delete the Set Payload processor of the <code>ListInventory:api-config</code> flow.</p>
+</li>
+<li>
+<p>Search for <code>fault</code> in the palette, drag and drop <strong>SOAP Fault</strong> into the <code>ListInventory:api-config</code> flow.</p>
+</li>
+<li>
+<p>In the properties editor, select <code>ListInventory</code> from the <strong>Operation</strong> drop-down.</p>
+</li>
+<li>
+<p>Select or accept the default <code>TshirtFault</code> from the <strong>Fault Type</strong> drop-down.</p>
+</li>
+<li>
+<p>Add a Transform Message component before the SOAP Fault component.</p>
+</li>
+<li>
+<p>In the component properties, set up the following DataWeave code:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-raml hljs" data-lang="raml">%dw 1.0
+ %output application/xml
+ %namespace ns0 http://mulesoft.org/tshirt-service
+ %namespace soap http://www.w3.org/2003/05/soap-envelope
+---
+ soap#Fault: {
+   faultcode: "soap:Server",
+   faultstring: "The error details",
+   detail: {
+     ns0#TshirtFault: {
+      errorStuff: 500
+     }
+   }
+ }</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Save and rerun the project.</p>
+<div class="paragraph">
+<p>Using the SoapUI client, run the <code>ListInventory</code> operation.</p>
+</div>
+<div class="paragraph">
+<p>The client returns the following envelope instead of the default fault:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+   &lt;soap:Body&gt;
+      &lt;soap:Fault xmlns:soap="http://www.w3.org/2003/05/soap-envelope"&gt;
+         &lt;faultcode&gt;soap:Server&lt;/faultcode&gt;
+         &lt;faultstring&gt;The error details&lt;/faultstring&gt;
+         &lt;detail&gt;
+            &lt;ns0:TshirtFault xmlns:ns0="http://mulesoft.org/tshirt-service"&gt;
+               &lt;errorStuff&gt;500&lt;/errorStuff&gt;
+            &lt;/ns0:TshirtFault&gt;
+         &lt;/detail&gt;
+      &lt;/soap:Fault&gt;
+   &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="updating-a-wsdl-file"><a class="anchor" href="#updating-a-wsdl-file"></a>Updating a WSDL File</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After modifying a WSDL, such as adding an operation or editing a message, regenerate SOAP flows. Because modifying a WSDL is error-prone, before making a change, make a backup, change the attribute, and verify that the change worked.</p>
+</div>
+<div class="paragraph">
+<p>To update a WSDL file:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download <a href="./_attachments/tshirt-modified.wsdl">tshirt-modified.wsdl</a>, copy the entire contents of the downloaded file, and paste it in tshirt2.wsdl, replacing the tshirt2.wsdl content.</p>
+</li>
+<li>
+<p>In Package Explorer, right-click the project and select <strong>Mule</strong> &gt; <strong>Generate SOAP Flows</strong>.</p>
+<div class="paragraph">
+<p>A new flow named <code>DeleteOrder:api-config</code> appears.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/generate-sources.png" alt="generate sources" width="300">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="apikit-using.html">Using APIkit</a></p>
+</li>
+<li>
+<p><a href="apikit-reference.html">APIkit Reference</a></p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Web_Services_Description_Language">WSDL</a> file.</p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a> and API principles</p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/SoapUI">SoapUI</a> - a SOAP client testing tool</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

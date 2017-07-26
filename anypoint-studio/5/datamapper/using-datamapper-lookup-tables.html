@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="datamapper">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-studio/6/datamapper/using-datamapper-lookup-tables.html">
+  <link rel="stylesheet" href="../../../_theme/stylesheets/theme.css">
+  <title>Using DataMapper Lookup Tables // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../index.html">Anypoint Studio</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../setting-up-your-development-environment.html">Development Environment Setup</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../hardware-and-software-requirements.html">Hardware and Software Requirements</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../download-and-launch-anypoint-studio.html">Download and Launch Anypoint Studio</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../install-update-items-in-studio.html">Installing Extensions</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../install-update-items-in-studio.html">Studio Update Sites</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-runtime/adding-community-runtime.html">Installing Community Edition of Mule Runtime</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../install-studio-gw.html">Installing API Gateway Runtime</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../maven/using-maven-in-anypoint-studio.html">Using Maven in Studio</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/maven-support-in-anypoint-studio.html">Maven Support in Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/building-a-mule-application-with-maven-in-studio.html">Building Mule Applications with Maven in Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/enabling-maven-support-for-a-studio-project.html">Enabling Maven Support on Studio Projects</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/importing-a-maven-project-into-studio.html">Importing Maven Projects</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../studio-in-eclipse.html">Studio in Eclipse</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../using-subversion-with-studio.html">Using Subversion</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../basic-studio-tutorial.html">Basic Studio Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../anypoint-studio-features.html">Studio Reference</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../datasense/datasense.html">DataSense</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../testing-connections.html">Testing Connections</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../using-perceptive-flow-design.html">Using Perceptive Flow Design</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../datasense/datasense-enabled-connectors.html">DataSense-enabled Connectors</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../datasense/using-the-datasense-explorer.html">Using the DataSense Explorer</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../datasense/datasense-query-editor.html">DataSense Query Editor</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../datasense/datasense-query-language.html">DataSense Query Language</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../using-dataweave-in-studio.html">DataWeave</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../studio-visual-debugger.html">Studio Visual Debugger</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../import-export-projects-studio.html">Importing and Exporting</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../mule-runtime/changing-runtimes-in-studio.html">Changing Runtimes in Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../keyboard-shortcuts-in-studio.html">Keyboard Shortcuts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../adding-source-attachments-to-studio.html">Adding Source Attachments to Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../mule-runtime/starting-the-runtime-in-cluster-mode-in-studio.html">Starting the Runtime in Cluster Mode in Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="datamapper-user-guide-and-reference.html">DataMapper (Deprecated)</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper-concepts.html">DataMapper Concepts</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper-visual-reference.html">DataMapper Visual Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="defining-datamapper-input-and-output-metadata.html">Defining DataMapper Input and Output Metadata</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../defining-metadata-using-edit-fields.html">Defining Metadata Using Edit Fields</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../pojo-class-bindings-and-factory-classes.html">POJO Class Bindings and Factory Classes</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../building-a-mapping-flow-in-the-graphical-mapping-editor.html">Building a Mapping Flow in the Graphical Mapping Editor</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../mapping-flow-input-and-output-properties.html">Mapping Flow Input and Output Properties</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper-input-error-policy-for-bad-input-data.html">DataMapper Input Error Policy for Bad Input Data</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="using-datamapper-lookup-tables.html">Using DataMapper Lookup Tables</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="streaming-data-processing-with-datamapper.html">Streaming Data Processing with DataMapper</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../updating-metadata-in-an-existing-mapping.html">Updating Metadata in an Existing Mapping</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mapping-elements-inside-lists.html">Mapping Elements Inside Lists</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="previewing-datamapper-results-on-sample-data.html">Previewing DataMapper Results on Sample Data</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datamapper-examples.html">DataMapper Examples</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="datamapper-supplemental-topics.html">DataMapper Supplemental Topics</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../choosing-mel-or-ctl2-as-scripting-engine.html">Choosing MEL or CTL2 as Scripting Engine</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper-fixed-width-input-format.html">DataMapper Fixed Width Input Format</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="datamapper-flat-to-structured-and-structured-to-flat-mapping.html">DataMapper Flat-to-Structured and Structured-to-Flat Mapping</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="including-the-datamapper-plugin.html">Including the DataMapper Plugin</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Using DataMapper Lookup Tables</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-studio-docs/edit/v5/modules/ROOT/content/datamapper/using-datamapper-lookup-tables.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Using DataMapper Lookup Tables</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>DataMapper continues to be fully supported in all current and future versions of Mule ESB 3.x, however it will be removed in Mule 4.0 in favor of the <strong>Transform Message</strong> component (based on <a href="../../../mule-runtime/3.7/dataweave/dataweave.html">DataWeave</a> code). We recommend that if you wish to take advantage of the new capabilities of DataWeave or if you start new projects, upgrade now.</p>
+</div>
+<div class="paragraph">
+<p>A <a href="../../../mule-runtime/3.7/dataweave/dataweave-migrator.html">migration tool</a> is now included in Studio, which assists in converting a DataMapper map to DataWeave. Right click on a DataMapper, select <strong>Migrate to DataWeave</strong>, and follow the instructions.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/dw-migrator-script.png" alt="dw migrator">
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Anypoint DataMapper supports <a href="../building-a-mapping-flow-in-the-graphical-mapping-editor.html">Lookup Tables</a>, which facilitate retrieving data from a variety of sources for use in an element mapping. For example, you can use a lookup table to provide reference data like geographic data, to retrieve data about a customer for use in a mapping, or even to invoke another Mule flow that returns the result of some business process.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="supported-lookup-tables-sources"><a class="anchor" href="#supported-lookup-tables-sources"></a>Supported Lookup Tables Sources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Anypoint DataMapper supports four sources for lookup table data:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>User-defined</strong>: This simple type of lookup table provides an input area where you manually create a keyed data table with one or more fields. The fields are defined as the unique key to fetch or retrieve the value. You can enter the actual lookup data as well.</p>
+</li>
+<li>
+<p><strong>CSV</strong>: This type of lookup table uses a delimited file to supply data for the lookup.</p>
+</li>
+<li>
+<p><strong>Database Lookup</strong>: Uses an external JDBC data source for lookups.</p>
+</li>
+<li>
+<p><strong>FlowRef Lookup</strong>: Invokes a Mule flow, passing the lookup key; then uses the output of the flow as a result.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note that for Database and FlowRef lookups, a separate call or query is made for each lookup performed by the DataMapper.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-a-user-defined-lookup-table"><a class="anchor" href="#creating-a-user-defined-lookup-table"></a>Creating a User-Defined Lookup Table</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To create a user-defined lookup table:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the input pane, right-click <strong>Lookup Tables</strong>  and choose <strong>Add User-defined Lookup Table</strong>.</p>
+</li>
+<li>
+<p>Define the columns, data types and so on for your lookup. Select one or more columns to serve as the lookup key.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/user-def-lookup-table.png" alt="user def lookup table">
+</div>
+</div>
+</li>
+<li>
+<p>In the upper-right corner of the dialog, click <strong>Data Source</strong>. The Data Source Editor opens, where you can enter your lookup table data.<br></p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/data-source-editor-lookup.png" alt="data source editor lookup">
+</div>
+</div>
+</li>
+<li>
+<p>Click OK. The new lookup table appears in the input pane.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-a-csv-lookup-table"><a class="anchor" href="#creating-a-csv-lookup-table"></a>Creating a CSV Lookup Table</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To set up a lookup table backed by a CSV file:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right-click <strong>Lookup Tables</strong> and choose <strong>Add CSV Lookup Table</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/add-csv-lookup-table.png" alt="add csv lookup table">
+</div>
+</div>
+</li>
+<li>
+<p>In the dialog that opens, enter or browse to the path of your CSV input file. When the column list appears, select the key column(s) for lookups. The other columns are available for use in the assigned scripts and can be populated by the lookup at runtime.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/create-user-def-lookup.png" alt="create user def lookup">
+</div>
+</div>
+<div class="paragraph">
+<p>The lookup table appears in the input pane.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-a-database-lookup-table"><a class="anchor" href="#creating-a-database-lookup-table"></a>Creating a Database Lookup Table</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following procedure describes how to create a lookup table backed by a JDBC Database.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the <strong>Input</strong> pane in the DataMapper view, click the plus sign icon, then select <strong>Add DB Lookup Table</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/add-db-lookup-table.png" alt="add db lookup table">
+</div>
+</div>
+</li>
+<li>
+<p>The <strong>Create DB Lookup</strong> dialog appears. In <strong>Name</strong> field, enter a name for your lookup table.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/create-db-lookup.png" alt="create db lookup">
+</div>
+</div>
+</li>
+<li>
+<p>For Connection, select a connection from the dropdown, or click the plus icon to create a new JDBC connection.</p>
+</li>
+<li>
+<p>If you create a new JDBC connection, Studio displays the <strong>Database connection</strong> window. In the <strong>Available drivers</strong> section, click the appropriate driver for your database. This causes Studio to populate the <strong>URL</strong> field with a generic URL for that driver (for example, clicking <strong>MySQL</strong> causes <code>jdbc:mysql:localhost:3306/&lt;database name&gt;</code> to appear in the URL field). Edit the URL with the relevant values for your connection, replacing the hostname, port and database name as necessary. Then, fill in the rest of the values according to the image and table below.</p>
+<div class="paragraph">
+<p>If your preferred database driver is not on the <strong>Available drivers</strong> list, you can add a new driver manually (see "Available Drivers" in the table below for details).</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Connection</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Select an available connection from the drop-down menu, or leave blank and complete the other parameters to create a new connection.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name for your connection.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>User</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database user for querying the database.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Password</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the database user.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>URL</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL for the database connection.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>JNDI</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://www.oracle.com/technetwork/java/jndi/index.html">JNDI</a> to use, if appropriate.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Available drivers</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Database driver to use. Click the desired driver, or use the buttons to the right of the list:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/datamapper/plus.png" alt="plus"></span> to load the driver from a .JAR file</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/datamapper/d.png" alt="d"></span> to manually specify the classname of the JDBC driver.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/new-connection.png" alt="new_connection">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Validate connection</strong>. Studio attempts to communicate with the database and returns a message to indicate success or failure. If you get an error, check your connection parameters and try again.</p>
+</li>
+<li>
+<p>After successfully validating your connection, click <strong>Finish</strong>. Studio again displays the Create DB Lookup dialog box shown in Step 2.</p>
+</li>
+<li>
+<p>In the <strong>SQL script</strong> field of the <strong>Create DB Lookup</strong> window, type your SQL query using the table and column you want to search in. Use the <code>?</code> character to reference the value of the field that you want to search for. This field must correspond to the name of a field in the DataMapper input.</p>
+<div class="paragraph">
+<p>For example, if you want to search by the value of input field <code>zipCode</code>, you would use the statement <code>SELECT * FROM &lt;table name&gt; WHERE zipCode = ?</code>. During mapping, DataMapper replaces <code>? `with the actual value of the input field `zipCode</code>, and returns the value of the first database row in which the <code>zipCode</code> column matches the value of the <code>zipCode</code> input field. So if the value of the input field is <code>94102</code>, the above statement returns the first row obtained by issuing <code>SELECT * FROM &lt;table name&gt; WHERE zipCode = 94102</code>. You can then map the obtained values to your DataMapper output. (See the example for details.)</p>
+</div>
+</li>
+<li>
+<p>Click the <strong>Generate fields from query</strong> button to test your query and to retrieve metadata about the query results from the source database.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/ex-create-db.png" alt="ex.create.DB">
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, enter the metadata for your query result manually, using the plus icon to create new fields.</p>
+</div>
+</li>
+<li>
+<p>Click OK when finished. Studio adds the lookup table to the Input pane.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="simple-example-of-db-lookup"><a class="anchor" href="#simple-example-of-db-lookup"></a>Simple Example of DB Lookup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This extremely simple example illustrates the use of database lookups in DataMapper.</p>
+</div>
+<div class="paragraph">
+<p>In this example, an input CSV file contains customer information including name and last name, street address and ZIP code. DataMapper connects to a database to determine the city in which each customer lives, then adds the city to the output mapping.</p>
+</div>
+<div class="paragraph">
+<p>This DataMapper example maps from CSV to CSV. The information sources are:</p>
+</div>
+<div class="paragraph">
+<p>Input CSV File:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Name,lastName,Phone,Address,zipCode
+John,Doe,11112222,111 The Avenue,94102
+Jane,Doe,33334444,222 The Street,95113</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Table <code>cities</code> in MySQL database <code>us_zipcodes</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">+---------------+---------+-------+
+| City          | Zipcode | State |
++---------------+---------+-------+
+| San Francisco | 94102   | CA    |
+| San Jose      | 95113   | CA    |
+| Santa Cruz    | 95062   | CA    |
++---------------+---------+-------+</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use the following steps to reproduce the example:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add a DataMapper transformer to your flow, then create a CSV-to-CSV mapping, specifying the relevant input CSV file. To create the output fields, use <strong>Generate default</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/ex-empty-dm.png" alt="ex.empty.DM">
+</div>
+</div>
+</li>
+<li>
+<p>In the DataMapper <strong>Input</strong> pane, right-click <strong>Lookup Tables</strong>, then select <strong>Add DB Lookup Table</strong>.</p>
+</li>
+<li>
+<p>In the DB Lookup creation window, configure the connection parameters as explained in the instructions above.</p>
+</li>
+<li>
+<p>After creating and verifying your database connection, enter the SQL script for database lookup. For this example, the script is as follows:</p>
+<div class="listingblock">
+<div class="content">
+<pre>select * from cities where zipCode = ?</pre>
+</div>
+</div>
+</li>
+<li>
+<p>In the database lookup creation editor, click <strong>Generate fields from query</strong>. DataMapper queries the database and retrieves the fields in the table.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/ex-create-db.png" alt="ex.create.DB">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>OK</strong>. After creating the DB lookup, notice that DataMapper&#8217;s Input pane displays the fields that it retrieved from the database, as shown below. You can now map these fields to output fields in the mapping.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/ex-input-pane-dbfields.png" alt="ex.input.pane.DBfields">
+</div>
+</div>
+</li>
+<li>
+<p>Map the input fields to their corresponding output fields. Do not map the <code>zipCode</code> field.</p>
+</li>
+<li>
+<p>In DataMapper&#8217;s <strong>Output</strong> mapping pane, add a new field called <code>City</code>, of type string.</p>
+</li>
+<li>
+<p>Map the input field <code>City</code> to the output field <code>City</code>. DataMapper displays the <strong>Lookup assignment</strong> editor, shown below.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/ex-lookup-assignment.png" alt="ex.lookup.assignment">
+</div>
+</div>
+</li>
+<li>
+<p>In the Lookup assignment editor shown above, you need to add a lookup search key. This is the key that DataMapper uses to retrieve the relevant value from the database – in this case, you have the <code>zipCode</code> and need to retrieve <code>City</code>. To add the key, click the empty space in the <strong>Expression</strong> column next to <code>arg_1</code>. DataMapper displays a drop-down menu with the available expressions. In this example, select <code>zipCode</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/ex-lookup-assign-key.png" alt="ex.lookup.assign.key">
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+To use more than one lookup search key, click the plus icon to add additional keys. Studio inserts these additional keys into the SQL statement in order.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Click <strong>OK</strong>. At this point, the mapping is complete. Running a <a href="previewing-datamapper-results-on-sample-data.html">preview</a> of the mapping gives the following result:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">"John","Doe","11112222","111 The Avenue","94102","San Francisco"
+"Jane","Doe","33334444","222 The Street","95113","San Jose"</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-a-flowref-lookup-table"><a class="anchor" href="#creating-a-flowref-lookup-table"></a>Creating a FlowRef Lookup Table</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the Input pane in the DataMapper view, click the plus sign icon, then select <strong>Add FlowRef Lookup Table</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/menu.png" alt="menu">
+</div>
+</div>
+</li>
+<li>
+<p>In the <strong>Create FlowRef Lookup </strong>configuration window, edit the fields according to the table below.  Use the add and delete icons to add or remove fields for the lookup table. To edit a field, click its value in the editor, type the new value, then press <strong>Enter</strong>.</p>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Configuration window image</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User-defined name for the FlowRef lookup table.</p></td>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock"><span class="image"><img src="../_images/datamapper/tableconf.png" alt="tableconf"></span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Flow Name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Drop-down menu displays the available flows to select.</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Click <strong>OK</strong> to save your changes.</p>
+</li>
+<li>
+<p>After you have defined your lookup table, DataMapper displays the input and output attributes in the <strong>Lookup Tables </strong>section of the Input pane.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/displayed-table.png" alt="displayed.table">
+</div>
+</div>
+</li>
+<li>
+<p>Double-click an existing table&#8217;s name in the Input pane to edit. For example, to edit the <code>setDiscount</code> lookup table displayed above, double-click <code>setDiscount</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-a-lookup-output-in-a-mapping"><a class="anchor" href="#using-a-lookup-output-in-a-mapping"></a>Using a Lookup Output in a Mapping</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To map the output attribute of a lookup table to an output field in a mapping:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>click and drag the output attribute of the lookup table to the corresponding field in the output pane. Edit the fields in the  <strong>Lookup assignment</strong> window according to the table below.</p>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Configuration window image</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Lookup name</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the lookup, by default the name of the lookup table.</p></td>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock"><span class="image"><img src="../_images/datamapper/mapkey.png" alt="mapkey"></span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>On element not found</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Two options:</p>
+<p class="tableblock"><strong>Ignore (keep on mapping):</strong> If a lookup table key is not found, DataMapper continues mapping the remaining fields</p>
+<p class="tableblock"><strong>Fail (mapping stops):</strong> If a lookup table key is not found, DataMapper aborts mapping.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Lookup Search Key</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the key, and expression to assign to it. To select an expression to which to assign a key, click the empty space under <strong>Expression,</strong> then select between the available input fields.</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Click <strong>OK</strong> to save your changes.</p>
+</li>
+<li>
+<p>The DataMapper view displays lookup table mappings with a double-dotted line, highlighted below.<br></p>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/datamapper/dmview.png" alt="dmview">
+</div>
+</div>
+<div class="paragraph">
+<p>In the example displayed above, lookup table <code>test</code> invokes another flow, which returns the value of the field <code>third.</code> The lookup table assigns this value to the key <code>field1</code>. DataMapper incorporates the value of <code>field1</code> as an input field, then maps it to the output field <code>third</code>.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../../_theme/scripts/menu.js"></script>
+<script src="../../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

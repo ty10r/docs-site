@@ -1,0 +1,2908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="mq, studio, logger, set payload, install">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-platform/mq/mq-studio.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>To Set Up Studio for the MQ Connector // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../access-management/index.html">Access Management</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/managing-your-account.html">Managing Your Account</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/organization.html">Organization</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/users.html">Users</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/roles.html">Roles</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/environments.html">Environments</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../access-management/external-identity.html">About Identity Management</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/sso-prerequisites-about.html">About SSO Prerequisites and Limitations</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/managing-users.html">To Configure SAML</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/conf-openid-connect-task.html">To Configure OpenID Connect</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/change-id-mgmt-conf-about.html">About Changing an Identity Management Configuration</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/verify-saml-info-task.html">To Verify SAML Information</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/troubleshoot-saml-assertions-task.html">To Troubleshoot SAML Assertions</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/single-log-out-task.html">To Perform Single Log Out</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/map-users-roles-ldap-task.html">To Map Users to Roles in an LDAP Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/conf-ldap-private-cloud-task.html">To Configure LDAP in Anypoint Platform Private Cloud</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../access-management/managing-api-clients.html">About Client Management</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/conf-client-mgmt-openam-task.html">To Configure Client Management by OpenAM</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../access-management/conf-client-mgmt-pf-task.html">To Configure Client Management by PingFederate</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/audit-logging.html">Audit Logging</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/managing-permissions.html">Managing Permissions</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/private-cloud-edition-features.html">Private Cloud Edition Features</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../access-management/troubleshooting-anypoint-platform-access.html">Troubleshooting Anypoint Platform Access</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../analytics/index.html">Anypoint Analytics</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../analytics/viewing-api-analytics.html">Viewing API Analytics</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../analytics/analytics-event-api.html">Analytics Event API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../analytics/analytics-chart.html">Analytics Chart in API Manager</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../analytics/api-consumer-analytics.html">Anypoint Analytics - API Consumer</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../../solutions/anypoint-b2b.html">Anypoint B2B</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">TRADACOMS EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDI Schema Language Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../partner-manager/index.html">Anypoint Partner Manager</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../partner-manager/key-concepts.html">Key Concepts</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/b2b-transaction-processing-framework.html">B2B Transaction-Processing Framework</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/resolution-processes.html">Resolution Processes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/tracking.html">Tracking</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../partner-manager/examples.html">Examples</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../partner-manager/transaction-monitoring.html">Transaction Monitoring</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/central-pane-elements.html">Central Pane Elements</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/tracking-scenarios.html">Tracking Scenarios</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../partner-manager/partner-configuration.html">Partner Configuration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/company-information.html">Company Information</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/identifiers.html">Identifiers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/on-hold-inactive.html">On-Hold/Inactive</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">Certificate</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/csv-settings.html">CSV Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/document-types.html">Document Types</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/endpoints.html">Endpoints</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/maps.html">Maps</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/channels.html">Channels</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/routes.html">Routes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/partner-conversations.html">Partner Conversations</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/rosettanet-pips.html">RosettaNet PIPs</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/rosettanet-agreements.html">RosettaNet Agreements</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../partner-manager/administration.html">Administration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/environments.html">Environments</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/error-codes.html">Error Codes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/security.html">Security</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/lookup-tables.html">Lookup Tables</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../partner-manager/walkthroughs.html">Walkthroughs</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/ftps-and-edi-x12-purchase-order-walkthrough.html">FTPS and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../partner-manager/transaction-tracking-walkthrough.html">Transaction Tracking Walkthrough</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../partner-manager/anypoint-partner-manager-api.html">Anypoint Partner Manager API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../partner-manager/glossary.html">Glossary</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../partner-manager/partner-manager-connector.html">Partner Manager Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../partner-manager/ftps-connector.html">FTPS Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">EDI X12 Order Processing Example</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../partner-manager/supported-edi-document-types.html">Supported EDI Document Types</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../data-gateway/index.html">Anypoint Data Gateway</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../data-gateway/installing-anypoint-data-gateway.html">Installing Anypoint Data Gateway</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../data-gateway/creating-and-configuring-a-gateway.html">Creating and Configuring a Gateway</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../data-gateway/managing-gateways.html">Managing Gateways</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../data-gateway/quick-guide-to-accessing-gateways-and-objects.html">Quick Guide to Accessing Gateways and Objects</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../data-gateway/troubleshooting-data-gateway.html">Troubleshooting Data Gateway</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint MQ</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-understanding.html">About Anypoint MQ</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-tutorial.html">Tutorial: To Use Anypoint MQ</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-access-management.html">To set Environment, User, and Role Access</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-queues.html">To Configure Queues</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-exchanges.html">To Configure Message Exchanges</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-client-apps.html">To Configure Client Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-studio.html">To Set Up Studio for the MQ Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-apis.html">To Use Anypoint MQ REST APIs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-usage.html">About Usage Graphs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-ack-mode.html">About Acknowledgement Mode</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mq-faq.html">FAQ: About Anypoint MQ</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../api-manager/index.html">API Manager</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/tutorials.html">About the API Life Cycle</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-set-up-an-api.html">To Set Up an API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/design-raml-api-task.html">To Design a Basic RAML API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/simulate-api-task.html">To Simulate an API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/consume-api-task.html">To Consume a Web Service</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-set-up-and-deploy-an-api-proxy.html">To Set Up and Deploy an API Proxy</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/create-api-version-task.html">To Create a New API Version</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/import-api-version-task.html">To Import an API Version</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/export-api-version-task.html">To Export an API Version</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-create-an-api-portal.html">To Publish an API on the Portal</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/deprecate-api-task.html">To Deprecate an API Version</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-use-a-portal-as-an-app-developer.html">To Use a Portal as an App Developer</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-create-an-api-notebook.html">To Create an API Notebook</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/play-share-api-notebook-task.html">To Play and Share an API Notebook</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-design-an-api.html">About Designing a Basic RAML API</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/manage-api-reference.html">API Management Reference</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/designing-your-api.html">API Designer Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/configuring-endpoint-reference.html">Endpoint Configuration Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/https-reference.html">HTTPS Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/browsing-and-accessing-apis.html">Consuming an API Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/engaging-users-of-your-api.html">Portal Creation Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/creating-an-api-notebook.html">API Notebook Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/accessing-your-api-behind-a-firewall.html">Firewall Access Reference</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/gatekeeper.html">Gatekeeper Enhanced Security Reference</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/using-policies.html">About Policies</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/setting-your-api-url.html">To Set the API URL</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-manage-an-api.html">To Apply a Resource-Level Policy and SLA Tiers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/disable-edit-remove-task.html">To Disable, Edit, or Remove a Policy</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/reorder-policies-task.html">To Re-order Policies</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/tutorial-manage-consuming-applications.html">To Manage API Access Requests</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/delete-sla-tier-task.html">To Delete an SLA Tier</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/resource-level-policies-about.html">About Resource Level Policies</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../api-manager/policy-reference.html">Policy Reference</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/cors-reference.html">CORS Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/defining-sla-tiers.html">SLA Tiers Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/introduction-to-policy-management.html">Policy Management Architecture</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../api-manager/aes-oauth-faq.html">About OAuth 2.0</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/oauth-build-provider-prerequisites-about.html">About Mule OAuth Provider Prerequisites</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/building-an-external-oauth-2.0-provider-application.html">To Build a Mule OAuth 2.0 Provider</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/to-test-local-provider.html">To Test the Local Provider</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/to-deploy-provider.html">To Deploy the Provider</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/to-test-remote-provider.html">To Test the Remote Provider</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/to-use-authentication.html">To Use a Mule Provider for OAuth 2.0 Authentication</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/oauth-dance-about.html">About the OAuth Dance</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/about-configure-api-for-oauth.html">About Configuring an API for OAuth 2.0</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/oauth-service-provider-reference.html">OAuth 2.0 Service Provider Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/oauth-grant-types-about.html">About OAuth Grant Types</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/oauth-persist-obj-store-about.html">About Persisting Object Stores</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/oauth2-provider-configuration.html">Mule OAuth 2.0 Provider Configuration Reference</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../api-manager/available-policies.html">Provided Policies</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/add-remove-headers.html">Add/Remove Headers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/cors-policy.html">CORS</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/client-id-based-policies.html">Client ID-Based</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/http-basic-authentication-policy.html">HTTP Basic Authentication</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/ip-blacklist.html">IP Blacklist</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/ip-whitelist.html">IP Whitelist</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/json-xml-threat-policy.html">JSON and XML Threat Protection</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/ldap-security-manager.html">LDAP Security Manager</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/external-oauth-2.0-token-validation-policy.html">OAuth 2.0 Access Token Enforcement Using External Provider</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/openam-oauth-token-enforcement-policy.html">OpenAM OAuth Token Enforcement</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/pingfederate-oauth-token-enforcement-policy.html">PingFederate OAuth Token Enforcement</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/rate-limiting-and-throttling.html">Rate Limiting and Throttling</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/rate-limiting-and-throttling-sla-based-policies.html">Rate Limiting and Throttling - SLA-Based</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/applying-custom-policies.html">About Custom Policies</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/creating-a-policy-walkthrough.html">Workflow: Create a Custom Policy</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/create-policy-config-task.html">To Create the Custom Policy Configuration File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/create-policy-definition-task.html">To Create the Custom Policy Definition File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/add-custom-policy-task.html">To Add a Custom Policy to API Manager</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/add-rlp-support-task.html">To Add Resource Level Policy Support to a Custom Policy</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/create-policy-pcf.html">About Custom Policies in Pivotal Cloud Foundry</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../api-manager/custom-policy-reference.html">Custom Policy Reference</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/custom-pol-config-xml-props-reference.html">Configuration XML Properties Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/pointcuts-reference.html">Pointcuts Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/custom-pol-implementations-reference.html">Custom Policy Reference Implementations</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../api-manager/cust-pol-exception-blocks-reference.html">Custom Policy Exception Blocks Reference</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/proxy-about.html">About Proxies</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/proxy-depl-cloudhub.html">To Deploy a Proxy to CloudHub</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/proxy-depl-hosted.html">To Deploy a Proxy to a Hosted Runtime</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/proxy-depl-pcf.html">To Deploy a Proxy to Pivotal Cloud Foundry</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/proxy-depl-api-gate.html">To Deploy a Proxy to API Gateway 2.x</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/proxy-modify.html">To Modify a Proxy</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/using-api-alerts.html">About API Alerts</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/add-api-alert-task.html">To Add an API Alert</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/view-delete-alerts-task.html">To View and Delete API Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/edit-enable-disable-alerts-task.html">To Edit, Enable, or Disable API Alerts</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/api-auto-discovery.html">API Auto-Discovery and Startup from Studio</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/api-auto-discovery-reference.html">Auto-Discovery Reference</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../api-manager/api-gateway-runtime-archive.html">API Gateway Runtime&#8212;&#8203;Archive</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/configuring-an-api-gateway.html">Configuring an API Gateway</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/api-gateway-domain.html">API Gateway Domain</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/configuring-proxy-access-to-an-api.html">Configuring Proxy Access to APIs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-manager/deploy-to-api-gateway-runtime.html">Deploying to API Gateway Runtime</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../object-store/index.html">Object Store V2 - Beta</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../object-store/osv2-concepts.html">Concepts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../object-store/osv2-tutorial.html">Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../object-store/osv2-apis.html">APIs</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../runtime-manager/index.html">Runtime Manager</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../cloudhub/tutorials.html">Tutorials</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/building-an-https-service.html">Building an HTTPS Service</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/vpc/vpc-tutorial.html">Create a VPC using Runtime Manager</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/vpc/create-vpc-cli.html">Create a VPC using Anypoint Platform CLI</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/dedicated-load-balancer-tutorial.html">Create a Dedicated Load Balancer</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../runtime-manager/deployment-strategies.html">Deployment Strategies</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/deploying-to-cloudhub.html">Deploying to CloudHub</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/deploying-to-your-own-servers.html">Deploying to Your Own Servers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/pcf/pcf-deploying.html">Deploying to Pivotal Cloud Foundry</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../runtime-manager/managing-deployed-applications.html">Managing Deployed Applications</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../cloudhub/managing-applications-on-cloudhub.html">Managing Applications on CloudHub</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/managing-queues.html">Managing Queues</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/managing-schedules.html">Managing Schedules</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/secure-application-properties.html">Secure Application Properties</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/managing-application-data-with-object-stores.html">Managing App Data using Object Stores</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../cloudhub/vpc/virtual-private-cloud.html">Virtual Private Cloud</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/custom-application-alerts.html">Custom Application Alerts</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../cloudhub/autoscaling-in-cloudhub.html">Autoscaling in CloudHub</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../runtime-manager/managing-applications-on-your-own-servers.html">Managing Applications on Your Own Servers</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/flow-management.html">Flow Management</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../runtime-manager/managing-servers.html">Managing Servers</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/runtime-manager-api.html">Runtime Manager API</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../runtime-manager/monitoring.html">Monitoring</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/alerts-on-runtime-manager.html">Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/notifications-on-runtime-manager.html">Notifications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/custom-application-alerts.html">Custom Application Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/monitoring-dashboards.html">Dashboards</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/flow-metrics.html">Flow Metrics</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../runtime-manager/troubleshooting.html">Troubleshooting</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/insight.html">Insight</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../runtime-manager/viewing-log-data.html">Viewing Log Data</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/custom-log-appender.html">Custom Log Appender</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/worker-monitoring.html">Worker Monitoring</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../runtime-manager/sending-data-from-arm-to-external-analytics-software.html">Sending data from Runtime Manager to External Analytics Software</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/about-logging-of-payload-formats.html">About Logging of Payload Formats</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/sending-api-analytics-from-arm-to-db.html">Sending API Analytics</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../runtime-manager/sending-event-data-from-arm-to-db.html">Sending Event Data</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../cloudhub/index.html">CloudHub</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-faq.html">CloudHub FAQ</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/developing-applications-for-cloudhub.html">Developing Applications for CloudHub</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-architecture.html">CloudHub Architecture</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-impaired-worker.html">About Impaired Workers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-fabric.html">CloudHub Fabric</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/managing-cloudhub-specific-settings.html">Managing Cloudhub Settings</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-networking-guide.html">CloudHub Networking Guide</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-dedicated-load-balancer.html">Cloudhub Dedicated Load Balancer</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/penetration-testing-policies.html">Penetration Testing Policies</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../cloudhub/cloudhub-api.html">CloudHub API</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../cloudhub/maintenance-and-upgrade-policy.html">Maintenance and Upgrade Policy</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../runtime-manager-agent/1.7/index.html">Runtime Manager Agent</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/installing-and-configuring-runtime-manager-agent.html">Installing and Configuring the Agent</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/debugging-the-runtime-manager-agent.html">Debugging the Agent</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/advanced-usage.html">Advanced Usage</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../runtime-manager-agent/1.7/runtime-manager-agent-architecture.html">Runtime Manager Agent Architecture</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../../runtime-manager-agent/1.7/runtime-manager-agent-api.html">Agent API</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/administration-service.html">Administration Service</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/managing-applications-and-domains.html">Managing Applications and Domains</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/jmx-service.html">JMX Service</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../../runtime-manager-agent/1.7/runtime-manager-agent-notifications.html">Runtime Manager Agent Notifications</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../runtime-manager-agent/1.7/event-tracking.html">Event Tracking</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../runtime-manager-agent/1.7/internal-handler-buffering.html">Internal Handler Buffering</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../runtime-manager-agent/1.7/extending-the-runtime-manager-agent.html">Extending the Runtime Manager Agent</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../runtime-manager/anypoint-platform-cli.html">Command Line Interface</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../runtime-manager/command-line-tools.html">Deprecated Command Line Tool</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../private-cloud/index.html">About Anypoint Platform Private Cloud Edition</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/system-requirements.html">About Minimum System Requirements</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../private-cloud/prereq-workflow.html">Workflow: Verify Prerequisites</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/prereq-verify.html">To Verify System Requirements</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/prereq-create-vm-vmware.html">To Create a Virtual Machine Using VMWare</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/prereq-firewalld-forwarding.html">To Enable Forwarding When Using firewalld</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../private-cloud/install-workflow.html">Workflow: Install Anypoint Private Cloud</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/install-installer.html">To Run the Anypoint Private Cloud Edition Installer</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/install-auto-install.html">To Install Anypoint Platform Private Cloud Using the Automated Installer</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/install-create-lb.html">To Create a Load Balancer</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/install-add-tasks.html">To Perform Additional Installation Tasks</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/install-config-ldap-pce.html">To Configure LDAP in Anypoint Platform Private Cloud Edition</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../private-cloud/install-disable-local-user.html">To Disable the Local User after Installing Private Cloud Edition</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/backup-and-disaster-recovery.html">To Backup and Restore Your System</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/upgrade.html">To Migrate to Anypoint Platform Private Cloud Edition, Version 1.6.x</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/managing-via-the-ops-center.html">To Manage Anypoint Platform Private Cloud Edition Using Ops Center</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/config-alerts.html">To Setup Alerts for CPU and Memory Usage</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/config-add-proxy-whitelist.html">To Add Whitelist Addresses for API Platform Proxies</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../private-cloud/demo-ldap-server.html">About the Demo LDAP Server</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">To Set Up Studio for the MQ Connector</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-platform-docs/edit/master/modules/mq/content/mq-studio.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>To Set Up Studio for the MQ Connector</h1>
+    <div class="sect1">
+<h2 id="to-install-the-anypoint-mq-connector-in-studio"><a class="anchor" href="#to-install-the-anypoint-mq-connector-in-studio"></a>To Install the Anypoint MQ Connector in Studio</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In Studio, click <strong>Help</strong> &gt; <strong>Install New Software</strong>.</p>
+</li>
+<li>
+<p>Click the drop-down menu for <strong>Work with</strong> and select <strong>Anypoint Connectors Update Site</strong>.</p>
+</li>
+<li>
+<p>Expand <strong>Community</strong> and click <strong>Anypoint MQ Connector</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-connector-install-from-studio.png" alt="mq connector install from studio">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Follow the prompts to install the connector and restart Studio when requested.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> See <a href="mq-client-apps.html">To Configure Client Applications</a> to register an application and get the client ID and client secret that you need to configure the Anypoint MQ Connector.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="to-add-a-client-app-to-studio"><a class="anchor" href="#to-add-a-client-app-to-studio"></a>To Add a Client App to Studio</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In Anypoint Platform, click <strong>MQ</strong> &gt; <strong>Client Apps</strong>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-client-apps-in-nav.png" alt="mq client apps in nav">
+</div>
+</div>
+</li>
+<li>
+<p>Create a client app. Note the Client ID and Client Secret values. We use these later when we configure the Anypoint MQ connector in Anypoint Studio.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="to-configure-with-the-visual-editor"><a class="anchor" href="#to-configure-with-the-visual-editor"></a>To Configure with the Visual Editor</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In Studio, click <strong>File</strong> &gt; <strong>New</strong> &gt; <strong>Mule Project</strong>.</p>
+</li>
+<li>
+<p>Search for "http" and drag the <strong>HTTP</strong> connector to the Studio Canvas. Click the HTTP connector, and click the green plus sign to the right of <strong>Connector Configuration</strong>. Click <strong>OK</strong> to accept the defaults. In the HTTP properties window, set the Path to <code>/mq/{messageId}</code>.</p>
+</li>
+<li>
+<p>Search for "mq" and drag the <strong>Anypoint MQ</strong> connector to the canvas. If you cannot find this connector, return to
+<a href="#Installing the Anypoint MQ Connector">[Installing the Anypoint MQ Connector]</a> and ensure you installed the connector.</p>
+</li>
+<li>
+<p>Click the green plus sign to the right of <strong>Connector Configuration</strong>.</p>
+</li>
+<li>
+<p>In the Global Element Properties window:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Copy the <strong>Anypoint Platform</strong> &gt; <strong>MQ</strong> &gt; <strong>Client App</strong> &gt; <strong>Client App ID</strong> value to Studio&#8217;s <strong>Client ID</strong> field.</p>
+</li>
+<li>
+<p>Copy the <strong>Client App</strong> &gt; <strong>Client Secret</strong> value to Studio&#8217;s <strong>Client Secret</strong> field. You can ignore the other settings to test your first connector.</p>
+<div class="paragraph">
+<p>If you want to set the remaining fields or tabs, see <a href="#Advanced Global Element Properties">[Advanced Global Element Properties]</a>.</p>
+</div>
+</li>
+<li>
+<p>Click <strong>OK</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Click the <strong>Operation</strong> field and specify an operation such as Publish or Consume.</p>
+</li>
+<li>
+<p>Specify the <strong>Destination</strong> as the name of the queue or message exchange that you set in Anypoint Platform.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-connector-properties.png" alt="mq connector properties">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-global-element-properties"><a class="anchor" href="#about-global-element-properties"></a>About Global Element Properties</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-global-element-props-full.png" alt="mq global element props full">
+</div>
+</div>
+<div class="paragraph">
+<p>The General tab fields are:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Studio Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Name</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Configuration name.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Client Mode</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Specifies whether the Anypoint MQ connector uses an improved HTTP client (SYNC, the default)
+or a deprecated HTTP client provided by the Mule Runtime (MULE). The improved HTTP client can
+be either synchronous or asynchronous.</p>
+</div>
+<div class="paragraph">
+<p>Possible values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ASYNC</code> - Require the MQ client to use an asynchronous HTTP client library.</p>
+</li>
+<li>
+<p><code>SYNC</code>(Default) - Require the MQ client to use a synchronous HTTP client library. This
+value is recommended when using MQ threading profiles.</p>
+</li>
+<li>
+<p><code>MULE</code> (Deprecated) - The HTTP connector used to communicate with MQ is the Grizzly
+library provided by the Mule Runtime.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> <code>SYNC</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Provider:<br>
+Use Provider Config</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Sets a provider configuration for the current app consisting of the URL, Client App ID, and Client Secret.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>URL</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>URL shown in Anypoint Platform.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-ap-url.png" alt="URL in MQ near top of UI">
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Client App ID</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>From Anypoint Platform &gt; MQ &gt; Client Apps. Click the app and copy the  Client App ID value.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Client Secret</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>From Anypoint Platform &gt; MQ &gt; Client Apps. Click the app and copy the Client Secret value.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use Global Provider Config</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Sets the URL, Client App ID, and Client Secret for all apps.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Basic Settings:<br>
+Max Redelivery</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Number of redeliveries
+to try in case a message fails. -1 indicates that Anypoint MQ retry indefinitely. If set to the default value of -1, this parameter does not appear in the XML flow.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> -1</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><a id="am"></a>Acknowledgement Mode</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>(Basic Settings menu in Studio) Defines how the Anypoint MQ messages are acknowledged when the message are removed from being inflight messages. If set to the default
+value of AUTO, this parameter does not appear in the XML flow.</p>
+</div>
+<div class="paragraph">
+<p>Possible values are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>AUTO</code> (Default)- Messages are acknowledged or negatively acknowledged depending on whether or not exceptions occur. See <a href="mq-ack-mode.html">Acknowledgement Mode</a> for more information.</p>
+</li>
+<li>
+<p><code>MANUAL</code> - Messages are acknowledged using a custom ACK message processor.</p>
+</li>
+<li>
+<p><code>NONE</code> - Messages are acknowledged and removed as soon as they are received.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> <code>AUTO</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Acknowledgement Timeout</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>(Basic Settings menu in Studio) When you take an Anypoint MQ message from a queue, the broker puts it in flight, and the message remains in that state until the ACK is performed (application reads the message and Anypoint MQ deletes it), or the Acknowledgement Timeout is reached. If ACK is performed, then the message is removed from the queue, if Acknowledgement Timeout is reached, the message returns to the queue. If set to the default
+value of <code>0</code>, this parameter does not appear in the XML flow.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> <code>0</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Polling Time</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>(Basic Settings menu in Studio) Maximum time in milliseconds to wait for the expected message or messages. If set to the default value of <code>10000</code> (10 seconds), this parameter does not appear in the XML flow.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> <code>10000</code> (10 seconds)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Threading Profile Settings<br></strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Define threading profile behavior or
+use default worker threading profile. See <a href="../../mule-runtime/3.8/administer/tuning-performance.html">Tuning Performance</a>. The threading profile options let you optimize connector performance for use with Anypoint MQ.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> After setting the threading profile fields, save your project, click Configuration XML, change the name of the
+threading profile statement to start with anypoint-mq, and switch the order of the statement with the anypoint-mq:provider statement in the anypoint-mq:config block. The location can be N. Virginia (us-east-1), Ireland (eu-west-1), Singapore (ap-southeast-1), Sydney (ap-southeast-2), or Oregon (us-west-2).</p>
+</div>
+<div class="paragraph">
+<p>This example shows how the finished statements may appear:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:config name="Anypoint_MQ_Configuration" doc:name="Anypoint MQ Configuration"&gt;
+  &lt;anypoint-mq:provider url="https://mq-us-east-1.anypoint.mulesoft.com/api/v1" clientId="ID" clientSecret="SECRET"/&gt;
+  &lt;anypoint-mq:worker-threading-profile maxThreadsActive="42" maxThreadsIdle="42" threadTTL="4200" threadWaitTimeout="-1"/&gt;
+&lt;/anypoint-mq:config&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use custom worker threading profile</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>See <a href="../../mule-runtime/3.8/administer/tuning-performance.html">Tuning Performance</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Max Active Threads</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The maximum number of threads to use. See <a href="../../mule-runtime/3.8/administer/tuning-performance.html">Tuning Performance</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Max Idle Threads</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The maximum number of idle or inactive threads that can be in the pool before they are destroyed. See <a href="../../mule-runtime/3.8/administer/tuning-performance.html">Tuning Performance</a>. The thread pool does not grow from Max Idle Threads towards Max Active Threads unless the queue is completely filled up.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Thread TTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Thread time to live duration.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pool Exhausted Action</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>When the maximum pool size or queue size is bounded, this value determines how to handle incoming tasks.</p>
+</div>
+<div class="paragraph">
+<p>Possible values are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>WAIT</code> - Wait until a thread becomes available; don’t use this value if the minimum number of threads is zero, in which case a thread may never become available.</p>
+</li>
+<li>
+<p><code>DISCARD</code> - Throw away the current request and return.</p>
+</li>
+<li>
+<p><code>DISCARD_OLDEST</code> - Throw away the oldest request and return.</p>
+</li>
+<li>
+<p><code>ABORT</code> - Throw a RuntimeException.</p>
+</li>
+<li>
+<p><code>RUN</code> - The default; the thread making the execute request runs the task itself, which helps guard against lockup.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Thread Wait Timeout</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Thread wait timeout in milliseconds.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Max Buffer Size</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Max buffer size.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="about-the-studio-tls-ssl-and-proxy-tabs"><a class="anchor" href="#about-the-studio-tls-ssl-and-proxy-tabs"></a>About the Studio TLS/SSL and Proxy Tabs</h3>
+<div class="paragraph">
+<p>The TSL/SSL and Proxy tabs share the same information as the
+<a href="../../mule-runtime/3.8/connectors/http/http-connector.html">HTTP Connector</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="about-the-studio-prefetch-tab"><a class="anchor" href="#about-the-studio-prefetch-tab"></a>About the Studio Prefetch Tab</h3>
+<div class="paragraph">
+<p>Lets you set the number of messages to receive at once when asking for messages. The response can contain fewer messages than this number depending on the <code>Polling Time</code> (<code>pollingTime</code> in XML) setting.</p>
+</div>
+<div class="paragraph">
+<p>When you subscribe a flow to an Anypoint MQ queue, the flow pool regularly polls the queue looking for messages. This operation can be very time consuming. In order to avoid delays, prefetch was introduced. This is a component placed between the flow and the Anypoint MQ queue that polls the queue regularly, but without processing the pooled messages. You can change these values depending on your site&#8217;s performance and use case needs.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-prefetch-general.png" alt="mq prefetch general">
+</div>
+</div>
+<div class="paragraph">
+<p>The Prefetch tab fields are:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Fetch Size</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Number of messages to prefetch.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Fetch Timeout</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Maximum duration in milliseconds to wait for the required amount of messages. When this time elapses, the response is sent with as many messages as taken during the period.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Frequency</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The duration in milliseconds to execute
+the retrieve operation when the prefetch queue is not empty.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Note</strong>: For best performance, set <code>Fetch Size</code> to 10 (maximum value) and reduce <code>Frequency</code> to increase the polling time and the resulting dequeuing of transactions per second (TPS). You can increase <code>Fetch Timeout</code> if message processing is slow. For example, if processing takes 5 seconds, set the <code>Fetch Timeout</code> to at least double this time (10000 milliseconds).</p>
+</div>
+<div class="paragraph">
+<p>Apart from these performance-related parameters, it is important to properly configure the <a href="#am">Acknowledgement Mode</a>.</p>
+</div>
+<div class="paragraph">
+<p>The equivalent XML for the Prefetch default values is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:prefetch fetchSize="10" fetchTimeout="1000" frequency="5000"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-basic-settings"><a class="anchor" href="#about-basic-settings"></a>About Basic Settings</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Studio Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Operation</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Operation that this connector instance performs.</p>
+</div>
+<div class="paragraph">
+<p>Possible values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>publish</code> - Send a message to a queue or message exchange.</p>
+</li>
+<li>
+<p><code>consume</code> - Consume a message from a queue.</p>
+</li>
+<li>
+<p><code>ack</code> - Acknowledge a message, that is, accept a message and delete the message.</p>
+</li>
+<li>
+<p><code>nack</code> - Negatively acknowledge a message, that is, do not accept a message and return the message to the queue.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-publisher-settings"><a class="anchor" href="#about-publisher-settings"></a>About Publisher Settings</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Studio Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Destination</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Queue or message exchange name.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Message ID</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Optional ID of a message to publish. When publishing to FIFO queues,
+if you specify a custom Message ID and the Message ID is the same on multiple messages, the
+messages with the same Message ID cannot be redelivered. For applications such as those used in transactional use cases where messages need to be processed exactly once, Anypoint MQ supports exactly once delivery of messages when messages are published to FIFO queues. FIFO queues supports deduplication of messages. For example, if you retry sending a message with the same message ID within the 5-minute deduplication interval to a FIFO queue, Anypoint MQ guarantees the messages with the same message ID are retrieved and processed exactly once by the subscriber. When building applications requiring this feature on Anypoint Studio, you can set the message ID in publisher settings inside Anypoint MQ connector. If a message ID is not explicitly set, MQ auto generates a unique message ID for each message that&#8217;s sent to a queue.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Send Outbound Properties</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Send properties when publishing.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> Checked</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Send Content Type</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Send content type when publishing.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> Checked</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Property</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Optional property content to set for publish.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Value</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Optional value content to set for publish.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-consumer-settings"><a class="anchor" href="#about-consumer-settings"></a>About Consumer Settings</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Studio Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Destination</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Queue name.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Acknowledgement Mode</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>If you use
+the Anypoint MQ connector as a message processor, the operations are <code>MANUAL (default)</code> or <code>NONE</code>. If the MQ connector is used as an entry point, the mode options are <code>From configuration (Default)</code>, <code>AUTO</code>, <code>MANUAL</code>, or <code>NONE</code>.
+For more information,
+see <a href="mq-ack-mode.html">Anypoint MQ Acknowledgement Mode</a>.  <strong>Note:</strong> This value overrides the <strong>Acknowledgement Mode</strong> field in the Global Elements Properties Basic Settings.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> MANUAL if connector is a message processor,
+or From configuration if connector is an entry point</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Acknowledgement Timeout</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Duration in milliseconds until the acknowledgement mode
+times out. <strong>Note:</strong> This value overrides the <strong>Acknowledgement Timeout</strong> field in the Global Elements Properties Basic Settings.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Polling Time</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Duration in milliseconds that the MQ connector polls the queue or message exchange for messages. <strong>Note:</strong> This value overrides the <strong>Polling Time</strong> field in the Global Elements Properties Basic Settings. The default is 10000 milliseconds (10 seconds).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Reconnection Wait Time</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Duration in milliseconds for how long to wait before MQ attempts to re-establish a connection to the MQ backend server. The default is 3000 milliseconds (3 seconds).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Reconnection Attempts</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Number of times MQ should attempt to re-establish a connection to the MQ backend server. -1 means try forever.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-subscriber-settings"><a class="anchor" href="#about-subscriber-settings"></a>About Subscriber Settings</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Studio Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Destination</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Queue name.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Acknowledgement Mode</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>When the MQ connector is used as an entry point, the mode options are <code>From configuration (Default)</code>, <code>AUTO</code>, <code>MANUAL</code>, or <code>NONE</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Notes:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>This value overrides the <strong>Acknowledgement Mode</strong> field in the Global Elements Properties Basic Settings.</p>
+</li>
+<li>
+<p>The default value automatically ACKs every message sent to the destination queue.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> From configuration if connector is an entry point</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Acknowledgement Timeout</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Duration in milliseconds until the acknowledgement mode
+times out. <strong>Note:</strong> This value overrides the <strong>Acknowledgement Timeout</strong> field in the Global Elements Properties Basic Settings.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Polling Time</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Duration in milliseconds that the MQ connector polls a queue for messages. <strong>Note:</strong> This value overrides the Polling Time field in the Global Elements Properties Basic Settings.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Reconnection Wait Time</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Duration in milliseconds for how long to wait before MQ attempts to re-establish a connection to the MQ backend server. The default is 3000 milliseconds (3 seconds).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Reconnection Attempts</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Number of times MQ should attempt to re-establish a connection to the MQ backend server. -1 means try forever.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="anypoint-mq-xml-examples"><a class="anchor" href="#anypoint-mq-xml-examples"></a>Anypoint MQ XML Examples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section provides these topics:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#example-1-mq-and-dataweave">Example 1: MQ and DataWeave</a></p>
+</li>
+<li>
+<p><a href="#example-2-mq-and-object-store">Example 2: MQ and Object Store</a></p>
+</li>
+<li>
+<p><a href="#All XML Fields With Examples">[All XML Fields With Examples]</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="example-1-mq-and-dataweave"><a class="anchor" href="#example-1-mq-and-dataweave"></a>Example 1: MQ and DataWeave</h3>
+<div class="paragraph">
+<p>The following example illustrates the use of the Anypoint MQ connector with DataWeave to transform
+a Mule message to JSON:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
+	xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd"&gt;
+  &lt;anypoint-mq:config name="Anypoint_MQ_Configuration" doc:name="Anypoint MQ Configuration"&gt;
+      &lt;anypoint-mq:provider url="https://mq-us-east-1.anypoint.mulesoft.com/api/v1" clientId="&lt;id&gt;" clientSecret="&lt;secret&gt;"/&gt;
+  &lt;/anypoint-mq:config&gt;
+&lt;flow name="producerFlow"&gt;
+  &lt;poll doc:name="Poll"&gt;
+    &lt;dw:transform-message doc:name="Create Customer"&gt;
+    &lt;dw:set-payload&gt;&lt;![CDATA[%dw 1.0
+%output application/json
+---
+{
+    "firstName" : "Joe",
+    "lastName" : "Schmoe",
+    "company" : "Acme, Inc"
+}]]&gt;&lt;/dw:set-payload&gt;
+    &lt;/dw:transform-message&gt;
+  &lt;/poll&gt;
+        &lt;anypoint-mq:publish config-ref="Anypoint_MQ_Configuration" destination="MyExchange" doc:name="Anypoint MQ"&gt;
+            &lt;anypoint-mq:message-builder messageId="mq42"/&gt;
+        &lt;/anypoint-mq:publish&gt;
+&lt;/flow&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="example-2-mq-and-object-store"><a class="anchor" href="#example-2-mq-and-object-store"></a>Example 2: MQ and Object Store</h3>
+<div class="paragraph">
+<p>The following example shows the use of the Anypoint MQ connector to consume
+information from an object store.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;mule xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq"
+    xmlns:objectstore="http://www.mulesoft.org/schema/mule/objectstore"
+    xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
+    xmlns:http="http://www.mulesoft.org/schema/mule/http"
+    xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
+    xmlns="http://www.mulesoft.org/schema/mule/core"
+    xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+    xmlns:spring="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mulesoft.org/schema/mule/objectstore http://www.mulesoft.org/schema/mule/objectstore/current/mule-objectstore.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd"&gt;
+
+    &lt;objectstore:config name="ObjectStore_Configuration" partition="employees" doc:name="ObjectStore: Configuration"/&gt;
+    &lt;http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/&gt;
+    &lt;anypoint-mq:config name="Anypoint_MQ_Configuration" doc:name="Anypoint MQ Configuration"&gt;
+        &lt;anypoint-mq:provider url="https://mq-us-east-1.anypoint.mulesoft.com/api/v1" clientId="&lt;ID&gt;" clientSecret="&lt;SECRET&gt;"/&gt;
+    &lt;/anypoint-mq:config&gt;
+    &lt;flow name="objectstore-store-flow"&gt;
+        &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/store" doc:name="HTTP"/&gt;
+        &lt;objectstore:store config-ref="ObjectStore_Configuration" key="#[message.inboundProperties.'http.query.params'.key]" value-ref="#[message.inboundProperties.'http.query.params'.value]" doc:name="ObjectStore"/&gt;
+        &lt;anypoint-mq:consume config-ref="Anypoint_MQ_Configuration" destination="MyDemoQueue" doc:name="Anypoint MQ"/&gt;
+        &lt;set-payload value= "OK" doc:name="Set Payload"/&gt;
+    &lt;/flow&gt;
+    &lt;flow name="objectstore-retrieve-employee-flow"&gt;
+        &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/retrieve" doc:name="HTTP"/&gt;
+        &lt;objectstore:retrieve config-ref="ObjectStore_Configuration" key="#[message.inboundProperties.'http.query.params'.key]" doc:name="Retrieve"/&gt;
+        &lt;logger message="Value: #[payload]" level="INFO" doc:name="Log"/&gt;
+        &lt;set-payload value="Value : #[payload]" doc:name="Show"/&gt;
+    &lt;/flow&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-common-xml-elements"><a class="anchor" href="#about-common-xml-elements"></a>About Common XML Elements</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">XML Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>doc:name</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Configuration name.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:config name="Anypoint_MQ_Configuration" doc:name="Anypoint MQ Configuration"&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clientMode</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Specifies whether the Anypoint MQ connector uses an improved HTTP client (SYNC, the default)
+or a deprecated HTTP client provided by the Mule Runtime (MULE). The improved HTTP client can
+be either synchronous or asynchronous.</p>
+</div>
+<div class="paragraph">
+<p>Possible values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ASYNC</code> - Require the MQ client to use an asynchronous HTTP client library.</p>
+</li>
+<li>
+<p><code>SYNC</code>(Default) - Require the MQ client to use a synchronous HTTP client library. This
+value is recommended when using MQ threading profiles.</p>
+</li>
+<li>
+<p><code>MULE</code> (Deprecated) - The HTTP connector used to communicate with MQ is the Grizzly
+library provided by the Mule Runtime.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> <code>SYNC</code>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:config name="Anypoint_MQ_Configuration" clientMode="SYNC" ... /&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>provider</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Sets a provider configuration for the current app consisting of the URL, Client App ID, and Client Secret.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:provider url="..." clientId="..." clientSecret="..."/&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>url</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>URL shown in Anypoint Platform &gt; MQ.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mq-ap-url.png" alt="URL in MQ near top of UI">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:provider url="https://mq-us-east-1.anypoint.mulesoft.com/api/v1" .../&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clientId</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>From Anypoint Platform &gt; MQ &gt; Client Apps. Click the app and copy the Client App ID value.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:provider url="..." clientId="&lt;id&gt;" clientSecret="..."/&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>clientSecret</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>From Anypoint Platform &gt; MQ &gt; Client Apps. Click the app and copy the Client Secret value.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:provider url="..." clientId="..." clientSecret="&lt;secret&gt;"/&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>provider-ref</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Sets the URL, Client App ID, and Client Secret for all apps.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:config name="..." doc:name="..." maxRedelivery="..." acknowledgementMode="..."
+ acknowledgementTimeout="..." pollingTime="..." provider-ref="Provider_Settings"&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>maxRedelivery</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Number of redeliveries
+to try in case a message fails. -1 indicates that Anypoint MQ retry indefinitely. If set to the default value of -1, this parameter does not appear in the XML flow.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> -1<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:config name="..." doc:name="..." maxRedelivery="10" ... &gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>acknowledgementMode</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Defines how the Anypoint MQ messages are acknowledged when the message are removed from being inflight messages. If set to the default
+value of AUTO, this parameter does not appear in the XML flow.</p>
+</div>
+<div class="paragraph">
+<p>Possible values are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>AUTO</code> (Default)- Messages are acknowledged or negatively acknowledged depending on whether or not exceptions occur. See <a href="mq-ack-mode.html">Acknowledgement Mode</a> for more information.</p>
+</li>
+<li>
+<p><code>MANUAL</code> - Messages are acknowledged using a custom ACK message processor.</p>
+</li>
+<li>
+<p><code>NONE</code> - Messages are acknowledged and removed as soon as they are received.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> <code>AUTO</code><br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:config ... acknowledgementMode="NONE" acknowledgementTimeout="42" ...&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>acknowledgementTimeout</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>When you take an Anypoint MQ message from a queue, the broker puts it in flight, and the message remains in that state until the ACK is performed (application reads the message and Anypoint MQ deletes it), or the Acknowledgement Timeout is reached. If ACK is performed, then the message is removed from the queue, if Acknowledgement Timeout is reached, the message returns to the queue. If set to the default
+value of <code>0</code>, this parameter does not appear in the XML flow.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> <code>0</code><br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:config ... acknowledgementMode="NONE" acknowledgementTimeout="42" ...&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>pollingTime</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Maximum time in milliseconds to wait for the expected message or messages. If set to the default value of <code>10000</code> (10 seconds), this parameter does not appear in the XML flow.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> <code>10000</code> (10 seconds)<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:config name="..." doc:name="..." pollingTime="99000"&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>worker-threading-profile</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Define threading profile behavior or
+ use default worker threading profile. See <a href="../../mule-runtime/3.8/administer/tuning-performance.html">Tuning Performance</a>. The threading profile options let you optimize connector performance for use with Anypoint MQ.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> After configuring worker-threading-profile, change the name of the statement to start with anypoint-mq, and switch the order of the statement with the anypoint-mq:provider statement in the anypoint-mq:config block.</p>
+</div>
+<div class="paragraph">
+<p>This example shows how the finished statements should appear:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:config name="Anypoint_MQ_Configuration" doc:name="Anypoint MQ Configuration"&gt;
+  &lt;anypoint-mq:provider url="https://mq-us-east-1.anypoint.mulesoft.com/api/v1" clientId="ID" clientSecret="SECRET"/&gt;
+  &lt;anypoint-mq:worker-threading-profile maxThreadsActive="42" maxThreadsIdle="42" threadTTL="4200" threadWaitTimeout="-1"/&gt;
+&lt;/anypoint-mq:config&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:worker-threading-profile maxThreadsActive="..." maxThreadsIdle="..."
+threadTTL="..." poolExhaustedAction="..." threadWaitTimeout="..."
+maxBufferSize="..."/&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>maxThreadsActive</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The maximum number of threads to use. See <a href="../../mule-runtime/3.8/administer/tuning-performance.html">Tuning Performance</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:worker-threading-profile maxThreadsActive="42" maxThreadsIdle="42"
+threadTTL="..." poolExhaustedAction="..." threadWaitTimeout="..."
+maxBufferSize="..."/&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>maxThreadsIdle</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The maximum number of idle or inactive threads that can be in the pool before they are destroyed. See <a href="../../mule-runtime/3.8/administer/tuning-performance.html">Tuning Performance</a>. The thread pool does not grow from Max Idle Threads towards Max Active Threads unless the queue is completely filled up.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:worker-threading-profile maxThreadsActive="42" maxThreadsIdle="42"
+threadTTL="..." poolExhaustedAction="..." threadWaitTimeout="..."
+maxBufferSize="..."/&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>threadTTL</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Thread time to live duration in milliseconds.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:worker-threading-profile maxThreadsActive="..." maxThreadsIdle="..."
+threadTTL="1000" poolExhaustedAction="..." threadWaitTimeout="..."
+maxBufferSize="..."/&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>poolExhaustedAction</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>When the maximum pool size or queue size is bounded, this value determines how to handle incoming tasks.</p>
+</div>
+<div class="paragraph">
+<p>Possible values are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>WAIT</code> - Wait until a thread becomes available; don’t use this value if the minimum number of threads is zero, in which case a thread may never become available.</p>
+</li>
+<li>
+<p><code>DISCARD</code> - Throw away the current request and return.</p>
+</li>
+<li>
+<p><code>DISCARD_OLDEST</code> - Throw away the oldest request and return.</p>
+</li>
+<li>
+<p><code>ABORT</code> - Throw a RuntimeException.</p>
+</li>
+<li>
+<p><code>RUN</code> - The default; the thread making the execute request runs the task itself, which helps guard against lockup.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> <code>RUN</code><br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:worker-threading-profile maxThreadsActive="..." maxThreadsIdle="..."
+threadTTL="..." poolExhaustedAction="DISCARD_OLDEST" threadWaitTimeout="..."
+maxBufferSize="..."/&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>threadWaitTimeout</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Thread wait timeout in milliseconds.</p>
+</div>
+<div class="paragraph">
+<p><strong>Type:</strong> Long<br>
+<strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:worker-threading-profile maxThreadsActive="..." maxThreadsIdle="..."
+threadTTL="..." poolExhaustedAction="..." threadWaitTimeout="1000"
+maxBufferSize="..."/&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>maxBufferSize</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Max buffer size.</p>
+</div>
+<div class="paragraph">
+<p><strong>Type:</strong> Integer<br>
+<strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;http:worker-threading-profile maxThreadsActive="..." maxThreadsIdle="..."
+threadTTL="..." poolExhaustedAction="..." threadWaitTimeout="..."
+maxBufferSize="1000"/&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-basic-xml-elements"><a class="anchor" href="#about-basic-xml-elements"></a>About Basic XML Elements</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">XML Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>anypoint-mq:&lt;operation&gt;</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Operation that this connector instance performs.</p>
+</div>
+<div class="paragraph">
+<p>Possible values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>publish</code> - Send a message to a queue or message exchange.</p>
+</li>
+<li>
+<p><code>consume</code> - Consume a message from a queue.</p>
+</li>
+<li>
+<p><code>ack</code> - Acknowledge a message, that is, accept a message and delete the message.</p>
+</li>
+<li>
+<p><code>nack</code> - Negatively acknowledge a message, that is, do not accept a message and return the message to the queue.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="demoFlow"&gt;
+    &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+    &lt;anypoint-mq:consume config-ref="Anypoint_MQ_Configuration" doc:name="Anypoint MQ"
+    destination="MyQ" acknowledgementMode="NONE" acknowledgementTimeout="42" pollingTime="99000"&gt;
+    &lt;/anypoint-mq:consume&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-publish-xml-elements"><a class="anchor" href="#about-publish-xml-elements"></a>About Publish XML Elements</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">XML Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>destination</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Queue or message exchange name.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="demoFlow"&gt;
+    &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+    &lt;anypoint-mq:consume config-ref="Anypoint_MQ_Configuration"
+     doc:name="Anypoint MQ" destination="MyQ"
+     acknowledgementMode="NONE" acknowledgementTimeout="42"
+     pollingTime="99000"&gt;
+    &lt;/anypoint-mq:consume&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>messageId</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Optional ID of a message to publish. When publishing to FIFO queues,
+if you specify a custom Message ID and the Message ID is the same on multiple messages, the
+messages with the same Message ID will not be redelivered. For applications such as those used in transactional use cases where messages need to be processed exactly once, Anypoint MQ supports exactly once delivery of messages when messages are published to FIFO queues. FIFO queues supports deduplication of messages. For example, if you retry sending a message with the same message ID within the 5-minute deduplication interval to a FIFO queue, Anypoint MQ guarantees the messages with the same message ID are retrieved and processed exactly once by the subscriber. When building applications requiring this feature on Anypoint Studio, you can set the message ID in publisher settings inside Anypoint MQ connector. If a message ID is not explicitly set, MQ auto generates a unique message ID for each message that&#8217;s sent to a queue.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="demoFlow"&gt;
+  &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+  &lt;anypoint-mq:publish config-ref="Anypoint_MQ_Configuration" doc:name="Anypoint MQ" destination="QUEUEorMsgEx"&gt;
+      &lt;anypoint-mq:message-builder messageId="4254a4254b4254c4254"
+       sendContentType="false" sendOutboundProperties="false"&gt;
+          &lt;anypoint-mq:properties&gt;
+              &lt;anypoint-mq:property propertyName="THisisAProperty" value="4254"/&gt;
+          &lt;/anypoint-mq:properties&gt;
+      &lt;/anypoint-mq:message-builder&gt;
+  &lt;/anypoint-mq:publish&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sendOutboundProperties</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Send properties when publishing.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> Checked<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="demoFlow"&gt;
+  &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+  &lt;anypoint-mq:publish config-ref="Anypoint_MQ_Configuration" doc:name="Anypoint MQ"
+  destination="QUEUEorMsgEx"&gt;
+    &lt;anypoint-mq:message-builder messageId="4254a4254b4254c4254" sendContentType="false"
+       sendOutboundProperties="false"&gt;
+     ...
+    &lt;/anypoint-mq:message-builder&gt;
+  &lt;/anypoint-mq:publish&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>sendContentType</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Send content type when publishing.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> Checked<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="demoFlow"&gt;
+  &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+  &lt;anypoint-mq:publish config-ref="Anypoint_MQ_Configuration" doc:name="Anypoint MQ"
+  destination="QUEUEorMsgEx"&gt;
+    &lt;anypoint-mq:message-builder messageId="4254a4254b4254c4254" sendContentType="false"
+       sendOutboundProperties="false"&gt;
+     ...
+    &lt;/anypoint-mq:message-builder&gt;
+  &lt;/anypoint-mq:publish&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>propertyName</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Optional property content to set for publish.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;anypoint-mq:properties&gt;
+    &lt;anypoint-mq:property propertyName="THisisAProperty" value="4254"/&gt;
+&lt;/anypoint-mq:properties&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>value</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Optional value content to set for publish.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>source,xml,linenums]</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;anypoint-mq:properties&gt;
+    &lt;anypoint-mq:property propertyName="THisisAProperty" value="4254"/&gt;
+&lt;/anypoint-mq:properties&gt;</pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-consume-xml-elements"><a class="anchor" href="#about-consume-xml-elements"></a>About Consume XML Elements</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">XML Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>destination</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Queue or message exchange name.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="demoFlow"&gt;
+    &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+    &lt;anypoint-mq:consume config-ref="Anypoint_MQ_Configuration"
+     doc:name="Anypoint MQ" destination="MyQ"
+     acknowledgementMode="NONE" acknowledgementTimeout="42"
+     pollingTime="99000"&gt;
+    &lt;/anypoint-mq:consume&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>acknowledgementMode</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The modes are <code>MANUAL (default)</code> or <code>NONE</code>. For more information,
+see <a href="mq-ack-mode.html">Anypoint MQ Acknowledgement Mode</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> MANUAL if connector is a message processor,
+or From configuration if connector is an entry point<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="demoFlow"&gt;
+    &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+    &lt;anypoint-mq:consume config-ref="Anypoint_MQ_Configuration" doc:name="Anypoint MQ"
+     destination="ImaQ" acknowledgementMode="NONE" acknowledgementTimeout="42"
+     pollingTime="99000"&gt;
+    &lt;/anypoint-mq:consume&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>acknowledgementTimeout</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Duration in milliseconds until the acknowledgement mode
+times out.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="demoFlow"&gt;
+    &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+    &lt;anypoint-mq:consume config-ref="Anypoint_MQ_Configuration" doc:name="Anypoint MQ"
+     destination="ImaQ" acknowledgementMode="NONE" acknowledgementTimeout="42"
+     pollingTime="99000"&gt;
+    &lt;/anypoint-mq:consume&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>pollingTime</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Duration in milliseconds that the MQ connector polls the queue or message exchange for messages.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="demoFlow"&gt;
+    &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+    &lt;anypoint-mq:consume config-ref="Anypoint_MQ_Configuration" doc:name="Anypoint MQ"
+     destination="ImaQ" acknowledgementMode="NONE" acknowledgementTimeout="42"
+     pollingTime="99000"&gt;
+    &lt;/anypoint-mq:consume&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>reconnectionWaitTime</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Duration in milliseconds to wait before attempting to reconnect to the MQ backend server.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> 3000 milliseconds (3 seconds)<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="mqAsEndpointFlow"&gt;
+    &lt;anypoint-mq:subscriber config-ref="Anypoint_MQ_Configuration" destination="Q1"
+    doc:name="Anypoint MQ" reconnectionAttempts="-1" reconnectionWaitTime="3000"/&gt;
+    &lt;logger message="#[payload]" level="INFO" doc:name="Logger"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>reconnectionAttempts</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Number of attempts to make to re-establish a connection to the MQ backend server.
+The -1 default value indicates to retry forever.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> -1<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="mqAsEndpointFlow"&gt;
+    &lt;anypoint-mq:subscriber config-ref="Anypoint_MQ_Configuration" destination="Q1"
+    doc:name="Anypoint MQ" reconnectionAttempts="-1" reconnectionWaitTime="3000"/&gt;
+    &lt;logger message="#[payload]" level="INFO" doc:name="Logger"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-subscribe-xml-elements"><a class="anchor" href="#about-subscribe-xml-elements"></a>About Subscribe XML Elements</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">XML Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>destination</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Queue name.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> Yes<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="demoFlow"&gt;
+    &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+    &lt;anypoint-mq:consume config-ref="Anypoint_MQ_Configuration"
+     doc:name="Anypoint MQ" destination="MyQ"
+     acknowledgementMode="NONE" acknowledgementTimeout="42"
+     pollingTime="99000"&gt;
+    &lt;/anypoint-mq:consume&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>acknowledgementMode</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The mode options are <code>From configuration (Default)</code>, <code>AUTO</code>,
+<code>MANUAL</code>, or <code>NONE</code>. For more information,
+see <a href="mq-ack-mode.html">Anypoint MQ Acknowledgement Mode</a>. The default mode
+automatically ACKs each message sent to the destination queue.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> MANUAL if connector is a message processor,
+or From configuration if connector is an entry point<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="demoFlow"&gt;
+    &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+    &lt;anypoint-mq:consume config-ref="Anypoint_MQ_Configuration" doc:name="Anypoint MQ"
+     destination="ImaQ" acknowledgementMode="NONE" acknowledgementTimeout="42"
+     pollingTime="99000"&gt;
+    &lt;/anypoint-mq:consume&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>acknowledgementTimeout</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Duration in milliseconds until the acknowledgement mode
+times out.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="demoFlow"&gt;
+    &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+    &lt;anypoint-mq:consume config-ref="Anypoint_MQ_Configuration" doc:name="Anypoint MQ"
+     destination="ImaQ" acknowledgementMode="NONE" acknowledgementTimeout="42"
+     pollingTime="99000"&gt;
+    &lt;/anypoint-mq:consume&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>pollingTime</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Duration in milliseconds that the MQ connector polls a queue for messages.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> None<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="demoFlow"&gt;
+    &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/&gt;
+    &lt;anypoint-mq:consume config-ref="Anypoint_MQ_Configuration" doc:name="Anypoint MQ"
+     destination="ImaQ" acknowledgementMode="NONE" acknowledgementTimeout="42"
+     pollingTime="99000"&gt;
+    &lt;/anypoint-mq:consume&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>reconnectionWaitTime</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Duration in milliseconds to wait before attempting to reconnect to the MQ backend server.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> 3000 milliseconds (3 seconds)<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="mqAsEndpointFlow"&gt;
+    &lt;anypoint-mq:subscriber config-ref="Anypoint_MQ_Configuration" destination="Q1"
+    doc:name="Anypoint MQ" reconnectionAttempts="-1" reconnectionWaitTime="3000"/&gt;
+    &lt;logger message="#[payload]" level="INFO" doc:name="Logger"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>reconnectionAttempts</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Number of attempts to make to re-establish a connection to the MQ backend server.
+The -1 default value indicates to retry forever.</p>
+</div>
+<div class="paragraph">
+<p><strong>Required:</strong> No<br>
+<strong>Default:</strong> -1<br>
+<strong>XML Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="mqAsEndpointFlow"&gt;
+    &lt;anypoint-mq:subscriber config-ref="Anypoint_MQ_Configuration" destination="Q1"
+    doc:name="Anypoint MQ" reconnectionAttempts="-1" reconnectionWaitTime="3000"/&gt;
+    &lt;logger message="#[payload]" level="INFO" doc:name="Logger"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="index.html">Anypoint MQ</a></p>
+</li>
+<li>
+<p><a href="mq-client-apps.html">To Configure Client Applications</a></p>
+</li>
+<li>
+<p><a href="mq-ack-mode.html">About Acknowledgement Mode</a></p>
+</li>
+<li>
+<p><a href="../access-management/audit-logging.html#to-configure-anypoint-mq-audit-logging">MQ Audit Logging</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

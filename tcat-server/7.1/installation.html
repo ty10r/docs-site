@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="tcat, install, server">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/tcat-server/7.1/installation.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Installing Tcat Server // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Tcat Server</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="using-the-rest-api.html">Using the REST API</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="apply-a-profile-to-a-server.html">Apply a Profile to a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="apply-a-profile-to-a-server-group.html">Apply a Profile to a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="create-a-deployment.html">Create a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="create-a-server-group.html">Create a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="create-or-update-a-file.html">Create or Update a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-deployment.html">Delete a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-file.html">Delete a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-server.html">Delete a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-server-group.html">Delete a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-deployment.html">Get a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-file.html">Get a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-server.html">Get a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-server-group.html">Get a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-file-metadata.html">Get File Metadata</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-the-deployment-history.html">Get the Deployment History</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-the-deployment-version-details.html">Get the Deployment Version Details</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="list-all-deployments.html">List All Deployments</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="list-all-servers.html">List All Servers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="list-all-server-groups.html">List All Server Groups</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="redeploy-a-deployment.html">Redeploy a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="register-a-server.html">Register a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="restart-a-server.html">Restart a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="undeploy-a-deployment.html">Undeploy a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="update-a-file.html">Update a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="update-a-server.html">Update a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="update-a-server-group.html">Update a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="repository-api.html">Repository API</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-server-profiles.html">Working with Server Profiles</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="applying-your-tcat-server-license.html">Applying Your Tcat Server License</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="automating-tasks.html">Automating Tasks</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-custom-policies.html">Creating Custom Policies</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-remote-workspaces.html">Creating Remote Workspaces</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-to-amazon-ec2.html">Deploying to Amazon EC2</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="integrating-with-ldap.html">Integrating with LDAP</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-the-repository.html">Managing the Repository</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-users-and-groups.html">Managing Users and Groups</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="maven-publishing-plug-in.html">Maven Publishing Plug-in</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="update-a-deployment.html">Update a Deployment</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="monitoring-repository-activity.html">Monitoring Repository Activity</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="scheduling-the-usage-statistics-script.html">Scheduling the Usage Statistics Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="troubleshooting.html">Troubleshooting</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-http-atompub-api.html">Using the HTTP AtomPub API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-servers.html">Working with Servers</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="overview-of-tcat-server.html">Overview of Tcat Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="quick-start.html">Quick Start</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installation.html">Installation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="server-profiles.html">Server Profiles</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="integrating-with-ant.html">Integrating with Ant</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="csv-save-start-script.html">CSV Save Start Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="csv-save-stop-script.html">CSV Save Stop Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="csv-save-writer-script.html">CSV Save Writer Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="saving-jmx-metric-data-to-csv-files.html">Saving JMX Metric Data to CSV Files</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-tcat-server-on-microsoft-windows.html">Installing Tcat Server on Microsoft Windows</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="add-tcat-server-capabilities-to-an-existing-tomcat-install.html">Add Tcat Server Capabilities to an Existing Tomcat Install</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="applying-a-new-tcat-server-license.html">Applying a new Tcat Server license</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="archetypes.html">Archetypes</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="mulesoft-tomcat-archetypes.html">MuleSoft Tomcat Archetypes</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="mulesoft-tcat-archetypes.html">MuleSoft Tcat Archetypes</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="common-problems-and-solutions.html">Common Problems and Solutions</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="defining-notifications-and-destinations.html">Defining Notifications and Destinations</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="disable-multicasting.html">Disable Multicasting</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="edit-server-information.html">Edit Server Information</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="global-dashboard-overview.html">Global Dashboard Overview</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-multiple-tcat-instances-on-a-single-machine.html">Installing Multiple Tcat Instances on a Single Machine</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="jmx-agent-monitoring.html">JMX Agent Monitoring</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="moving-a-tcat-installation-from-a-non-linux-os-to-linux.html">Moving a Tcat Installation from a Non-Linux OS to Linux</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="quickstart.html">QuickStart</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="release-notes.html">Release Notes</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="release-notes-tcat-6-r2.html">Release Notes Tcat 6 R3</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="release-notes-tcat-6-r3.html">Release Notes Tcat 6 R2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tcat-server-6-r2-release-notes.html">Tcat Server 6 R2 Release Notes</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="server-dashboard.html">Server Dashboard</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="user-group-permissions.html">User Group Permissions</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-cloudcat-with-amazon-ec2.html">Using Cloudcat with Amazon EC2</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-cloudcat-with-gogrid.html">Using Cloudcat with GoGrid</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="integrating-with-maven.html">Integrating with Maven</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="upgrading.html">Upgrading</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-7.1.0.html">Upgrading to 7.1.0</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-r4.html">Upgrading to R4</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-6.3.html">Upgrading to 6.3</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-tcat-server-6-r2-p1.html">Upgrading to Tcat Server 6 R2 P1</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-from-tcat-server-6-r1-to-tcat-server-6-r2.html">Upgrading from Tcat Server 6 R1 to Tcat Server 6 R2</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Installing Tcat Server</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/tcat-server-docs/edit/v7.1/modules/ROOT/content/installation.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Installing Tcat Server</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section includes instructions for all supported Tcat Server scenarios.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<a href="mailto:tcat-install@mulesoft.com">You can email MuleSoft with Tcat comments or questions.</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="operating-system-requirements"><a class="anchor" href="#operating-system-requirements"></a>Operating System Requirements</h3>
+<div class="paragraph">
+<p>Tcat Server has been tested on the following operating systems:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Windows: XP, Server 2003, Vista, Server 2008, Windows 7</p>
+</li>
+<li>
+<p>Linux: RHEL 4 &amp; 5, CentOS 4 &amp; 5, Oracle 5, Fedora 6 through 13, Ubuntu 9.x and 10.x, SUSE 10 &amp; 11, openSUSE 10 &amp; 11</p>
+</li>
+<li>
+<p>Mac OS X: 10.5.8 and 10.6</p>
+</li>
+<li>
+<p>Solaris: All versions that have a supported Java runtime, server restarts are supported on Solaris 10 and 11</p>
+</li>
+<li>
+<p>Java 1.6 and newer including 1.8</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="java-runtime-requirements"><a class="anchor" href="#java-runtime-requirements"></a>Java Runtime Requirements</h3>
+<div class="paragraph">
+<p>You may download Tcat Server with or without a bundled JRE. If you install the installer package that comes with a bundled JRE, you do not need to install any other Java runtime. If you instead install the installer package that has no bundled JRE, you must install a separate Java runtime (JDK or JRE, either one  works). On startup, Tcat Server  uses the Java runtime that is pointed to by the JAVA_HOME or JRE_HOME environment variable. If neither of these environment variables points to a Java runtime, then Tcat Server  automatically uses the bundled JRE. Check the value of the JAVA_HOME and JRE_HOME variables on your server, since either or both may already point to a Java runtime that is already installed. Tcat Server tries to use JAVA_HOME first, and if Java runtime isn&#8217;t found, Tcat next tries JRE_HOME.</p>
+</div>
+<div class="paragraph">
+<p>If you are installing and using your own JDK or JRE (instead of using the bundled JRE), ensure that you have a JDK or JRE 1.5.x or newere installed and that your JAVA_HOME or JRE_HOME environment variable is set correctly. For example, on Windows, choose the System utility from the Control Panel, click the Advanced tab, click <strong>Environment Variables</strong>, and then add the JAVA_HOME or JRE_HOME system variable.</p>
+</div>
+<div class="sect3">
+<h4 id="java-runtimes-tested-and-recommended"><a class="anchor" href="#java-runtimes-tested-and-recommended"></a>Java Runtimes Tested and Recommended</h4>
+<div class="paragraph">
+<p>MuleSoft recommends the latest Oracle/Sun Hotspot 1.6.0 JDK or JRE for Tcat Server or newer, but has also tested the IBM J9 1.6.0 and Oracle JRockit 1.6.0 JVMs and newer.</p>
+</div>
+<div class="paragraph">
+<p>Tcat Server can run in two or more different Java VMs:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The Tcat Server console runs in Tomcat 6.0 and newer, and requires Java 1.6.0 and newer (also known as "Java 6"). Java 1.5.0 runtimes do not work.</p>
+</li>
+<li>
+<p>The Tcat Server agents can run in any Tomcat 5.5 or newer, and JRE/JDK require Java 1.5.0 or newer, meaning Java 1.6 runtimes are both supported and recommended.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Here are some Java runtimes we&#8217;ve tested and are known to work with Tcat Server:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Oracle/Sun Hotspot version 1.5.0 JDKs or JREs and newer (except as noted below)</p>
+</li>
+<li>
+<p>Oracle/Sun Hotspot version 1.6.0_04 and newer JDKs or JREs</p>
+</li>
+<li>
+<p>Oracle/JRockit version 1.6.0_20 and newer JDK (Tcat v6.4.1 and older console logs tab shows zero logs)</p>
+</li>
+<li>
+<p>OpenJDK version 1.6.0_18 openjdk-6-jdk "(IcedTea6 1.8) (6b18-1.8-0ubuntu1)" on Ubuntu 10.04 Linux</p>
+</li>
+<li>
+<p>OpenJDK version 1.6.0_0-2b12 on Linux</p>
+</li>
+<li>
+<p>IBM J9 version 1.6.0 or newer JDK or JRE (this works with Tcat Server v6.4.2 and newer)</p>
+</li>
+<li>
+<p>Apple JDK 1.6.0, all versions</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here are some JDKs we tested that are known <strong>not</strong> to work, and are unsupported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Oracle/Sun JDK or JRE versions 1.6.0_03 or older (due to JAXB, any 1.6.0 Oracle/Sun Hotspot JVM older than 1.6.0_04 won&#8217;t work)</p>
+</li>
+<li>
+<p>IBM J9 1.5.0 JDK and JRE (due to lack of support for self-signed HTTPS client certificates)</p>
+</li>
+<li>
+<p>OpenJDK versions older than 1.6.0_0-2b12 on Linux (prone to JVM crashes and other JVM failures)</p>
+</li>
+<li>
+<p>GNU GCJ or GIJ, all versions</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Older Linux distribution versions tend to contain incompatible Java runtimes that are known not to run Tcat Server. Tcat Server is incompatible with these Java runtimes, including all versions of GCJ, any version of IcedTea older than version 6, and OpenJDK versions older than version 1.6.0.0-b17, though version 1.6.0_0-2b12 were tested to work.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="red-hat-enterprise-linux-centos-fedora"><a class="anchor" href="#red-hat-enterprise-linux-centos-fedora"></a>Red Hat Enterprise Linux / CentOS / Fedora</h4>
+<div class="paragraph">
+<p>Before installing Tcat Server on a 64-bit installation, you must have the 32-bit compatibility libraries and all of their dependencies installed. You may install them via yum like this for most versions of RHEL, CentOS, and Fedora:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ sudo -s
+# yum install compat-libstdc++-33.i586 gtk+.i586 gtk2.i586
+# exit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or, like this for some newer versions of these distributions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ sudo -s
+# yum install compat-libstdc++-33.i686 gtk+.i686 gtk2.i686
+# exit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, you may proceed with installing Tcat Server via the installer executable.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ubuntu-linux"><a class="anchor" href="#ubuntu-linux"></a>Ubuntu Linux</h4>
+<div class="paragraph">
+<p>Before installing Tcat Server on a 64-bit installation of Ubuntu, you must have the 32-bit compatibility libraries and all of their dependencies installed. You may install them via apt-get like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ sudo -s
+# sudo apt-get install ia32-libs
+# exit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, you may proceed with installing Tcat Server via the installer executable.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="opensuse-linux"><a class="anchor" href="#opensuse-linux"></a>OpenSUSE Linux</h4>
+<div class="paragraph">
+<p>Before installing Tcat Server on a 64-bit installation of OpenSUSE 11, you must have the 32-bit versions of GTK2 and all of its dependencies installed. You may install them using yast, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ sudo -s
+# yast -i gtk2-32bit
+# exit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, you may proceed with installing Tcat Server via the installer executable.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quickstart-installation"><a class="anchor" href="#quickstart-installation"></a>QuickStart Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="quickstart.html">QuickStart</a> section includes instructions for all supported operating systems, and explains a few basic configurations to get you started working with Tcat Server. The remainder of this section includes instructions for special use cases and OS-specific configurations.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="upgrade-installation"><a class="anchor" href="#upgrade-installation"></a>Upgrade Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To upgrade an existing installation of Tcat Server version 6.2, follow these instructions.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you are upgrading from a previous release, see <a href="upgrading-to-r4.html">Upgrading to R4</a> instead.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="automated-installation"><a class="anchor" href="#automated-installation"></a>Automated Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Tcat Server installers are available for Windows, Linux, Solaris, and Mac OS X. These installers allow you to install Tomcat, the Tcat Server agent, the Tcat Server administration console, and each installs a preconfigured version of Tomcat, saving you some manual steps.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="headless-installation"><a class="anchor" href="#headless-installation"></a>Headless Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes how to install Tcat Server in a "headless" (text-only) mode. When you install Tcat in headless mode, the Tcat installer  asks you questions in the shell about the installation directory, the server ports, etc. The installer  begins to install only after you answer all of the installation questions in the shell. If you need to automate the settings, this section also describes how you can perform a headless non-interactive installation.</p>
+</div>
+<div class="paragraph">
+<p>On Windows, run this command to install Tcat Server in headless mode:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">C:\&gt; start /wait tcat-installer-6.4.3-windows-64bit.exe -c</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On Linux and Solaris, run this command to install Tcat Server in headless mode:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># sh tcat-installer-6.4.3-*.sh -c</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The installer&#8217;s interaction in the shell  looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># sh tcat-installer-6*.sh -c
+Unpacking JRE ...
+Preparing JRE ...
+Starting Installer ...
+This installs Tcat Server 6 on your computer.
+OK [o, Enter], Cancel [c]
+
+Read the following License Agreement. You must accept the terms of this agreement before continuing with the installation.
+...
+
+I accept the agreement
+Yes [1], No [2]
+1
+Which type of installation should be performed?
+Standard installation [1, Enter]
+Custom installation [2]
+1
+Where should Tcat Server 6 be installed?
+[/opt/TcatServer6]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With the <code>-c</code> argument, the installer  asks you to select your choices in text mode prompts. If you instead want to accept all defaults including installing the Administration Console and using all of the default port numbers, use the <code>-q</code> argument instead:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># sh tcat-installer-6.4.3-*.sh -q</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or, to feed responses to the installer, so that it doesn&#8217;t need to ask anything:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># sh tcat-installer-6.4.3-*.sh -q -varfile response.varfile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The response.varfile is generated inside the <code>.install4j</code> directory when we first run the installer. The contents of the varfile is the same format as a simple Java properties file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># less /opt/TcatServer6/.install4j/response.varfile
+
+#install4j response file for Tcat Server 6 R4 P1
+#Fri Sept 27 16:51:39 GMT-08:00 2010
+tcatServiceName=tcat6
+secureAgentPort$Long=51443
+tomcatHttpPort$Long=8080
+tomcatHttpsPort$Long=8443
+tomcatShutdownPort$Long=8005
+tomcatAjpPort$Long=8009
+sys.installationDir=/opt/TcatServer6
+sys.programGroup.linkDir=/usr/local/bin
+sys.programGroup.name=Tcat Server 6 [tcat6]
+sys.programGroup.enabled$Boolean=false
+sys.programGroup.allUsers$Boolean=true
+sys.languageId=en
+sys.installationTypeId=39
+sys.component.37$Boolean=true
+sys.component.51$Boolean=true
+sys.component.52$Boolean=true
+sys.component.53$Boolean=true
+sys.component.54$Boolean=true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may also pass <code>-Dinstall4j.debug=true</code> and <code>-Dinstall4j.detailStdout=true</code> on the installer command line if you want Install4J&#8217;s debugging information about the installation. On Windows, you probably also want to pass <code>-q -console</code> <strong>as the first and second arguments</strong> or else you may not get the output in the shell. Read <code>TcatServer6/.install4j/installation.log</code> afterwards.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add-tcat-server-capabilities-to-an-existing-apache-tomcat-installation"><a class="anchor" href="#add-tcat-server-capabilities-to-an-existing-apache-tomcat-installation"></a>Add Tcat Server Capabilities to an Existing Apache Tomcat Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can also <a href="add-tcat-server-capabilities-to-an-existing-tomcat-install.html">add Tcat Server to an existing Apache Tomcat installation.</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-multiple-tcat-servers-on-a-single-computer"><a class="anchor" href="#installing-multiple-tcat-servers-on-a-single-computer"></a>Installing Multiple Tcat Servers on a Single Computer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can also <a href="installing-multiple-tcat-instances-on-a-single-machine.html">install multiple Tcat Servers on a single machine</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>NOTE</strong> if you are connected to your network via a virtual private network (VPN), disconnect before running Tcat Server. After you have registered all your Tcat Server instances, you can connect to your VPN again.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installation-options"><a class="anchor" href="#installation-options"></a>Installation Options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section includes a few procedures for customizing installs.</p>
+</div>
+<div class="sect2">
+<h3 id="make-contents-of-webapps-directory-unwriteable"><a class="anchor" href="#make-contents-of-webapps-directory-unwriteable"></a>Make Contents of Webapps Directory Unwriteable</h3>
+<div class="paragraph">
+<p>By default, the Administration Console enables a user to edit files on any Tcat Server instance registered to it.</p>
+</div>
+<div class="paragraph">
+<p>This property is set in the <code>spring-services.xml</code> file in the <code>webapps/agent/WEB-INF/</code> directory: Below is the relevant snippet:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;property name="writeExcludes"&gt;
+  &lt;list&gt;
+    &lt;value&gt;lib/catalina*.jar&lt;/value&gt;
+    &lt;value&gt;**/tomcat*.jar&lt;/value&gt;
+    &lt;value&gt;conf/tcat-overrides.conf&lt;/value&gt;
+    &lt;!-- block the webapps directory --&gt;
+    &lt;!-- &lt;value&gt;webapps/**&lt;/value&gt; --&gt;
+  &lt;/list&gt;
+&lt;/property&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To disable this ability:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Uncomment last element shown in the above snippet, replacing
+this</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;!-- &lt;value&gt;webapps/**&lt;/value&gt; --&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;value&gt;webapps/**&lt;/value&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Save the file.</p>
+</li>
+<li>
+<p>Restart the Tcat Server instance.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="renaming-the-tcat6-service-on-linux"><a class="anchor" href="#renaming-the-tcat6-service-on-linux"></a>Renaming the tcat6 Service on Linux</h3>
+<div class="paragraph">
+<p>You may wish to rename your Tcat Server&#8217;s init script, either because you&#8217;re installing more than one copy of Tcat Server in a single operating system and you need to prevent an init script naming conflict, or because you want to invoke the init script using a different name. Tcat Server supports renaming the service.</p>
+</div>
+<div class="paragraph">
+<p>First, make sure you shut down your Tcat/Tomcat instance whose service you want to rename:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ sudo service tcat6 stop</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or, if you&#8217;re currently using a stock Tomcat package init script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ sudo service tomcat6 stop</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Switch to a root shell:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ sudo -s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set the new service name as an environment variable, along with the absolute path to the directory to the Tcat Server installation you&#8217;re changing the service name for:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># export NEW_SERVICE_NAME=t1
+# export TCAT_HOME=/opt/TcatServer6</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, rename the init script symlinks to the new service name (copy and paste these commands – don&#8217;t type them in):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># mv /etc/init.d/tcat6 /etc/init.d/$NEW_SERVICE_NAME 2&gt;/dev/null
+# mv $TCAT_HOME/bin/tcat6 $TCAT_HOME/bin/$NEW_SERVICE_NAME 2&gt;/dev/null
+# mv $TCAT_HOME/conf/Catalina/localhost/tcat6 $TCAT_HOME/conf/Catalina/localhost/$NEW_SERVICE_NAME</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If any of the above "tcat6" files do not exist, it is because you installed Tcat Server&#8217;s agent webapp only, which is okay. You must pair the agent with the console before the agent  unpacks its service scripts.</p>
+</div>
+<div class="paragraph">
+<p>And, in your Tcat/Tomcat instance&#8217;s environment file, which is used for the JVM&#8217;s startup environment, change the service name setting (copy and paste this command – don&#8217;t type it in):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># sed -i.bak -e "s/\-Dtcat\.service\=[Installation^ ]* /-Dtcat.service=$NEW_SERVICE_NAME /g" \
+    $TCAT_HOME/conf/Catalina/localhost/tcat-env.conf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Exit from the root shell.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># exit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you&#8217;re changing the service to install two or more Tcat Server installations in a single operating system, you should also ensure that the port numbers in Tomcat&#8217;s <code>&lt;tomcatHome&gt;/conf/server.xml</code> do not conflict, and also that the Tcat Server agent secure port number of each Tcat Server instance is unique (copy and paste these commands – don&#8217;t type them in):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># export NEW_AGENT_SECURE_PORT=51444
+# sed -i.bak -e "s/^securePort=.*/securePort=$NEW_AGENT_SECURE_PORT/g" \
+    $TCAT_HOME/webapps/agent/WEB-INF/agent.properties</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then inspect the agent.properties file to ensure the setting is correct.</p>
+</div>
+<div class="paragraph">
+<p>The default agent secure port is 51443.</p>
+</div>
+<div class="paragraph">
+<p>You&#8217;re now finished renaming the service. You can now start, stop, or restart Tcat Server using the service name you chose:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ sudo service t1 start</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="starting-and-stopping-tcat-server"><a class="anchor" href="#starting-and-stopping-tcat-server"></a>Starting and Stopping Tcat Server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes the simplest way to start and stop Tcat Server on Windows, Linux, and Solaris, additional options for each, instructions for <a href="#starting-and-stopping-on-mac-os-x">Starting and Stopping on Mac OS X</a>, and instructions for <a href="#starting-the-administration-console">Starting the Administration Console</a>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+If you want to use the standard Tomcat <code>catalina</code> or <code>startup</code> commands to start Tomcat, any environment variables you set in the Tcat Server console do not take effect until you restart Tomcat using the Tcat Server commands. Therefore, for best results when setting environment variables in the Tcat Server console, you should always start Tomcat using the Tcat Server commands described below.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="starting-and-stopping-on-windows-and-linux"><a class="anchor" href="#starting-and-stopping-on-windows-and-linux"></a>Starting and Stopping on Windows and Linux</h3>
+<div class="paragraph">
+<p>To start Tcat Server, navigate to the <code>bin</code> directory and enter the following at the prompt:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">tcat6 start</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or prefix <code>tcat6</code> with the path to the <code>bin</code> directory to run the command from a different directory. To start the administration console, see below.</p>
+</div>
+<div class="paragraph">
+<p>To stop Tcat Server, simply close the command window, or use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">tcat6 stop</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also restart the server:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">tcat6 restart</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and get the server&#8217;s status and process ID:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">tcat6 status</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="additional-options-on-windows"><a class="anchor" href="#additional-options-on-windows"></a>Additional Options on Windows</h4>
+<div class="paragraph">
+<p>If you installed Tcat Server via the installer, you can choose <strong>Start Tcat Server</strong> and <strong>Stop Tcat Server</strong> from the Tcat Server 6 group in the Windows Start menu.</p>
+</div>
+<div class="paragraph">
+<p>To start the administration console, see below.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="additional-options-on-linux"><a class="anchor" href="#additional-options-on-linux"></a>Additional Options on Linux</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>If you installed as a non-root user via the installer, you can use the graphical desktop applications menu to start, stop, or restart the server.</p>
+</li>
+<li>
+<p>If you installed as root via the installer, you can use the init script:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">service tcat6 start</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the service command isn&#8217;t available, use the following command instead:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/etc/init.d/tcat6 start</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If you installed using the ZIP file instead of the installer and you have root privileges, follow the below instructions to complete the installation.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="starting-and-stopping-on-solaris-10-and-11"><a class="anchor" href="#starting-and-stopping-on-solaris-10-and-11"></a>Starting and Stopping on Solaris 10 and 11</h3>
+<div class="paragraph">
+<p>By default, Tcat Server  automatically starts after installation on Solaris 10 and newer, as part of the Solaris Service Management Framework (SMF). Or, without using SMF, you may also directly invoke Tcat Server&#8217;s init script, named &#8220;tcat6&#8221;. You may invoke the <code>tcat6</code> script in Tcat&#8217;s bin/ directory, or in the path <code>/etc/init.d/tcat6</code> if you installed Tcat with root privileges. By default you should use SMF, but if you have insufficient permissions to use SMF, then the <code>tcat6</code> init script  works. For any single Tcat Server installation, you should choose to invoke either SMF or the <code>tcat6</code> init script, not both.</p>
+</div>
+<div class="paragraph">
+<p>Using SMF, you may query the service to inspect its current state like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">sudo svcs -l tcat6</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or, if you&#8217;re not using SMF, you may query Tcat&#8217;s status like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/opt/TcatServer6/bin/tcat6 status</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To stop Tcat Server, disable its SMF service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">sudo svcadm disable tcat6</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or, if you&#8217;re not using SMF, you may stop Tcat Server like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/opt/TcatServer6/bin/tcat6 stop</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To start Tcat Server from a disabled state, run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">sudo svcadm enable tcat6</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or, if you&#8217;re not using SMF, you may start Tcat Server like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/opt/TcatServer6/bin/tcat6 start</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also restart the server via SMF like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">sudo svcadm restart tcat6</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or, if you&#8217;re not using SMF, you may restart Tcat Server like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/opt/TcatServer6/bin/tcat6 restart</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="additional-options-on-solaris"><a class="anchor" href="#additional-options-on-solaris"></a>Additional Options on Solaris</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>If your shell user does not have root permissions when you run the installer, the installer cannot add a <code>tomcat</code> shell user, nor can the installer install the Tcat Server SMF service. This is okay, and is a fully supported use case on Solaris. The user you use to run the Tcat installer is the user that the Tcat JVM runs as, and you should start|stop|restart Tcat Server on the command line via the <code>tcat6</code> init script as described in the <a href="#starting-and-stopping-on-solaris-10-and-11">Starting and Stopping on Solaris 10 and 11</a> section above.</p>
+</li>
+<li>
+<p>Installing Tcat Server inside a Solaris zone is also supported. The installer is unaware it is being installed in a non-global zone and the installation works the same as if you are installing it in the global zone. If you have root privileges in a zone, but the zone does not allow you to use SMF, then the installer may be unable to install the SMF service, but the installation will not fail – it succeeds and completes the installation without the SMF service. You can operate Tcat Server without SMF on the command line via the <code>tcat6</code> init script as described in the <a href="#starting-and-stopping-on-solaris-10-and-11">Starting and Stopping on Solaris 10 and 11</a> section above. By default, Solaris 10 and 11 allow SMF to be used as root inside non-global zones. If you do not have root privileges in your non-global zone, installing Tcat inside this zone is the same as installing Tcat in the global zone without root privileges.</p>
+</li>
+<li>
+<p>If you installed as root via the installer, you can invoke the init script for start|stop|restart|status:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/etc/init.d/tcat6 status</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="installing-tcat-server-via-the-zip-file-on-linux"><a class="anchor" href="#installing-tcat-server-via-the-zip-file-on-linux"></a>Installing Tcat Server via the Zip File on Linux</h4>
+<div class="paragraph">
+<p>Here are the steps for installing Tcat Server on a Linux distribution from the zip file:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>sudo -s</p>
+</li>
+<li>
+<p>cd /opt</p>
+</li>
+<li>
+<p>unzip TcatServer-6.4.3.zip</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># export TCAT_HOME=/opt/TcatServer6</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you wish to install Tcat Server into a different file system location, the recommended way to do that is using the automated installer. Try installing it into /opt/TcatServer6 first.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># groupadd tomcat
+# useradd -c "Tcat JVM user" -g tomcat -s /bin/bash -r -M -d $TCAT_HOME/temp tomcat</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the 'tomcat' user already exists, do this instead:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># finger tomcat &gt; ~/tomcat-user-settings.txt
+# usermod -s /bin/bash -d $TCAT_HOME/temp tomcat</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Either way, continue:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># ln -s $TCAT_HOME/conf/Catalina/localhost/tcat6-linux.sh /etc/init.d/tcat6
+# ln -s $TCAT_HOME/conf/Catalina/localhost/tcat6-linux.sh $TCAT_HOME/bin/tcat6
+# ln -s $TCAT_HOME/conf/Catalina/localhost/tcat6-linux.sh $TCAT_HOME/conf/Catalina/localhost/tcat6
+# chmod 770 $TCAT_HOME/conf/Catalina/localhost/*.sh
+# chmod 660 $TCAT_HOME/conf/Catalina/localhost/*.conf
+# cp $TCAT_HOME/conf/Catalina/localhost/tcat-env-linux.conf $TCAT_HOME/conf/Catalina/localhost/tcat-env.conf
+# chown -R tomcat:tomcat $TCAT_HOME</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>On Red Hat, CentOS, and Fedora Linux distributions, use the chkconfig command to make Tcat start upon a reboot:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># chkconfig tcat6 on</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On other Linux distributions, such as Debian and Ubuntu, you can probably do the same thing this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># update-rc.d tcat6 defaults</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Edit your Tcat Server&#8217;s environment file to set the value of JAVA_HOME to point to your Java JDK:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">$TCAT_HOME/conf/Catalina/localhost/tcat-env.conf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you do not have a JDK, but instead a JRE, set the value of JRE_HOME instead of JAVA_HOME. Make sure you set only one of these environment variables, not both.</p>
+</div>
+</li>
+<li>
+<p>Start Tcat Server, like this:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># service tcat6 start</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text"># /etc/init.d/tcat6 start</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To start the administration console, see
+<a href="#starting-the-administration-console">Starting the Administration Console</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="starting-and-stopping-on-mac-os-x"><a class="anchor" href="#starting-and-stopping-on-mac-os-x"></a>Starting and Stopping on Mac OS X</h3>
+<div class="paragraph">
+<p>Navigate to the Tomcat <code>bin</code> directory and enter the following command at the terminal prompt:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">startup.sh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To stop a Tcat Server instance, enter the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">shutdown.sh</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="starting-the-administration-console"><a class="anchor" href="#starting-the-administration-console"></a>Starting the Administration Console</h3>
+<div class="paragraph">
+<p>To run the administration console, enter <code>http://localhost:8080/console`</code> in your web browser, replacing <code>localhost:8080</code> with the correct server name and port where the console is deployed. You can now select and register one or more of the unregistered servers, adding them to server groups as needed. For more details, see <a href="working-with-servers.html">Working with Servers</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="modifying-java_opts"><a class="anchor" href="#modifying-java_opts"></a>Modifying JAVA_OPTS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are several reasons to modify your JAVA_OPTS environment variable:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You want to enable JMX so that you can get more detailed information about connectors and server status, for example, <code>-Dcom.sun.management.jmxremote</code></p>
+</li>
+<li>
+<p>You need to increase your memory settings because you are installing all the components offered in the installer, , for example, <code>-Xmx512M -XX:PermSize=64M  -XX:MaxPermSize=128M</code></p>
+</li>
+<li>
+<p>You need to modify the secure port, for example, <code>-Dtcat.securePort=51444</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>After installing Tcat Server, you can modify JAVA_OPTS using the Tcat Server console, either by setting the options manually on each server by <a href="monitoring-a-server.html">modifying the server&#8217;s environment variables</a> or, if you have administrative privileges, by setting them in a <a href="working-with-server-profiles.html">server profile</a> that you use across multiple Tcat Server instances.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementing-custom-restart-strategies"><a class="anchor" href="#implementing-custom-restart-strategies"></a>Implementing Custom Restart Strategies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can now specify custom restart strategies. These control how multiple servers are restarted. For instance, here is a script which specifies that there should be 30 seconds between restarting each server:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">import com.mulesoft.common.server.restart.StaggeredRestartStrategy;
+
+def serverManager = applicationContext.getBean("serverManager");
+serverManager.setRestartStrategy(new StaggeredRestartStrategy(30000))
+"Restart strategy installed"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Users can also specify custom restart strategies. For instance:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">import com.mulesoft.common.server.restart.RestartStrategy;
+
+def strategy = { serverManager, serverIds -&gt;
+  for (String id : serverIds) {
+     println "Restarting ${id}"
+     serverManager.restartServerNow(id);
+   }
+} as RestartStrategy
+
+def serverManager = applicationContext.getBean("serverManager");
+serverManager.setRestartStrategy(strategy)
+"Restart strategy installed"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uninstalling-the-tcat-server"><a class="anchor" href="#uninstalling-the-tcat-server"></a>Uninstalling the Tcat Server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To uninstall the Tcat Server:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If you installed Tcat Server on Windows via the installer, choose <strong>Uninstall Tcat Server</strong> from the Windows Start menu.</p>
+</li>
+<li>
+<p>If you manually installed Tcat Server and Tomcat in the same directory, and you want to delete both programs, simply delete the entire folder.</p>
+</li>
+<li>
+<p>If you manually installed Tcat Server on an existing Tomcat installation, delete the console, agent webapps and their folders from the <code>webapps</code> directory.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="quick-start.html">&lt;&lt; Previous: <strong>Quick Start</strong></a></p>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

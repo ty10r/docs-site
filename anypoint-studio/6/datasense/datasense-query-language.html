@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="anypoint studio, esb, datasense, metadata, meta data, query metadata, dsql, data sense query language">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-studio/6/datasense/datasense-query-language.html">
+  <link rel="stylesheet" href="../../../_theme/stylesheets/theme.css">
+  <title>DataSense Query Language // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../index.html">Anypoint Studio</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../setting-up-your-development-environment.html">Development Environment Setup</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../hardware-and-software-requirements.html">Hardware and Software Requirements</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../download-and-launch-anypoint-studio.html">Download and Launch Anypoint Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../install-update-items-in-studio.html">Updating Studio, Mule and Components</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mule-runtime/adding-community-runtime.html">Installing Mule Runtime in Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../install-update-items-in-studio.html">Installing Extensions</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../install-studio-gw.html">Installing API Gateway Runtime</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../maven/using-maven-in-anypoint-studio.html">Using Maven in Studio</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/maven-support-in-anypoint-studio.html">Maven Support in Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/building-a-mule-application-with-maven-in-studio.html">Building Mule Applications with Maven in Studio</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/enabling-maven-support-for-a-studio-project.html">Enabling Maven Support on Studio Projects</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../maven/importing-a-maven-project-into-studio.html">Importing Maven Projects</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../studio-in-eclipse.html">Studio in Eclipse</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../using-subversion-with-studio.html">Using Subversion</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../preparing-a-gitignore-file.html">Preparing a .gitignore file</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../troubleshooting-studio.html">Troubleshooting Studio Issues</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../basic-studio-tutorial.html">Basic Studio Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../anypoint-studio-features.html">Studio Reference</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="datasense.html">DataSense</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../about-defining-metadata.html">Defining Metadata</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../testing-connections.html">Testing Connections</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../using-perceptive-flow-design.html">Using Perceptive Flow Design</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datasense-enabled-connectors.html">DataSense-enabled Connectors</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="using-the-datasense-explorer.html">Using the DataSense Explorer</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../raml-1-0-data-types-support.html">RAML 1.0 Data Types Support</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datasense-query-editor.html">DataSense Query Editor</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="datasense-query-language.html">DataSense Query Language</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../transform-message/transform-message-component-concept-studio.html">About Transform Message Component</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../transform-message/workflow-create-mapping-ui-studio.html">Workflow: Create a Mapping</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transform-message/input-output-structure-transformation-studio-task.html">To Define Input and Output Structure of a Transformation</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transform-message/graphically-construct-mapping-studio-task.html">To Graphically Construct a Mapping</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../transform-message/preview-transformation-output-studio-task.html">To Preview the Output of a Transformation</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transform-message/tips-transform-message-ui-studio.html">Tips on the Transform Message UI</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transform-message/change-target-output-transformation-studio-task.html">To Change the Target Output of a Transformation</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transform-message/add-another-output-transform-studio-task.html">To Add Another Output Target</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../transform-message/move-transformations-separate-file-studio-task.html">To Move Transformations to Separate Files</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../studio-visual-debugger.html">Studio Visual Debugger</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../import-export-projects-studio.html">Importing and Exporting</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../api-sync-reference.html">API Sync</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../mule-runtime/changing-runtimes-in-studio.html">Changing Runtimes in Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../studio-policy-editor.html">Studio Policy Editor (Beta)</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../keyboard-shortcuts-in-studio.html">Keyboard Shortcuts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../adding-source-attachments-to-studio.html">Adding Source Attachments to Studio</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../deploy-more-than-one-application.html">Deploy More than One Application</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../mule-runtime/starting-the-runtime-in-cluster-mode-in-studio.html">Starting the Studio Runtime in Cluster Mode</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../datamapper/datamapper-user-guide-and-reference.html">DataMapper (Deprecated)</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../datamapper/datamapper-concepts.html">DataMapper Concepts</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../datamapper/datamapper-visual-reference.html">DataMapper Visual Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../datamapper/defining-datamapper-input-and-output-metadata.html">Defining DataMapper Input and Output Metadata</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../defining-metadata-using-edit-fields.html">Defining Metadata Using Edit Fields</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../pojo-class-bindings-and-factory-classes.html">POJO Class Bindings and Factory Classes</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../building-a-mapping-flow-in-the-graphical-mapping-editor.html">Building a Mapping Flow in the Graphical Mapping Editor</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../mapping-flow-input-and-output-properties.html">Mapping Flow Input and Output Properties</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../datamapper/datamapper-input-error-policy-for-bad-input-data.html">DataMapper Input Error Policy for Bad Input Data</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../datamapper/using-datamapper-lookup-tables.html">Using DataMapper Lookup Tables</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../datamapper/streaming-data-processing-with-datamapper.html">Streaming Data Processing with DataMapper</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../updating-metadata-in-an-existing-mapping.html">Updating Metadata in an Existing Mapping</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../mapping-elements-inside-lists.html">Mapping Elements Inside Lists</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../datamapper/previewing-datamapper-results-on-sample-data.html">Previewing DataMapper Results on Sample Data</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../datamapper/datamapper-examples.html">DataMapper Examples</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="../datamapper/datamapper-supplemental-topics.html">DataMapper Supplemental Topics</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../choosing-mel-or-ctl2-as-scripting-engine.html">Choosing MEL or CTL2 as Scripting Engine</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../datamapper/datamapper-fixed-width-input-format.html">DataMapper Fixed Width Input Format</a>
+                                              </li>
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="../datamapper/datamapper-flat-to-structured-and-structured-to-flat-mapping.html">DataMapper Flat-to-Structured and Structured-to-Flat Mapping</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../datamapper/including-the-datamapper-plugin.html">Including the DataMapper Plugin</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">DataSense Query Language</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-studio-docs/edit/v6/modules/ROOT/content/datasense/datasense-query-language.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>DataSense Query Language</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In Anypoint Connectors which support the query functionality, the <a href="datasense-query-editor.html">DataSense Query Editor</a> allows you to easily query and retrieve complex data stored in a remote application. To define your query, you can proceed in one of two ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>use the Query Editor&#8217;s graphical <strong>Query Builder</strong>, which displays objects and fields available via the connector</p>
+</li>
+<li>
+<p>type your query directly into the <strong>Query Text field</strong>, using the remote application&#8217;s native query language or the DataSense Query Language</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To facilitate the latter, this document describes the <strong>DataSense Query Language</strong> for use in the <strong>Query Editor</strong>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assumptions"><a class="anchor" href="#assumptions"></a>Assumptions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes that you are familiar with the <a href="datasense-query-editor.html">DataSense Query Editor</a>. The query language described in this document is used in conjunction with the Query Editor in the editor&#8217;s properties panel.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="queries"><a class="anchor" href="#queries"></a>Queries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The DataSense Query Language is, in fact, a basic subset of <a href="https://en.wikipedia.org/wiki/SQL">SQL</a>. The tables below list the supported language elements and operators.</p>
+</div>
+<div class="sect2">
+<h3 id="supported-language-elements"><a class="anchor" href="#supported-language-elements"></a>Supported Language Elements</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Language element</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+<th class="tableblock halign-left valign-top">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SELECT</code> statement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Select fields from an object</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>SELECT AccountID</code></p>
+</div>
+<div class="paragraph">
+<p>(To select multiple fields, separate them by commas:)</p>
+</div>
+<div class="paragraph">
+<p><code>SELECT AccountID,FirstName,Lastname</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FROM</code> clause</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify which object to select from</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SELECT AccountID,FirstName,Lastname FROM Contact</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>WHERE</code> clause</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Define a comparison predicate to eliminate results that do not match</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SELECT AccountID,FirstName,Lastname FROM Contact WHERE AccountID &#8658; '500'</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ORDER BY</code> clause</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify a field to use for sorting results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SELECT AccountID,FirstName,Lastname FROM Contact WHERE AccountID &#8658; '500' ORDER BY LastName</code><br></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OFFSET</code> clause</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set offset (number of results to ignore) for query results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SELECT AccountID,FirstName,Lastname FROM Contact WHERE AccountID &#8658; '500' ORDER BY LastName OFFSET 250</code><br></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LIMIT</code> clause</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set maximum number of results to return</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SELECT AccountID,FirstName,Lastname FROM Contact WHERE AccountID &#8658; '500' ORDER BY LastName OFFSET 250 LIMIT 1000</code><br></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>AND</code> conditional operator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Concatenates search filters defined by the <code>WHERE</code> clause, returning match if the conditions defined in both filters are true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SELECT AccountID,FirstName,Lastname FROM Contact WHERE (AccountID &#8658; '500' AND IsDeleted = false) ORDER BY LastName OFFSET 250 LIMIT 1000</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OR</code> conditional operator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Concatenates search filters defined by the <code>WHERE</code> clause, returning match if one of the conditions defined in the filters is true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SELECT AccountID,FirstName,Lastname FROM Contact WHERE (AccountID &#8658; '500' AND IsDeleted = false) OR Employee_Still_With_Company_c = false ORDER BY LastName OFFSET 250 LIMIT 1000</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Due to the complexity of graphical representation, the graphical Query Builder cannot display the <code>OR</code> conditional operator, although the DataSense query language supports it. To use the graphical Query Builder to construct a query that contains one or more <code>OR</code> operators, proceed as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Build your query with the graphical Query Builder, using it to select from the available objects and fields.</p>
+</li>
+<li>
+<p>Click <strong>OK</strong> to close the Query Builder window. Studio displays your finished query in the <strong>Query Text</strong> field.</p>
+</li>
+<li>
+<p>Edit your query in the <strong>Query Text</strong> field to include the <code>OR</code> operator. Your query will work, though you will not be able to see your query in the graphical editor.</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="arithmetic-operators"><a class="anchor" href="#arithmetic-operators"></a>Arithmetic Operators</h3>
+<table class="tableblock frame-all grid-all" style="width: 80%;">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">=</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">equals to</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">less than</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8656;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">less or equal than</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">greater than</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&gt;=</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">greater or equal than</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not equal to</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LIKE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">includes specified pattern</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="other"><a class="anchor" href="#other"></a>Other</h3>
+<table class="tableblock frame-all grid-all" style="width: 70%;">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>,</code> (comma)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use to separate items in a list</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>( )</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use to delimit filter operations articulated by the <code>AND</code> conditional operator</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>'</code> (single quote)</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Use to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>** Escape numbers if they are part of returned results and not an operational parameter (such as for the <code>OFFSET</code> or <code>LIMIT</code> clauses)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Escape field values composed of multiple words (as in <code>fullName = 'Mr. John Smith'</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="supported-data-types"><a class="anchor" href="#supported-data-types"></a>Supported Data Types</h3>
+<table class="tableblock frame-all grid-all" style="width: 70%;">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Data Type</th>
+<th class="tableblock halign-left valign-top">Usage Example</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SELECT FullName FROM Account WHERE LastName = Smith</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Date</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>SELECT Name FROM Account WHERE Birth &gt; 1999-01-01T23:01:01+01:00</code></p>
+</div>
+<div class="paragraph">
+<p><code>SELECT Name FROM Account WHERE Birth &gt; 1999-01-01T23:01:01Z</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The date format is the <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format, which supports time zones</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SELECT Name FROM Account WHERE Age &gt; 30</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SELECT Name FROM Account WHERE Registered = true</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SELECT Name FROM Account WHERE Address = null</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="limitations"><a class="anchor" href="#limitations"></a>Limitations</h3>
+<div class="paragraph">
+<p>The DataSense query language currently supports only the elements and operators listed in the tables above. Any other elements are currently not supported.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Learn about the <a href="datasense-query-editor.html">DataSense Query Editor</a> and how you can build your queries using a graphical interface</p>
+</li>
+<li>
+<p>Learn about <a href="datasense.html">DataSense</a>, which allows you to perform queries even if you do not know which objects and fields are available</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../../_theme/scripts/menu.js"></script>
+<script src="../../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

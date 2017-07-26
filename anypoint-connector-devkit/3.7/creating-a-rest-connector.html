@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="devkit, rest, connector, restcall, api">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-connector-devkit/3.7/creating-a-rest-connector.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Creating a REST Connector // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="devkit-tutorial.html">DevKit Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="anypoint-connector-development.html">Anypoint Connector Development</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-your-dev-environment.html">Setting Up Your Development Environment</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-java-sdk-based-connector.html">Creating a Java SDK-Based Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-soap-connector.html">Creating a SOAP Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-rest-connector.html">Creating a REST Connector</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="connector-project-structure.html">Connector Project Structure</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-api-access.html">Setting Up API Access</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="authentication.html">Authentication</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="authentication-methods.html">Authentication Methods</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="connector-connection-strategies.html">Connector Connection Strategies</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="connection-management.html">Connection Management</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="oauth-v1.html">OAuth V1</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="oauth-v2.html">OAuth V2</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="http-basic-authentication.html">HTTP Basic Authentication</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="no-authentication.html">No Authentication</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="connector-attributes-and-operations.html">Connector Attributes and Operations</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-message-sources.html">Defining Message Sources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-message-processors.html">Creating Message Processors</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-connector-attributes.html">Defining Connector Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="complex-data-types-attributes.html">Complex Data Types Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="mime-type-and-encoding.html">MIME Type and Encoding</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-testing-framework.html">Connector Testing Framework</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="installing-and-testing-your-connector-in-studio.html">Installing and Testing Your Connector in Studio</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="extending-connector-functionality.html">Extending Connector Functionality</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="adding-datasense.html">Adding DataSense</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="multiple-level-datasense-support.html">Multiple Level DataSense Support</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense-query-language.html">Adding DataSense Query Language</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-query-pagination-support.html">Adding Query Pagination Support</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="building-a-batch-enabled-connector.html">Building a Batch Enabled Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="shading-libraries.html">Shading Libraries</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="connector-reference-documentation.html">Connector Reference Documentation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="packaging-your-connector-for-release.html">Packaging Your Connector for Release</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="connector-certification-program-guidelines.html">Connector Certification Program Guidelines</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="anypoint-connector-examples.html">Anypoint Connector Examples</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tutorial-barn-connector.html">Tutorial - Barn Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-using-a-java-sdk.html">Creating a Connector Using a Java SDK</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-soap-service-via-cxf-client.html">Creating a Connector for a SOAP Service Via CXF Client</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-a-connector-for-a-restful-api-using-restcall-annotations.html">Creating a Connector for a RESTful API using @RestCall Annotations</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="annotation-reference.html">Annotation Reference</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Creating a REST Connector</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs/edit/v3.7/modules/ROOT/content/creating-a-rest-connector.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Creating a REST Connector</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Anypoint Connector DevKit provides a convenient set of annotations called @RESTCall for creating a Connector for a RESTful API.</p>
+</div>
+<div class="paragraph">
+<p>You can apply @RestCall annotations to methods (@Processor) in a Connector&#8217;s @Connector class that declaratively describes the URLs for resources exposed on the API.</p>
+</div>
+<div class="paragraph">
+<p>The @RestCall annotation lets you perform HTTP POST, GET, PUT, and DELETE operations through its HttpMethod parameter.</p>
+</div>
+<div class="paragraph">
+<p>At compile time, Anypoint Connector DevKit generates client code for all the operations, and provides most of the functionality for the methods. For well-defined RESTful APIs, this can be a convenient solution for quickly producing a connector.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes you are familiar with RESTful APIs, and with the DevKit connector architecture described in Anypoint Connector Fundamentals.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="restcall-based-connector-architecture"><a class="anchor" href="#restcall-based-connector-architecture"></a>@RestCall-Based Connector Architecture</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The DevKit handles "well-behaved" RESTful Web services, that is, those which require clean URLs, correct HTTP verb usage, etc.</p>
+</div>
+<div class="paragraph">
+<p>The client is exposed through a set of annotations (the @RestCall annotations) that you apply to your @Connector class and its methods. For more information, see the <a href="annotation-reference.html">Annotation Reference</a>.</p>
+</div>
+<div class="paragraph">
+<p>The following is the architecture of a connector built using the @RestCall annotations:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/rest-call-architecture.png" alt="rest call architecture">
+</div>
+</div>
+<div class="paragraph">
+<p>Compared to most connectors, creating REST connectors requires writing very little code. You still define a @Connector class, with properties and methods; but in this case the @Connector class and its methods are all abstract. (Any entity classes passed to the operations are still concrete classes, as with other connector types.) For each operation, apply the @RestCall annotations to provide:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A URI template for the target resource</p>
+</li>
+<li>
+<p>The HTTP verb for the request</p>
+</li>
+<li>
+<p>Any parameters to substitute into the URI or send in the query/POST body to parameterize the request</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>DevKit generates the entire REST client in a subclass that implements the abstract method. Developers do not see this class.</p>
+</div>
+<div class="paragraph">
+<p>This level of simplicity is possible because the patterns for accessing a well-defined RESTful API are extremely consistent.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="restcall-annotations"><a class="anchor" href="#restcall-annotations"></a>@RestCall Annotations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DevKit provides a set of annotations to simplify working with RESTful APIs. These annotations handle all necessary operations, generating each REST call and incorporating each REST call parameter.</p>
+</div>
+<div class="sect2">
+<h3 id="restcall"><a class="anchor" href="#restcall"></a>@RestCall</h3>
+<div class="paragraph">
+<p>Used with the @Processor annotation. Indicates that upon invocation, the processor makes a RESTful request.</p>
+</div>
+<div class="paragraph">
+<p>Required arguments:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>uri: URI of the REST resource to query</p>
+</li>
+<li>
+<p>method: HTTP method to use</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The generated code creates the URI based on the arguments passed to the @RestCall annotation, and makes a request using the verb specified by the method parameter of @RestCall.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">@Processor
+ @RestCall(uri = "{url}/list", method = org.mule.api.annotations.rest.HttpMethod.GET)
+ public abstract String showAll() throws IOException;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Optional arguments:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>contentType</strong>:  The content-type of the response from this method call.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">@Processor
+ @RestCall(uri = "{url}/list", method = HttpMethod.POST, contentType = "application/json")</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>exceptions</strong>: A list of exceptions to throw, configured by pairing an exception type and an expression which is evaluated.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">@Processor
+ @RestCall(uri = "{url}/list", method = HttpMethod.POST, contentType = "application/json", exceptions = {@RestExceptionOn(expression="#[message.inboundProperties['http.status'] != 200]", exception = AnimalNotFoundException.class)})</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In this case, the @RestExceptionOn annotation is used to throw an exception on a specified criteria. In the example above, if the HTTP status is not 200, an exception is thrown.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="resturiparam"><a class="anchor" href="#resturiparam"></a>@RestURIParam</h3>
+<div class="paragraph">
+<p>Allows you to dynamically generate URIs by inserting parameters which are annotated with the @RestUriParam annotation.</p>
+</div>
+<div class="paragraph">
+<p>When applying annotations to @Processor methods, specify a placeholder in the URI by surrounding the placeholder with curly braces.</p>
+</div>
+<div class="paragraph">
+<p>One way this can be done is by applying this annotation to @Processor methods arguments as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">@Processor
+@RestCall(uri = "http://localhost:8089/animals/{type}", method = HttpMethod.GET)
+   public abstract List&lt;Animal&gt; listAnimalsOfType(@RestUriParam("type") String type) throws IOException;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Another way is to annotate an @Configurable variable with @RestUriParam as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">@Configurable
+@RestUriParam("url")
+@Default("http://localhost:8089")
+private String url;
+
+@Processor
+@RestCall(uri = "{url}/listType", method =    org.mule.api.annotations.rest.HttpMethod.GET)
+  public abstract String getByType(@RestQueryParam("type") String type)
+   throws IOException;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="restqueryparam"><a class="anchor" href="#restqueryparam"></a>@RestQueryParam</h3>
+<div class="paragraph">
+<p>Specifies URI query parameters, which are appended to the path of the URI after a ? or &amp; symbol. You can apply this annotation to @Processor method arguments or to connector fields marked @Configurable. This enables you to use dynamically-generated arguments as query parameters.</p>
+</div>
+<div class="paragraph">
+<p>Required argument: String representation of the name of the parameter to append.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">@Processor
+ @RestCall(uri = "{url}/listType", method = HttpMethod.GET)
+ public abstract String getByType(@RestQueryParam("type") String type)
+   throws IOException;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the getByType message processor is called with <code>mule</code> as a parameter, the resultant call would be: <a href="http://localhost:8089/animals?type=mule" class="bare">http://localhost:8089/animals?type=mule</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="restheaderparam"><a class="anchor" href="#restheaderparam"></a>@RestHeaderParam</h3>
+<div class="paragraph">
+<p>Allows you to insert custom headers in the HTTP request. When using this annotation, you must specify the name of the header to include in the call. As with the @RestURIParam annotation, you can apply this annotation to @Processor methods arguments or to connector fields marked @Configurable.</p>
+</div>
+<div class="paragraph">
+<p>When annotating a specific configurable variable using the @RestHeaderParam, the variable is present in all HTTP requests.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">@Configurable
+@RestHeaderParam(value = "emptyHeaderField", ignoreIfEmpty = true)
+private String emptyHeaderField;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you use the @RestHeaderParam on a specific argument in a method, the header is only included if the method is called.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">@Processor
+@RestCall(uri = "{url}/create", method = org.mule.api.annotations.rest.HttpMethod.POST)
+ public abstract String create(@RestHeaderParam("age") int age)
+throws IOException;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="restpostparam"><a class="anchor" href="#restpostparam"></a>@RestPostParam</h3>
+<div class="paragraph">
+<p>Allows you to set parameters in the body of POST method calls. Define the POST method with @RestCall and set its parameters with @RestPostParam.</p>
+</div>
+<div class="paragraph">
+<p>You can apply this annotation to @Processor method arguments or to connector fields marked @Configurable. DevKit ensures that you apply this annotation only to POST methods.</p>
+</div>
+<div class="paragraph">
+<p>Processor methods annotated with @RestPostParam cannot use a non-annotated argument or a @Payload annotated argument.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">@Processor
+@RestCall(uri = "http://localhost:8089/product/{name}", method = HttpMethod.POST)
+  public abstract Result createProduct(
+    @RestPostParam("name")
+    String name)
+    throws IOException;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Another way is to annotate an @Configurable variable with @RestPostParam as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">@Configurable
+@RestPostParam("category")
+private String category;
+
+@Processor
+@RestCall(uri = "http://localhost:8089/product/", method = HttpMethod.POST)
+  public abstract Result createProduct(String name) throws IOException;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>For an example on how to implement a @RestCall connector, see <a href="creating-a-connector-for-a-restful-api-using-restcall-annotations.html">Creating a Connector for a RESTful API using @RESTCall Annotations</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

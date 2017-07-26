@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="mmc, debug, manage, monitoring">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/mule-management-console/3.8/mmc-walkthrough.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>MMC Walkthrough // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Mule Management Console</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-the-trial-version-of-mmc.html">Installing the Trial Version of MMC</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="installing-the-production-version-of-mmc.html">Installing the Production Version of MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="installing-and-deploying-mmc-to-weblogic.html">Installing and Deploying MMC to Weblogic</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="installing-and-deploying-mmc-to-websphere.html">Installing and Deploying MMC to WebSphere</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="upgrading-the-management-console.html">Upgrading the Management Console</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="configuration-files-for-ldap-and-external-dbs-in-mmc-before-and-after-3.4.2.html">Configuration Files for LDAP and External DBs in MMC Before and After 3.4.2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="migration-scripts-for-business-events.html">Migration Scripts for Business Events</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-mmc-3.6.0-with-an-external-database.html">Upgrading to MMC 3.6.0 with an External Database</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-mmc-3.6.0-with-ldap.html">Upgrading to MMC 3.6.0 with LDAP</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="upgrading-from-mmc-3.4.1-for-ms-sql-server-to-mmc-3.6.0-for-ms-sql-server.html">Upgrading from MMC 3.4.1 for MS-SQL Server to MMC 3.6.0 for MS-SQL Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="orientation-to-the-console.html">Orientation to the Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mmc-walkthrough.html">MMC Walkthrough</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="architecture-of-the-mule-management-console.html">Architecture of the Mule Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="setting-up-mmc.html">Setting Up MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-mmc-mule-esb-communications.html">Setting Up MMC-Mule ESB Communications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="persisting-mmc-data-on-external-databases.html">Persisting MMC Data On External Databases</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="configuring-mmc-for-external-databases-quick-reference.html">Configuring MMC for External Databases - Quick Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-ms-sql-server.html">Persisting MMC Data to MS SQL Server</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-mysql.html">Persisting MMC Data to MySQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-oracle.html">Persisting MMC Data to Oracle</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-postgresql.html">Persisting MMC Data to PostgreSQL</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="encrypting-ldap-and-database-passwords-in-mmc.html">Encrypting LDAP and Database Passwords in MMC</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-mmc-users-and-roles.html">Managing MMC Users and Roles</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-in-mmc.html">Setting Up and Managing Users in MMC</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="encrypting-mmc-user-passwords.html">Encrypting MMC User Passwords</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-via-ldap.html">Setting Up and Managing Users via LDAP</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="managing-with-mmc.html">Managing with MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="managing-mule-servers-clusters-and-groups.html">Managing Mule Servers Clusters and Groups</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="maintaining-the-server-application-repository.html">Maintaining the Server Application Repository</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="working-with-flows.html">Working with Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-mule-high-availability-ha-clusters.html">Managing Mule High Availability (HA) Clusters</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="configuring-mule-ha-clustering.html">Configuring Mule HA Clustering</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="creating-or-disbanding-a-cluster.html">Creating or Disbanding a Cluster</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="deploying-redeploying-or-undeploying-an-application-to-or-from-a-cluster.html">Deploying, Redeploying, or Undeploying an Application To or From a Cluster</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="dynamically-adding-or-removing-nodes-in-a-cluster.html">Dynamically Adding or Removing Nodes in a Cluster</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="monitoring-a-cluster.html">Monitoring a Cluster</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="mmc-rest-api.html">MMC REST API</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="rest-api-reference.html">REST API Reference</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="clusters.html">Clusters</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="deployments.html">Deployments</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="repository-of-applications.html">Repository of Applications</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="server-groups.html">Server Groups</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="servers.html">Servers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="user-groups.html">User Groups</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="using-the-management-console-api.html">Using the Management Console API</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-with-mmc.html">Monitoring with MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-server-alerts.html">Viewing Server Alerts</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-system-memory.html">Viewing System Memory</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-threads.html">Viewing Threads</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-server-pools.html">Viewing Server Pools</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="working-with-the-server-configuration-files.html">Working with the Server Configuration Files</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="viewing-server-properties.html">Viewing Server Properties</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="editing-server-settings.html">Editing Server Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="customizing-server-metrics-dashboard.html">Customizing Server Metrics Dashboard</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-slas-and-alerts.html">Defining SLAs and Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-and-managing-alerts-and-slas.html">Adding and Managing Alerts and SLAs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-alert-destinations-and-notifications.html">Setting Up Alert Destinations and Notifications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="analyzing-business-events.html">Analyzing Business Events</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="business-events-use-cases.html">Business Events Use Cases</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="tracking-and-querying-business-events.html">Tracking and Querying Business Events</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="analyzing-flow-processing-and-payloads.html">Analyzing Flow Processing and Payloads</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-os-resources.html">Viewing Server OS Resources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-jmx-information.html">Viewing JMX Information</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-the-dashboard.html">Customizing the Dashboard</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="accessing-server-logs.html">Accessing Server Logs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="audit-logs.html">Audit Logs</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="troubleshooting-with-mmc.html">Troubleshooting with MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="troubleshooting-tips.html">Troubleshooting Tips</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="monitoring-and-debugging-applications.html">Monitoring and Debugging Applications</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="tracking-flows.html">Tracking Flows</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="analyzing-message-flows.html">Analyzing Message Flows</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="debugging-message-processing.html">Debugging Message Processing</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="debugging-the-loan-broker-example-application.html">Debugging the Loan Broker Example Application</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="using-the-management-console-for-performance-tuning.html">Using the Management Console for Performance Tuning</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="automating-tasks-using-scripts.html">Automating Tasks Using Scripts</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">MMC Walkthrough</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/mule-management-console-docs/edit/v3.6/modules/ROOT/content/mmc-walkthrough.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>MMC Walkthrough</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mule Management Console&#8217;s graphical interface offers visibility into your Web application server(s) so you can monitor and manage multiple Mule applications.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Walkthrough Description</strong></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>This walkthrough illustrates some of the basic functionality MMC provides as a monitoring tool:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>how to register a server</p>
+</li>
+<li>
+<p>how to deploy a sample application onto the server</p>
+</li>
+<li>
+<p>how to monitor flow activity in the application</p>
+</li>
+<li>
+<p>how to undeploy the application</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>End Result</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">At the end of this walkthrough, you&#8217;ll have successfully deployed a sample application onto a server using the console, verified the health of the application by monitoring the activity of the individual flows, and undeployed the application from the server.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Learning Outcome</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">After completing the walkthrough, you will understand the basic mechanisms by which you can register servers and deploy and manage applications using the console.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assumptions"><a class="anchor" href="#assumptions"></a>Assumptions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This walkthrough assumes that you are familiar with <a href="../../mule-runtime/3.6/mule-concepts.html">Mule applications and Mule flows</a> and that you have downloaded and installed <strong>Mule ESB Enterprise Runtime (with Management Tools)</strong> which includes a <strong>trial version</strong> of the Mule Management Console. Beyond installation, you do not need to complete any specific setup configurations to complete this walkthrough. If you have not yet downloaded the trial package, consult the documentation for <a href="installing-the-trial-version-of-mmc.html">installing</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="launching-mmc"><a class="anchor" href="#launching-mmc"></a>Launching MMC</h2>
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<code>$MULE_HOME</code> is the directory where your Mule installation resides, for example <code>/opt/mule-3.4.1</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The way you launch MMC depends on whether you&#8217;ve installed the <a href="installing-the-trial-version-of-mmc.html">trial</a> or <a href="installing-the-production-version-of-mmc.html">production</a> version.</p>
+</div>
+<div class="paragraph">
+<p>For the <strong>trial</strong> version, use the appropriate startup script as described in the <a href="installing-the-trial-version-of-mmc.html">installation page</a>. Then, go to <code><a href="http://localhost:8585/mmc-&lt;version&gt" class="bare">http://localhost:8585/mmc-&lt;version&gt</a>;</code>, for example <code><a href="http://localhost:8585/mmc-3.6.1" class="bare">http://localhost:8585/mmc-3.6.1</a></code>.</p>
+</div>
+<div class="paragraph">
+<p>For the <strong>production</strong> version, you must first deploy MMC to your application server and start the MMC application. For instructions deploying MMC to different application servers, see the <a href="installing-the-production-version-of-mmc.html">installation documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>For the trial and production versions, login to MMC with the following credentials:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>User: <code>admin</code></p>
+</li>
+<li>
+<p>Password: <code>admin</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you are using the trial version, the server is automatically registered with the console. The console Dashboard "Quick Start" panel, which displays when you first login, indicates that there are no servers to register. Close the Quick Start panel by clicking the <strong>X</strong> in the upper right corner.
+<br>
+<span class="image"><img src="./_images/mmc-quickstartpanel-annotated.png" alt="MMC-quickstartpanel-annotated"></span><br></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="registering-the-server"><a class="anchor" href="#registering-the-server"></a>Registering the Server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before you use MMC to deploy Mule applications to a server, you must first identify the server to MMC. This action is called registering the server.</p>
+</div>
+<div class="paragraph">
+<p>The first time you run the trial version of MMC, the console automatically registers the local server, so <em>you do not need to follow the steps below</em>; skip ahead to the <a href="#deploying-an-application">Deploying an Application</a>.</p>
+</div>
+<div class="paragraph">
+<p>However, if you run the production version, or you wish to register a different server to the trial version, you&#8217;ll have to register the server manually. The simplest way to do this is using MMC&#8217;s auto-discovery feature. The console automatically senses that a Mule server is running and captures much of the information needed for registration, thus making it easy to register any "discovered" servers.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the <strong>Servers</strong> tab, then click <strong>Unregistered</strong> in the left navigation pane.</p>
+</li>
+<li>
+<p>The console lists all servers that have come online and are not yet registered. Select the <strong>Mule-3.4</strong> server, then click the <strong>Register</strong> button.
+<br>
+image::mmc-register-servers.png[mmc-register_servers]</p>
+</li>
+<li>
+<p>Click <strong>All</strong> in the left navigation pane to view the server you registered. <br></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mmc-server-registered.png" alt="mmc-server_registered">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can manually register a server. To do so,</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the <strong>Servers</strong> tab, then the <strong>Add</strong> button, then select <strong>New Server</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mmc-addserver.png" alt="MMC-addserver">
+</div>
+</div>
+</li>
+<li>
+<p>In the screen that opens, enter a <strong>Server Name</strong> and a <strong>Mule Agent URL</strong> for the server, then click <strong>Add</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mmc-addserver-name.png" alt="MMC-addserver-name">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploying-an-application"><a class="anchor" href="#deploying-an-application"></a>Deploying an Application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Having identified a server to the console, you can now deploy applications to it. To do so, you first create an application group, known as a "deployment," which bundles applications so you can deploy the group to one or more servers. Then, within the deployment, you deploy an application. This walkthrough describes how to deploy the Hello application included as an example application in the <code>example</code> folder in the Mule ESB download.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the <strong>Deployments</strong> tab in the console.</p>
+</li>
+<li>
+<p>Click <strong>New</strong> to create a new deployment.</p>
+</li>
+<li>
+<p>Enter a unique <strong>Deployment Name</strong>, such as <code>HelloWorld</code>.</p>
+</li>
+<li>
+<p>Click the <strong>Upload New Application</strong> button.</p>
+</li>
+<li>
+<p>In the dialog that appears, use the <strong>Browse</strong> button to navigate to the following filepath:  <code>$MULE_HOME/examples/hello/mule-example-hello-3.4.1.zip.</code></p>
+</li>
+<li>
+<p>Click <strong>Add</strong>. The console uploads the application within the deployment (see below).<br>
+<br>
+image::uploaded.png[]</p>
+</li>
+<li>
+<p>To identify the server to which to deploy the HelloWorld deployment, use the drop-down list under the <strong>Servers</strong> heading to select the server that the console registered for you upon launch.<br>
+<br>
+image::mmc-uploaded-server.png[mmc-uploaded_server]
+<br></p>
+</li>
+<li>
+<p>Click <strong>Deploy</strong> to deploy the HelloWorld deployment (containing the Hello application) to the server.<br></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/all-deployments.png" alt="all_deployments">
+</div>
+</div>
+<div class="paragraph">
+<p>When you deploy the application, the console automatically saves the Hello application to the server <strong>repository</strong>. If you wish, you can click <strong>Save</strong> instead of <strong>Deploy</strong> to simply save the applications to the server repository for later deployment. Click <strong>Repository</strong> in the left navigation panel to view all applications saved in the repository. (Note that in the repository of the trial version, MMC contains all example applications that come bundled with the download package.)</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mmc-repositoryexamples.png" alt="mmc repositoryexamples">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-the-deployed-application"><a class="anchor" href="#using-the-deployed-application"></a>Using the Deployed Application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To confirm that the Hello application is up and running, enter the following URL in your browser:</p>
+</div>
+<div class="paragraph">
+<p><code>http://localhost:8888/?name=Ross</code></p>
+</div>
+<div class="paragraph">
+<p>The application returns a response, confirming that the application has indeed been deployed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/hello-world.png" alt="hello_world">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="viewing-flow-details"><a class="anchor" href="#viewing-flow-details"></a>Viewing Flow Details</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After using the application to return a "hello" response, you can access the console window to view details about how the request was processed.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the console, click the <strong>Flows</strong> tab. The screen displays only the flows within the Hello application. The table shows a summary of the number of events handled by the application (both processed and received events), along with the average and total event processing time per individual flow (see below).<br></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/flows.png" alt="flows">
+</div>
+</div>
+</li>
+<li>
+<p>You can pause, stop, or start an individual flow, or flows. For example, use the checkboxes to select one or more flows, then click the <strong>Control Flows</strong> button, then select <strong>Stop</strong> to stop the flow from accepting any more events.</p>
+</li>
+<li>
+<p>Click a flow name to examine more detailed information about the flow. For example, click the <strong>HelloWorld</strong> flow name to open a screen with two tabs:<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <strong>Summary</strong> tab displays summary information about the flow such as the message sources and message processors it contains, its status (started, stopped, paused), and details about the events it has received and events it has processed.<br></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/flow-summary.png" alt="flow_summary">
+</div>
+</div>
+</li>
+<li>
+<p>The <strong>Endpoints</strong> tab displays a table of all endpoints for the flow and data about each endpoint, including the endpoint type, its address, connector information, whether or not it is filtered, if it is synchronous or asynchronous, and whether it handles transactions. Click one or more endpoints and, using the <strong>Control Endpoints</strong> button, start or stop those endpoints.<br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>image::flow-endpoints.png[]</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Undeploying the Application</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click the <strong>Deployments</strong> tab.</p>
+</li>
+<li>
+<p>Check the box next to the <strong>HelloWorld</strong> deployment.</p>
+</li>
+<li>
+<p>Click <strong>Undeploy</strong>. The console stops all applications in the selected deployment. In this example, you only had one application (Hello) in the deployment.<br></p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/mmc-undeploy.png" alt="mmc undeploy">
+</div>
+</div>
+</li>
+<li>
+<p>To stop Mule itself, hit <code>Ctrl+C</code> in the terminal where you launched Mule. If you launched Mule in the terminal background, issue the command <code>$MULE_HOME/bin/mule stop</code>.<br></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Orient yourself further to the <a href="orientation-to-the-console.html">console</a></p>
+</li>
+<li>
+<p>Learn how to <a href="setting-up-mmc.html">set up your MMC instance</a> to work with other components in your enterprise</p>
+</li>
+<li>
+<p>Learn about the <a href="architecture-of-the-mule-management-console.html">technical architecture of MMC</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="cloudhub, tutorial, connectors, arm, runtime manager">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/solutions/getting-started/deploy-to-server.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Deploy to Server // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../anypoint-b2b.html">Anypoint B2B</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">TRADACOMS EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Module</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDI Schema Language Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/index.html">Anypoint Partner Manager</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/key-concepts.html">Key Concepts</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/b2b-transaction-processing-framework.html">B2B Transaction-Processing Framework</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/resolution-processes.html">Resolution Processes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/tracking.html">Tracking</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/examples.html">Examples</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/transaction-monitoring.html">Transaction Monitoring</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/central-pane-elements.html">Central Pane Elements</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/tracking-scenarios.html">Tracking Scenarios</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/partner-configuration.html">Partner Configuration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/company-information.html">Company Information</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/identifiers.html">Identifiers</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/on-hold-inactive.html">On-Hold/Inactive</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">Certificate</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">X12 Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/edifact-edi-integration-connector">EDIFACT Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/csv-settings.html">CSV Settings</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/document-types.html">Document Types</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/endpoints.html">Endpoints</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/maps.html">Maps</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/channels.html">Channels</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/routes.html">Routes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/partner-conversations.html">Partner Conversations</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/rosettanet-pips.html">RosettaNet PIPs</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/rosettanet-agreements.html">RosettaNet Agreements</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/administration.html">Administration</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/environments.html">Environments</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/error-codes.html">Error Codes</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/security.html">Security</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/lookup-tables.html">Lookup Tables</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/walkthroughs.html">Walkthroughs</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/ftps-and-edi-x12-purchase-order-walkthrough.html">FTPS and EDI X12 Purchase Order Walkthrough</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/transaction-tracking-walkthrough.html">Transaction Tracking Walkthrough</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/anypoint-partner-manager-api.html">Anypoint Partner Manager API</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../anypoint-platform/partner-manager/glossary.html">Glossary</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/partner-manager-connector.html">Partner Manager Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/as2-integration-connector">AS2 Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/ftps-connector.html">FTPS Connector</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="https://www.mulesoft.com/exchange#!/x12-edi-integration-connector">EDI X12 Order Processing Example</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../anypoint-platform/partner-manager/supported-edi-document-types.html">Supported EDI Document Types</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Getting Started with Anypoint Platform</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="design-an-api.html">To Design an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="implement-and-test-api.html">To Implement and Test an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="sync-api.html">To Sync an API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="../../anypoint-platform/exchange/index.html">Anypoint Exchange</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="../../anypoint-platform/exchange/exchange-faq.html">Anypoint Exchange FAQ</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="build-a-hello-world-application.html">Tutorial: Creating a Mule App</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="anypoint-connector.html">Anypoint Connector Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../mule-runtime/3.8/messages/mule-message.html">How to Work with a Mule Message</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="content-based-routing.html">How to Route Mule Messages Using a Switch Statement</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../anypoint-platform/cloudhub/deploy-to-cloudhub.html">Deploy to CloudHub</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="../healthcare-toolkit/index.html">Healthcare Toolkit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../healthcare-toolkit/hl7/hl7-edi.html">HL7 EDI</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../healthcare-toolkit/mllp-connector.html">HL7 MLLP</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../healthcare-toolkit/connector-testpanel.html">Connector Testing with TestPanel</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Deploy to Server</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/solutions-docs/edit/master/modules/getting-started/content/deploy-to-server.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Deploy to Server</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial covers how to create an Anypoint Platform organization, how to install a Mule runtime in a local server and register it on the platform and then how to deploy an application to it via the Anypoint Platform.</p>
+</div>
+<div class="paragraph">
+<p>Completing this tutorial should take about 20 minutes. You will accomplish the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create an account and organization in the Anypoint Platform</p>
+</li>
+<li>
+<p>Install Mule runtime in a local server</p>
+</li>
+<li>
+<p>Register that server on Runtime Manager</p>
+</li>
+<li>
+<p>Upload, deploy, and run a Mule project</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Take a look at <a href="../../anypoint-platform/runtime-manager/deployment-strategies.html">Deployment Strategies</a> and <a href="../../anypoint-platform/runtime-manager/managing-servers.html">Managing Servers</a> so that you&#8217;re familiar with the different alternatives for deploying your Mule applications.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="create-an-anypoint-platform-organization"><a class="anchor" href="#create-an-anypoint-platform-organization"></a>Create an Anypoint Platform Organization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To deploy applications via the Anypoint Platform, you first need to create an Anypoint Platform account and organization.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to <a href="https://anypoint.mulesoft.com">https://anypoint.mulesoft.com</a> to create a new account in a new organization.</p>
+<div class="paragraph">
+<p><strong>Note</strong>: Otherwise, if you want your account to be part of an existing organization, ask the administrator of that organization to invite you to join it, then create your account via the link she sends to you.</p>
+</div>
+</li>
+<li>
+<p>Enter your information, choose a username and password, then click <strong>Create account</strong>. Your new user account is now created, if you aren&#8217;t joining an existing organization, then a new organization is created too and your user is made its administrator.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="install-and-run-mule-runtime"><a class="anchor" href="#install-and-run-mule-runtime"></a>Install and Run Mule Runtime</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Download the latest version of Mule runtime from the support portal</p>
+</li>
+<li>
+<p>Unzip it to a folder of your choice</p>
+</li>
+<li>
+<p>Open a command line window and CD to where you unzipped the contents of this file, then CD to the <code>/bin</code> folder inside it.</p>
+</li>
+<li>
+<p>Run the following command to verify that it works:</p>
+<div class="paragraph">
+<p><code>./mule start</code></p>
+</div>
+</li>
+<li>
+<p>Once you have confirmed that it runs correctly, hit <code>Ctrl + C</code> to stop the process.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="register-server"><a class="anchor" href="#register-server"></a>Register Server</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log in to your account on the Anypoint Platform</p>
+</li>
+<li>
+<p>Navigate to Runtime Manager, and make sure you&#8217;re on the correct <a href="../../anypoint-platform/access-management/environments.html">environment</a>.</p>
+</li>
+<li>
+<p>Select the <strong>Servers</strong> tab on the left.</p>
+</li>
+<li>
+<p>If you haven&#8217;t added any servers yet, you will see the following instructions on the screen:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/deploy-to-server-bd7db.png" alt="deploy to server bd7db">
+</div>
+</div>
+<div class="paragraph">
+<p>If you already have at least one server registered, then click click <strong>Add Server</strong> to see these instructions.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/deploy-to-server-bb07b.png" alt="deploy to server bb07b">
+</div>
+</div>
+</li>
+<li>
+<p>Runtime Manager provides you with a default command that includes all of the necessary parameters needed to configure a server to work with Anypoint Platform, including specific keys for your organization. Click <strong>Copy</strong> to copy this command to your clipboard.</p>
+</li>
+<li>
+<p>Open a command line window. CD into the <code>$MULE_HOME/bin</code> folder</p>
+</li>
+<li>
+<p>Paste the command you just copied and run it.</p>
+<div class="paragraph">
+<p>Replace “server name” with a server name of your choice.</p>
+</div>
+</li>
+<li>
+<p>At this point you should see a success message in response to your command. If you look back at the Servers tab in your browser, you should see a server registered with the name you chose for it:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/deploy-to-server-d7c34.png" alt="deploy to server d7c34">
+</div>
+</div>
+</li>
+<li>
+<p>Back on the command line window, start your server by running <code>./mule</code>. Once the server has initialized, you should see the status of the server change from <code>Created</code> to <code>Connected</code> and then to <code>Running</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/deploy-to-server-08d58.png" alt="deploy to server 08d58">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploy-via-anypoint-platform"><a class="anchor" href="#deploy-via-anypoint-platform"></a>Deploy Via Anypoint Platform</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this tutorial, you will deploy a simple Hello World project. You can either download the finished project archive <a href="./_attachments/basic-tutorial.zip">Here</a>, or you can build it yourself by following the steps on <a href="build-a-hello-world-application.html">Build a Hello World Application</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note</strong>: If you create the project yourself in Studio by following the tutorial, you must then export it as a deployable .zip file. To do so, go to <strong>File &gt; Export</strong> and then select <strong>Anypoint Studio Project to Mule Deployable Archive</strong>.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="../../anypoint-studio/6/import-export-projects-studio.html#exporting-projects-from-studio">Exporting from Studio</a> for more detailed instructions.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you&#8217;re not there already, log into your Anypoint Platform account and go to the Runtime Manager dashboard.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/hello-world-on-cloudhub-6df18.png" alt="hello world on cloudhub 6df18">
+</div>
+</div>
+</li>
+<li>
+<p>On the <strong>Applications tab</strong> (selected by default), Click <strong>Deploy application</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/hello-world-on-cloudhub-45c14.png" alt="hello world on cloudhub 45c14">
+</div>
+</div>
+</li>
+<li>
+<p>Choose a unique domain under which to deploy the application, for example <strong>helloworld</strong>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The domain name can be up to 42 characters. A green confirmation check mark is displayed.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Select an environment in which to deploy your application (such as PRODUCTION or QA).</p>
+</li>
+<li>
+<p>Select the deployment target. In this case, it should be the server you just registered.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you don&#8217;t see your server as an available target, make sure that the <em>Mule runtime</em> application (<code>./mule</code>) is currently being executed.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/deploy-to-server-43cc0.png" alt="deploy to server 43cc0">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Choose File</strong> and select the <a href="./_attachments/basic-tutorial.zip">.zip file that you downloaded</a> from this tutorial or that you exported from Studio.</p>
+</li>
+<li>
+<p>Click <strong>Deploy Application</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/deploy-to-server-4fbfe.png" alt="deploy to server 4fbfe">
+</div>
+</div>
+</li>
+<li>
+<p>Anypoint Studio packages, uploads, and deploys your application to the server.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For more details about the different deployment settings, see <a href="../../anypoint-platform/runtime-manager/deploying-to-your-own-servers.html">Deploying to Your Own Servers</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-your-app"><a class="anchor" href="#running-your-app"></a>Running Your App</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once the deployment is complete (which could take a few minutes), open a browser and direct it to one of the application&#8217;s endpoints.</p>
+</div>
+<div class="paragraph">
+<p>The example application used by this tutorial listens to <code><a href="http://localhost:8081/" class="bare">http://localhost:8081/</a></code>. If you hit that address, you should see the text "Hello World!";  recall that the application listens for HTTP calls on the root address, sets the payload to the string "Hello World!" and then returns this string as a response to the requester.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/deploy-to-server-a5fa2.png" alt="deploy to server a5fa2">
+</div>
+</div>
+<div class="paragraph">
+<p>This proves you have successfully deployed a Mule application to your new Anypoint Platform account!</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can now manage your application through the <a href="../../anypoint-platform/runtime-manager/index.html">Runtime Manager</a>, access its dashboard, view logs and alerts, and more.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../../anypoint-platform/runtime-manager/deploying-to-cloudhub.html">Deploy to CloudHub</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-studio/6/index.html">Anypoint Studio Essentials</a>.</p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/cloudhub/developing-applications-for-cloudhub.html">Developing Applications for CloudHub</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/runtime-manager/deployment-strategies.html">Deployment Strategies</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/runtime-manager/managing-deployed-applications.html">Managing Deployed Applications</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/cloudhub/managing-applications-on-cloudhub.html">Managing Applications on CloudHub</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/cloudhub/index.html">CloudHub</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/cloudhub/cloudhub-architecture.html">CloudHub architecture</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/runtime-manager/monitoring.html">Monitoring Applications</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/cloudhub/cloudhub-fabric.html">CloudHub Fabric</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/runtime-manager/managing-queues.html">Managing Queues</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/runtime-manager/managing-schedules.html">Managing Schedules</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/runtime-manager/managing-application-data-with-object-stores.html">Managing Application Data with Object Stores</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/runtime-manager/anypoint-platform-cli.html">Command Line Tools</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/runtime-manager/secure-application-properties.html">Secure Application Properties</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/cloudhub/vpc/virtual-private-cloud.html">Virtual Private Cloud</a></p>
+</li>
+<li>
+<p><a href="../../anypoint-platform/cloudhub/penetration-testing-policies.html">Penetration Testing Policies</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="apikit, rest, api, raml, interface, console">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/apikit/3.8/apikit-basic-anatomy.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>APIkit Anatomy // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">APIkit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-tutorial.html">Simple REST API Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-tutorial-jsonplaceholder.html">Consuming a Web Service Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-for-soap.html">SOAP Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-using.html">Using APIkit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="walkthrough-deploy-to-runtime.html">Deploying an APIkit Project</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-an-odata-api-with-apikit.html">Creating an OData API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-odata-extension-reference.html">APIkit OData Reference</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-an-apikit-project-with-maven.html">Creating an APIkit Project with Maven</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-basic-anatomy.html">APIkit Anatomy</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="apikit-reference.html">APIkit Reference</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">APIkit Anatomy</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/apikit-docs/edit/v3.8/modules/ROOT/content/apikit-basic-anatomy.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>APIkit Anatomy</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>A REST or SOAP project that uses APIkit has the following parts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <a href="http://raml.org/">RAML</a> or <a href="https://en.wikipedia.org/wiki/Web_Services_Description_Language">WSDL</a> interface, respectively</p>
+</li>
+<li>
+<p>A main flow</p>
+</li>
+<li>
+<p>Backend flows</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikit-basic-anatomy-f5e73.png" alt="apikit basic anatomy f5e73">
+</div>
+</div>
+<div class="paragraph">
+<p>You use the <a href="../../anypoint-platform/api-manager/designing-your-api.html#simulating-calls-to-the-api">APIkit Console</a> or a SOAP testing tool, such as <a href="https://en.wikipedia.org/wiki/SoapUI">SoapUI</a>, to simulate calls to the API. Currently an APIkit Console equivalent is not available for WSDL-based APIs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="main-flow"><a class="anchor" href="#main-flow"></a>Main Flow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The main flow for a RAML-based API manages these functions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Exposes the API using HTTP or Jetty.</p>
+</li>
+<li>
+<p>Routes requests between the interface and the backend flows based on the HTTP request.</p>
+</li>
+<li>
+<p>References exception strategies that produce HTTP-status-code responses.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikitmainflow.png" alt="apikitmainflow">
+</div>
+</div>
+<div class="paragraph">
+<p>APIkit Router tasks include routing messages, serializing responses, and validating payloads, headers, query-params, and uri-params. Message routing consists of routing incoming API requests to existing Mule flows and returning outgoing HTTP response codes to exceptions.</p>
+</div>
+<div class="paragraph">
+<p>The main flow for a WSDL-based API manages the first two tasks. The logic in the main flow accepts requests, sends responses, and facilitates communication between the interface and API processes. The main flow typically consists of HTTP Listener and SOAP Router components.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/apikit-basic-anatomy-c4249.png" alt="apikit basic anatomy c4249">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="backend-flows"><a class="anchor" href="#backend-flows"></a>Backend Flows</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>APIkit generates a backend flow for each <a href="#interface">resource-action pairing</a> in a RAML. APIkit for SOAP generates a backend flow for each operation in a WSDL. For example, the RAML interface receives the GET request for sales of T-shirts. The backend flow accesses a database to look up sales data and responds to the request.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/backend.png" alt="backend">
+</div>
+</div>
+<div class="paragraph">
+<p>APIkit and APIkit for SOAP support the following flow naming conventions, respectively:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>RAML: <code>&lt;action&gt;:&lt;resource path configuration name&gt;</code></p>
+<div class="paragraph">
+<p>Example: post:/sales:application/json:api-config</p>
+</div>
+</li>
+<li>
+<p>SOAP: <code>&lt;operation&gt;:&lt;service configuration name&gt;</code></p>
+<div class="paragraph">
+<p>Example: OrderTshirt:/TshirtService/TshirtServicePort/api-config</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The name of each backend flow corresponds to the resource-action pairing or to some operation-service mapping. For example, the XML code for the backend flow named <code>get:/machines:apiConfig</code> maps to the RAML resource <code>/machines</code> and its nested <code>get:</code> action.</p>
+</div>
+<div class="paragraph">
+<p>After generating backend flows, you integrate the functional processes to take the expected input and produce output. From RAML, Studio infers information about the metadata for the input of a flow and exposes this information through <a href="../../anypoint-studio/6/datasense/datasense.html">DataSense</a>. In a REST API, this input might arrive in the following forms:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>request body</p>
+</li>
+<li>
+<p>query parameters</p>
+</li>
+<li>
+<p>uri parameters</p>
+</li>
+<li>
+<p>headers</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Backend flows mock responses of the REST API for simulating calls to the API. Each RAML-based backend flow has one or more message processors for API Console simulations.</p>
+</div>
+<div class="paragraph">
+<p>The message processors in each backend flow accept requests and mock the expected action on a resource based using the RAML examples. In the <code>get:/machines:apiConfig</code> backend flow of the <a href="apikit-tutorial.html">APIkit tutorial</a> the message processors set a property on the message and set the payload of a message to display vending machine names listed in the RAML example.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">/machines:
+  type: base
+  is: [filterable]
+  get:
+    responses:
+      201:
+        body:
+          example: |
+            {
+                "count" : 3,
+                "machines" : [
+                  {
+                    "id" : "ZX4102",
+                    "location" : "Starbucks, 442 Geary Street, San Francisco, CA 94102"
+                  },
+                  {
+                    "id" : "ZX5322",
+                    "location" : "Starbucks, 462 Powell Street, San Francisco, CA 94102"
+                  },
+                  {
+                    "id" : "ZX6792",
+                    "location" : "Cafe La Taza, 470 Post Street, San Francisco, CA 94102"
+                  }
+                ]
+            }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Using <a href="apikit-for-soap.html#hit-the-endpoint">DataWeave with APIkit for SOAP</a>, you can provide XML responses to the SOAP requests in backend flows.</p>
+</div>
+<div class="sect2">
+<h3 id="interface"><a class="anchor" href="#interface"></a>Interface</h3>
+<div class="paragraph">
+<p>The interface defines the API, designating resources that contain or access data and specify actions, such as GET and PUT, on the example data.</p>
+</div>
+<div class="sect3">
+<h4 id="rest-interface"><a class="anchor" href="#rest-interface"></a>REST Interface</h4>
+<div class="paragraph">
+<p>This relationship between REST resources and actions is called <em>resource-action pairing</em>. The interface exposes internal data assets requested by the REST service.</p>
+</div>
+<div class="paragraph">
+<p>You can write a RAML interface using the built-in Studio editor or API Designer in <a href="https://anypoint.mulesoft.com">Anypoint Platform</a>. Alternatively, when you <a href="apikit-tutorial.html#creating-a-new-project">create the APIkit project</a>, you can import a RAML from a file system into Studio or reference the URL of an externally located RAML.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="soap-interface"><a class="anchor" href="#soap-interface"></a>SOAP Interface</h4>
+<div class="paragraph">
+<p>The interface defined by a WSDL file exposes a number of <a href="http://www.w3.org/TR/wsdl#_services">services</a>. Each service has a set of operations. The underlying type of data is XML defined by schemas within the WSDL file or by an imported XSD file.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="error-handling"><a class="anchor" href="#error-handling"></a>Error Handling</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>APIkit and APIkit for SOAP facilitates handling errors for RAML- and WSDL-based APIs, respectively.</p>
+</div>
+<div class="sect2">
+<h3 id="raml-based-exception-strategy-mappings"><a class="anchor" href="#raml-based-exception-strategy-mappings"></a>RAML-Based Exception Strategy Mappings</h3>
+<div class="paragraph">
+<p>APIkit facilitates RAML-based error handling by generating global exception strategies for the most frequently to handle the most widely-used HTTP status code responses.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 60%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Status Code</th>
+<th class="tableblock halign-left valign-top">Exception</th>
+<th class="tableblock halign-left valign-top">Message</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>400</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>org.mule.module.apikit.exception.BadRequestException</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Bad request</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>404</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>org.mule.module.apikit.exception.NotFoundException</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Resource not found</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>405</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>org.mule.module.apikit.exception.MethodNotAllowedException</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Method not allowed</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>406</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>org.mule.module.apikit.exception.NotAcceptableException</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Not acceptable</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>415</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>org.mule.module.apikit.exception.UnsupportedMediaTypeException</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Unsupported media type</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following example of the HTTP 400 response shows the construction of the exception strategies:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;apikit:mapping statusCode="400"&gt;
+   &lt;apikit:exception value="org.mule.module.apikit.exception.BadRequestException" /&gt;
+   &lt;set-property propertyName="Content-Type" value="application/json" doc:name="Property"/&gt;
+   &lt;set-payload value="{ &amp;quot;message&amp;quot;: &amp;quot;Bad request&amp;quot; }" doc:name="Set Payload"/&gt;
+&lt;/apikit:mapping&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Every time a message throws an exception, APIkit checks to see if the exception matches the value of any of the <code>apikit:exceptions</code> defined in the project. The main flow in an APIkit project references these mappings to send HTTP error responses: an HTTP status code and corresponding plain-language message.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the event of a match, APIkit returns a friendly, HTTP-status-code response using the property and payload defined in the exception mapping. For example, if an exception matches the following package name, APIkit returns a <code>400</code> error which indicates that the content of the request was bad:</p>
+<div class="paragraph">
+<p><code>org.mule.module.apikit.exception.BadRequestException</code></p>
+</div>
+</li>
+<li>
+<p>In the event of a mismatch, APIkit returns a <code>500 Internal Server Error</code> response. No payload is sent with this response.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can adjust or add to the default exception strategy mappings, but if you do, you need to <a href="apikit-using.html#generate-rest-backend-flows-and-reference-exception-strategies">reference the mappings</a> in the main flow. The following example shows the addition of an exception strategy mapping to handle a "500 Internal Server Error" response:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">        &lt;apikit:mapping statusCode="500"&gt;
+            &lt;apikit:exception value="java.lang.Exception" /&gt;
+            &lt;set-property propertyName="Content-Type" value="application/json"/&gt;
+            &lt;set-payload value="#['{ &amp;quot;message&amp;quot;: &amp;quot;Internal Server Error: ' + exception.message + '&amp;quot; }']"/&gt;
+        &lt;/apikit:mapping&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you remove <em>all</em> exception mappings, errors thrown in the project elicit a <code>500 Internal Server Error</code> response.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="soap-faults"><a class="anchor" href="#soap-faults"></a>SOAP Faults</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>APIkit for SOAP maps any faults defined by the WSDL to operations defined by the WSDL. For example, the TshirtFault is mapped to OrderTshirt, ListInventory, and TrackOrder, as described in the <a href="apikit-for-soap.html#using-typed-faults">APIkit for SOAP tutorial</a>. You use DataWeave to specify the message presented to the user.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how-apikit-works-with-raml"><a class="anchor" href="#how-apikit-works-with-raml"></a>How APIkit Works with RAML</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following diagram shows how a RAML-based API built by APIkit processes end user requests.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/how-it-works.png" alt="how_it_works">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The end user sends an HTTP request to the API.</p>
+</li>
+<li>
+<p>The HTTP or Jetty endpoint in the main flow receives the request and passes the message to the APIkit Router.</p>
+</li>
+<li>
+<p>The router checks with the interface to confirm that the resource-action pair exists in the interface.</p>
+</li>
+<li>
+<p>The router checks to see if a body is defined as part of the request. Generally, a request sends a body only with PUT, POST, and PATCH requests.</p>
+</li>
+<li>
+<p>If the request includes a body, the router determines the media type associated with the body, then matches the request content type with the one defined in the interface.</p>
+</li>
+<li>
+<p>If a schema is defined for the content type, the router checks that the schema on the incoming request matches the schema defined in the interface. If the schema is not valid, the application rejects the request.</p>
+</li>
+<li>
+<p>The router uses the information contained in the interface to determine which backend flow should receive the request. For example, based on the request and the resource-action pairing, the router determines that it should send the request to flow2.</p>
+</li>
+<li>
+<p>The router sends the request to flow2.</p>
+</li>
+<li>
+<p>Flow2 processes the request, accessing a resource and acting upon data as required.</p>
+</li>
+<li>
+<p>Flow2 returns a response to the router.</p>
+</li>
+<li>
+<p>The router pushes the response to the HTTP or Jetty endpoint.</p>
+</li>
+<li>
+<p>The HTTP or Jetty endpoint sends the response to the end user.</p>
+</li>
+<li>
+<p>From the console, you can simulate API calls by submitting requests through the Web user interface.</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="routing-logic"><a class="anchor" href="#routing-logic"></a>Routing Logic</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If two sibling resources match a request, and one of them is static and the other parameterized, the static one is used.</p>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        /users:
+            /me:
+                get:
+            /{id}:
+                put:
+
+        get /users/me -&gt; 200 OK
+        put /users/me -&gt; 405 Method not allowed
+        put /users/it -&gt; 200 OK
+        get /users/it -&gt; 405 Method not allowed</pre>
+</div>
+</div>
+</li>
+<li>
+<p>If there&#8217;s more than one parameterized resource at the same level (siblings) the behavior is nondeterministic.</p>
+</li>
+<li>
+<p>The routing algorithm takes into account all resources even if they don&#8217;t have methods defined.</p>
+<div class="paragraph">
+<p>For example, based on definition of item 1:</p>
+</div>
+<div class="paragraph">
+<p><code>get /users &#8594; 405 Method not allowed</code></p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

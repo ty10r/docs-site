@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/mule-management-console/3.8/using-the-management-console-for-performance-tuning.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Using the Management Console for Performance Tuning // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Mule Management Console</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-the-trial-version-of-mmc.html">Installing the Trial Version of MMC</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-the-production-version-of-mmc.html">Installing the Production Version of MMC</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="upgrading-the-management-console.html">Upgrading the Management Console</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="installing-or-upgrading-mule-management-console-3.4.2.html">Installing or Upgrading Mule Management Console 3.4.2</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="upgrading-to-mmc-3.4.2-with-an-external-database.html">Upgrading to MMC 3.4.2 with an External Database</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="upgrading-to-mmc-3.4.2-with-ldap.html">Upgrading to MMC 3.4.2 with LDAP</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="upgrading-from-mmc-3.4.1-for-ms-sql-server-to-mmc-3.4.2-for-ms-sql-server.html">Upgrading from MMC 3.4.1 for MS-SQL Server to MMC 3.4.2 for MS-SQL Server</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="orientation-to-the-console.html">Orientation to the Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mmc-walkthrough.html">MMC Walkthrough</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="setting-up-mmc.html">Setting Up MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-mmc-mule-esb-communications.html">Setting Up MMC-Mule ESB Communications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="persisting-mmc-data-on-external-databases.html">Persisting MMC Data On External Databases</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-oracle.html">Persisting MMC Data to Oracle</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-postgresql.html">Persisting MMC Data to PostgreSQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-mysql.html">Persisting MMC Data to MySQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-ms-sql-server.html">Persisting MMC Data to MS SQL Server</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="persisting-mmc-data-on-external-databases-in-mmc-3.4.2.html">Persisting MMC Data On External Databases in MMC 3.4.2</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="configuring-mmc-3.4.2-for-external-databases-quick-reference.html">Configuring MMC 3.4.2 for External Databases - Quick Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-postgresql.html">Persisting MMC 3.4.2 Data to PostgreSQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-mysql.html">Persisting MMC 3.4.2 Data to MySQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-oracle.html">Persisting MMC 3.4.2 Data to Oracle</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-ms-sql-server.html">Persisting MMC 3.4.2 Data to MS SQL Server</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="encrypting-the-mmc-tracking-database-password.html">Encrypting the MMC Tracking Database Password</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="encrypting-ldap-and-database-passwords-in-mmc-3.4.2.html">Encrypting LDAP and Database Passwords in MMC 3.4.2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-mmc-users-and-roles.html">Managing MMC Users and Roles</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-in-mmc.html">Setting Up and Managing Users in MMC</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="encrypting-mmc-user-passwords.html">Encrypting MMC User Passwords</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-via-ldap.html">Setting Up and Managing Users via LDAP</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="encrypting-the-mmc-ldap-password.html">Encrypting the MMC LDAP Password</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="architecture-of-the-mule-management-console.html">Architecture of the Mule Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-mule-servers-clusters-and-groups.html">Managing Mule Servers Clusters and Groups</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-alerts.html">Viewing Server Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-system-memory.html">Viewing System Memory</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-threads.html">Viewing Threads</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-pools.html">Viewing Server Pools</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="working-with-the-server-configuration-files.html">Working with the Server Configuration Files</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-properties.html">Viewing Server Properties</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-os-resources.html">Viewing Server OS Resources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-jmx-information.html">Viewing JMX Information</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="editing-server-settings.html">Editing Server Settings</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-server-metrics-dashboard.html">Customizing Server Metrics Dashboard</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="troubleshooting-tips.html">Troubleshooting Tips</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-and-debugging-applications.html">Monitoring and Debugging Applications</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-flows.html">Tracking Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="analyzing-message-flows.html">Analyzing Message Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-message-processing.html">Debugging Message Processing</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-the-loan-broker-example-application.html">Debugging the Loan Broker Example Application</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="adding-and-managing-alerts-and-slas.html">Adding and Managing Alerts and SLAs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="defining-slas-and-alerts.html">Defining SLAs and Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-alert-destinations-and-notifications.html">Setting Up Alert Destinations and Notifications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="analyzing-business-events.html">Analyzing Business Events</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-and-querying-business-events.html">Tracking and Querying Business Events</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="business-events-use-cases.html">Business Events Use Cases</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="managing-mule-high-availability-ha-clusters.html">Managing Mule High Availability (HA) Clusters</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="configuring-mule-ha-clustering.html">Configuring Mule HA Clustering</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-or-disbanding-a-cluster.html">Creating or Disbanding a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="deploying-redeploying-or-undeploying-an-application-to-or-from-a-cluster.html">Deploying, Redeploying, or Undeploying an Application To or From a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="dynamically-adding-or-removing-nodes-in-a-cluster.html">Dynamically Adding or Removing Nodes in a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="monitoring-a-cluster.html">Monitoring a Cluster</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="accessing-server-logs.html">Accessing Server Logs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="audit-logs.html">Audit Logs</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="automating-tasks-using-scripts.html">Automating Tasks Using Scripts</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="customizing-the-dashboard.html">Customizing the Dashboard</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-management-console-for-performance-tuning.html">Using the Management Console for Performance Tuning</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-flows.html">Working with Flows</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="maintaining-the-server-application-repository.html">Maintaining the Server Application Repository</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="analyzing-flow-processing-and-payloads.html">Analyzing Flow Processing and Payloads</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-management-console-api.html">Using the Management Console API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="rest-api-reference.html">REST API Reference</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="clusters.html">Clusters</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="deployments.html">Deployments</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="repository-of-applications.html">Repository of Applications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="server-groups.html">Server Groups</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="servers.html">Servers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="user-groups.html">User Groups</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Using the Management Console for Performance Tuning</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/mule-management-console-docs/edit/v3.4/modules/ROOT/content/using-the-management-console-for-performance-tuning.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Using the Management Console for Performance Tuning</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#use-case-background">Use Case Background</a></p>
+</li>
+<li>
+<p><a href="#detailed-performance-tuning-scenario">Detailed Performance Tuning Scenario</a></p>
+</li>
+<li>
+<p><a href="#debugging-process-details">Debugging Process Details</a></p>
+</li>
+<li>
+<p><a href="#lessons-learned">Lessons Learned</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Performance issues can occur for any particular flow. Developers need to both find the cause of performance bottlenecks and to work out satisfactory solutions. This use case scenario shows how to use the Mule Management console to detect flow bottlenecks and tune the performance of a running Mule instance.</p>
+</div>
+<div class="paragraph">
+<p>If you notice a performance degradation in a flow, you can use the console to detect and pinpoint the bottleneck. For example, your application may start out running fast, but over time, particularly as its load increases, application throughput degrades. You can use the console tool to pin-point the cause of the bottleneck and to change the flow&#8217;s configuration to increase its performance.</p>
+</div>
+<div class="paragraph">
+<p>Often, multiple factors lead to performance bottlenecks. You can use the console to work through all possibilities in an iterative fashion. Using the console features, you can make resource allocation changes at runtime, see how they affect flow performance, and do so without stopping and restarting the Mule ESB instance.</p>
+</div>
+<div class="paragraph">
+<p>The Management Console allows developers to monitor resource utilization in real time and to make changes to the runtime parameters (the resource allocation configuration file) of the running Mule ESB instance. You can do all this from the same web console without restarting the Mule ESB server, dramatically reducing time and complexity for performance tuning of a Mule instance. This is a significant improvement over past approaches for monitoring resource usage, which required using profilers and other external tools. When using external tools, the Mule ESB instance had to be stopped, configuration XML files manually changed, then Mule had to be restarted and the testing cycle repeated.</p>
+</div>
+<div class="paragraph">
+<p>While a flow is running, you can use the console panes (such as Pools and Memory) and their respective graphs and tables to see how resources are allocated and consumed, enabling you to quickly identify a bottleneck. When you find problems, you can use the console to change the flow&#8217;s resource allocations, such as the size of the pools. The flow does not have to be stopped and restarted, and the console runtime data lets you immediately see the effect of your changes. You can make as many passes as necessary and tweak different resource allocation parameters until you eventually remove the bottleneck and achieve the desired level of performance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-case-background"><a class="anchor" href="#use-case-background"></a>Use Case Background</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this scenario, a performance issue develops in a deployed and running flow. Using the console, the developer traces down the cause of the performance bottleneck. After identifying the likely cause, the developer dynamically changes the resource allocation configuration at runtime to improve the performance of the flow.</p>
+</div>
+<div class="paragraph">
+<p>Our developer, Dan, works on a message enrichment and document aggregation application that uses the Mule ESB server. The application processes health care-related patient information.</p>
+</div>
+<div class="paragraph">
+<p>Dan has successfully created a Mule configuration for the application using Mule IDE to handle this use case. He has deployed the application to the server and is now in the process of testing the flow. During this initial testing, Dan realizes that there are some performance issues with the flow. He knows he needs to tweak the Mule configuration file to achieve the desired performance level.</p>
+</div>
+<div class="paragraph">
+<p>In brief, Dan follows these steps to resolve the problem:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>He logs in to the Mule Management console.</p>
+</li>
+<li>
+<p>He clicks the Pools tab for the server on which the application is running, then scans the pool usage to identify the bottleneck.</p>
+</li>
+<li>
+<p>He can see that the pool sizes need to be changed, and he makes these changes from within the console.</p>
+</li>
+<li>
+<p>He checks the pools utilization again, then monitors other metrics, such as memory and CPU usage, to ensure everything is properly configured.</p>
+</li>
+<li>
+<p>He repeats the previous three steps until the desired level of performance is reached.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="detailed-performance-tuning-scenario"><a class="anchor" href="#detailed-performance-tuning-scenario"></a>Detailed Performance Tuning Scenario</h2>
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The figures that appear below do not necessarily reflect the actual data for the debugging process. They are meant merely to illustrate the console functions.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When Dan starts testing the flow, he immediately sees some performance problems. Although the application performance is fine when first started, as the application load increases the processing throughput rate drops significantly.</p>
+</div>
+<div class="paragraph">
+<p>For this flow, the client input is on the order of thousands of messages, even reaching a magnitude of 100,000. The initial response time of the message queue, 600 messages per second, provides good performance. However, over time the message queue bogs down handling its message load. As a result, the response time drops dramatically, eventually reaching a low of one to two messages per second.</p>
+</div>
+<div class="paragraph">
+<p>Dan needs to verify what&#8217;s happening and then fix the problem. To do so, he logs into the Management Console. The server is already registered and the flow is running. Dan takes a quick look at the Dashboard, then clicks the link to the server on which his application is running. He does so by clicking the server name from the Server Health portlet on the Dashboard (shown below).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/server-info1.png" alt="server info1">
+</div>
+</div>
+<div class="paragraph">
+<p>Clicking the server name opens the server-specific Dashboard pane displaying the Server Details summary. From this Dashboard, Dan can see overview data about the server and there is a set of tabs to access more detailed information about different functionality. See the figure below. Dan principally uses three tabs (Memory, Threads, and Pools) to display different information and to do most of the debugging work.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/server-info3.png" alt="server info3">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="debugging-process-details"><a class="anchor" href="#debugging-process-details"></a>Debugging Process Details</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here&#8217;s how Dan&#8217;s debugging process might proceed.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>First step: Eliminate obvious issues.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Dan first eliminates obvious performance bottlenecks, such as memory leaks. He starts by checking memory usage. The server Dashboard pane shows a summary of the server metrics, including memory usage. He scans the memory graphs to spot a trend: a memory graph that shows a constant growth could potentially denote a possible memory leak. Instead, he sees that there was a growth spike but then the memory heaps remained constant for some time. Based on this, Dan is not worried about a memory leak.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/server-metrics.png" alt="server metrics">
+</div>
+</div>
+<div class="paragraph">
+<p>He clicks the OS Resources tab to get more information about memory usage. Scanning the page and its charts he checks if heap memory usage is at the upper limit, which would be a good indication of why performance is failing.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/os-resources.png" alt="os resources">
+</div>
+</div>
+<div class="paragraph">
+<p>When heap usage is at the maximum, the JVM starts a garbage collection (GC) process that takes most resources for itself and causes other threads to freeze. When he sees heap usage at the upper limit, he is not surprised that response time is so bad.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Next, find the root cause of the heap usage.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Dan wants to see how the server is handling all running applications. He clicks the Flows tab and the console displays all flows and flows on the Mule ESB instance. He filters the display by state so that only currently running flows appear.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/flows-1.png" alt="flows 1">
+</div>
+</div>
+<div class="paragraph">
+<p>Examining the pane, he notices that the ratio of processed to received events indicates a high number of queued events for several flows. In fact, he deduces that 70% of the messages for these flows are queued up; that is, waiting for processing. The developer knows that while queued, messages take up memory on the JVM. Thus, the number of queued messages may be the cause of the high memory usage and explain why heap use is so high.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Find out why so many messages are queued up.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Dan now wants to determine why so many messages are on the queue. The Pools pane may have the answer, so he clicks the console Servers tab, then the Pools tab.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/pools.png" alt="pools">
+</div>
+</div>
+<div class="paragraph">
+<p>Here, he uses the filter to search the list of threads for Dispatcher threads, in particular the Dispatcher thread responsible for dispatching messages. He wants to see how the number of active tasks for this thread compares to the maximum number of active tasks. To make it easier to identify the pools using most of the threads, he clicks the Active Tasks column heading so that the display appears sorted by the value in this column.</p>
+</div>
+<div class="paragraph">
+<p>He notices that a pool for an internal VM transport is using 16 active threads out of 16 Max Active threads, indicating that the threads are exhausted. Clearly, this is the bottleneck. At the same time, Dan notices that other types of threads, including the pool for the flow handling the use case, do not have many working active threads. Given this information, he suspects the entire process is synchronous. He needs to test the JMS endpoints, the file endpoints, and VM endpoints to see if this is the case.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check the application configuration file to see how the endpoints are set.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The application configuration file that starts the application on the Mule ESB server defines the parameters for the endpoints. One such parameter indicates whether the endpoints are set to synchronous or asynchronous (asynchronous is the default setting).</p>
+</div>
+<div class="paragraph">
+<p>Dan clicks the Files tab, then navigates to the use case application folder within the /apps directory, then clicks the application configuration file to open it. Examining the file, he discovers the endpoints are set to synchronous. He clicks the Edit button (shown in the figure below) to change the endpoint configurations to asynchronous.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/edit-config.png" alt="edit config">
+</div>
+</div>
+<div class="paragraph">
+<p>He saves the configuration file and re-runs the application, immediately seeing a big improvement in performance. However, performance could still be better.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use the Management Console panes to continue iterative search for the root cause of the bottleneck.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Dan opens the console Flows pane, and again sees that messages are queued up. While the numbers are better, they are still not optimal. He clicks the Pools tab again and sees that the suspicious Dispatcher thread is again exhausted, along with several other flows.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Increase the number of Max Active threads for the dispatcher thread.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Working directly through the console, Dan increases the number of Max Active threads to 50 for the dispatcher thread. He clicks the current Max Active value for the dispatcher thread. The console redisplays the selected thread in an editable mode, and Dan changes the 16 to 50. He clicks Save to ensure the new value is stored.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/max-threads.png" alt="max threads">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Balance the event processing load across all flows.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To get even better performance, Dan wants to balance the event processing load across the server. He clicks the Flows tab to check the events processing numbers. Through the Flows tab, he can see a flow&#8217;s process events, total received events, plus average and total event processing time.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/events-proc.png" alt="events proc">
+</div>
+</div>
+<div class="paragraph">
+<p>Depending on what he sees, he may want to increase the Max Active threads for those flows processing less events, since they likely have more messages waiting in their respective queues, and possibly decrease the Max Active value for those flows processing a great number of events. He also clicks the Threads tab and looks at the WC (Wait Count) and BC (Blocked Count) values to estimate the rate of event processing.</p>
+</div>
+<div class="paragraph">
+<p>After some additional data analysis, he again checks the OS Resources tab and notices the CPU was been highly utilized (between 95% and 100%) regardless of the flow performance. He concludes that the transport is not doing its work because most internal VM transport threads are waiting for CPU time while doing a context switch. To alleviate this problem, Dan reduces the VM pool size (the Max Active threads for the VM transport) and immediately notices both an increase in the pool&#8217;s Active Tasks as well as improved application performance. With some trial and error, Dan finds the right values and load balance for the pools configuration for the specific hardware running the Mule server.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check memory usage again.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Dan returns to the Memory pane and sees that Heap memory is again running out. He knows he has to change some additional memory-specific configuration values. Dan clicks the Files tab, navigates to the /conf directory, and opens the wrapper.conf file.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/wrapper.png" alt="wrapper">
+</div>
+</div>
+<div class="paragraph">
+<p>He checks the initial and maximum heap values set in the file, and sees that the initial heap size is set to three megabytes and the maximum heap size is set to 512 megabytes. He clicks the edit button, increases both the initial maximum heap sizes to one gigabyte, then saves the wrapper.config file.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/wrapper-edit.png" alt="wrapper edit">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Run the load test again.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Dan runs the test again. Not only does he see good performance at the start, the performance stays at 600 messages per second. Dan has used the Management Console to view system aspects that affect performance and has changed these values to achieve optimal performance throughput.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="lessons-learned"><a class="anchor" href="#lessons-learned"></a>Lessons Learned</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Mule Management Console lets Dan to work in real time: he is able to monitor resource utilization and dynamically change the running Mule instance&#8217;s parameters. He can do all this from the same web console without restarting the Mule server. As a result, the time and complexity to tune the performance of Mule instances is significantly reduced.</p>
+</div>
+<div class="paragraph">
+<p>If Dan did not have the console feature available, performance tuning would have been much more time consuming and difficult. Changes to Mule instance parameters would have required multiple iterations of stopping the server, manually making the changes in the configuration file, then restarting the server.</p>
+</div>
+<div class="paragraph">
+<p>In addition, Dan would have needed the experience to use a Java profiler, a sophisticated tool, and would have had to run the Mule server in debug mode. Even so, this may not have helped, since a profiler shows only low-level data about Java objects, threads utilization, and performance. To make use of this low-level data, Data would need knowledge of the internal Mule architecture.</p>
+</div>
+<div class="paragraph">
+<p>Dan found that using the Management Console not only reduced complexity, but it also resulted in a faster time to solution. The debugging process was faster because he did not have to stop and restart the Mule instance. He was able to make all necessary changes, whether to parameters or configuration files, right from the console.</p>
+</div>
+<div class="paragraph">
+<p>Dan was able to work with high-level data and metrics that are specific to the Mule ESB server. He only needed knowledge of the flow structure rather than the details of the Mule architecture and expertise with a profiler.</p>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

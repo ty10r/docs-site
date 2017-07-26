@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="agent, mule, esb, servers, monitor, notifications, external systems, third party, get status, metrics">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/runtime-manager-agent/1.7/extending-the-runtime-manager-agent.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Extending the Runtime Manager Agent // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Extending the Runtime Manager Agent</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/runtime-manager-agent-docs/edit/v1.7/modules/ROOT/content/extending-the-runtime-manager-agent.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Extending the Runtime Manager Agent</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-cloud-disabled.png" alt="logo cloud disabled" title="CloudHub"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-hybrid-active.png" alt="logo hybrid active" title="Hybrid Deployment"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-server-active.png" alt="logo server active" title="Anypoint Platform Private Cloud Edition"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-pcf-disabled.png" alt="logo pcf disabled" title="Pivotal Cloud Foundry"></a></span></p>
+</div>
+<div class="paragraph">
+<p>This document contains an overview of how to extend the Runtime Manager Agent. It provides instructions on implementing a complete service, external handler and internal hander using a simple method to revert a string.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="runtime-manager-agent-extensible-component"><a class="anchor" href="#runtime-manager-agent-extensible-component"></a>Runtime Manager Agent Extensible Component</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Runtime Manager Agent contains the following extensible components:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#addservice">Services</a></p>
+</li>
+<li>
+<p><a href="#extmh">"External message handers"</a></p>
+</li>
+<li>
+<p><a href="#intmh">"Internal message handlers"</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="runtime-manager-agent-custom-component-structure"><a class="anchor" href="#runtime-manager-agent-custom-component-structure"></a>Runtime Manager Agent Custom Component Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A Runtime Manager Agent custom component should comply with the following structure:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/lib</code> contains component dependencies</p>
+</li>
+<li>
+<p><code>/classes</code> contain compiled classes</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For this example, in order to acquire the libraries necessary to extend the agent, add the following dependencies to your <code>pom.xml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.mulesoft.agent&lt;/groupId&gt;
+            &lt;artifactId&gt;mule-agent-api&lt;/artifactId&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.glassfish.jersey.core&lt;/groupId&gt;
+            &lt;artifactId&gt;jersey-client&lt;/artifactId&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-lang&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang&lt;/artifactId&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The corresponding jar should be added under the <code>lib</code> folder within the mule-agent plugin, which is contained in the <code>plugins</code> folder of the Mule instance. For example, <code>$MULE_HOME/plugins/mule-agent/lib/&lt;component name&gt;.jar</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="addservice"><a class="anchor" href="#addservice"></a>Adding a New Service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To add a new service, you must implement the <a href="#implementing-muleagentservice">Implementing MuleAgentService</a> interface.</p>
+</div>
+<div class="paragraph">
+<p>Considerations for custom services:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The service can execute any internal handler registered in the Runtime Manager Agent environment, by using the <code>@Inject</code> annotation.</p>
+</li>
+<li>
+<p>You don&#8217;t have to follow the Runtime Manager Agent architecture in order to create a new service.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="writing-your-service"><a class="anchor" href="#writing-your-service"></a>Writing Your Service</h3>
+<div class="sect3">
+<h4 id="implementing-muleagentservice"><a class="anchor" href="#implementing-muleagentservice"></a>Implementing MuleAgentService</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Named("my.company.service")
+@Singleton
+public class MyService implement MuleAgentService
+{
+
+    @Inject
+    private Map&lt;String, InternalMessageHandler&lt;List&lt;T&gt;&gt;&gt; handlers;
+
+    @Override
+    public java.util.List&lt;com.mulesoft.agent.handlers.InternalMessageHandler&gt; getInternalHandlers()
+    {
+        // TODO: return List of Internal Handlers
+    }
+
+    @Override
+    public void enable(boolean state) throws AgentEnableOperationException {
+        // TODO: enable the Service
+    }
+
+    @Override
+    public boolean isEnabled() {
+        // TODO: return Service status
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To add your new Service, just drop the jar containing your classes under the <code>lib</code> folder within the <code>mule-agent</code> plugin folder (for example, in <code>$MULE_HOME/mule-agent/lib</code>).</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="revert-string-service-example"><a class="anchor" href="#revert-string-service-example"></a>Revert String Service Example</h3>
+<div class="paragraph">
+<p>As explained above, this document uses a simple example to explain how to write a full extension to revert a string. The first step is to add a service for this purpose.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Named("com.company.service.reverse")
+@Singleton
+public class ReverseService implements MuleAgentService
+{
+
+    @Inject
+    List&lt;InternalMessageHandler&lt;String&gt;&gt; messageHandlerList;
+
+    @Override
+    public List&lt;InternalMessageHandler&gt; getInternalHandlers()
+    {
+        return new ArrayList&lt;InternalMessageHandler&gt;(messageHandlerList);
+    }
+
+    @Override
+    public void enable(boolean b) throws AgentEnableOperationException
+    {
+
+    }
+
+    @Override
+    public boolean isEnabled()
+    {
+        return true;
+    }
+
+    public String getConvertedString(String origString)
+    {
+        String reverted = StringUtils.reverse(origString);
+        for (InternalMessageHandler&lt;String&gt; internalMessageHandler : messageHandlerList)
+        {
+            internalMessageHandler.handle(reverted);
+        }
+
+        return reverted;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="extmh"><a class="anchor" href="#extmh"></a>Adding a New External Message Handler</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To add a new external message handler, you have to implement the Runtime Manager Agent <a href="#reverse-string-external-message-handler">Reverse String External Message Handler</a> interface.</p>
+</div>
+<div class="paragraph">
+<p>Considerations for custom external message handlers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The external message handler will be injected into a transport</p>
+</li>
+<li>
+<p>The external message handler must be thread-safe</p>
+</li>
+<li>
+<p>An external message handler is executed by a transport and cannot interact with Mule. <strong>Only Services can interact with Mule</strong></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="writing-your-external-message-handler"><a class="anchor" href="#writing-your-external-message-handler"></a>Writing Your External Message Handler</h3>
+<div class="sect3">
+<h4 id="rest"><a class="anchor" href="#rest"></a>REST</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Named("my.external.handler")
+@Path("somePath")
+@Singleton
+public class MyRequestHandler implements ExternalMessageHandler
+{
+    @Inject
+    private MuleService muleServiceInTheAPIModule;
+
+    @Override
+    public void enable(boolean state) throws AgentEnableOperationException {
+        // TODO: enable the Handler
+    }
+
+    @Override
+    public boolean isEnabled() {
+        // TODO: return Handler status
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List&lt;Component&gt; someRequest()
+    {
+
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="websockets"><a class="anchor" href="#websockets"></a>WebSockets</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Named("TYPE_OF_MESSAGE_THAT_MUST_DISPATCH")
+@Singleton
+public class MyRequestHandler implements ExternalMessageHandler
+{
+    @Inject
+    private MuleService muleServiceInTheAPIModule;
+
+    @Override
+    public void enable(boolean state) throws AgentEnableOperationException {
+        // TODO: enable the Handler
+    }
+
+    @Override
+    public boolean isEnabled() {
+        // TODO: return Handler status
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To add your new external message handler, just drop the jar containing your classes under the <code>lib</code> folder within the <code>mule-agent</code> plugin folder (for example, in <code>$MULE_HOME/mule-agent/lib</code>).</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="reverse-string-external-message-handler"><a class="anchor" href="#reverse-string-external-message-handler"></a>Reverse String External Message Handler</h3>
+<div class="paragraph">
+<p>Following the Reverse String example, the External Handler is shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Named("com.company.externalhandler.reverse")
+@Path("revert")
+@Singleton
+public class ReverseExternalHandler implements ExternalMessageHandler
+{
+
+    @Inject
+    private ReverseService reverseService;
+
+    @Override
+    public void enable(boolean b) throws AgentEnableOperationException
+    {
+
+    }
+
+    @Override
+    public boolean isEnabled()
+    {
+        return true;
+    }
+
+    @GET
+    public String getReversedString(@QueryParam("string") String string)
+    {
+        return reverseService.getConvertedString(string);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above code exposes a resource under <code>&lt;your REST transport host&gt;/mule/reverse</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="intmh"><a class="anchor" href="#intmh"></a>Adding a New Internal Message Handler</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To add a new internal message handler, you have to implement the <a href="#internal-message-handler">Internal Message Handler</a> interface.</p>
+</div>
+<div class="paragraph">
+<p>Considerations for custom internal message handlers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The internal message handler will be injected into a service based on the message types it handles</p>
+</li>
+<li>
+<p>The internal message handler must be thread-safe</p>
+</li>
+<li>
+<p>An internal message handler is executed by a service and cannot interact with Mule. <strong>Only Services can interact with Mule</strong></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="writing-your-internal-message-handler"><a class="anchor" href="#writing-your-internal-message-handler"></a>Writing Your Internal Message Handler</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Named("my.company.internal.handler")
+@Singleton
+public class MyInternalMessageHandler&lt;T&gt; implements InternalMessageHandler&lt;T&gt;{
+
+    boolean handle(T t){
+          // TODO handle message
+    }
+
+    @Override
+    public void enable(boolean state) throws AgentEnableOperationException {
+        // TODO: enable the Handler
+    }
+
+    @Override
+    public boolean isEnabled() {
+        // TODO: return Handler status
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To add your new internal message handler, just drop the jar containing your classes under the <code>lib</code> folder within the <code>mule-agent</code> plugin folder (for example, in <code>$MULE_HOME/mule-agent/lib</code>).</p>
+</div>
+<div class="sect3">
+<h4 id="reverse-string-internal-message-handler"><a class="anchor" href="#reverse-string-internal-message-handler"></a>Reverse String Internal Message Handler</h4>
+<div class="paragraph">
+<p>The code below shows an internal message handler for the reverse string example.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Named("com.mulesoft.agent.test.extension.internalHandler")
+@Singleton
+public class ReverseInternalHandler extends BufferedHandler&lt;String&gt;
+{
+
+    @Configurable("true")
+    protected boolean enabled;
+
+    @Configurable
+    public String host;
+
+    @Configurable
+    public String port;
+
+    @Inject
+    public ReverseInternalHandler()
+    {
+        super();
+    }
+
+    @Override
+    protected boolean canHandle(String t)
+    {
+        return true;
+    }
+
+    @Override
+    protected boolean flush(Collection&lt;String&gt; ts)
+    {
+        String tempDir = System.getProperty("java.io.tmpdir");
+        File revertedStringFile = new File(tempDir, "revertedString.txt");
+
+        try
+        {
+            FileOutputStream fos = new FileOutputStream(revertedStringFile);
+
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+
+            for (String string : ts)
+            {
+                bw.write(string);
+                bw.newLine();
+            }
+
+            bw.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error writing reversed string");
+            return false;
+        }
+        return true;
+    }
+
+    @PostConfigure
+    public void postConfigure()
+    {
+    }
+
+    @Override
+    public void enable(boolean b) throws AgentEnableOperationException
+    {
+      enabled = b;
+    }
+
+    @Override
+    public boolean isEnabled()
+    {
+        return enabled;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This internal message handler writes the message processed by the service to a file called <code>revertedString.txt</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="runtime-manager-agent-api-interfaces"><a class="anchor" href="#runtime-manager-agent-api-interfaces"></a>Runtime Manager Agent API Interfaces</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="mule-service"><a class="anchor" href="#mule-service"></a>Mule Service</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">**
+ * &lt;p&gt;
+ * Implementations of this interface provides new functionality to the Runtime Manager Agent. These services handle data from the
+ * Mule server and interact with mule.
+ * &lt;/p&gt;
+ *
+ * @see com.mulesoft.agent.handlers.ExternalMessageHandler , InternalMessageHandler
+ * @since 1.0
+ */
+public interface MuleAgentService extends Switcher
+{
+
+    public List&lt;InternalMessageHandler&gt; getInternalHandlers();
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="external-message-handler"><a class="anchor" href="#external-message-handler"></a>External Message Handler</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">/**
+ * &lt;p&gt;
+ * Gets  messages coming from an external system and executes {@link com.mulesoft.agent.services.MuleAgentService} based
+ * the request.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * This is just a marker interface for the communication layer to recognize the interface as a External message receiver
+ * &lt;/p&gt;
+ *
+ * @since 1.0
+ */
+public interface ExternalMessageHandler extends Switcher
+{
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="internal-message-handler"><a class="anchor" href="#internal-message-handler"></a>Internal Message Handler</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">/**
+ * &lt;p&gt;
+ * Internal messages come generally from mule side. {@link InternalMessageHandler} are use to handle those messages depending on,
+ * for example, the transport.
+ * &lt;/p&gt;
+ *
+ * @param &lt;Rq&gt; is the type of the message it must handle
+ * @since 1.0
+ */
+public interface InternalMessageHandler&lt;Rq&gt; extends Switcher
+{
+
+    /**
+     * &lt;p&gt;
+     * Process an internal message
+     * &lt;/p&gt;
+     *
+     * @param message The message to be processed
+     * @return true if the message could be processed
+     */
+    boolean handle(@NotNull Rq message);
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="switcher"><a class="anchor" href="#switcher"></a>Switcher</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">/**
+ * &lt;p&gt;
+ * All the classes implementing this interface will be able to enable/disable themselves
+ * &lt;/p&gt;
+ *
+ * @since 1.0
+ */
+public interface Switcher
+{
+    /**
+     * &lt;p&gt;
+     * Turn the feature on, the class will be behave as expected
+     * &lt;br/&gt;
+     * If the feature is being disabled, any resources it has allocated should be freed and taken again when it is reenabled
+     * &lt;/p&gt;
+     * @param state true if enabled, false otherwise
+     * @throws AgentEnableOperationException if the end state is not the requested one
+     */
+    void enable(boolean state) throws AgentEnableOperationException;
+
+    /**
+     * &lt;p&gt;
+     * Check the state of the class
+     * &lt;/p&gt;
+     *
+     * @return true if it is on, false otherwise
+     */
+    boolean isEnabled();
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

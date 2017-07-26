@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="munit, testing, unit testing, tutorial">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/munit/1.3/munit-short-tutorial.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>MUnit Short Tutorial // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">MUnit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-suite.html">Test Suite</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-munit-in-anypoint-studio.html">Using MUnit in Anypoint Studio</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-maven-support.html">Maven Support</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-domain-support.html">Domain Support</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-coverage-report.html">Coverage Report</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="message-processors.html">Message Processors</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="assertion-message-processor.html">Assertion</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="set-message-processor.html">Set</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="mock-message-processor.html">Mock</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="verify-message-processor.html">Verify</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="spy-message-processor.html">Spy</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-matchers.html">Matchers</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="munit-utils.html">Utilities</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-database-server.html">Database Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-ftp-server.html">FTP Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="run-and-wait-scope.html">Run and Wait Scope</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="munit-examples.html">Examples</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="munit-short-tutorial.html">Short Tutorial</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="example-testing-apikit.html">Testing APIkit</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="logging-in-munit.html">Logging</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-tests-with-java.html">Tests With Java</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../solutions/migration/munit/1.2-migration-guide.html">MUnit 1.2 Migration Guide</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">MUnit Short Tutorial</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/munit-docs/edit/v1.2/modules/ROOT/content/munit-short-tutorial.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>MUnit Short Tutorial</h1>
+    <div class="sect1">
+<h2 id="overview"><a class="anchor" href="#overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This simple, short tutorial takes you through the process of creating a series of MUnit tests, which are aimed to validate the behavior of a simple code example.</p>
+</div>
+<div class="paragraph">
+<p>This tutorial uses only core components of Mule ESB. No Anypoint Connectors are used; however, you can easily apply what you learn here to Anypoint Connectors.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sample-production-code"><a class="anchor" href="#sample-production-code"></a>Sample Production Code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The sample code for this tutorial is fairly simple, but it uses some of Mule&#8217;s most common message processors. It implements a basic use case:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>It receives an HTTP request.</p>
+</li>
+<li>
+<p>It extracts data from the request to route a message through the application.</p>
+</li>
+<li>
+<p>It decides how to create a response.</p>
+</li>
+</ol>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/exampleflow.png" alt="exampleFlow">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.7.3"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd"&gt;
+
+    &lt;http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="9090" doc:name="HTTP Listener Configuration"/&gt;
+
+    &lt;flow name="exampleFlow"&gt;
+        &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" allowedMethods="GET" doc:name="HTTP"/&gt;
+        &lt;set-payload value="#[message.inboundProperties['http.query.params']['url_key']]" doc:name="Set Original Payload"/&gt;
+
+        &lt;flow-ref name="exampleFlow2" doc:name="exampleFlow2"/&gt;
+
+
+        &lt;choice doc:name="Choice"&gt;
+            &lt;when expression="#[flowVars['my_variable'].equals('var_value_1')]"&gt;
+                &lt;set-payload value="#['response_payload_1']" doc:name="Set Response Payload"/&gt;
+            &lt;/when&gt;
+            &lt;otherwise&gt;
+                &lt;set-payload value="#['response_payload_2']" doc:name="Set Response Payload"/&gt;
+            &lt;/otherwise&gt;
+        &lt;/choice&gt;
+    &lt;/flow&gt;
+
+    &lt;flow name="exampleFlow2"&gt;
+        &lt;choice doc:name="Choice"&gt;
+            &lt;when expression="#['payload_1'.equals(payload)]"&gt;
+                &lt;flow-ref name="exampleSub_Flow1" doc:name="exampleSub_Flow1"/&gt;
+            &lt;/when&gt;
+            &lt;otherwise&gt;
+                &lt;flow-ref name="exampleSub_Flow2" doc:name="exampleSub_Flow2"/&gt;
+            &lt;/otherwise&gt;
+        &lt;/choice&gt;
+	&lt;/flow&gt;
+
+    &lt;sub-flow name="exampleSub_Flow1"&gt;
+        &lt;set-variable variableName="my_variable" value="#['var_value_1']" doc:name="my_variable"/&gt;
+    &lt;/sub-flow&gt;
+
+    &lt;sub-flow name="exampleSub_Flow2"&gt;
+        &lt;set-variable variableName="my_variable" value="#['var_value_2']" doc:name="my_variable"/&gt;
+    &lt;/sub-flow&gt;
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>We analyze the above code by breaking it up into sections. The first section is the entry point of the application, which contains the HTTP listener in <code>exampleFlow</code>.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-2" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/part-1.png" alt="part 1">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Main Flow, <code>exampleFlow</code>.</p>
+</li>
+<li>
+<p>Take data from the HTTP request.</p>
+</li>
+<li>
+<p>Make call to <code>exampleFlow2</code> for further processing.</p>
+</li>
+<li>
+<p>Make a decision based on the value of the invocation variable <code>my_variable</code>, which was set by <code>exampleFlow2</code>.</p>
+</li>
+<li>
+<p>Creates <code>response payload 1</code>.</p>
+</li>
+<li>
+<p>Creates <code>response payload 2</code>.</p>
+</li>
+</ol>
+</div>
+<h3 id="xml-or-standalone-editor-2" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="exampleFlow"&gt;                                                                                                 <i class="conum" data-value="1"></i><b>(1)</b>
+    &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" allowedMethods="GET" doc:name="HTTP"/&gt;
+
+    &lt;set-payload value="#[message.inboundProperties['http.query.params']['url_key']]" doc:name="Set Original Payload"/&gt;   <i class="conum" data-value="2"></i><b>(2)</b>
+
+    &lt;flow-ref name="exampleFlow2" doc:name="exampleFlow2"/&gt;                                                               <i class="conum" data-value="3"></i><b>(3)</b>
+
+    &lt;choice doc:name="Choice"&gt;                                                                                            <i class="conum" data-value="4"></i><b>(4)</b>
+        &lt;when expression="#[flowVars['my_variable'].equals('var_value_1')]"&gt;
+            &lt;set-payload value="#['response_payload_1']" doc:name="Set Response Payload"/&gt;                                <i class="conum" data-value="5"></i><b>(5)</b>
+        &lt;/when&gt;
+        &lt;otherwise&gt;
+            &lt;set-payload value="#['response_payload_2']" doc:name="Set Response Payload"/&gt;                                <i class="conum" data-value="6"></i><b>(6)</b>
+        &lt;/otherwise&gt;
+    &lt;/choice&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Main Flow, <code>exampleFlow</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Take data from the HTTP request.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Make call to <code>exampleFlow2</code> for further processing.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Make a decision based on the value of the invocation variable <code>my_variable</code>, which was set by <code>exampleFlow2</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Creates <code>response payload 1</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Creates <code>response payload 2</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The second part of the app, <code>exampleFlow2</code>, is basically for routing. It does not perform any real action over the message or its payload. Rather, it delegates that to two other subflows, based on the payload received as input.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-3" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/part-2.png" alt="part 2">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Evaluate the payload that enters the flow.</p>
+</li>
+<li>
+<p>Make call to <code>exampleSub_Flow1</code>.</p>
+</li>
+<li>
+<p>Make call to <code>exampleSub_Flow2</code>.</p>
+</li>
+</ol>
+</div>
+<h3 id="xml-or-standalone-editor-3" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="exampleFlow2"&gt;
+    &lt;choice doc:name="Choice"&gt;
+        &lt;when expression="#['payload_1'.equals(payload)]"&gt;                                          <i class="conum" data-value="1"></i><b>(1)</b>
+            &lt;flow-ref name="exampleSub_Flow1" doc:name="exampleSub_Flow1"/&gt;                         <i class="conum" data-value="2"></i><b>(2)</b>
+        &lt;/when&gt;
+        &lt;otherwise&gt;
+            &lt;flow-ref name="exampleSub_Flow2" doc:name="exampleSub_Flow2"/&gt;                         <i class="conum" data-value="3"></i><b>(3)</b>
+        &lt;/otherwise&gt;
+    &lt;/choice&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Evaluate the payload that enters the flow.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Make call to <code>exampleSub_Flow1</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Make call to <code>exampleSub_Flow2</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally we have the various subflows called <code>exampleSub_Flow&lt;number&gt;</code>, whose only task is to set a value for an <em>invocation</em> variable named <code>my_variable</code>.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-4" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/part-3.png" alt="part 3">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set <code>my_variable</code> to <code>var_value_1</code>.</p>
+</li>
+<li>
+<p>Set <code>my_variable</code> to <code>var_value_2</code>.</p>
+</li>
+</ol>
+</div>
+<h3 id="xml-or-standalone-editor-4" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;sub-flow name="exampleSub_Flow1"&gt;
+    &lt;set-variable variableName="my_variable" value="#['var_value_1']" doc:name="my_variable"/&gt;    <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;/sub-flow&gt;
+
+&lt;sub-flow name="exampleSub_Flow2"&gt;
+    &lt;set-variable variableName="my_variable" value="#['var_value_2']" doc:name="my_variable"/&gt;    <i class="conum" data-value="2"></i><b>(2)</b>
+&lt;/sub-flow&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Set <code>my_variable</code> to <code>var_value_1</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Set <code>my_variable</code> to <code>var_value_2</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-tests"><a class="anchor" href="#creating-tests"></a>Creating Tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Below is the MUnit Test Suite file:</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-5" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/full-test-example.png" alt="full test example">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-5" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:mock="http://www.mulesoft.org/schema/mule/mock"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core"
+	version="EE-3.7.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/mock http://www.mulesoft.org/schema/mule/mock/current/mule-mock.xsd
+http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd"&gt;
+
+    &lt;munit:config name="munit" doc:name="Munit configuration"/&gt;
+
+    &lt;spring:beans&gt;
+        &lt;spring:import resource="classpath:demo.xml"/&gt;
+    &lt;/spring:beans&gt;
+
+    &lt;!-- exampleFlow2 Tests --&gt;
+    &lt;munit:test name="doc-test-exampleFlow2Test1" description="Validate calls to sub flows are being done properly "&gt;
+        &lt;munit:set payload="#['payload_1']" doc:name="Set Message payload == payload_1"/&gt;
+        &lt;flow-ref name="exampleFlow2" doc:name="Flow-ref to exampleFlow2"/&gt;
+        &lt;mock:verify-call messageProcessor="mule:sub-flow" doc:name="Verify Call" times="1"&gt;
+            &lt;mock:with-attributes&gt;
+                &lt;mock:with-attribute whereValue="#[matchContains('exampleSub_Flow1')]" name="name"/&gt;
+            &lt;/mock:with-attributes&gt;
+        &lt;/mock:verify-call&gt;
+    &lt;/munit:test&gt;
+
+     &lt;munit:test name="doc-test-exampleFlow2Test2" description="Validate calls to sub flows are being done properly "&gt;
+        &lt;munit:set payload="#['payload_2']" doc:name="Set Message payload == payload_2"/&gt;
+        &lt;flow-ref name="exampleFlow2" doc:name="Flow-ref to exampleFlow2"/&gt;
+        &lt;mock:verify-call messageProcessor="mule:sub-flow" doc:name="Verify Call" times="1"&gt;
+            &lt;mock:with-attributes&gt;
+                &lt;mock:with-attribute whereValue="#[matchContains('exampleSub_Flow2')]" name="name"/&gt;
+            &lt;/mock:with-attributes&gt;
+        &lt;/mock:verify-call&gt;
+    &lt;/munit:test&gt;
+
+    &lt;!-- exampleFlow Tests --&gt;
+    &lt;munit:test name="doc-test-exampleFlow-unit-Test_1" description="Unit Test case asserting scenario 1"&gt;
+        &lt;mock:when messageProcessor="mule:set-payload" doc:name="Mock"&gt;
+            &lt;mock:with-attributes&gt;
+                &lt;mock:with-attribute whereValue="#['Set Original Payload']" name="doc:name"/&gt;
+            &lt;/mock:with-attributes&gt;
+            &lt;mock:then-return payload="#[]"/&gt;
+        &lt;/mock:when&gt;
+        &lt;mock:when messageProcessor="mule:flow" doc:name="Mock"&gt;
+            &lt;mock:with-attributes&gt;
+                &lt;mock:with-attribute whereValue="#['exampleFlow2']" name="name"/&gt;
+            &lt;/mock:with-attributes&gt;
+            &lt;mock:then-return payload="#[]"&gt;
+                &lt;mock:invocation-properties&gt;
+                    &lt;mock:invocation-property key="my_variable" value="#['var_value_1']"/&gt;
+                &lt;/mock:invocation-properties&gt;
+            &lt;/mock:then-return&gt;
+        &lt;/mock:when&gt;
+        &lt;flow-ref name="exampleFlow" doc:name="Flow-ref to exampleFlow"/&gt;
+        &lt;munit:assert-payload-equals message="oops, wrong payload!" expectedValue="#['response_payload_1']" doc:name="Assert Payload"/&gt;
+    &lt;/munit:test&gt;
+
+    &lt;munit:test name="doc-test-exampleFlow-unit-Test_2" description="Unit Test case asserting scenario 2"&gt;
+        &lt;mock:when messageProcessor="mule:set-payload" doc:name="Mock"&gt;
+            &lt;mock:with-attributes&gt;
+                &lt;mock:with-attribute whereValue="#['Set Original Payload']" name="doc:name"/&gt;
+            &lt;/mock:with-attributes&gt;
+            &lt;mock:then-return payload="#[]"/&gt;
+        &lt;/mock:when&gt;
+        &lt;mock:when messageProcessor="mule:flow" doc:name="Mock"&gt;
+            &lt;mock:with-attributes&gt;
+                &lt;mock:with-attribute whereValue="#['exampleFlow2']" name="name"/&gt;
+            &lt;/mock:with-attributes&gt;
+            &lt;mock:then-return payload="#[]"&gt;
+                &lt;mock:invocation-properties&gt;
+                    &lt;mock:invocation-property key="my_variable" value="#['var_value_2']"/&gt;
+                &lt;/mock:invocation-properties&gt;
+            &lt;/mock:then-return&gt;
+        &lt;/mock:when&gt;
+        &lt;flow-ref name="exampleFlow" doc:name="Flow-ref to exampleFlow"/&gt;
+        &lt;munit:assert-payload-equals message="oops, wrong payload!" expectedValue="#['response_payload_2']" doc:name="Assert Payload"/&gt;
+    &lt;/munit:test&gt;
+
+    &lt;!-- exampleFlow Functional Tests --&gt;
+    &lt;munit:test name="doc-test-exampleFlow-functionalTest_1" description="Funtional Test case asserting scenario 1"&gt;
+        &lt;munit:set payload="#['']" doc:name="Set Message url_key:payload_1"&gt;
+            &lt;munit:inbound-properties&gt;
+                &lt;munit:inbound-property key="http.query.params" value="#[['url_key':'payload_1']]"/&gt;
+            &lt;/munit:inbound-properties&gt;
+        &lt;/munit:set&gt;
+        &lt;flow-ref name="exampleFlow" doc:name="Flow-ref to exampleFlow"/&gt;
+        &lt;munit:assert-payload-equals message="oops, wrong payload!" expectedValue="#['response_payload_1']" doc:name="Assert Payload"/&gt;
+    &lt;/munit:test&gt;
+
+    &lt;munit:test name="doc-test-exampleFlow-functionalTest_2" description="Funtional Test case asserting scenario 2"&gt;
+        &lt;munit:set payload="#['']" doc:name="Set Message url_key:payload_1"&gt;
+            &lt;munit:inbound-properties&gt;
+                &lt;munit:inbound-property key="http.query.params" value="#[['url_key':'payload_2']]"/&gt;
+            &lt;/munit:inbound-properties&gt;
+        &lt;/munit:set&gt;
+        &lt;flow-ref name="exampleFlow" doc:name="Flow-ref to exampleFlow"/&gt;
+        &lt;munit:assert-payload-equals message="oops, wrong payload!" expectedValue="#['response_payload_2']" doc:name="Assert Payload"/&gt;
+    &lt;/munit:test&gt;
+
+&lt;/mule&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>In the sections below we break down and analyze the Test Suite file. When performing unit tests, it&#8217;s always better to take a ground-up approach, first testing the building blocks of the code.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Always test the building blocks of your code first, then test the more complex code.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>We start by testing <code>exampleFlow2</code>.</p>
+</div>
+<div class="paragraph">
+<p>Ideally, you should test each and every flow and sub-flow in your application, in order to validate that each one of them behaves as expected. Since we&#8217;ve complicated things a little in order to show you more scenarios, we skip testing the sub-flows <code>exampleSub_Flow1</code> and <code>exampleSub_Flow2</code>). In a real application, we should start by testing those two flows.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Ideally, you should test each and every flow and sub-flow in your application.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="munit-test-suite-musts"><a class="anchor" href="#munit-test-suite-musts"></a>MUnit Test Suite "Musts"</h3>
+<div class="paragraph">
+<p>Each MUnit test file <em>must</em> contain the following three beans:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>MUnit config</code></p>
+</li>
+<li>
+<p>The <em>import section</em></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These are shown in the snippet below:</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-6" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/must-global-elements.png" alt="must global elements">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/must-import-bean.png" alt="must import bean">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-6" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;!-- MUnit config --&gt;
+&lt;munit:config name="munit" doc:name="Munit configuration"/&gt;
+
+&lt;!-- The import section --&gt;
+&lt;spring:beans&gt;
+    &lt;spring:import resource="classpath:demo.xml"/&gt;
+&lt;/spring:beans&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>In the <em>import section</em>, we define the files needed for this test to run. This section usually includes the file containing the flows we want to test, and additional files required for the first file to work.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+MUnit Test Suite files cannot run without MUnit config.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="testing-code-exampleflow2-code"><a class="anchor" href="#testing-code-exampleflow2-code"></a>Testing: <code>exampleFlow2</code></h3>
+<div class="paragraph">
+<p>We start by analyzing the simplest flow in the application, <code>exampleFlow2</code>.</p>
+</div>
+<div class="paragraph">
+<p>This flow contains a <code>choice</code> router, which provides two different paths that the code can follow. Here we  test both of them.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In a real application, always test all possible paths.
+</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-7" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/exampleflow2.png" alt="exampleFlow2">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-7" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="exampleFlow2"&gt;
+  &lt;choice doc:name="Choice"&gt;
+    &lt;when expression="#['payload_1'.equals(payload)]"&gt;
+      &lt;flow-ref name="exampleSub_Flow1" doc:name="exampleSub_Flow1"/&gt;
+    &lt;/when&gt;
+    &lt;otherwise&gt;
+      &lt;flow-ref name="exampleSub_Flow2" doc:name="exampleSub_Flow2"/&gt;
+    &lt;/otherwise&gt;
+  &lt;/choice&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>We start with the first path.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-8" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/break-first-test.png" alt="break first test">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Define input message to be sent to the production flow <code>exampleFlow2</code>.</p>
+</li>
+<li>
+<p>Make call to production code.</p>
+</li>
+<li>
+<p>Validate success of the test by using a verification.</p>
+</li>
+</ol>
+</div>
+<h3 id="xml-or-standalone-editor-8" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:test name="doc-test-exampleFlow2Test1" description="Validate calls to sub flows are being done properly "&gt;
+  &lt;munit:set payload="#['payload_1']" doc:name="Set Message payload == payload_1"/&gt;                         <i class="conum" data-value="1"></i><b>(1)</b>
+
+  &lt;flow-ref name="exampleFlow2" doc:name="Flow-ref to exampleFlow2"/&gt;                                           <i class="conum" data-value="2"></i><b>(2)</b>
+
+  &lt;mock:verify-call messageProcessor="mule:sub-flow" doc:name="Verify Call" times="1"&gt;    <i class="conum" data-value="3"></i><b>(3)</b>
+    &lt;mock:with-attributes&gt;
+      &lt;mock:with-attribute whereValue="#[matchContains('exampleSub_Flow1')]" name="name"/&gt;
+    &lt;/mock:with-attributes&gt;
+  &lt;/mock:verify-call&gt;
+&lt;/munit:test&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Define input message to be sent to the production flow <code>exampleFlow2</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Make call to production code.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Validate success of the test by using a verification.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This test looks fairly simple, but it has a few points to highlight.</p>
+</div>
+<div class="paragraph">
+<p>The first thing we do is to create an input message. This is a very common scenario; you  probably have to create input messages for the flows that you test. In this example it was only necessary to define a payload, but further down in this tutorial we see how to create more complex messages.</p>
+</div>
+<div class="paragraph">
+<p>For the purposes of this test, we can be confident that the code works properly by simply ensuring that the correct message processor was called. We could also have added an assertion over the variables that were supposed to be set.</p>
+</div>
+<div id="flow-ref" class="paragraph">
+<p>Finally, notice that the message processor to call is a <code>flow-ref</code>. In MUnit, you don&#8217;t mock or verify <code>flow-ref</code>, but the flow or sub-flow that would be invoked by <code>flow-ref</code>. If you check closely, you see that we are not verifying the <code>flow-ref</code> message processor, but running a verification over the <code>mule:sub-flow</code> message processor.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+In MUnit you don&#8217;t mock or verify <code>flow-ref</code>, you mock or verify the <code>flow</code> and <code>sub-flow</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Using <code>flow-ref</code> is the most common way to trigger your production code. Even if the
+flow you&#8217;re testing is a not a private flow, the usual way to invoke it is by using
+<code>flow-ref</code>, rather than calling the flow&#8217;s inbound endpoints such as HTTP, VM, JSM, etc.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Another thing to notice is how we are defining the name of the sub-flow. Instead
+of just typing the name of the sub-flow, we are using the MUnit matcher <code>matchContains</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-mel hljs" data-lang="mel">#[matchContains('exampleSub_Flow1')]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is not needed when verifying or mocking flows, only for sub-flows.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When mocking or verifying a sub-flow and using the <code>name</code> attribute, always use
+the MUnit matcher <code>matchContains</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>So far we have only tested one branch of <code>exampleFlow2</code>; we need to test the other one. To do that, we  add another test.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-9" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/break-second-test.png" alt="break second test">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-9" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:test name="doc-test-exampleFlow2Test2" description="Validate calls to sub flows are being done properly "&gt;
+  &lt;munit:set payload="#['payload_2']" doc:name="Set Message payload == payload_2"/&gt;
+
+  &lt;flow-ref name="exampleFlow2" doc:name="Flow-ref to exampleFlow2"/&gt;
+
+  &lt;mock:verify-call messageProcessor="mule:sub-flow" doc:name="Verify Call" times="1"&gt;
+    &lt;mock:with-attributes&gt;
+      &lt;mock:with-attribute whereValue="#[matchContains('exampleSub_Flow2')]" name="name"/&gt;
+    &lt;/mock:with-attributes&gt;
+  &lt;/mock:verify-call&gt;
+&lt;/munit:test&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This test is very similar to the first, except for one crucial change:</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-10" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/break-set-payload-2.png" alt="break set payload 2">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-10" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:set payload="#['payload_2']" doc:name="Set Message payload == payload_2"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>When we define the message to send to the production code, we are changing the payload in order to engage the other branch of the code. This may look obvious to experienced developers, but it is a common mistake.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If your production code takes different actions based on different values of the payload or on the contents of a variable, you should probably design more that one test for that production flow.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="testing-exampleflow"><a class="anchor" href="#testing-exampleflow"></a>Testing: exampleFlow</h3>
+<div class="paragraph">
+<p>The most complex flow in this application is the last flow, <code>exampleFlow</code>.</p>
+</div>
+<div class="paragraph">
+<p>This flow contains a <code>choice</code> router, which provides two different paths that the code can follow. As in the previous case, we  test both of them.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-11" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/break-example-flow.png" alt="break example flow">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-11" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="exampleFlow"&gt;
+  &lt;http:listener config-ref="HTTP_Listener_Configuration" path="/" allowedMethods="GET" doc:name="HTTP"/&gt;
+  &lt;set-payload value="#[message.inboundProperties['http.query.params']['url_key']]" doc:name="Set Original Payload"/&gt;
+
+  &lt;flow-ref name="exampleFlow2" doc:name="exampleFlow2"/&gt;
+
+  &lt;choice doc:name="Choice"&gt;
+    &lt;when expression="#[flowVars['my_variable'].equals('var_value_1')]"&gt;
+      &lt;set-payload value="#['response_payload_1']" doc:name="Set Response Payload"/&gt;
+    &lt;/when&gt;
+    &lt;otherwise&gt;
+      &lt;set-payload value="#['response_payload_2']" doc:name="Set Response Payload"/&gt;
+    &lt;/otherwise&gt;
+    &lt;/choice&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This flow contains an <code>http-listener</code>, but in order to show you different scenarios we are not going to call it. Since we are not calling the HTTP listener, we need to take a few other actions for this test to work properly.</p>
+</div>
+<div class="paragraph">
+<p>As with our first flow, here we start with the first path contained in the flow.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-12" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/break-choice-test.png" alt="break choice test">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Define mock for the set-payload message processor in <code>exampleFlow</code>.</p>
+</li>
+<li>
+<p>Define mock for the call to <code>exampleFlow2</code>.</p>
+</li>
+<li>
+<p>Make call to production code.</p>
+</li>
+<li>
+<p>Validate success of the test by asserting the returned payload.</p>
+</li>
+</ol>
+</div>
+<h3 id="xml-or-standalone-editor-12" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:test name="doc-test-exampleFlow-unit-Test_1"
+  description="Unit Test case asserting scenario 1"&gt;
+
+  &lt;mock:when messageProcessor="mule:set-payload" doc:name="Mock"&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+    &lt;mock:with-attributes&gt;
+      &lt;mock:with-attribute whereValue="#['Set Original Payload']" name="doc:name"/&gt;
+    &lt;/mock:with-attributes&gt;
+    &lt;mock:then-return payload="#[]"/&gt;
+  &lt;/mock:when&gt;
+
+  &lt;mock:when messageProcessor="mule:flow" doc:name="Mock"&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+    &lt;mock:with-attributes&gt;
+      &lt;mock:with-attribute whereValue="#['exampleFlow2']" name="name"/&gt;
+      &lt;/mock:with-attributes&gt;
+    &lt;mock:then-return payload="#[]"&gt;
+      &lt;mock:invocation-properties&gt;
+        &lt;mock:invocation-property key="my_variable" value="#['var_value_1']"/&gt;
+      &lt;/mock:invocation-properties&gt;
+    &lt;/mock:then-return&gt;
+  &lt;/mock:when&gt;
+
+  &lt;flow-ref name="exampleFlow" doc:name="Flow-ref to exampleFlow"/&gt;                                <i class="conum" data-value="3"></i><b>(3)</b>
+
+  &lt;munit:assert-payload-equals message="oops, wrong payload!" expectedValue="#['response_payload_1']" doc:name="Assert Payload"/&gt; <i class="conum" data-value="4"></i><b>(4)</b>
+&lt;/munit:test&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Define mock for the set-payload message processor in <code>exampleFlow</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Define mock for the call to <code>exampleFlow2</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Make call to production code.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Validate success of the test by asserting the returned payload.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The first thing to notice in this test is that we are defining <em>mocks</em>. Mocks are what allow you to isolate your flow, distinguishing it from third-party systems and any other flows in your application.</p>
+</div>
+<div class="paragraph">
+<p>The first mock we define is for the <code>set-payload</code> message processor. We do this because this message processor expects a certain set of inbound variables, but we won&#8217;t send them in this test&#8201;&#8212;&#8201;hence, for the code to succeed we need to mock the behavior of the <code>set-payload</code> message processor.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-13" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/break-first-mock.png" alt="break first mock">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-13" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mock:when messageProcessor="mule:set-payload" doc:name="Mock"&gt;
+  &lt;mock:with-attributes&gt;
+    &lt;mock:with-attribute whereValue="#['Set Original Payload']" name="doc:name"/&gt;
+  &lt;/mock:with-attributes&gt;
+  &lt;mock:then-return payload="#[]"/&gt;
+&lt;/mock:when&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that we are not actually returning a payload. The payload in the <code>set-payload</code> message processor is needed by <code>exampleFlow2</code>. In this unit test, we trust <code>exampleFlow2</code> to work as expected, and  mock it as well.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+When doing unit tests, you isolate your flow from third-party systems and other flows and trust they  work as expected. In turn, you must test each third-party system or flow with its own, specific test.
+</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-14" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/break-second-mock.png" alt="break second mock">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-14" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mock:when messageProcessor="mule:flow" doc:name="Mock"&gt;
+  &lt;mock:with-attributes&gt;
+    &lt;mock:with-attribute whereValue="#['exampleFlow2']" name="name"/&gt;
+    &lt;/mock:with-attributes&gt;
+  &lt;mock:then-return payload="#[]"&gt;
+    &lt;mock:invocation-properties&gt;
+      &lt;mock:invocation-property key="my_variable" value="#['var_value_1']"/&gt;
+    &lt;/mock:invocation-properties&gt;
+  &lt;/mock:then-return&gt;
+&lt;/mock:when&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If you&#8217;ve been reading this tutorial from the beginning, you already know that in MUnit you do not mock <code>flow-ref</code> message processors, you mock the flows that would be called by them (see <a href="#flow-ref">above</a>). That&#8217;s what we&#8217;re doing here, mocking <code>exampleFlow2</code> which was called from <code>exampleFlow</code>.</p>
+</div>
+<div class="paragraph">
+<p>The purpose of <code>exampleFlow2</code> was to set the value of the invocation variable <code>my_var</code>. If you look closely at this mock, you see that we are telling the mocked flow to return a message that contains an invocation variable named <code>my_var</code> with a value of <code>var_value_1</code>. This is what should happen in the first test scenario.</p>
+</div>
+<div class="paragraph">
+<p>Now that our two mocks are in place, we run the production code:</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-15" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/break-flow-ref.png" alt="break flow ref">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-15" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow-ref name="exampleFlow" doc:name="Flow-ref to exampleFlow"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The only thing that remains to be done for this test is to define its success criteria. For the purposes of this example, we determine whether it was successful based on the payload returned by the flow.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-16" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/break-assert-payload.png" alt="break assert payload">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-16" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:assert-payload-equals message="oops, wrong payload!"
+ expectedValue="#['response_payload_1']"
+ doc:name="Assert Payload"/&gt; <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see, we are validating that the payload returned is equal to that set by the first branch of the choice in the production code, that is, <code>response_payload_1</code>.</p>
+</div>
+<div class="paragraph">
+<p>Now we test the other branch.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-17" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/break-mock-2.png" alt="break mock 2">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/break-payload-2.png" alt="break payload 2">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>First difference with first branch</strong>: When mocking <code>exampleFlow2</code>, we&#8217;re telling it to return a variable with a different value: <code>var_value_2</code>. This should trigger the second branch of the choice.</p>
+</li>
+<li>
+<p><strong>Second difference with first branch</strong>: We are also changing the assertion, because the mock before the returned payload has changed. Hence the need to modify our success criteria.</p>
+</li>
+</ol>
+</div>
+<h3 id="xml-or-standalone-editor-17" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:test name="doc-test-exampleFlow-unit-Test_2"
+  description="Unit Test case asserting scenario 2"&gt;
+    &lt;mock:when messageProcessor="mule:set-payload" doc:name="Mock"&gt;
+        &lt;mock:with-attributes&gt;
+            &lt;mock:with-attribute whereValue="#['Set Original Payload']" name="doc:name"/&gt;
+        &lt;/mock:with-attributes&gt;
+        &lt;mock:then-return payload="#[]"/&gt;
+    &lt;/mock:when&gt;
+
+    &lt;mock:when messageProcessor="mule:flow" doc:name="Mock"&gt;
+        &lt;mock:with-attributes&gt;
+            &lt;mock:with-attribute whereValue="#['exampleFlow2']" name="name"/&gt;
+        &lt;/mock:with-attributes&gt;
+        &lt;mock:then-return payload="#[]"&gt;
+            &lt;mock:invocation-properties&gt;
+                &lt;mock:invocation-property key="my_variable"
+                  value="#['var_value_2']"/&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+            &lt;/mock:invocation-properties&gt;
+        &lt;/mock:then-return&gt;
+    &lt;/mock:when&gt;
+
+    &lt;flow-ref name="exampleFlow" doc:name="Flow-ref to exampleFlow"/&gt;
+    &lt;munit:assert-payload-equals message="oops, wrong payload!"
+		expectedValue="#['response_payload_2']" doc:name="Assert Payload"/&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+&lt;/munit:test&gt;</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>First difference with first branch</strong>: When mocking <code>exampleFlow2</code>, we&#8217;re telling it to return a variable with a different value: <code>var_value_2</code>. This should trigger the second branch of the choice</p>
+</li>
+<li>
+<p><strong>Second difference with first branch</strong>: We are also changing the assertion, because the mock before the returned payload has changed. Hence the need to modify our success criteria</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="functional-testing"><a class="anchor" href="#functional-testing"></a>Functional Testing</h3>
+<div class="paragraph">
+<p>All of the tests explained so far were unit tests, which try to isolate each flow as much as possible from the other flows.</p>
+</div>
+<div class="paragraph">
+<p>You may also want to do a <em>functional test</em>, that is, an end-to-end test. In our example, this means that we are not going to mock any message processor. To implement a test in this way, we need to correctly define the message that we send to the production code.</p>
+</div>
+<div class="paragraph">
+<p>In previous tests, we mocked the first message processor of <code>exampleFlow</code> because it needed the message to contain specific values. Since we are not mocking anything now, we have to create that message.</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-18" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/break-first-functional-test.png" alt="break first functional test">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-18" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:test name="doc-test-exampleFlow-functionalTest_1"
+  description="Functional Test case asserting scenario 1"&gt;
+    &lt;munit:set payload="#['']" doc:name="Set Message url_key:payload_1"&gt;
+        &lt;munit:inbound-properties&gt;
+            &lt;munit:inbound-property key="http.query.params"
+              value="#[['url_key':'payload_1']]"/&gt;
+        &lt;/munit:inbound-properties&gt;
+    &lt;/munit:set&gt;
+    &lt;flow-ref name="exampleFlow" doc:name="Flow-ref to exampleFlow"/&gt;
+    &lt;munit:assert-payload-equals message="oops, wrong payload!"
+      expectedValue="#['response_payload_1']" doc:name="Assert Payload"/&gt;
+&lt;/munit:test&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This test is very similar to the others for <code>exampleFlow</code>, without the mocks.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s check again the implementation of <code>exampleFlow</code>, specifically the <code>set-payload</code>:</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-19" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/set-original-payload.png" alt="set original payload">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-19" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;set-payload value="#[message.inboundProperties['http.query.params']['url_key']]"
+  doc:name="Set Original Payload"/&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>set-payload</code> message processor is expecting the message to have a inbound property named <code>http.query.params</code>, which should be a map. The map should contain the key <code>url_key</code>.</p>
+</div>
+<div class="paragraph">
+<p>The code below shows how to create such a message:</p>
+</div>
+<div class="exampleblock ex">
+<div class="content">
+<h3 id="studio-visual-editor-20" class="discrete view">Studio Visual Editor</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/break-functional-set-payload.png" alt="break functional set payload">
+</div>
+</div>
+<h3 id="xml-or-standalone-editor-20" class="discrete view">XML or Standalone Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;munit:set payload="#['']" doc:name="Set Message url_key:payload_1"&gt;
+    &lt;munit:inbound-properties&gt;
+        &lt;munit:inbound-property key="http.query.params"
+          value="#[['url_key':'payload_1']]"/&gt;
+    &lt;/munit:inbound-properties&gt;
+&lt;/munit:set&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusion"><a class="anchor" href="#conclusion"></a>Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this tutorial, we&#8217;ve seen:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>How to create MUnit tests</p>
+</li>
+<li>
+<p>How to create Mule messages</p>
+</li>
+<li>
+<p>How to create mocks</p>
+</li>
+<li>
+<p>How to run verifications and assertions</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In short, we&#8217;ve covered a great deal of the MUnit features.</p>
+</div>
+<div class="paragraph">
+<p>As you code, your tests may become as large and complex as your production code. The tools provided by MUnit  help you create great tests while maintaining the quality of your code.</p>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

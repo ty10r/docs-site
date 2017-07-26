@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="devkit, java, sdk, entity classes, data model, connector">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/anypoint-connector-devkit/3.8/creating-a-connector-using-a-java-sdk.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Java SDK-Based Connector Example // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Anypoint Connector DevKit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="anypoint-connector-development.html">Getting Started with Anypoint Connector Development</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-your-dev-environment.html">Setting Up Your Development Environment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="devkit-tutorial.html">Anypoint Connector DevKit Tutorial</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-project-structure.html">Connector Project Structure</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="annotation-reference.html">DevKit Java Annotation Reference</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-api-access.html">Setting up API Access</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-connection-strategies.html">Configuring Connection Strategies</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="authentication.html">Supporting Authentication</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="authentication-methods.html">Authentication Methods</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="oauth-v1.html">OAuth V1</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="oauth-v2.html">OAuth V2</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="http-basic-authentication.html">HTTP Basic Authentication</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="connection-management.html">Connection Management</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="no-authentication.html">No Authentication</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="creating-a-java-sdk-based-connector.html">Creating a Java SDK-Based Connector</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="creating-a-connector-using-a-java-sdk.html">Java SDK-Based Connector Example</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="creating-a-soap-connector.html">Creating a SOAP Connector</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="soap-connect-session-management.html">SOAP Session Management</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="creating-a-connector-for-a-soap-service-via-cxf-client.html">Creating a Connector for a SOAP Service Via CXF Client - Legacy</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="connector-attributes-and-operations.html">Adding Connector Functionality</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-message-sources.html">Defining Message Sources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-message-processors.html">Creating Message Processors</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="defining-connector-attributes.html">Defining Connector Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="complex-data-types-attributes.html">Complex Data Types Attributes</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="mime-type-and-encoding.html">MIME Type and Encoding</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="extending-connector-functionality.html">Extending Connector Functionality</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense.html">Adding DataSense</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="multiple-level-datasense-support.html">Multiple Level DataSense Support</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-datasense-query-language.html">Adding DataSense Query Language</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-query-pagination-support.html">Adding Query Pagination Support</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="building-a-batch-enabled-connector.html">Building a Batch Enabled Connector</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="shading-libraries.html">Shading Libraries</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="adding-libraries.html">Adding Libraries or JARs to Connector Build</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="connector-testing-framework.html">Connector Testing Framework</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="installing-and-testing-your-connector-in-studio.html">Installing and Testing Your Connector in Studio</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="connector-reference-documentation.html">Creating Connector Reference Documentation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="packaging-your-connector-for-release.html">Packaging Your Connector for Release</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="connector-certification-program-guidelines.html">Connector Certification Program Guidelines</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="certified-connector-license-management.html">MuleSoft Certified Connector License Management</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Java SDK-Based Connector Example</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/anypoint-connector-devkit-docs/edit/v3.8/modules/ROOT/content/creating-a-connector-using-a-java-sdk.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Java SDK-Based Connector Example</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This example discusses the implementation of an Anypoint Connector for an API exposed through a Java SDK. Follow the process in this document to build a Java SDK-based connector for any service.</p>
+</div>
+<div class="paragraph">
+<p>Java client libraries are in many cases the best option for integrating with a remote service. If the client library is officially supported by the application provider, or even if it is unofficial but widely used, it likely implements best practices for integrating with the application in common use cases.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes familiarity with the Anypoint connector architecture as described in <a href="index.html">Anypoint Connector DevKit</a>. Furthermore, it assumes that you have created a new connector project as described in <a href="creating-an-anypoint-connector-project.html">Creating an Anypoint Connector Project</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sdk-based-connector-architecture"><a class="anchor" href="#sdk-based-connector-architecture"></a>SDK-Based Connector Architecture</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The overall architecture of a SDK-based connector looks like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/java-client-architecture2.png" alt="java_client_architecture2">
+</div>
+</div>
+<div class="paragraph">
+<p>The components of the connector include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>SDK</strong> - The Java SDK that exposes the authentication methods and the supported operations. See section <a href="#adding-an-sdk-to-a-connector-project">Adding an SDK to a Connector Project</a></p>
+</li>
+<li>
+<p><strong>Entity Classes</strong> - Supporting data model entity classes, which typically are defined by the Java SDK</p>
+</li>
+<li>
+<p><strong>@Connector</strong> - The <code>@Connector</code> class that you implement based on the skeleton generated by DevKit<br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In practice, although the Java SDK usually communicates with a RESTful or SOAP-based web service, it encapsulates all the required client logic in Java, and the added work and complexity of building the client layer of the connector. The SDK may also hide non-standard behavior of badly designed web services behind a more manageable Java façade.</p>
+</div>
+<div class="sect2">
+<h3 id="example-connector"><a class="anchor" href="#example-connector"></a>Example Connector</h3>
+<div class="paragraph">
+<p>The example for this discussion is the MuleSoft Twitter connector, which is based on the unofficial but widely used <a href="http://twitter4j.org/">twitter4j</a> client library. The <a href="https://github.com/mulesoft/twitter-connector/">source code for the Twitter Connector on GitHub</a> is available and referenced in the discussion section.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Twitter connector illustrates many aspects of DevKit functionality. The focus of this discussion is on the relationship between the SDK and the <code>@Connector</code> class.</p>
+</div>
+<div class="paragraph">
+<p>For authentication, the Twitter connector implements an interesting hybrid approach, defined in <a href="https://github.com/mulesoft/twitter-connector/blob/develop/src/main/java/org/mule/modules/twitter/TwitterConnector.java"><code>TwitterConnector.java</code></a>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The Twitter4J client library implements its own OAuth support, which the Mule connector leverages</p>
+</li>
+<li>
+<p>Because the connector does not use DevKit&#8217;s OAuth support, it is possible to use DevKit&#8217;s <a href="authentication.html">connection strategies</a>.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-an-sdk-to-a-connector-project"><a class="anchor" href="#adding-an-sdk-to-a-connector-project"></a>Adding an SDK to a Connector Project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Depending upon how your SDK is delivered, you can add it to your project&#8217;s Maven POM file.</p>
+</div>
+<div class="paragraph">
+<p>For example, Twitter4J can be added as a Maven dependency from the central Maven repository as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.twitter4j&lt;/groupId&gt;
+    &lt;artifactId&gt;twitter4j-core&lt;/artifactId&gt;
+    &lt;version&gt;3.0.3&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-the-connector-class"><a class="anchor" href="#defining-the-connector-class"></a>Defining the @Connector Class</h3>
+<div class="paragraph">
+<p>The first step is building the <code>@Connector</code> class basic functionality around connection management and authentication, as indicated in the following sections.</p>
+</div>
+<div class="sect3">
+<h4 id="defining-entity-classes-and-exceptions"><a class="anchor" href="#defining-entity-classes-and-exceptions"></a>Defining Entity Classes and Exceptions</h4>
+<div class="paragraph">
+<p>In general, it is recommended that you define at least two exceptions for your connector: one to indicate connection and authentication-related failures, and another to indicate all other failures – including, for example, an exception for invalid arguments used in an operation. A separate exception package is a suitable place to define these exceptions.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="implementing-authentication-and-connection-management"><a class="anchor" href="#implementing-authentication-and-connection-management"></a>Implementing Authentication and Connection Management</h3>
+<div class="paragraph">
+<p>Authentication is implemented both in the <code>@Connector</code> class and in the SDK. Details of implementing authentication in the <code>@Connector</code> class  depends upon the chosen authentication scheme and on the SDK authentication support.</p>
+</div>
+<div class="paragraph">
+<p>You may add <code>@Configurable</code> properties on the <code>@Connector</code> class as described in <a href="defining-connector-attributes.html">Defining Connector Attributes</a> and take advantage of the connection strategies as described in <a href="connector-connection-strategies.html">Connector Connection Strategies</a>.</p>
+</div>
+<div class="paragraph">
+<p>For instance, you should bind the connection lifecycle of your connector along with your SDK&#8217;s connection mechanisms.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="leveraging-twitter4j-oauth-support"><a class="anchor" href="#leveraging-twitter4j-oauth-support"></a>Leveraging Twitter4J OAuth Support</h3>
+<div class="paragraph">
+<p>If you are employing a natively-supported connection mechanism, you should go with DevKit support. Otherwise, you might employ a hybrid approach, as with Twitter. The Twitter connector implements an interesting hybrid approach, defined in GitHub at <a href="https://github.com/mulesoft/twitter-connector/blob/develop/src/main/java/org/mule/modules/twitter/TwitterConnector.java">TwitterConnector.java</a>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The Twitter4J client library implements its own OAuth support, which the Mule connector leverages.</p>
+</li>
+<li>
+<p>Because the connector does not use DevKit&#8217;s OAuth support, it is possible to use DevKit&#8217;s connection management framework.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Thus, we have a class definition without an <code>@OAuth</code> annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connector(name = "twitter", schemaVersion = "3.1", description = "Twitter Integration",
+  friendlyName = "Twitter", minMuleVersion = "3.6", connectivityTesting = ConnectivityTesting.DISABLED)
+public class TwitterConnector implements MuleContextAware {
+  ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And a <code>@Connect</code> method with a <code>@ConnectionKey</code> set to the OAuth <code>accessKey</code>, and the usual associated <code>@Disconnect</code>, <code>@ValidateConnection</code>, and <code>@ConnectionIdentifier</code> methods.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Connect
+public void connect(@ConnectionKey String accessKey, String accessSecret) throws ConnectionException{
+      ConfigurationBuilder cb = new ConfigurationBuilder();
+      cb.setUseSSL(useSSL);
+      cb.setHttpProxyHost(proxyHost);
+      cb.setHttpProxyPort(proxyPort);
+      cb.setHttpProxyUser(proxyUsername);
+      cb.setHttpProxyPassword(proxyPassword);
+
+      HttpClientHiddenConstructionArgument.setUseMule(true);
+      twitter = new TwitterFactory(cb.build()).getInstance();
+
+      twitter.setOAuthConsumer(consumerKey, consumerSecret);
+      if (accessKey != null) {
+          twitter.setOAuthAccessToken(new AccessToken(accessKey, accessSecret));
+          setAccessToken(accessKey);
+          setAccessTokenSecret(accessSecret);
+      }
+  }
+  ...
+
+  @Disconnect
+  public void disconnect() {
+      twitter = null;
+  }
+
+  @ValidateConnection
+  public boolean validateConnection() {
+      return twitter != null;
+  }
+
+  @ConnectionIdentifier
+  public String getConnectionIdentifier() {
+      return getAccessToken() + "-" + getAccessTokenSecret();
+  }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On the other hand, we have a series of <code>@Processor</code> methods that implement OAuth-related functionality, like getting and managing an access token by calling functions exposed by class <code>twitter4j.Twitter</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">/**
+ * Set the OAuth verifier after it has been retrieved via requestAuthorization.
+ * The resulting access tokens log to the INFO level so the user can
+ * reuse them as part of the configuration in the future if desired.
+ * &lt;p/&gt;
+ * {@sample.xml ../../../doc/twitter-connector.xml.sample twitter:setOauthVerifier}
+ *
+ *
+ * @param requestToken request token from Twitter
+ * @param oauthVerifier The OAuth verifier code from Twitter.
+ * @return Twitter AccessToken info.
+ * @throws TwitterException when Twitter service or network is unavailable
+ */
+@Processor
+public AccessToken setOauthVerifier(@Optional RequestToken requestToken, String oauthVerifier) throws TwitterException {
+    AccessToken accessToken;
+    if (requestToken != null) {
+        accessToken = twitter.getOAuthAccessToken(requestToken, oauthVerifier);
+    }
+    else {
+        accessToken = twitter.getOAuthAccessToken(oauthVerifier);
+    }
+
+    logger.info("Got OAuth access tokens. Access token:" + accessToken.getToken()
+            + " Access token secret:" + accessToken.getTokenSecret());
+
+    return accessToken;
+}
+
+/**
+ * Start the OAuth request authorization process.
+ */
+
+@Processor
+  public RequestToken requestAuthorization(@Optional String callbackUrl) throws TwitterException {
+      RequestToken token = twitter.getOAuthRequestToken(callbackUrl);
+      return token;
+  }
+
+  ...
+ public String getAccessToken() {
+      return accessToken;
+  }
+  public void setAccessToken(String accessToken) {
+      this.accessToken = accessToken;
+  }
+
+  public String getAccessTokenSecret() {
+      return accessTokenSecret;
+  }
+
+  public void setAccessTokenSecret(String accessTokenSecret) {
+      this.accessTokenSecret = accessTokenSecret;
+  }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And the @Processor methods that actually call Twitter operations do not use the @OAuthProtected annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Processor
+  public User showUser() throws TwitterException {
+      return twitter.showUser(twitter.getId());
+  }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can dig into this code and use a similar implementation pattern if you are working with a client library that provides its own OAuth support.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-an-operation-to-the-connector-class"><a class="anchor" href="#adding-an-operation-to-the-connector-class"></a>Adding an Operation to the @Connector Class</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At this point you can start adding operations to the connector.</p>
+</div>
+<div class="paragraph">
+<p>With a SDK, the steps to add an operation include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Importing any Java entity SDK-classes used as parameters or return value by the operation, as well as any exceptions the client library may raise</p>
+</li>
+<li>
+<p>Adding a <code>@Processor</code> method on the <code>@Connector</code> class, that calls an operation on the client instance</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Depending on your specific client class, you may need to add authentication functionality in the operation methods to handle authentication.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Apply a Test-Driven Approach</strong></p>
+</div>
+<div class="paragraph">
+<p>Based on MuleSoft experience, most successful connector implementation projects follow a cycle similar to test-driven development when building operations on a connector:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Determine detailed requirements for the operation – entities (POJOs or Maps with specific content) that it can accept as input or return as responses; any edge cases like invalid values, values of the wrong type, and so on; and what exceptions the operation may raise</p>
+</li>
+<li>
+<p>Implement JUnit tests that cover those requirements</p>
+</li>
+<li>
+<p>Implement enough of your operation to pass those tests, including creating new entity classes and exceptions</p>
+</li>
+<li>
+<p>Update your <code>@Connector</code> class and other code with the comments that populate the Javadoc related to the operation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Iterate until you cover all the scenarios covered in your requirements for a given operation. Then use the same cycle to implement each operation, until your connector functionality is complete.</p>
+</div>
+<div class="paragraph">
+<p>If your SDK is well-documented, the expected behaviors for operations should be clear, and you may be able to get away with less unit testing for edge cases and certain exceptional situations – but bear in mind that your connector is only as reliable as the SDK you based it on.</p>
+</div>
+<div class="paragraph">
+<p>You may ask, "When do I try my connector in Studio?" It is useful, as well as gratifying, to manually test each operation as you go, in addition to the automated JUnit tests. Testing each operation allows you to</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>See basic operation functionality in action as you work on it, which gives you a sense of progress</p>
+</li>
+<li>
+<p>See how the connector appears in the Studio UI, something the automated unit tests cannot show you. For example, text from the Javadoc comments is used to populate tooltips for the fields in the dialog boxes in the connector</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Manual testing provides the opportunity to polish the appearance of the connector, improve the experience with sensible defaults, and so on.</p>
+</div>
+<div class="paragraph">
+<p>However, this does not diminish the value of the test-driven approach. Many connector development projects have bogged down or produced hard-to-use connectors because of a failure to define tests as you define the operations, which it seems like (and is) more work up front, but does pay off – you get a better result, faster.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="implementing-operations"><a class="anchor" href="#implementing-operations"></a>Implementing Operations</h3>
+<div class="paragraph">
+<p>The Twitter connector implements a rich set of operations; some of the simpler ones are as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">/**
+ * Returns a single status, specified by the id parameter below. The status's
+ * author returns inline. &lt;br&gt;
+ * This method calls http://api.twitter.com/1.1/statuses/show
+ * &lt;p/&gt;
+ * {@sample.xml ../../../doc/twitter-connector.xml.sample twitter:showStatus}
+ *
+ * @param id the numerical ID of the status you're trying to retrieve
+ * @return a single {@link Status}
+ * @throws twitter4j.TwitterException when Twitter service or network is unavailable
+ * @see &lt;a href="http://dev.twitter.com/doc/get/statuses/show/:id"&gt;GET
+ *      statuses/show/:id | dev.twitter.com&lt;/a&gt;
+ */
+@Processor
+public Status showStatus(long id) throws TwitterException {
+    return twitter.showStatus(id);
+}
+
+/**
+ * Answers user information for the authenticated user
+ * &lt;p/&gt;
+ * {@sample.xml ../../../doc/twitter-connector.xml.sample twitter:showUser}
+ *
+ * @return a {@link User} object
+ * @throws TwitterException when Twitter service or network is unavailable
+ */
+@Processor
+public User showUser() throws TwitterException {
+    return twitter.showUser(twitter.getId());
+}
+
+/**
+ * Search for places that can be attached to a statuses/update. Given a latitude
+ * and a longitude pair, or an IP address, this request returns a list of
+ * all valid places that can be used as the place_id when updating a status.
+ * &lt;p/&gt;
+ * {@sample.xml ../../../doc/twitter-connector.xml.sample twitter:searchPlaces}
+ *
+ * @param latitude  latitude coordinate. Mandatory if no IP address is specified.
+ * @param longitude longitude coordinate.
+ * @param ip        the IP. Mandatory if no coordinates are specified.
+ * @return a {@link ResponseList} of {@link Place}
+ * @throws TwitterException when Twitter service or network is unavailable
+ */
+@Processor
+public ResponseList&lt;Place&gt;
+  searchPlaces(@Placement(group = "Coordinates") @Optional Double latitude,
+               @Placement(group = "Coordinates") @Optional Double longitude,
+               @Optional String ip) throws TwitterException {
+    return twitter.searchPlaces(createQuery(latitude, longitude, ip));
+}
+
+private GeoQuery createQuery(Double latitude, Double longitude, String ip) {
+    if (ip == null) {
+        return new GeoQuery(new GeoLocation(latitude, longitude));
+    }
+    return new GeoQuery(ip);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Notes</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All of these operations call methods on the client instance stored in the <code>twitter</code> property.</p>
+</li>
+<li>
+<p>Annotations like @Optional, @Default, and @Placement are widely used to improve the configuration behavior of the connector and its appearance in Studio.</p>
+</li>
+<li>
+<p>Because the authentication is all handled by the Java client and a few methods in the @Connector class noted above, no authentication-related code is included in the @Processor methods.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-javadoc-and-samples-for-operations"><a class="anchor" href="#creating-javadoc-and-samples-for-operations"></a>Creating JavaDoc and Samples for Operations</h3>
+<div class="paragraph">
+<p>The JavaDoc for each operation includes a pointer to the sample code file:</p>
+</div>
+<div class="paragraph">
+<p><code>../../../doc/twitter-connector.xml.sample</code></p>
+</div>
+<div class="paragraph">
+<p>As well as the usual <code>@param</code> and <code>@return</code> comments, DevKit enforces the inclusion of these code samples, and checks the samples you provide against the parameters defined for those operations. See <a href="connector-reference-documentation.html">Connector Reference Documentation</a> for details on creating the required documentation for each of your operations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-unit-tests-for-operations"><a class="anchor" href="#creating-unit-tests-for-operations"></a>Creating Unit Tests for Operations</h3>
+<div class="paragraph">
+<p>As you define each operation, you should create the unit tests that utilize it. The generated project skeleton created by the DevKit Maven archetype includes a unit test suite directory under <code>./src/test</code>. DevKit defines a unit test framework based on JUnit.</p>
+</div>
+<div class="paragraph">
+<p>For details on creating unit tests, see <a href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="next-steps"><a class="anchor" href="#next-steps"></a>Next Steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are merely reviewing the different connector implementation types, you can return to <a href="connector-attributes-and-operations.html">Connector Attributes and Operations</a> and <a href="connector-attributes-and-operations.html#static-versus-dynamic-data-models">Data Models</a> to review connector implementations that communicate directly with SOAP and RESTful Web services without using a pre-built SDK.</p>
+</div>
+<div class="paragraph">
+<p>Once you have implemented your connector with its operations, as well as created some documentation and a test suite, you can:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Return to the <a href="index.html#development-steps">DevKit Development Steps</a> to continue the development process described there</p>
+</li>
+<li>
+<p>Build out the test suite to improve coverage, based on information in <a href="developing-devkit-connector-tests.html">Developing DevKit Connector Tests</a></p>
+</li>
+<li>
+<p>Build out the documentation examples to show more samples, based on information in <a href="connector-reference-documentation.html">Connector Reference Documentation</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/mule-management-console/3.4/persisting-mmc-3.4.2-data-to-postgresql.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Persisting MMC 3.4.2 Data to PostgreSQL // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Mule Management Console</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-the-trial-version-of-mmc.html">Installing the Trial Version of MMC</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-the-production-version-of-mmc.html">Installing the Production Version of MMC</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="upgrading-the-management-console.html">Upgrading the Management Console</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="installing-or-upgrading-mule-management-console-3.4.2.html">Installing or Upgrading Mule Management Console 3.4.2</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="upgrading-to-mmc-3.4.2-with-an-external-database.html">Upgrading to MMC 3.4.2 with an External Database</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="upgrading-to-mmc-3.4.2-with-ldap.html">Upgrading to MMC 3.4.2 with LDAP</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="upgrading-from-mmc-3.4.1-for-ms-sql-server-to-mmc-3.4.2-for-ms-sql-server.html">Upgrading from MMC 3.4.1 for MS-SQL Server to MMC 3.4.2 for MS-SQL Server</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="orientation-to-the-console.html">Orientation to the Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mmc-walkthrough.html">MMC Walkthrough</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="setting-up-mmc.html">Setting Up MMC</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="setting-up-mmc-mule-esb-communications.html">Setting Up MMC-Mule ESB Communications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="persisting-mmc-data-on-external-databases.html">Persisting MMC Data On External Databases</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-oracle.html">Persisting MMC Data to Oracle</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-postgresql.html">Persisting MMC Data to PostgreSQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-mysql.html">Persisting MMC Data to MySQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-data-to-ms-sql-server.html">Persisting MMC Data to MS SQL Server</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="persisting-mmc-data-on-external-databases-in-mmc-3.4.2.html">Persisting MMC Data On External Databases in MMC 3.4.2</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="configuring-mmc-3.4.2-for-external-databases-quick-reference.html">Configuring MMC 3.4.2 for External Databases - Quick Reference</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-postgresql.html">Persisting MMC 3.4.2 Data to PostgreSQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-mysql.html">Persisting MMC 3.4.2 Data to MySQL</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-oracle.html">Persisting MMC 3.4.2 Data to Oracle</a>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="persisting-mmc-3.4.2-data-to-ms-sql-server.html">Persisting MMC 3.4.2 Data to MS SQL Server</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="encrypting-the-mmc-tracking-database-password.html">Encrypting the MMC Tracking Database Password</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="encrypting-ldap-and-database-passwords-in-mmc-3.4.2.html">Encrypting LDAP and Database Passwords in MMC 3.4.2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="managing-mmc-users-and-roles.html">Managing MMC Users and Roles</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-in-mmc.html">Setting Up and Managing Users in MMC</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="encrypting-mmc-user-passwords.html">Encrypting MMC User Passwords</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                          <button class="nav-tgl"></button>
+                                        <a class="nav-lnk" href="setting-up-and-managing-users-via-ldap.html">Setting Up and Managing Users via LDAP</a>
+                                          <ul class="nav-lst">
+                                              <li class="nav-itm" data-depth="4" data-state="collapsed">
+                                                <a class="nav-lnk" href="encrypting-the-mmc-ldap-password.html">Encrypting the MMC LDAP Password</a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="architecture-of-the-mule-management-console.html">Architecture of the Mule Management Console</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-mule-servers-clusters-and-groups.html">Managing Mule Servers Clusters and Groups</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-alerts.html">Viewing Server Alerts</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-system-memory.html">Viewing System Memory</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-threads.html">Viewing Threads</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-pools.html">Viewing Server Pools</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="working-with-the-server-configuration-files.html">Working with the Server Configuration Files</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-properties.html">Viewing Server Properties</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-server-os-resources.html">Viewing Server OS Resources</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="viewing-jmx-information.html">Viewing JMX Information</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="editing-server-settings.html">Editing Server Settings</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="customizing-server-metrics-dashboard.html">Customizing Server Metrics Dashboard</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="troubleshooting-tips.html">Troubleshooting Tips</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="monitoring-and-debugging-applications.html">Monitoring and Debugging Applications</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-flows.html">Tracking Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="analyzing-message-flows.html">Analyzing Message Flows</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-message-processing.html">Debugging Message Processing</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="debugging-the-loan-broker-example-application.html">Debugging the Loan Broker Example Application</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="adding-and-managing-alerts-and-slas.html">Adding and Managing Alerts and SLAs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="defining-slas-and-alerts.html">Defining SLAs and Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="setting-up-alert-destinations-and-notifications.html">Setting Up Alert Destinations and Notifications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="analyzing-business-events.html">Analyzing Business Events</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tracking-and-querying-business-events.html">Tracking and Querying Business Events</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="business-events-use-cases.html">Business Events Use Cases</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="managing-mule-high-availability-ha-clusters.html">Managing Mule High Availability (HA) Clusters</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="configuring-mule-ha-clustering.html">Configuring Mule HA Clustering</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="creating-or-disbanding-a-cluster.html">Creating or Disbanding a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="deploying-redeploying-or-undeploying-an-application-to-or-from-a-cluster.html">Deploying, Redeploying, or Undeploying an Application To or From a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="dynamically-adding-or-removing-nodes-in-a-cluster.html">Dynamically Adding or Removing Nodes in a Cluster</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="monitoring-a-cluster.html">Monitoring a Cluster</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="accessing-server-logs.html">Accessing Server Logs</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="audit-logs.html">Audit Logs</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="automating-tasks-using-scripts.html">Automating Tasks Using Scripts</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="customizing-the-dashboard.html">Customizing the Dashboard</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-management-console-for-performance-tuning.html">Using the Management Console for Performance Tuning</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-flows.html">Working with Flows</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="maintaining-the-server-application-repository.html">Maintaining the Server Application Repository</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="analyzing-flow-processing-and-payloads.html">Analyzing Flow Processing and Payloads</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-management-console-api.html">Using the Management Console API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="rest-api-reference.html">REST API Reference</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="clusters.html">Clusters</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="deployments.html">Deployments</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="repository-of-applications.html">Repository of Applications</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="server-groups.html">Server Groups</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="servers.html">Servers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="user-groups.html">User Groups</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Persisting MMC 3.4.2 Data to PostgreSQL</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/mule-management-console-docs/edit/v3.4/modules/ROOT/content/persisting-mmc-3.4.2-data-to-postgresql.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Persisting MMC 3.4.2 Data to PostgreSQL</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong><em>*MMC Version 3.4.2 and Later*</em></strong></p>
+</div>
+<div class="paragraph">
+<p>This document will cover how to persist environment and transaction data to PostgreSQL databases. Follow the instructions to <a href="#postgresql-installation">PostgreSQL Installation</a>, then follow the specific instructions for environment data or transaction data persistence to set up your user, create your database, and configure your MMC instance to persist your data.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Remember that <strong>environment data and transaction data must exist in two separate databases</strong> (regardless of whether they are on the same server or use the same platform).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Jump to:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Persisting Environment Data to PostgreSQL</strong></p>
+</li>
+<li>
+<p><strong>Persisting Transaction Data to PostgreSQL</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assumptions"><a class="anchor" href="#assumptions"></a>Assumptions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document assumes that you have an understanding of the <a href="setting-up-mmc.html">data persistence options</a> for environment and transaction data and that you are familiar with the basic <a href="architecture-of-the-mule-management-console.html">Architecture of the Mule Management Console</a>. It also assumes that you have installed:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>MMC Version 3.4.2</strong>. Download it from the <a href="http://www.mulesoft.com/support-login">customer portal</a> if you need to upgrade to this version.</p>
+</li>
+<li>
+<p><strong>a</strong> <strong>Web application server such as Tcat, Tomcat, or JBoss</strong>. Please refer to the <a href="../../mule-runtime/3.4/install/hardware-and-software-requirements.html">Hardware and Software Requirements</a> for the latest information about hardware requirements and supported application servers, Java Runtime Environments, and browsers.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For practical purposes, this document mentions Tomcat as the servlet container; however, the instructions contained here apply also to Tcat or JBoss. If you are using Tcat or JBoss, make sure to unpack the Management Console .war file in the appropriate directory. For additional information, see <a href="installing-the-production-version-of-mmc.html">Installing the Production Version of MMC</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In this document, <code>&lt;MMC_HOME&gt;</code> refers to the directory where MMC is installed.</p>
+</div>
+<div class="paragraph">
+<p>If you are using the trial version, this is <code>&lt;Mule install path&gt;/mmc/webapps/mmc.</code> For example <code>/opt/mule/mule-enterprise-3.4.1/mmc/webapps/mmc</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you are using an application server such as Tomcat, this should be similar to <code>&lt;Tomcat root&gt;/webapps/mmc-console-3.4.1.</code> For example <code>/var/lib/tomcat6/webapps/mmc-console-3.4.1</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="postgresql-installation"><a class="anchor" href="#postgresql-installation"></a>PostgreSQL Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The PostgreSQL installation outlined here is basic: the database server is installed on the local machine and listening on the default port, with security deactivated (unsecured connection to the database by the database owner).</p>
+</div>
+<div class="sect2">
+<h3 id="tools"><a class="anchor" href="#tools"></a>Tools</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>PostgreSQL 9.1.3 (<a href="http://www.enterprisedb.com/products-services-training/pgdownload">Download</a>)</p>
+</li>
+<li>
+<p>pgAdmin III (select it when installing Postgres)</p>
+</li>
+<li>
+<p>PostgresSQL driver, included with the MMC installation. See the Database Driver section for details</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installing-the-database"><a class="anchor" href="#installing-the-database"></a>Installing the Database</h3>
+<div class="paragraph">
+<p>The easiest way to install the database is by using the Enterprise One-Click installer, which is freely available for <a href="http://www.enterprisedb.com/products-services-training/pgdownload">download</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You need administrator privileges on your machine for the installation to proceed.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For further details, refer to the <a href="http://www.enterprisedb.com/resources-community/tutorials-quickstarts">quick Postgres tutorials for Linux, Mac OS X and Windows</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Version 9.1 installs with the following default values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Default port: <code>5432</code></p>
+</li>
+<li>
+<p>Default admin user: <code>postgres</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Mule recommends installing one of Postgres’s GUI administration utilities, such as <code>phpPdAdmin</code> (Web-based) or <code>pgAdmin III</code>. These can be selected for installation during the Postgres installation process. In this document, we will use <code>pgAdmin III</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-up-the-database-listener"><a class="anchor" href="#setting-up-the-database-listener"></a>Setting Up the Database Listener</h3>
+<div class="paragraph">
+<p>Locate the file <code>postgresql.conf</code>, which is under the root directory of the Postgres installation, for example in <code>/opt/PostgreSQL/9.1/data</code> or <code>/opt/PostgreSQL/9.1/main</code>.</p>
+</div>
+<div class="paragraph">
+<p>Open the <code>postgresql.conf</code> file for editing, then go to the "Connections and Authentication" section. Locate the line that begins with:` listen_addresses =` . If the line reads:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">listen_addresses = 'localhost'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then modify it to read as below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">listen_addresses = '*'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will make PostgreSQL listen on all of the available interfaces.</p>
+</div>
+<div class="paragraph">
+<p>Locate the file <code>pg_hba.conf</code>, which should be in the same data directory of the Postgres installation. In this file, find the line that begins with:` host all`. It will probably look similar to the following.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">host    all             all             127.0.0.1/32            md5</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Modify it as per below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">host    all             all             0.0.0.0/0       trust</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This ensures that Postgres accepts all attempts to connect from any host, without asking for an encrypted password. After testing the database connection, you may wish to modify this file to restrict connections according to the security needs of your site.</p>
+</div>
+<div class="paragraph">
+<p>(For a detailed description of the <code>pg_hba.conf</code> file, see the <a href="http://developer.postgresql.org/pgdocs/postgres/auth-pg-hba-conf.html">online documentation</a>.)</p>
+</div>
+<div class="paragraph">
+<p>After setting up the listener, the database must be restarted. To do this, open a terminal window (Unix terminal or DOS prompt) and use the <code>pg_ctl</code> command as described below.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To <strong>restart</strong> the PostgreSQL server, run: <code>pg_ctl restart</code></p>
+</li>
+<li>
+<p>To <strong>verify the state</strong> of the PostgreSQL server, run: <code>pg_ctl status</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Run pg_ctl on Unix</p>
+</div>
+<div class="paragraph">
+<p>The <code>pg_ctl</code> command can usually be run by any user on the system, but its location is not contained in users' PATH environment variable, so attempting to run it will cause the shell to return a <code>command not found</code> error. To run the command, proceed in one of two ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Locate the <code>pg_ctl</code> binary on your system, and run it by specifying the full path to it. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/usr/lib/postgresql/9.1/bin/pg_ctl</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the full path of the binary to your PATH environment variable, for example with the command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">export PATH=$PATH:/usr/lib/postgresql/9.1/bin/</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Then just run <code>pg_ctl</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When running <code>pg_ctl status</code>, you may get the following output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">pg_ctl: no database directory specified and environment variable PGDATA unset
+Try "pg_ctl --help" for more information.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In that case, issue the command with the following options: <code>pg_ctl status -D &lt;Postgres data directory&gt;</code>, as shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">pg_ctl status -D /opt/PostgreSQL/9.1/data</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The same is valid for the <code>restart</code> option of the <code>pg_ctl</code> command. For example, to restart the PostgreSQL server:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">pg_ctl restart -D /opt/PostgreSQL/9.1/data</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The next step is to create the database user. Follow the relevant setup instructions below, depending on whether you are setting up a database for environment data or transaction data.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="persisting-environment-data"><a class="anchor" href="#persisting-environment-data"></a>Persisting Environment Data</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To set up PostgreSQL to persist your MMC environment data, you need to complete four steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create the database user</p>
+</li>
+<li>
+<p>Create the database</p>
+</li>
+<li>
+<p>Verify the database</p>
+</li>
+<li>
+<p>Set up MMC</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="creating-the-database-user"><a class="anchor" href="#creating-the-database-user"></a>Creating the Database User</h3>
+<div class="paragraph">
+<p>We will create a new database user, with the following parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Role name: <code>mmc_status</code></p>
+</li>
+<li>
+<p>Password: <code>mmc123</code></p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="using-pgadmin-iii"><a class="anchor" href="#using-pgadmin-iii"></a>Using pgAdmin III</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log in to the database server as role <code>postgres</code>: <br></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>In pgAdmin III&#8217;s object browser (on the right-hand pane), right-click server <strong>PostgreSQL</strong> on <strong>localhost</strong>, then select <strong>Connect</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>On the <strong>Object Browser,</strong> right-click <strong>Login Roles</strong>, then select <strong>New Login Role</strong>.</p>
+</li>
+<li>
+<p>At the <strong>New Login Role</strong> dialog box, type <code>mmc_status</code> in the <strong>Role name</strong> field.</p>
+</li>
+<li>
+<p>Go to the <strong>Definition</strong> tab in the dialog box, and type the password <code>mmc123</code> in both <strong>Password</strong> fields.</p>
+</li>
+<li>
+<p>Click <strong>OK</strong> to close the <strong>New Login Role</strong> dialog box.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-the-new-database"><a class="anchor" href="#creating-the-new-database"></a>Creating the New Database</h3>
+<div class="paragraph">
+<p>We will create a database called <code>mmc_persistency_status</code>, owned by role <code>mmc_status.</code></p>
+</div>
+<div class="sect3">
+<h4 id="using-pgadmin-iii-2"><a class="anchor" href="#using-pgadmin-iii-2"></a>Using pgAdmin III:</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Using the Object Browser, navigate to <strong>Databases</strong> &gt; <strong>New Database</strong>.</p>
+</li>
+<li>
+<p>In the dialog box, type <code>mmc_persistency_status</code> in the <strong>Name</strong> field.</p>
+</li>
+<li>
+<p>In the <strong>Owner</strong> field, select <code>mmc_status.</code></p>
+</li>
+<li>
+<p>In the <strong>Definition</strong> tab, ensure that <strong>Encoding</strong> is set to <code>UTF8</code>.</p>
+</li>
+<li>
+<p>Click <strong>OK</strong> to close the New Database dialog box.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="verifying-the-new-database"><a class="anchor" href="#verifying-the-new-database"></a>Verifying the New Database</h3>
+<div class="paragraph">
+<p>Use PostgreSQL’s <code>psql</code> command-line utility to log in to database <code>mmc_persistency_status</code> as user <code>mmc_status</code>. To do this, open a terminal and run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">psql postgres –Ummc_status</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you run this command, <code>psql</code> should prompt for the user’s password. After typing it, you should get a prompt similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">mmc_persistency_status=#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This indicates that you have successfully connected to the <code>mmc_persistency_status</code> database as user <code>mmc_status</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you can&#8217;t login using the psql command</p>
+</div>
+<div class="paragraph">
+<p>Depending on you PostgreSQL configuration, you may get the following error when trying to connect to the database:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">psql: FATAL:  Peer authentication failed for user "mmc_status"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This probably means that PostgreSQL is configured to accept connections for the specified user only if the operating system first authenticates that user. So, for example, to connect as user <code>mmc_status</code>, you would have to create a Unix account called <code>mmc_status</code> and run <code>psql</code> from that account.</p>
+</div>
+<div class="paragraph">
+<p>If you do not desire this configuration, check for the following line in the PostgreSQL configuration file <code>pg_hba.conf</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">local   all             all                                     peer</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the line exists, modify it as per below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">local   all             all                                     trust</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>An example of the full login command and output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">mitra:/opt/PostgreSQL/9.1/bin$ ./psql mmc_persistency_status -Ummc_status
+Password for user mmc_status:
+psql.bin (9.1.3)
+Type "help" for help.
+mmc_persistency_status=#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To exit psql, type <code>\q</code>, then press <strong>Enter</strong>.</p>
+</div>
+<div class="sect3">
+<h4 id="creating-the-tables"><a class="anchor" href="#creating-the-tables"></a>Creating the Tables</h4>
+<div class="paragraph">
+<p>On the first run, JCR will automatically create all the tables needed to store persistent MMC information. However, you have to manually create some tables that store Quartz job info; otherwise at some point the following error will occur:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">ERROR: relation "qrtz_locks" does not exist
+  Position: 15 [See nested exception: org.postgresql.util.PSQLException: ERROR: relation "qrtz_locks" does not exist
+  Position: 15]]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create and insert the tables:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the directory <code>&lt;Mule install path&gt;/apps/mmc/webapps/mmc/WEB-INF/classes/quartz</code>.</p>
+</li>
+<li>
+<p>Execute the <code>tables_postgres.sql</code> script on the target database <code>mmc_persistency_status</code>. One way to do this is by running the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">psql –d mmc_persistency_status –Ummc_status –f tables_postgres.sql</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If necessary, in the above command specify <code>&lt;full path&gt;/tables_postgres.sql</code>.</p>
+</div>
+<div class="paragraph">
+<p>At this point, the Postgres database should be completely defined, as shown below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./_images/postgres-db.png" alt="postgres_db">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-up-mmc-to-use-postgresql-for-persisting-environment-data"><a class="anchor" href="#setting-up-mmc-to-use-postgresql-for-persisting-environment-data"></a>Setting Up MMC to Use PostgreSQL for Persisting Environment Data</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In this section, <code>&lt;MMC_HOME&gt;</code> refers to the directory where MMC is installed.</p>
+</div>
+<div class="paragraph">
+<p>If you are using the trial version, this will be <code>&lt;Mule install path&gt;/mmc/webapps/mmc.</code> For example: <code>/opt/mule/mule-enterprise-3.4.1/mmc/webapps/mmc</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you are using an application server such as Tomcat, this will be similar to <code>&lt;Tomcat root&gt;/webapps/mmc-console-3.4.1.</code> For example: <code>/var/lib/tomcat6/webapps/mmc-console-3.4.1</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="database-driver"><a class="anchor" href="#database-driver"></a>Database Driver</h4>
+<div class="paragraph">
+<p>To check whether your MMC installation has the PostgreSQL driver installed, go to the directory <code>&lt;MMC_HOME&gt;/WEB-INF/lib</code>, and look for a file called <code>&lt;postgresql-&lt;version&gt;.jdbc&lt;version&gt;.jar</code>, for example <code>postgresql-9.1-901.jdbc3.jar</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you do not have such a file, the driver is not installed and you will need to install it. If you do have this file, you may wish to check that it is the latest version, and update it if necessary. Both actions are explained below.</p>
+</div>
+<div class="sect4">
+<h5 id="installing-or-updating-the-postgresql-jdbc-driver"><a class="anchor" href="#installing-or-updating-the-postgresql-jdbc-driver"></a>Installing or Updating the PostgreSQL JDBC Driver</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to the PostgresSQL driver <a href="http://jdbc.postgresql.org/download.html#current">download site</a> and download the .jar file for the latest version. For example, <code>postgresql-9.3-1100.jdbc41.jar</code>.</p>
+</li>
+<li>
+<p>Ensure that MMC is not running.</p>
+</li>
+<li>
+<p>Copy the .jar file to the directory <code>&lt;MMC_HOME&gt;/WEB-INF/lib</code>.</p>
+</li>
+<li>
+<p>If the directory contains a previous version of the driver, delete it.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mmc-configuration"><a class="anchor" href="#mmc-configuration"></a>MMC Configuration</h4>
+<div class="paragraph">
+<p>Configuring MMC to store data on a PostgreSQL databse involves two basic tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Modifying the file <code>web.xml</code> to tell MMC to use Postgres instead of its default database</p>
+</li>
+<li>
+<p>Modifying the file <code>mmc-postgres.properties</code> to set the parameters for connecting to the Postgres database</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="modifying-code-web-xml-code"><a class="anchor" href="#modifying-code-web-xml-code"></a>Modifying <code>web.xml</code></h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the directory <code>&lt;MMC_HOME&gt;/WEB-INF</code>, locate the file <code>web.xml</code>, then open it for editing.</p>
+</li>
+<li>
+<p>Locate the <code>spring.profiles.active</code> section, shown below.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;context-param&gt;
+&lt;param-name&gt;spring.profiles.active&lt;/param-name&gt;
+&lt;param-value&gt;tracking-h2,env-derby&lt;/param-value&gt;
+&lt;/context-param&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Delete the string <code>env-derby</code>, then replace it with <code>env-postgres</code>, as shown below.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;context-param&gt;
+&lt;param-name&gt;spring.profiles.active&lt;/param-name&gt;
+&lt;param-value&gt;tracking-h2,env-postgres&lt;/param-value&gt;
+&lt;/context-param&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you are also planning to persist transaction data to PostgreSQL, delete the string <code>tracking-h2</code> and replace it with <code>tracking-postgres</code>.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <code>spring.profiles.active</code> section in the <code>web.xml</code> configuration file allows you to define what external databases are used for storing environment and/or tracking data. For a quick instructions for all supported database servers, see <a href="configuring-mmc-3.4.2-for-external-databases-quick-reference.html">Configuring MMC 3.4.2 for External Databases - Quick Reference</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="modifying-code-mmc-postgres-properties-code"><a class="anchor" href="#modifying-code-mmc-postgres-properties-code"></a>Modifying <code>mmc-postgres.properties</code></h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the directory <code>&lt;MMC_HOME&gt;/WEB-INF/classes/META-INF/databases</code>, locate the file <code>mmc-postgres.properties</code>, then open it for editing.</p>
+</li>
+<li>
+<p>The table below lists the settings contained in the file. Modify the values as needed. In general, the only values that you should need to modify are <code>env.username</code>, <code>env.password</code>, <code>env.host</code>, <code>env.port</code> and <code>env.dbschema</code>.</p>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env.driver</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Driver to use for connecting to the database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.postgresql.Driver</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env.script</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Script to use for creating the tables in the target database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>postgres</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env.username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc_status</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env.password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the database user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc123</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env.host</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hostname or IP address where the database server is listening</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>localhost</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env.port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port where the database server is listening</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>5432</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env.url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL for connecting to the database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>jdbc:postgresql://${env.host}:${env.port}/${env.dbschema}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env.dbschema</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database to connect to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc_persistency_status</code></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Save the file with your modifications, if any.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="removing-local-database-files"><a class="anchor" href="#removing-local-database-files"></a>Removing Local Database Files</h3>
+<div class="paragraph">
+<p>For the configuration changes to take effect, before launching MMC you need to delete the local database files that MMC uses by default.</p>
+</div>
+<div class="paragraph">
+<p>In the root directory of your Web application server, locate the <code>mmc-data</code> directory (for example, <code>/var/lib/tomcat6/mmc-data</code>), then delete the <code>mmc-data</code> directory.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Before you delete <code>mmc-data</code>, make a backup copy of this directory and store it in a safe location. If anything goes wrong with your new database configuration, you can use <code>mmc-data</code> to restore the old database configuration while you troubleshoot your new database config in a test environment.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>At this point, MMC, is configured to store environment data on the external Postgres database that you specified.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="disaster-recovery-of-environment-data"><a class="anchor" href="#disaster-recovery-of-environment-data"></a>Disaster Recovery of Environment Data</h3>
+<div class="paragraph">
+<p>Out of the box, MMC stores persistent state data in the folder <code>mmc-data</code>, which is at ` &lt;Mule install path&gt;/.mule/mmc` (if running the trial version) or <code>&lt;MULE_HOME&gt;/mmc-data</code> if using an application server.  If for some reason database files become corrupted, you’ll probably have to delete <code>mmc-data</code> and start from scratch, unless you have a backup copy of <code>mmc-data</code>. But having a backup copy of <code>mmc-data</code> does not cover a catastrophic failure with complete data loss on the MMC host itself, nor does it allow for an active-passive configuration for immediate recovery.</p>
+</div>
+<div class="paragraph">
+<p>One possible solution is to backup the database to a single file, which can then be copied to another machine. If the need for immediate recovery arises, this file can be used to restore the database to its original state.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When you restore MMC to a previous state, be aware of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You are restoring MMC state data. This is not related to the persistence of Business Events, which use a completely different mechanism to store data.</p>
+</li>
+<li>
+<p>Registered servers at the time of the backup are restored, which means that one of the following situations may arise:<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>A server is paired to another Mule instance. In this case, “unpair” the server through MMC, then re-pair it. This can affect deployments and server groups.</p>
+</li>
+<li>
+<p>A server does not exist anymore. Unpair the server.</p>
+</li>
+<li>
+<p>Another server is using the same IP and port as the original server. Try to identify the original server’s current IP and port, then re-pair.</p>
+</li>
+<li>
+<p>A server is correctly connected, but after the backup, deployed and/or undeployed apps are not shown or are shown incorrectly. Undeploy/Redeploy as needed to eliminate the unreconciled state.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="scenario"><a class="anchor" href="#scenario"></a>Scenario</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Database server: <code>PostgreSQL 9.1</code></p>
+</li>
+<li>
+<p>MMC is connected to Postgres</p>
+</li>
+<li>
+<p>A database is already created. For this example the following parameters will be used:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Role: <code>mmc_status</code> (with same permissions as the "postgres" role)</p>
+</li>
+<li>
+<p>Database name: <code>mmc.test</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Encoding: <code>UTF8</code></p>
+</li>
+<li>
+<p>Owner: <code>mmc_status</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tool to access database: <code>pgAdmin III</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="backing-up-the-database"><a class="anchor" href="#backing-up-the-database"></a>Backing up the Database</h4>
+<div class="paragraph">
+<p>To backup the <code>mmc.test</code> database, complete the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Login to pgAdmin III as admin (role <code>postgres</code>).</p>
+</li>
+<li>
+<p>On the object browser on the left-hand pane, go to <strong>Server Groups</strong> &gt; <strong>PostgreSQL 9.1</strong> &gt; <strong>Databases</strong> &gt; <strong>mmc.test</strong>.</p>
+</li>
+<li>
+<p>Right-click on <code>mmc.test</code>, then navigate to <strong>Backup</strong> &gt; <strong>File Options</strong>.</p>
+</li>
+<li>
+<p>Select the following options:<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Format: <code>Tar</code></p>
+</li>
+<li>
+<p>Encoding: <code>UTF8</code></p>
+</li>
+<li>
+<p>Rolename: <code>mmc_status</code></p>
+</li>
+<li>
+<p>Filename: <code>&lt;Suitable name and folder&gt;</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Click <strong>Backup</strong> to create a tar archive of the database at the location you specified.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="restoring-the-database"><a class="anchor" href="#restoring-the-database"></a>Restoring the Database</h4>
+<div class="paragraph">
+<p>To restore the <code>mmc.test</code> database, complete the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to the mmc-data folder (at <code>&lt;Mule install path&gt;/.mule/mmc/mmc-data</code>) and delete the following folders:<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>db</code> (if it exists)</p>
+</li>
+<li>
+<p><code>repository</code></p>
+</li>
+<li>
+<p><code>tracking</code> (this is necessary to avoid generating several stacktraces related to JCR)</p>
+</li>
+<li>
+<p>you may need to also delete <code>workspaces/&lt;name of your workspace&gt;/index</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Login into pgAdmin III as admin (role <code>postgres</code>).</p>
+</li>
+<li>
+<p>On the object browser, make sure that the database called <code>mmc.test</code> is defined.</p>
+</li>
+<li>
+<p>Make sure that all the tables that may be defined on the database are dropped.</p>
+</li>
+<li>
+<p>Right click on <code>mmc.test</code>, select <strong>Restore</strong>.</p>
+</li>
+<li>
+<p>On the <strong>File Options</strong> tab, select:<br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Filename: <code>&lt;Database backup file&gt;</code></p>
+</li>
+<li>
+<p>Format: <code>Custom or tar</code></p>
+</li>
+<li>
+<p>Rolename: <code>mmc_status</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Click <strong>Restore</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="persisting-transaction-data"><a class="anchor" href="#persisting-transaction-data"></a>Persisting Transaction Data</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To set up PostgreSQL to persist your MMC transaction data, you need to complete three steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create the database user</p>
+</li>
+<li>
+<p>Create the database</p>
+</li>
+<li>
+<p>Verify the database</p>
+</li>
+<li>
+<p>Set up MMC</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="creating-the-database-user-2"><a class="anchor" href="#creating-the-database-user-2"></a>Creating the Database User</h3>
+<div class="paragraph">
+<p>We will create a user with the following parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Role name: <code>tracker</code></p>
+</li>
+<li>
+<p>Password: <code>tracker</code></p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="using-pgadmin-iii-3"><a class="anchor" href="#using-pgadmin-iii-3"></a>Using pgAdmin III</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log in to the database server as user <code>postgres</code>:<br></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>In pgAdmin III&#8217;s object browser (on the right-hand pane), right-click server <strong>PostgreSQL</strong> on <strong>localhost</strong>, then select <strong>Connect</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>On the <strong>Object Browser,</strong> right-click <strong>Login Roles</strong>, then select <strong>New Login Role</strong>.</p>
+</li>
+<li>
+<p>At the <strong>New Login Role</strong> dialog box, type <code>tracker</code> in the <strong>Role name</strong> field.</p>
+</li>
+<li>
+<p>Go to the <strong>Definition</strong> tab in the dialog box, and type the password <code>tracker</code> in both <strong>Password</strong> fields.</p>
+</li>
+<li>
+<p>Click <strong>OK</strong> to close the <strong>New Login Role</strong> dialog box.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-the-new-database-2"><a class="anchor" href="#creating-the-new-database-2"></a>Creating the New Database</h3>
+<div class="paragraph">
+<p>We will create a database called <code>mmc_persistency_tracking</code>, owned by user <code>tracker.</code></p>
+</div>
+<div class="sect3">
+<h4 id="using-pgadmin-iii-4"><a class="anchor" href="#using-pgadmin-iii-4"></a>Using pgAdmin III</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Using the Object Browser, navigate to <strong>Databases</strong> &gt; <strong>New Database</strong>.</p>
+</li>
+<li>
+<p>In the dialog box, type <code>mmc_persistency_tracking</code> in the <strong>Name</strong> field.</p>
+</li>
+<li>
+<p>In the <strong>Owner</strong> field, select <code>tracker</code></p>
+</li>
+<li>
+<p>In the <strong>Definition</strong> tab, ensure that <strong>Encoding</strong> is set to <code>UTF8</code></p>
+</li>
+<li>
+<p>Click <strong>OK</strong> to close the New Database dialog box.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="verifying-the-new-database-2"><a class="anchor" href="#verifying-the-new-database-2"></a>Verifying the New Database</h3>
+<div class="paragraph">
+<p>Use PostgreSQL’s <code>psql</code> command-line utility to log in to database <code>mmc_persistency_tracking</code> as user <code>tracker</code>. To do this, open a terminal and run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">psql postgres –Utracker</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you run this command, <code>psql</code> should prompt for the user’s password. After typing it, you should get a prompt similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">mmc_persistency_tracking=#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This indicates that you have successfully connected to the <code>mmc_persistency_tracking</code> database as user <code>tracker</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you can&#8217;t login using the psql command</p>
+</div>
+<div class="paragraph">
+<p>Depending on you PostgreSQL configuration, you may get the following error when trying to connect to the database:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">psql: FATAL:  Peer authentication failed for user "mmc_status"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This probably means that PostgreSQL is configured to accept connections for the specified user only if the operating system first authenticates that user. So, for example, to connect as user <code>mmc_status</code>, you would have to create a Unix account called <code>mmc_status</code> and run <code>psql</code> from that account.</p>
+</div>
+<div class="paragraph">
+<p>If you do not desire this configuration, check for the following line in the PostgreSQL configuration file <code>pg_hba.conf</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">local   all             all                                     peer</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the line exists, modify it as per below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">local   all             all                                     trust</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>An example of the full login command and output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">mitra:/opt/PostgreSQL/9.1/bin$ ./psql mmc_persistency_tracking -Utracker
+Password for user tracker:
+psql.bin (9.1.3)
+Type "help" for help.
+mmc_persistency_tracking=#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To exit psql, type <code>\q</code>, then press Enter.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-up-mmc-to-use-postgresql-for-persisting-transaction-data"><a class="anchor" href="#setting-up-mmc-to-use-postgresql-for-persisting-transaction-data"></a>Setting Up MMC to Use PostgreSQL for Persisting Transaction Data</h3>
+<div class="paragraph">
+<p>See the section Database Driver in this document to install or verify your installation of the PostgreSQL database driver.</p>
+</div>
+<div class="sect3">
+<h4 id="mmc-configuration-2"><a class="anchor" href="#mmc-configuration-2"></a>MMC Configuration</h4>
+<div class="paragraph">
+<p>Configuring MMC to store Business Events data on a PostgreSQL databse involves two basic tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Modifying the file <code>web.xml</code> to tell MMC to use Postgres instead of its default database</p>
+</li>
+<li>
+<p>Modifying the file <code>tracking-persistence-postgres.properties</code> to set the parameters for connecting to the Postgres database</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="modifying-code-web-xml-code-2"><a class="anchor" href="#modifying-code-web-xml-code-2"></a>Modifying <code>web.xml</code></h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the directory <code>&lt;MMC_HOME&gt;/WEB-INF</code>, locate the file <code>web.xml</code>, then open it for editing.</p>
+</li>
+<li>
+<p>Locate the <code>spring.profiles.active</code> section, shown below.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;context-param&gt;
+&lt;param-name&gt;spring.profiles.active&lt;/param-name&gt;
+&lt;param-value&gt;tracking-h2,env-derby&lt;/param-value&gt;
+&lt;/context-param&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Delete the string <code>tracking-h2</code>, then replace it with <code>tracking-postgres</code>, as shown below.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;context-param&gt;
+&lt;param-name&gt;spring.profiles.active&lt;/param-name&gt;
+&lt;param-value&gt;tracking-postgres,env-derby&lt;/param-value&gt;
+&lt;/context-param&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you are also planning to persist environment data to PostgreSQL, delete the string <code>env-derby</code> and replace it with <code>env-postgres</code>.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <code>spring.profiles.active</code> section in the <code>web.xml</code> configuration file allows you to define what external databases are used for storing environment and/or tracking data. For a quick instructions for all supported database servers, see <a href="configuring-mmc-3.4.2-for-external-databases-quick-reference.html">Configuring MMC 3.4.2 for External Databases - Quick Reference</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="modifying-code-tracking-persistence-postgres-properties-code"><a class="anchor" href="#modifying-code-tracking-persistence-postgres-properties-code"></a>Modifying <code>tracking-persistence-postgres.properties</code></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the directory <code>&lt;MMC_HOME&gt;/WEB-INF/classes/META-INF/databases</code>, locate the file <code>tracking-persistence-postgres.properties</code>, then open it for editing.</p>
+</li>
+<li>
+<p>Modify the included settings as needed, according to the table below. In general, the only values that you should need to modify are <code>mmc.tracking.db.username</code>, <code>mmc.tracking.db.password</code>, <code>mmc.tracking.db.host</code>, <code>mmc.tracking.db.port</code> and <code>mmc.tracking.db.dbname</code>.</p>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc.tracking.db.platform</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of database server to connect to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>postgres</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc.tracking.db.driver</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Driver to use for connecting to the database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.postgresql.Driver</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc.tracking.db.host</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hostname or IP address where the database server is listening</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>localhost</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc.tracking.db.port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port where the database server is listening</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>5432</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc.tracking.db.url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL for connecting to the database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>jdbc:postgresql://${mmc.tracking.db.host}:${mmc.tracking.db.port}/${mmc.tracking.db.dbname}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc.tracking.db.username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc_tracking</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc.tracking.db.password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the database user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc123</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc.tracking.db.dbname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database to connect to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>persistency</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mmc.max.events.exception.details.length</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of characters from a Business Events exception that will be stored in the tracking database. The maximum allowed is 261120.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>8000</code></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Save the file with your modifications, if any.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="removing-local-database-files-2"><a class="anchor" href="#removing-local-database-files-2"></a>Removing Local Database Files</h3>
+<div class="paragraph">
+<p>For the configuration changes to take effect, before launching MMC you need to delete the local database files that MMC uses by default.</p>
+</div>
+<div class="paragraph">
+<p>In the root directory of your Web application server, locate the <code>mmc-data</code> directory (for example, <code>/var/lib/tomcat6/mmc-data</code>), then delete the <code>mmc-data</code> directory.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Before you delete <code>mmc-data</code>, make a backup copy of this directory and store it in a safe location. If anything goes wrong with your new database configuration, you can use <code>mmc-data</code> to restore the old database configuration while you troubleshoot your new database config in a test environment.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>At this point, MMC, is configured to store tracking data on the external Postgres database that you specified.</p>
+</div>
+<div class="sect3">
+<h4 id="troubleshooting-tips"><a class="anchor" href="#troubleshooting-tips"></a>Troubleshooting Tips</h4>
+<div class="paragraph">
+<p>If you have installed the database on a remote host and experience problems, ensure that network connectivity to the database is working. Open a terminal (Unix or DOS) and run: <code>telnet &lt;host&gt; &lt;port&gt;</code></p>
+</div>
+<div class="paragraph">
+<p>Output should be similar to the following.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">mitra:~$ telnet dbserver 5432
+Trying ::1...
+Connected to dbserver.
+Escape character is '^]'.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above output indicates a successful connection to host <code>dbserver</code> on port 5432. A “connection refused” error indicates that nothing is listening on the specified host and port. Any other output often indicates a connectivity problem, such as a firewall blocking requests to the specified port.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Read more about <a href="setting-up-mmc.html">MMC setup</a>.</p>
+</li>
+<li>
+<p>Review the <a href="architecture-of-the-mule-management-console.html">Architecture of the Mule Management Console</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

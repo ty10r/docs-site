@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="tcat, http, atompub, api">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/tcat-server/7.1/using-the-http-atompub-api.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Using the HTTP AtomPub API // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">Tcat Server</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="using-the-rest-api.html">Using the REST API</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="apply-a-profile-to-a-server.html">Apply a Profile to a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="apply-a-profile-to-a-server-group.html">Apply a Profile to a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="create-a-deployment.html">Create a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="create-a-server-group.html">Create a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="create-or-update-a-file.html">Create or Update a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-deployment.html">Delete a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-file.html">Delete a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-server.html">Delete a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="delete-a-server-group.html">Delete a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-deployment.html">Get a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-file.html">Get a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-server.html">Get a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-a-server-group.html">Get a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-file-metadata.html">Get File Metadata</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-the-deployment-history.html">Get the Deployment History</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="get-the-deployment-version-details.html">Get the Deployment Version Details</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="list-all-deployments.html">List All Deployments</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="list-all-servers.html">List All Servers</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="list-all-server-groups.html">List All Server Groups</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="redeploy-a-deployment.html">Redeploy a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="register-a-server.html">Register a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="restart-a-server.html">Restart a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="undeploy-a-deployment.html">Undeploy a Deployment</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="update-a-file.html">Update a File</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="update-a-server.html">Update a Server</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="update-a-server-group.html">Update a Server Group</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="repository-api.html">Repository API</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-server-profiles.html">Working with Server Profiles</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="applying-your-tcat-server-license.html">Applying Your Tcat Server License</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="automating-tasks.html">Automating Tasks</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-custom-policies.html">Creating Custom Policies</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="creating-remote-workspaces.html">Creating Remote Workspaces</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-applications.html">Deploying Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="deploying-to-amazon-ec2.html">Deploying to Amazon EC2</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="integrating-with-ldap.html">Integrating with LDAP</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-the-repository.html">Managing the Repository</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="managing-users-and-groups.html">Managing Users and Groups</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="maven-publishing-plug-in.html">Maven Publishing Plug-in</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="monitoring-applications.html">Monitoring Applications</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="update-a-deployment.html">Update a Deployment</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="monitoring-a-server.html">Monitoring a Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="monitoring-repository-activity.html">Monitoring Repository Activity</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-logs.html">Working with Logs</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="scheduling-the-usage-statistics-script.html">Scheduling the Usage Statistics Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="scripting-examples.html">Scripting Examples</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="troubleshooting.html">Troubleshooting</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-the-http-atompub-api.html">Using the HTTP AtomPub API</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-servers.html">Working with Servers</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="overview-of-tcat-server.html">Overview of Tcat Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="quick-start.html">Quick Start</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installation.html">Installation</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="server-profiles.html">Server Profiles</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="integrating-with-ant.html">Integrating with Ant</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="csv-save-start-script.html">CSV Save Start Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="csv-save-stop-script.html">CSV Save Stop Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="csv-save-writer-script.html">CSV Save Writer Script</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="saving-jmx-metric-data-to-csv-files.html">Saving JMX Metric Data to CSV Files</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-tcat-server-on-microsoft-windows.html">Installing Tcat Server on Microsoft Windows</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="add-tcat-server-capabilities-to-an-existing-tomcat-install.html">Add Tcat Server Capabilities to an Existing Tomcat Install</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="applying-a-new-tcat-server-license.html">Applying a new Tcat Server license</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="archetypes.html">Archetypes</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                  <button class="nav-tgl"></button>
+                                <a class="nav-lnk" href="mulesoft-tomcat-archetypes.html">MuleSoft Tomcat Archetypes</a>
+                                  <ul class="nav-lst">
+                                      <li class="nav-itm" data-depth="3" data-state="collapsed">
+                                        <a class="nav-lnk" href="mulesoft-tcat-archetypes.html">MuleSoft Tcat Archetypes</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="common-problems-and-solutions.html">Common Problems and Solutions</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="defining-notifications-and-destinations.html">Defining Notifications and Destinations</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="disable-multicasting.html">Disable Multicasting</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="edit-server-information.html">Edit Server Information</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="global-dashboard-overview.html">Global Dashboard Overview</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="installing-multiple-tcat-instances-on-a-single-machine.html">Installing Multiple Tcat Instances on a Single Machine</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="jmx-agent-monitoring.html">JMX Agent Monitoring</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="moving-a-tcat-installation-from-a-non-linux-os-to-linux.html">Moving a Tcat Installation from a Non-Linux OS to Linux</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="quickstart.html">QuickStart</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="release-notes.html">Release Notes</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="release-notes-tcat-6-r2.html">Release Notes Tcat 6 R3</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="release-notes-tcat-6-r3.html">Release Notes Tcat 6 R2</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="tcat-server-6-r2-release-notes.html">Tcat Server 6 R2 Release Notes</a>
+                              </li>
+                          </ul>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="server-dashboard.html">Server Dashboard</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="user-group-permissions.html">User Group Permissions</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-cloudcat-with-amazon-ec2.html">Using Cloudcat with Amazon EC2</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-cloudcat-with-gogrid.html">Using Cloudcat with GoGrid</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="working-with-alerts.html">Working With Alerts</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="integrating-with-maven.html">Integrating with Maven</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                          <button class="nav-tgl"></button>
+                        <a class="nav-lnk" href="upgrading.html">Upgrading</a>
+                          <ul class="nav-lst">
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-7.1.0.html">Upgrading to 7.1.0</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-r4.html">Upgrading to R4</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-6.3.html">Upgrading to 6.3</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-to-tcat-server-6-r2-p1.html">Upgrading to Tcat Server 6 R2 P1</a>
+                              </li>
+                              <li class="nav-itm" data-depth="2" data-state="collapsed">
+                                <a class="nav-lnk" href="upgrading-from-tcat-server-6-r1-to-tcat-server-6-r2.html">Upgrading from Tcat Server 6 R1 to Tcat Server 6 R2</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Using the HTTP AtomPub API</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/tcat-server-docs/edit/v7.1/modules/ROOT/content/using-the-http-atompub-api.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Using the HTTP AtomPub API</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tcat Server takes advantage of the simple but powerful <a href="http://ietfreport.isoc.org/idref/draft-ietf-atompub-protocol/">Atom Publishing Protocol</a> for much of its integration API. It is a RESTful HTTP-based API based on the concept of <em>collections</em> and <em>entries</em>. AtomPub collections can store anything. The Tcat Server API uses Atom entries to represent artifacts inside the Tcat Server registry (repository). Through the Atom Publishing Protocol, new items can be created, updated, and deleted.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="important-feed-urls"><a class="anchor" href="#important-feed-urls"></a>Important Feed URLs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tcat Server includes the following feeds:</p>
+</div>
+<table class="tableblock frame-all grid-all" style="width: 90%;">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Feed</th>
+<th class="tableblock halign-left valign-top">URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Root Workspace List and Search</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>{{[<a href="http://host/api/registry" class="bare">http://host/api/registry</a>]}}</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Workspace Listing</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>{{[<a href="http://host/api/registry/" class="bare">http://host/api/registry/</a>]<br></p>
+</div>
+<div class="paragraph">
+<p>&lt;workspacePath&gt;}}</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Child Workspaces</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>{{[<a href="http://host/api/registry/" class="bare">http://host/api/registry/</a>]<br></p>
+</div>
+<div class="paragraph">
+<p>&lt;workspacePath&gt;;workspaces}}</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Artifact Versions</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>{{[<a href="http://host/api/registry/" class="bare">http://host/api/registry/</a>]<br></p>
+</div>
+<div class="paragraph">
+<p>&lt;workspacePath&gt;/&lt;item&gt;;history}}</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Comments</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>{{[<a href="http://host/api/comments" class="bare">http://host/api/comments</a>]</p>
+</div>
+<div class="paragraph">
+<p>}}</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="artifacts-as-atom-entries"><a class="anchor" href="#artifacts-as-atom-entries"></a>Artifacts as Atom Entries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Each feed listed above  contains a series of Atom entries that represent artifacts inside the repository. An artifact might look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;entry&gt;
+  &lt;link href="/api/registry/Default%20Workspace/hello.wsdl;atom" rel="edit" /&gt;
+  &lt;id&gt;urn:galaxy:artifact:local$720ea69f-14ac-44ac-8171-1e4de567a098&lt;/id&gt;
+  &lt;title type="text"&gt;hello.wsdl&lt;/title&gt;
+  &lt;updated&gt;2008-10-31T21:16:16.272Z&lt;/updated&gt;
+  &lt;author&gt;
+    &lt;name&gt;Galaxy&lt;/name&gt;
+  &lt;/author&gt;
+  &lt;summary type="xhtml"&gt;This is a description of the WSDL&lt;/summary&gt;
+
+  &lt;artifact-info xmlns="http://galaxy.mule.org/1.0"
+                 mediaType="application/xml"
+                 documentType="{http://schemas.xmlsoap.org/wsdl/}definitions"
+                 created="2008-10-31T21:16:16.272Z" name="hello.wsdl" /&gt;
+
+  &lt;version xmlns="http://galaxy.mule.org/1.0"
+           label="0.1"
+           enabled="true"
+           default="true"
+           created="2008-10-31T21:16:16.272Z" /&gt;
+
+  &lt;metadata xmlns="http://galaxy.mule.org/1.0" id="versioned"&gt;
+    &lt;property name="wsdl.binding.dependencies" locked="true" visible="true"&gt;
+      &lt;value&gt;{http://mule.org/hello_world}HelloWorldBinding&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property name="wsdl.binding" locked="true" visible="true"&gt;
+      &lt;value&gt;HelloWorldBinding&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property name="wsdl.service" locked="true" visible="true"&gt;
+      &lt;value&gt;HelloWorldService&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property name="wsdl.targetNamespace" locked="true" visible="true" value="http://mule.org/hello_world" /&gt;
+    &lt;lifecycle property="primary.lifecycle" name="Default" phase="Created"&gt;
+      &lt;next-phases&gt;Developed&lt;/next-phases&gt;
+      &lt;previous-phases /&gt;
+    &lt;/lifecycle&gt;
+    &lt;property name="wsdl.endpoint" locked="true" visible="true"&gt;
+      &lt;value&gt;SoapPort&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property name="wsdl.portType.dependencies" locked="true" visible="true"&gt;
+      &lt;value&gt;{http://mule.org/hello_world}HelloWorld&lt;/value&gt;
+    &lt;/property&gt;
+  &lt;/metadata&gt;
+
+  &lt;metadata xmlns="http://galaxy.mule.org/1.0" id="global" /&gt;
+
+  &lt;collection xmlns="http://www.w3.org/2007/app" id="versions" href="/api/hello.wsdl;history"&gt;
+    &lt;atom:title xmlns:atom="http://www.w3.org/2005/Atom" type="text"&gt;Artifact Versions&lt;/atom:title&gt;
+  &lt;/collection&gt;
+
+  &lt;content type="application/xml" src="/api/registry/Default%20Workspace/hello.wsdl" /&gt;
+  &lt;link href="/api/registry/Default%20Workspace/hello.wsdl" rel="edit-media" /&gt;
+&lt;/entry&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Walking through this Atom entry, there are a few important things to note:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>&lt;collection&gt;</code> element with the <code>id="versions"</code> attribute provides a link to the version history of the artifact.</p>
+</li>
+<li>
+<p>To see the actual artifact, use the link provided in the <code>&lt;content&gt;</code> element.</p>
+</li>
+<li>
+<p>The summary maps to the description field on the artifact.</p>
+</li>
+<li>
+<p>The <code>&lt;metadata&gt;</code> sections represent metadata associated with this artifact.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>&lt;metadata&gt;</code> with the <code>global</code> ID represents metadata associated with all versions of an artifact.</p>
+</li>
+<li>
+<p>The <code>&lt;metadata&gt;</code> with the <code>versioned</code> ID represents metadata associated with this particular version.</p>
+</li>
+<li>
+<p>Lifecycle properties are represented by the <code>&lt;lifecycle&gt;</code> element.</p>
+</li>
+<li>
+<p>If the property is a multivalued property, there will be child <code>&lt;value&gt;</code> elements. If it is single valued, there will be a <code>value</code> attribute.</p>
+</li>
+<li>
+<p>If the property has the <code>locked</code> attribute set to true, it has been created by an index and cannot be modified unless it is by the index.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="artifact-history-feeds"><a class="anchor" href="#artifact-history-feeds"></a>Artifact History Feeds</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An item&#8217;s history can be viewed by appending <code>;history</code> to its URL. For example, if this is the artifact URL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">http://localhost:9002/api/registry/Services/hello.wsdl</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The history URL is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">http://localhost:9002/api/registry/Services/hello.wsdl;history</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The history URL returns a feed that contains Atom entries for each artifact version like those described in the previous section.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-the-libraries"><a class="anchor" href="#using-the-libraries"></a>Using the Libraries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use the AtomPub API with your Java application, we recommend using the <a href="http://incubator.apache.org/abdera/">Apache Abdera framework</a>. Other tools like <code>wget</code> will work as well. For a more visual guidance, check out the lnk:http://www.xucia.com/#RestTest[RestTest]FireFox plug-in.</p>
+</div>
+<div class="paragraph">
+<p>For a more in-depth example using Abdera, see the AtomPub API Example.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="artifact-operations"><a class="anchor" href="#artifact-operations"></a>Artifact Operations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following table summarizes the operations that can be performed on the AtomPub API.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">HTTP Verb</th>
+<th class="tableblock halign-left valign-top">URL</th>
+<th class="tableblock halign-left valign-top">Data</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/api/registry</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gets all the artifacts in the repository</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/api/registry/WORKSPACE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gets an Atom feed of the artifacts and workspaces inside the workspace</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/api/registry/WORKSPACE;atom</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gets an Atom entry representation of the workspace</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/api/registry/WORKSPACE/ARTIFACT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gets an artifact</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/api/registry/WORKSPACE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An artifact</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add a new artifact. See below for details.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/api/registry/WORKSPACE;workspaces</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A workspace Atom entry</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creates a new workspace. See below for details.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PUT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/api/registry/WORKSPACE/ARTIFACT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An artifact</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adds a new version of an artifact. See below for details.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PUT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/api/registry/WORKSPACE/ITEM;atom</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An Atom representation of an artifact</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Updates an artifact&#8217;s metadata in the registry</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DELETE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/api/registry/WORKSPACE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An artifact or workspace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deletes an artifact or workspace</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="browsing-the-repository"><a class="anchor" href="#browsing-the-repository"></a>Browsing the Repository</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes how you can browse the repository through query parameters or URL encoding.</p>
+</div>
+<div class="sect2">
+<h3 id="querying-the-repository"><a class="anchor" href="#querying-the-repository"></a>Querying the Repository</h3>
+<div class="paragraph">
+<p>You can extend a URL with a query parameter to search the repository. Following are some example queries.</p>
+</div>
+<div class="sect3">
+<h4 id="selecting-all-xml-schema-artifacts"><a class="anchor" href="#selecting-all-xml-schema-artifacts"></a>Selecting All XML Schema Artifacts</h4>
+<div class="paragraph">
+<p><strong>Query</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">select artifact where documentType = {http://www.w3.org/2001/XMLSchema}schema</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>URL</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">http://localhost:8080/api/registry?q=select%20artifact%20where%20documentType%20=%20%7Bhttp://www.w3.org/2001/
+XMLSchema%7Dschema</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="selecting-all-jar-artifacts"><a class="anchor" href="#selecting-all-jar-artifacts"></a>Selecting All JAR Artifacts</h4>
+<div class="paragraph">
+<p><strong>Query</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">select artifact where contentType = 'application/java-archive'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>URL</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">http://localhost:8080/api/registry?q=select%20artifact%20where%contentType%20=%20'application/java-archive</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="url-encoding"><a class="anchor" href="#url-encoding"></a>URL Encoding</h3>
+<div class="paragraph">
+<p>If you are using <a href="http://incubator.apache.org/abdera">Abdera</a> for your client code, the handy <code>org.apache.abdera.i18n.text.UrlEncoding</code> class has an encode method that can do this for you:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">import org.apache.abdera.i18n.text.UrlEncoding;
+import org.apache.abdera.i18n.text.CharUtils.Profile;
+
+String encodedQuery = UrlEncoding.encode("select artifact where ...", Profile.PATH.filter());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Note</strong>: If you&#8217;re using Abdera 0.3.0, you must use the <code>EncodingUtil.sanitize()</code> method instead.</p>
+</div>
+<div class="paragraph">
+<p>For a reference on which characters must be URL-encoded, see <a href="http://www.blooberry.com/indexdot/html/topics/urlencoding.htm">this page</a>.</p>
+</div>
+<div class="paragraph">
+<p>Replace any of these characters in your query with the appropriate encoded character. For instance, if you were encoding "select artifact", you would replace the space with <code>%20</code>, as that is the URL-encoded representation of the space character.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-an-artifact"><a class="anchor" href="#adding-an-artifact"></a>Adding an Artifact</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you add an artifact, you must supply additional HTTP headers that specify the workspace and artifact version:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The "X-Artifact-Version": the version label of the artifact you are POSTing.</p>
+</li>
+<li>
+<p>The "Slug" header: used to determine the name of the artifact in the repository.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A typical HTTP POST  looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">POST /api/registry/WORKSPACE HTTP/1.0
+Authorization: Basic YWRtaW46YWRtaW4=
+Host: localhost:8080
+Content-Type: text/plain
+X-Artifact-Version: 1.0
+Slug: test.txt</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s an example using <code>wget</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ wget --post-file=YOURFILE --http-user=admin --http-password=admin -S \
+--header="X-Artifact-Version: 0.1" \
+--header="Slug: ARTIFACT_NAME"
+http://localhost:8080/api/registry/Default%20Workspace</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-new-artifact-version"><a class="anchor" href="#adding-a-new-artifact-version"></a>Adding a New Artifact Version</h3>
+<div class="paragraph">
+<p>Adding a new artifact version is very similar to adding a new artifact, with the following exceptions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use the PUT verb</p>
+</li>
+<li>
+<p>Use the URL of the artifact in the repository</p>
+</li>
+<li>
+<p>Specify an X-Artifact-Version header</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">PUT /api/registry/WORKSPACE/ARTIFACT HTTP/1.0
+Authorization: Basic YWRtaW46YWRtaW4=
+Host: localhost:8080
+Content-Type: text/plain
+X-Artifact-Version: 0.2
+
+... data ...</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-a-workspace"><a class="anchor" href="#adding-a-workspace"></a>Adding a Workspace</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To add a workspace, post an Atom entry that represents the workspace to the parent workspace. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">POST /api/registry/Default%20Workspace;workspaces HTTP/1.0
+Authorization: Basic YWRtaW46YWRtaW4=
+Host: localhost:8080
+Content-Type: application/atom+xml;type=entry
+
+&lt;entry xmlns="http://www.w3.org/2005/Atom"&gt;
+  &lt;title type="text"&gt;MyNewWorkspace&lt;/title&gt;
+  &lt;updated&gt;2015-08-10T01:12:38.758Z&lt;/updated&gt;
+  &lt;author&gt;
+    &lt;name&gt;Ignored&lt;/name&gt;
+  &lt;/author&gt;
+  &lt;id&gt;urn:uuid:8D931B8E837772B5521204074758762&lt;/id&gt;
+  &lt;content type="text"&gt;&lt;/content&gt;
+&lt;/entry&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This  creates a new workspace called "MyNewWorkspace" in the parent workspace "Default Workspace".</p>
+</div>
+<div class="paragraph">
+<p>To add a top-level workspace, POST to <code>/api/registry</code>. This workspace  then is listed in <code>/api/registry;workspaces</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="editing-an-artifact-s-metadata"><a class="anchor" href="#editing-an-artifact-s-metadata"></a>Editing an Artifact&#8217;s Metadata</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To edit an artifact&#8217;s metadata, PUT a new Atom entry representation to the artifact URL. You can update the artifact&#8217;s description, metadata, and lifecycle information.</p>
+</div>
+<div class="paragraph">
+<p>For example, you could use this HTTP request to update the description of your artifact:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">PUT /api/registry/Default%20Workspace/hello.wsdl;atom HTTP/1.0
+Authorization: Basic YWRtaW46YWRtaW4=
+Host: localhost:8080
+Content-Type: application/atom+xml;type=entry
+
+&lt;entry xmlns="http://www.w3.org/2005/Atom"&gt;
+  &lt;link href="/api/registry/Default%20Workspace/hello_world.wsdl;atom?version=0.2" rel="edit" /&gt;
+  &lt;id&gt;urn:galaxy:artifact:50d245b3-8855-4d4d-83f6-2351ae0b23b6:0.2&lt;/id&gt;
+  &lt;title type="text"&gt;hello_world.wsdl Version 0.2&lt;/title&gt;
+  &lt;updated&gt;2015-08-10T00:57:07.116Z&lt;/updated&gt;
+  &lt;author&gt;
+    &lt;name&gt;Galaxy&lt;/name&gt;
+  &lt;/author&gt;
+  &lt;summary type="xhtml"&gt;
+    This  becomes your new artifact description.
+  &lt;/summary&gt;
+  &lt;content type="application/xml" src="/api/registry/Default%20Workspace/hello_world.wsdl?version=0.2" /&gt;
+  &lt;link href="/api/registry/Default%20Workspace/hello_world.wsdl?version=0.2" rel="edit-media" /&gt;
+&lt;/entry&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Note</strong>: You must PUT it to the Atom representation, which means you must append <code>;atom</code> to the URL.</p>
+</div>
+<div class="paragraph">
+<p>To edit an artifact&#8217;s metadata, you include a <code>&lt;metadata&gt;</code> element inside your Atom entry. Any <code>&lt;property&gt;</code> elements inside this element are modified. In the following example, the property <code>favoriteSauce</code> is added to the artifact with a value of <code>ketchup</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;entry&gt;
+...
+&lt;metadata id="versioned" xmlns="http://galaxy.mule.org/1.0"&gt;
+  &lt;property name="favoriteSauce" value="ketchup"/&gt;
+&lt;/metadata&gt;
+...
+&lt;/entry&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Any metadata properties that are not present are NOT deleted. To delete a metadata property, remove all value attributes and child elements:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;metadata id="versioned" xmlns="http://galaxy.mule.org/1.0"&gt;
+  &lt;property name="propertyToDelete" /&gt;
+&lt;/metadata&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="scripting-examples.html">&lt;&lt; Previous: <strong>Scripting Examples</strong></a></p>
+</div>
+<div class="paragraph">
+<p>Next: <strong>AtomPub API Example</strong> &gt;&gt;</p>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

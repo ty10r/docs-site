@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="munit, testing, unit testing">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/munit/1.3/spy-message-processor.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Spy Message Processor // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+          <ul class="nav-lst">
+              <li class="nav-itm" data-depth="0" data-state="collapsed">
+                  <button class="nav-tgl"></button>
+                <a class="nav-lnk" href="index.html">MUnit</a>
+                  <ul class="nav-lst">
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="using-munit-in-anypoint-studio.html">Using MUnit in Anypoint Studio</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-suite.html">MUnit Suite</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="mock-message-processor.html">Mock Message Processor</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="verify-message-processor.html">Verify Message Processor</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="set-message-processor.html">Set Message Processor</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="spy-message-processor.html">Spy Message Processor</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="assertion-message-processor.html">Assertion Message Processor</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-matchers.html">MUnit Matchers</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-database-server.html">MUnit Database Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-ftp-server.html">MUnit FTP Server</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-maven-support.html">MUnit Maven Support</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-short-tutorial.html">MUnit Short Tutorial</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="example-testing-apikit.html">Example: Testing APIKit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="logging-in-munit.html">Logging in MUnit</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="run-and-wait-scope.html">Run and Wait Scope</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="munit-tests-with-java.html">MUnit Tests With Java</a>
+                      </li>
+                      <li class="nav-itm" data-depth="1" data-state="collapsed">
+                        <a class="nav-lnk" href="../../solutions/migration/munit/1.0-migration-guide.html">MUnit 1.0 Migration Guide</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Spy Message Processor</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/munit-docs/edit/v1.0/modules/ROOT/content/spy-message-processor.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Spy Message Processor</h1>
+    <div class="sect1">
+<h2 id="overview"><a class="anchor" href="#overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Spy feature provided by MUnit allows you to <em>spy</em> what happens before and after a message processor is called. This allows you to, among other things, validate that a selected Mule message that reaches a specific message processor, does so containing a specific payload or variable.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="defining-spies"><a class="anchor" href="#defining-spies"></a>Defining Spies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When defining a spy, we are telling MUnit to run a set of instructions (usually assertions or verifications) <em>before</em> and/or <em>after</em> the execution of a message processor.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can define a spy over any message processor (even if you haven&#8217;t created a mock for it).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For the purposes of this document, we assume we are testing the following Mule code:</p>
+</div>
+<div class="listingblock">
+<div class="title">Test code</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;flow name="exampleFlow"&gt;
+  &lt;set-payload value="#['real_payload']" doc:name="Real Set Payload"/&gt;
+&lt;/flow&gt;</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-which-message-processor-to-spy"><a class="anchor" href="#defining-which-message-processor-to-spy"></a>Defining which Message Processor to Spy</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mock:spy messageProcessor="mule:set-payload"/&gt;</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>messageProcessor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This attribute is used to describe which message processor we want to mock. It takes the form <code>{name-space}:{message-processor-name}</code>. It supports regular expressions.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Since the <code>messageProcessor</code> attribute accepts regular expressions, you could create the same verification as shown below.</p>
+</div>
+<div class="listingblock">
+<div class="title">Verify Using Regular Expressions</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mock:spy messageProcessor=".*:set-payload"/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the example above we define a spy for a message processor named <code>set-payload</code>, disregarding which namespace the message processor belongs to.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Use regular expressions in Spy only if strictly necessary. Regular expressions make it very easy to apply the Spy and its code to more message processors that you intended.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-spy-with-message-processor-attributes"><a class="anchor" href="#defining-spy-with-message-processor-attributes"></a>Defining Spy with Message Processor Attributes</h3>
+<div class="paragraph">
+<p>A Spy definition is based on <em>matchers</em>, that is, parameters that match features of the desired message processor. Defining a spy solely on the name of the message processor largely limits your scope and actions regarding the mock. For this reason, MUnit allows you to define a spy by defining matchers over the value of a message processor&#8217;s attributes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mock:spy messageProcessor="mule:set-payload" doc:name="Spy"&gt;
+  &lt;mock:with-attributes&gt;
+    &lt;mock:with-attribute whereValue="#['Real Set Payload']" name="doc:name"/&gt;
+  &lt;/mock:with-attributes&gt;
+&lt;/mock:spy&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can define as many attributes as you deem necessary to make the verification
+as representative as possible.</p>
+</div>
+<div class="paragraph">
+<p>When defining an attribute, you do so by defining:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the attribute. This value is literal, it does not accept regular expressions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>whereValue</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the value that the attribute (of the real message processor) should contain. It accepts MEL expressions. If left as a literal, it assumes a string value.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If the attribute you wish the Spy message processor to match is similar to <code>config-ref</code> and resolves to an actual bean, you can use the MUnit MEL function <code>getBeanFromMuleContext('bean_name')</code>. This function inspects the Mule registry and returns the bean with the matching name if present. See <a href="assertion-message-processor.html">Assertion Message Processors</a> for details.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="defining-spy-actions"><a class="anchor" href="#defining-spy-actions"></a>Defining Spy Actions</h3>
+<div class="paragraph">
+<p>Spy&#8217;s power resides on its ability to run actions before or after a message processor call.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;mock:spy messageProcessor="mule:set-payload"&gt;
+  &lt;mock:with-attributes&gt;
+    &lt;mock:with-attribute whereValue="#['Real Set Payload']" name="doc:name"/&gt;
+  &lt;/mock:with-attributes&gt;
+  &lt;mock:assertions-before-call&gt;   <i class="conum" data-value="1"></i><b>(1)</b>
+    &lt;!-- Define actions --&gt;
+  &lt;/mock:assertions-before-call&gt;
+  &lt;mock:assertions-after-call&gt;    <i class="conum" data-value="2"></i><b>(2)</b>
+    &lt;!-- Define actions --&gt;
+  &lt;/mock:assertions-after-call&gt;
+&lt;/mock:spy&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The actions inside <code>assertions-before-call</code> are run <em>before</em> the message processor call.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The actions inside <code>assertions-after-call</code> are run <em>after</em> the message processor call.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+It makes no sense to define a spy <em>after</em> a mocked message processor, since you would end up validating your own mock.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently, the actions inside a spy message processor apply only to the message payload and to the invocation properties.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A current limitation is that you cannot modify the content of a Mule message payload inside a spy. This action  results in an exception.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="defining-spy-with-java-code"><a class="anchor" href="#defining-spy-with-java-code"></a>Defining Spy With Java Code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following example reproduces the behavior described above using the MUnit Java API.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import org.junit.Test;
+import org.mule.munit.common.mocking.Attribute;
+import org.mule.munit.common.mocking.SpyProcess;
+import org.mule.munit.runner.functional.FunctionalMunitSuite;
+
+public class TheTest extends FunctionalMunitSuite {
+
+  @Test
+  public void test() throws Exception{
+    Attribute attribute = Attribute.attribute("name").
+      ofNamespace("doc").withValue("Real Set Payload"); <i class="conum" data-value="1"></i><b>(1)</b>
+
+    spyMessageProcessor("set-payload")    <i class="conum" data-value="2"></i><b>(2)</b>
+      .ofNamespace("mule")                <i class="conum" data-value="3"></i><b>(3)</b>
+      .withAttributes(attribute)
+      .before(beforeCallSpy())            <i class="conum" data-value="4"></i><b>(4)</b>
+      .after(afterCallSpy());             <i class="conum" data-value="5"></i><b>(5)</b>
+  }
+
+  private SpyProcess beforeCallSpy(){
+    return  new SpyProcess() {
+      public void spy(MuleEvent event) throws MuleException {
+        /* Define actions */              <i class="conum" data-value="6"></i><b>(6)</b>
+        }
+  	};
+  }
+
+  private SpyProcess afterCallSpy(){
+    return  new SpyProcess() {
+      public void spy(MuleEvent event) throws MuleException {
+        /* Define actions */             <i class="conum" data-value="7"></i><b>(7)</b>
+        }
+  	};
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Define the real message processor attribute to match.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Define the name of the message processor to verify (accepts regular expressions).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Define the namespace of the message processor to verify (accepts regular expressions).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Set <code>SpyProcess</code> to run before the message processor executes.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Set <code>SpyProcess</code> to run after the message processor executes.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Define the actions to run before the message processor executes.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Define the actions to run after the message processor executes.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

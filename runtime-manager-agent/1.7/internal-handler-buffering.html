@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="agent, mule, esb, servers, monitor, notifications, external systems, third party, get status, metrics">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/runtime-manager-agent/1.7/internal-handler-buffering.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Internal Handler Buffering // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Internal Handler Buffering</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/runtime-manager-agent-docs/edit/v1.7/modules/ROOT/content/internal-handler-buffering.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Internal Handler Buffering</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-cloud-disabled.png" alt="logo cloud disabled" title="CloudHub"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-hybrid-active.png" alt="logo hybrid active" title="Hybrid Deployment"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-server-active.png" alt="logo server active" title="Anypoint Platform Private Cloud Edition"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-pcf-disabled.png" alt="logo pcf disabled" title="Pivotal Cloud Foundry"></a></span></p>
+</div>
+<div class="paragraph">
+<p>The Runtime Manager Agent provides a simple way of implementing Internal handlers with buffering support. This documents shows how to implement and configure buffers for Runtime Manager Agent internal handlers.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementing-a-buffered-internal-handler"><a class="anchor" href="#implementing-a-buffered-internal-handler"></a>Implementing a Buffered Internal Handler</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="bufferedhandler-abstract-class"><a class="anchor" href="#bufferedhandler-abstract-class"></a>BufferedHandler Abstract Class</h3>
+<div class="paragraph">
+<p>To implement a buffered internal handler, you need to extend the <code>BufferedHandler&lt;T&gt;</code> abstract class. The methods to overwrite are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>boolean canHandle(T message)</code></p>
+<div class="literalblock">
+<div class="content">
+<pre>Returns true if the message can be handled by the internal handler</pre>
+</div>
+</div>
+</li>
+<li>
+<p><code>boolean flush(Collection&lt;T&gt; collectionOfMessages)</code></p>
+<div class="literalblock">
+<div class="content">
+<pre>Provides the implementation to send the messages stored in the buffer to the external service</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="example"><a class="anchor" href="#example"></a>Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Named("com.mulesoft.agent.mypublisher")
+@Singleton
+public class MyPublisher extends BufferedHandler&lt;List&lt;Metric&gt;&gt;
+{
+    @Configurable(value = "mule")
+    String metricPrefix;
+
+    @Inject
+    public MyPublisher()
+    {
+        super();
+    }
+
+    public MyPublisher(OnOffSwitch enabledSwitch)
+    {
+        super();
+        this.enabledSwitch = enabledSwitch;
+    }
+
+    @Override
+    public boolean canHandle(@NotNull List&lt;Metric&gt; metrics)
+    {
+        // Evaluates if the message could be handled
+    }
+
+    @Override
+    public boolean flush(@NotNull Collection&lt;List&lt;Metric&gt;&gt; listOfMetrics)
+    {
+        // Send messages to external service
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-a-buffering-internal-handler"><a class="anchor" href="#configuring-a-buffering-internal-handler"></a>Configuring a Buffering Internal Handler</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="buffering-configuration-object"><a class="anchor" href="#buffering-configuration-object"></a>Buffering Configuration Object</h3>
+<div class="paragraph">
+<p>If the internal handler includes buffering support, you can can configure the buffer in the <code>mule-agent.yml</code> file. The following table lists the available configuration parameters.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Buffer type. Valid values are <code>MEMORY</code> or <code>DISK</code>.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>retryCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of retries after an exception was thrown in the flush method.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maximumCapacity</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum amount of events to keep in buffer.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>flushFrequency</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Frequency at which the flush method will run, in milliseconds.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>filePath</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path to the buffer file. Only valid for buffers of type <code>DISK</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PATH/bufferFile</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>whenExhausted</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Strategy to follow when the buffer is exhausted. If not specified, the buffer will grow automatically. Valid values are <code>FAIL</code> and <code>FLUSH.</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N/A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>flushThreadsNumber</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of threads used by the FlushThreadExecutor when the buffer is exhausted and the strategy defined by <code>whenExhausted</code> is <code>FLUSH</code> (see row above).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>60</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>discardMessagesOnFlushFailure</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If true, messages will not be returned to the buffer if the flush is not successful.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The maximum size capacity for the buffer is configured based on an amount of events and not in bytes. Keep in mind that if the events are of a considerable size and you don&#8217;t set <code>maximumCapacity</code> to a low value, the heap might suffer stress and this might impact the application&#8217;s performance.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you configures a <code>DISK</code> buffer, the agent will also instantiate an in-memory buffer in order to improve the performance of the I/O opperations. This memory buffer has a default value of 10000 events and is flushed to disk every 500ms. These values are configurable through the system properties <code>agent.disk.buffering.cache.size</code> and <code>agent.disk.buffering.cache.flush.frequency</code>, respectively.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sample-code-mule-agent-yml-code-files"><a class="anchor" href="#sample-code-mule-agent-yml-code-files"></a>Sample <code>mule-agent.yml</code> Files</h3>
+<div class="sect3">
+<h4 id="configuring-buffering-in-a-publisher"><a class="anchor" href="#configuring-buffering-in-a-publisher"></a>Configuring Buffering in a Publisher</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+muleInstanceUniqueId: validId
+organizationId: organizationId
+
+transports:
+    websocket.transport:
+        security:
+            keyStorePassword: mykeystorePassword
+            keyStoreAlias: agent
+            keyStoreAliasPassword: agentpassword
+
+    rest.agent.transport:
+        security:
+            keyStorePassword: mykeystorePassword
+            keyStoreAlias: agent
+            keyStoreAliasPassword: agentpassword
+        port: 9997
+
+services:
+    mule.agent.application.service:
+        enabled: true
+
+    mule.agent.domain.service:
+        enabled: true
+
+    mule.agent.jmx.publisher.service:
+        enabled: true
+        frequency: 15
+        frequencyTimeUnit: MINUTES
+        beans:
+            -   beanQueryPattern: java.lang:type=Runtime
+                attribute: Uptime
+                monitorMessage: Monitoring memory up-time
+            -   beanQueryPattern: java.lang:type=MemoryPool,*
+                attribute: Usage.used
+                monitorMessage" : Used Memory
+
+internalHandlers:
+    domaindeploymentnotification.internal.message.handler:
+        enabled: true
+
+    applicationdeploymentnotification.internal.message.handler:
+        enabled: false
+
+    com.mulesoft.agent.test.buffering.jmx.internal.handler:
+        enabled: true
+        buffer:
+            type: DISK
+            retryCount: 1
+            flushFrequency: 10000
+            maximumCapacity: 30
+            filePath: publisher-buffer.log
+
+externalHandlers:
+    applications.request.handler:
+        enabled: true
+
+    domains.request.handler:
+        enabled: true</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuring-buffering-in-events-tracking"><a class="anchor" href="#configuring-buffering-in-events-tracking"></a>Configuring Buffering in Events Tracking</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+muleInstanceUniqueId: validId
+organizationId: organizationId
+
+transports:
+    websocket.transport:
+        security:
+            keyStorePassword: mykeystorePassword
+            keyStoreAlias: agent
+            keyStoreAliasPassword: agentpassword
+
+    rest.agent.transport:
+        security:
+            keyStorePassword: mykeystorePassword
+            keyStoreAlias: agent
+            keyStoreAliasPassword: agentpassword
+        port: 9997
+
+services:
+    mule.agent.application.service:
+        enabled: true
+
+    mule.agent.domain.service:
+        enabled: true
+
+    mule.agent.jmx.publisher.service:
+        enabled: true
+        frequency: 15
+        frequencyTimeUnit: MINUTES
+        beans:
+            -   beanQueryPattern: java.lang:type=Runtime
+                attribute: Uptime
+                monitorMessage: Monitoring memory up-time
+            -   beanQueryPattern: java.lang:type=MemoryPool,*
+                attribute: Usage.used
+                monitorMessage" : Used Memory
+
+internalHandlers:
+    domaindeploymentnotification.internal.message.handler:
+        enabled: true
+
+    applicationdeploymentnotification.internal.message.handler:
+        enabled: false
+
+    tracking.notification.internal.message.handler:
+        enabled: true
+        buffer:
+            type: MEMORY
+            retryCount: 1
+            flushFrequency: 10000
+            maximumCapacity: 30
+
+externalHandlers:
+    applications.request.handler:
+        enabled: true
+
+    domains.request.handler:
+        enabled: true</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

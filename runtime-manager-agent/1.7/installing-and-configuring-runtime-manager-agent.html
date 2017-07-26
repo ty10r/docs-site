@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="agent, runtime manager, mule, esb, servers, monitor, notifications, external systems, third party, get status, metrics">
+  <link rel="canonical" href="https://ede65566-docs-migration.github.io/docs-site/runtime-manager-agent/1.7/installing-and-configuring-runtime-manager-agent.html">
+  <link rel="stylesheet" href="../../_theme/stylesheets/theme.css">
+  <title>Installing the Runtime Manager Agent // MuleSoft Documentation</title>
+</head>
+<body class="article">
+<header class="header" id="header" role="banner"><div class="header__wrapper clearfix">
+      <div class="header__logo--primary-nav clearfix">
+        <a href="https://docs.mulesoft.com" title="Home" rel="home" class="header__logo" id="logo">
+          <img src="../../_theme/images/mulesoft-dev-logo.svg" alt="Home" class="header__logo-image"></a>
+          <div class="header__region region region-header">
+    <div id="block-system-main-menu" class="block block-menu first last odd" role="navigation">
+
+        <h2 class="block__title block-title">Main Dev Menu</h2>
+    
+  <ul class="menu"><li class="menu__item is-expanded first expanded"><span class="menu__link">Platform</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/dev/anypoint-studio" title="" class="menu__link">Studio</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/connectors" title="" class="menu__link">Connectors</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/anypoint-exchange" title="" class="menu__link">Exchange</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/design-api" title="" class="menu__link">API Designer</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-developer-portal" title="" class="menu__link">API Portal</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/mule-runtime-engine" title="" class="menu__link">Mule runtime engine</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/dev/api-management" title="" class="menu__link">API Manager</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/dev/reporting-api-analytics" title="" class="menu__link">API Analytics</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><span class="menu__link">Resources</span><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="https://developer.mulesoft.com/getting-started/anypoint-platform" class="menu__link">Getting started</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/tutorials-and-howtos" class="menu__link">Tutorials &amp; HowTos</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/webinars-and-videos" title="" class="menu__link">Webinars &amp; Videos</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/workshops" class="menu__link">Online Workshops</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://developer.mulesoft.com/integration-books-and-resources" class="menu__link">Books &amp; Whitepapers</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/dev/" class="menu__link">Blog</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://docs.mulesoft.com" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://training.mulesoft.com" class="menu__link">Training</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded"><a href="https://developer.mulesoft.com/community" class="menu__link">Community</a><ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://forum.mulesoft.org/" class="menu__link">Forums</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://meetups.mulesoft.com" class="menu__link">Meetups</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://s2.developer.mulesoft.com/" class="menu__link">Contributed Content</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://s2.developer.mulesoft.com/jobs.html" class="menu__link">Jobs</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.mulesoft.org/jira/browse/MULE" class="menu__link">Issue tracker</a></li>
+</ul></li>
+<li class="menu__item is-leaf last leaf"><a href="https://developer.mulesoft.com/champions" class="menu__link">Champions</a></li>
+</ul></div>
+  </div>
+      </div> <!-- header__logo--primary-nav -->
+      <div class="header__top-wrapper">
+        <div class="header__nav-wrapper">
+                      <div class="region region-header-top">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  
+</div>
+  </div>
+        </div>
+        <div class="top-nav-ctas">
+          <a class="icon-muletheme-phone" href="https://mulesoft.com/lp/contact" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-contact');"></a>
+          <a href="https://anypoint.mulesoft.com/login/#/signup?apintent=dmc_generic" class="try" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-nav');">Try now</a>
+          <a href="https://mulesoft.com/" class="dev" onclick="ga('send', 'event', 'CTA', 'Click', 'dmc-top-mscom');">MuleSoft.com</a>
+        </div>
+      </div> <!-- header__secondary-nav-search -->
+    </div> <!-- header__wrapper -->
+    <a href="#sidr" id="open-left" class="closed">
+    </a>
+  </header><main role="main" class="main-wrapper">
+  <div class="navigation-wrapper">
+    <nav role="navigation" class="navigation">
+      <div class="search">
+        <input type="text" placeholder="Search the docs" class="search-input" autocomplete="off" autocorrect="off" autocapitalize="off">
+      </div>
+      <div class="inner-nav">
+      </div>
+    </nav>
+  </div>
+  <article class="primary-content">
+    <header class="article-header">
+      <div class="breadcrumb">
+        <strong class="breadcrumb-item">[ Domain Selector Placeholder ]</strong> /
+        <span class="breadcrumb-item">Installing the Runtime Manager Agent</span>
+      </div>
+      <div class="edit-on-github">
+        <a href="https://github.com/ede65566-docs-migration/runtime-manager-agent-docs/edit/v1.7/modules/ROOT/content/installing-and-configuring-runtime-manager-agent.adoc" class="edit-on-github-link">Edit on Github</a>
+      </div>
+    </header>
+    <h1>Installing the Runtime Manager Agent</h1>
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Enterprise Edition</em></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-cloud-disabled.png" alt="logo cloud disabled" title="CloudHub"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-hybrid-active.png" alt="logo hybrid active" title="Hybrid Deployment"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-server-active.png" alt="logo server active" title="Anypoint Platform Private Cloud Edition"></a></span>
+<span class="image"><a class="image" href="/runtime-manager/deployment-strategies"><img src="./_images/logo-pcf-disabled.png" alt="logo pcf disabled" title="Pivotal Cloud Foundry"></a></span></p>
+</div>
+<div class="paragraph">
+<p>This document covers how to <a href="#installing-the-agent-from-the-zip-file">install</a> or <a href="#updating-a-previous-installation">update</a> the Runtime Manager Agent, which mediates the communication between a Mule Runtime and the Runtime Manager.</p>
+</div>
+<div class="paragraph">
+<p>The Runtime Manager Agent is installed into a Mule runtime, and is used to register the Mule runtime with Runtime Manager. The Mule runtime is then registered and controlled by Runtime Manager within a specific environment of a specific Anypoint Platform business group.</p>
+</div>
+<div class="paragraph">
+<p>The latest version of the Mule runtime is bundled with the latest version of the Runtime Manager Agent. You can download the latest Mule runtime from the <a href="https://www.mulesoft.com/support-login">Customer Portal</a>. However, you must download and install the correct version of the Runtime Manager Agent that supports the version of Anypoint Platform you are using. The version of Runtime Manager Agent you need may be different from the version bundled with the current version of Runtime Manager. You may need to downgrade the version of the agent to support your version of the platform.</p>
+</div>
+<div class="paragraph">
+<p>If you use an older version of the Mule runtime, or an older API Gateway Runtime, or if a newer version of the Runtime Manager Agent releases in between Mule runtime releases, then you can download and install the latest version of the Runtime Manager Agent from the
+<a href="../../release-notes/runtime-manager-agent/release-notes.html">Runtime Manager Agent release notes</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For the latest version of the Runtime Manager Agent, see the <a href="../../release-notes/runtime-manager-agent/release-notes.html">Runtime Manager Agent Release Notes</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Mule 3.7.x and API Gateway 2.x provide an <a href="index.html">older version of the Runtime Manager Agent</a>. This earlier version doesn&#8217;t provide support for <a href="../../anypoint-platform/runtime-manager/sending-data-from-arm-to-external-analytics-software.html">Sending data from Runtime Manager to External Analytics Software</a>. If you are running these older versions, you may need to upgrade the Runtime Manager Agent software.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you&#8217;re deploying your applications to a <a href="../../anypoint-platform/private-cloud/pcf/pcf-deploying.html">Pivotal Cloud Foundry</a> environment, then you don&#8217;t need to worry about installing or configuring the Runtime Manager Agent. In that scenario, the agent functions as usual as the link between the Mule runtimes and the Runtime Manager. However, the same PCF buildPack that automatically creates new runtime instances also creates agent instances and registers these to the Runtime Manager. If you want to change the configuration of your agent instances, you must modify the buildPack.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Runtime Manager Agent is still bundled with the Mule and API Gateway software distributions; however, you may need to download and use the new zip version to update your Runtime Manager Agent to the latest version.</p>
+</div>
+<div class="paragraph">
+<p>This document assumes that your enterprise license is current. See <a href="../../mule-runtime/3.8/install/installing-an-enterprise-license.html">Installing an Enterprise License</a> for information on obtaining and installing an enterprise license.</p>
+</div>
+<div class="paragraph">
+<p>The Runtime Manager Agent works with Mule 3.6.0 and newer, and API Gateway 2.1 and newer.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We recommend that you run the latest version of Mule Enterprise. You can download the latest version from the <a href="http://www.mulesoft.com/support-login">customer portal</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-from-a-software-distribution"><a class="anchor" href="#installing-from-a-software-distribution"></a>Installing from a Software Distribution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The agent comes bundled with your Mule runtime installation. You can install it by running <code>$MULE_HOME/bin/amc_setup</code> (or <code>$MULE_HOME\bin\amc_setup.bat</code> if on Windows).</p>
+</div>
+<div class="paragraph">
+<p><strong>See the <a href="#installation-options">Installation Options</a> section below for the arguments that can be used when running this command.</strong></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Currently, Mule 3.7.x and older, and API Gateway 2.x and older provide an <a href="../../release-notes/runtime-manager-agent/release-notes.html">older version of the Runtime Manager Agent</a>. This version doesn&#8217;t provide support for <a href="../../anypoint-platform/runtime-manager/sending-data-from-arm-to-external-analytics-software.html">Sending data from Runtime Manager to External Analytics Software</a>. Newer versions that do provide support for this must be downloaded separately.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mule 3.6.0 and 3.6.1 Installation:</strong></p>
+</div>
+<div class="paragraph">
+<p>Download the agent and follow the steps in the <a href="#installing-the-agent-from-the-zip-file">Installing the Agent from the Zip File</a> section. Then depending on your OS, run <code>amc_setup</code> or <code>amc_setup.bat</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="download-the-latest-version-of-the-agent"><a class="anchor" href="#download-the-latest-version-of-the-agent"></a>Download the Latest Version of the Agent</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can find the latest version of the Runtime Manager Agent from the most recent version available at the
+<a href="../../release-notes/runtime-manager-agent/release-notes.html">Runtime Manager Agent release notes</a> page.</p>
+</div>
+<div class="paragraph">
+<p>You can also find the download links to older versions of the Runtime Manager agent on this page.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-the-agent-from-the-zip-file"><a class="anchor" href="#installing-the-agent-from-the-zip-file"></a>Installing the Agent from the Zip File</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Stop Mule or the API Gateway runtime. You can stop Mule with the <code>./bin stop</code> command or by killing the process.</p>
+</li>
+<li>
+<p>Expand the <code>mule-agent-[VERSION].zip</code> file to the <code>$MULE_HOME/bin</code> Mule software distribution folder.</p>
+</li>
+<li>
+<p>When prompted, replace (overwrite) any conflicting files (<code>amc_setup</code> and <code>amc_setup.bat</code>).</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The agent zip file contains these three files.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>amc_setup</code> - Mac and Linux installation file</p>
+</li>
+<li>
+<p><code>amc_setup.bat</code> - Windows installation file</p>
+</li>
+<li>
+<p><code>agent-setup-&lt;version&gt;.jar</code> - Called by the installation files</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Depending on your OS, run <code>amc_setup</code> or <code>amc_setup.bat</code> on the command line to install or update the Runtime Manager Agent plugin.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>See the <a href="#installation-options">Installation Options</a> section below for the arguments that can be used when running this command.</strong></p>
+</div>
+<div class="paragraph">
+<p>The installed Runtime Manager Agent works correctly with Mule and API Gateway runtimes versions that already include the Runtime Manager Agent in the distribution.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="updating-a-previous-installation"><a class="anchor" href="#updating-a-previous-installation"></a>Updating a Previous Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After downloading the Runtime Manager Agent zip file, determine if you can update an existing Runtime Manager Agent installation. Check on the corresponding <a href="../../release-notes/runtime-manager-agent/release-notes.html">release notes</a>.</p>
+</div>
+<div class="paragraph">
+<p>This section shows you how to update a previous Runtime Manager Agent installation. Otherwise, see the <a href="#Installation Optons">[Installation Optons]</a> section below to see how to install a new Runtime Manager Agent for the first time.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you&#8217;re not sure if a prior version has already been installed, check the <code>$MULE_HOME/conf</code> folder. If a previous version was installed, then there should be a <code>mule_agent.yml</code> configuration file in that folder.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Previous releases of compatible Mule and API Gateway runtimes shipped with an older version of the <code>amc_setup</code> script. If you already ran an older version of this script to install an earlier version of the Runtime Manager Agent, then you can upgrade the Runtime Manager Agent software but keep your existing Runtime Manager Agent configuration and modifications.</p>
+</div>
+<div class="paragraph">
+<p>To upgrade an existing Runtime Manager Agent:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Stop your Mule runtime.</p>
+</li>
+<li>
+<p>Uncompress the Runtime Manager Agent zip file in your <code>$MULE_HOME/bin</code> folder.</p>
+<div class="paragraph">
+<p>This may replace the <code>amc_debug</code>, <code>amc_setup</code> and <code>amc_setup.bat</code> files.</p>
+</div>
+</li>
+<li>
+<p>Run <code>./amc_setup -U</code> to update the agent version.</p>
+<div class="paragraph">
+<p>This script updates the Runtime Manager Agent, but does not override the <code>$MULE_HOME/conf/mule-agent.yml</code> file.</p>
+</div>
+</li>
+<li>
+<p>Restart your Mule runtime.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you are using Windows, run <code>amc_setup.bat -U</code> instead of <code>./amc_setup -U</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>See the <a href="#installation-options">Installation Options</a> section below for the arguments that can be used when running this command.</strong></p>
+</div>
+<div class="paragraph">
+<p>Restart Mule with the <code>$MULE_HOME/bin/./mule restart</code> command.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For information on starting and stopping API Gateway, see <a href="../../anypoint-platform/api-manager/configuring-an-api-gateway.html">Configuring an API Gateway</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="remove-a-previous-installation"><a class="anchor" href="#remove-a-previous-installation"></a>Remove a Previous Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The installation of the Runtime Manager agent creates two configuration files: <code>$MULE_HOME/conf/mule-agent.jks</code> and <code>$MULE_HOME/conf/mule-agent.yml</code>.  In order to uninstall the agent configuration, just remove these files and restart the instance.</p>
+</div>
+<div class="sect2">
+<h3 id="about-the-runtime-manager-agent-update-process"><a class="anchor" href="#about-the-runtime-manager-agent-update-process"></a>About the Runtime Manager Agent Update Process</h3>
+<div class="paragraph">
+<p>The amc_setup script makes the following changes to your Mule runtime installation:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Backs up the current version of the agent:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Everything under <code>$MULE_HOME/plugins/MULE_AGENT_PLUGIN_FOLDER</code> is archived into  <code>$MULE_HOME/tools/mule-agent-backup.zip</code>.</p>
+</li>
+<li>
+<p>Any custom modules you have installed (usually located in <code>$MULE_HOME/plugins/MULE_AGENT_PLUGIN_FOLDER/lib/modules</code>) are archived into  <code>$MULE_HOME/tools/mule-agent-modules-backup.zip</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Updates agent libs under <code>$MULE_HOME/plugins/MULE_AGENT_PLUGIN_FOLDER/lib</code></p>
+</li>
+<li>
+<p>Keeps the current <code>$MULE_HOME/conf/mule-agent.yml</code> configuration file.</p>
+</li>
+<li>
+<p>Keeps modules under <code>$MULE_HOME/plugins/MULE_AGENT_PLUGIN_FOLDER/lib/modules</code> unchanged (all custom modules added to the agent that are not included in the agent distribution should be installed in this folder).</p>
+</li>
+<li>
+<p>No reregistration is needed after the process is done, just restart the Mule or API Gateway instance.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installation-options"><a class="anchor" href="#installation-options"></a>Installation Options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are not updating a previous Runtime Manager Agent installation, or if you want to change some of the configuration options, then you may need to run the <code>amc_setup</code> command with other options.</p>
+</div>
+<div class="paragraph">
+<p>There are three different ways to install and configure a Runtime Manager Agent.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Connect a Runtime Manager Agent with an Anypoint Platform Runtime Manager cloud-based console.</p>
+</li>
+<li>
+<p>Connect a Runtime Manager Agent with an Anypoint Platform Private Cloud Edition Runtime Manager console.</p>
+</li>
+<li>
+<p>Connect a Runtime Manager Agent with a 3rd party monitoring console.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each configuration choice has a different set of options for the <code>amc_setup</code> command.</p>
+</div>
+<div class="paragraph">
+<p>You can run <code>./amc_setup --help</code> to see the available options for the installation command.</p>
+</div>
+<div class="sect2">
+<h3 id="editing-the-runtime-manager-agent-configuration-file"><a class="anchor" href="#editing-the-runtime-manager-agent-configuration-file"></a>Editing the Runtime Manager Agent Configuration File</h3>
+<div class="paragraph">
+<p>Most of the Runtime Manager Agent configuration options add or replace configuration text to the <code>$MULE_HOME/conf/mule-agent.yml</code> file. Often you can combine several configuration options into a single <code>amc_setup</code> command, or you can add additional configurations later by re-running the <code>amc_setup</code> command with different (non-conflicting) options. For example, you can configure a Runtime Manager Agent to communicate with both a Runtime Manager server and with a 3rd party console.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="selecting-and-configuring-monitoring-console-options"><a class="anchor" href="#selecting-and-configuring-monitoring-console-options"></a>Selecting and Configuring Monitoring Console Options</h3>
+<div class="paragraph">
+<p>Normally, you will configure a Runtime Manager Agent to communicate and exchange monitoring information with an Anypoint Platform Runtime Manager cloud console. This type of installation is performed using the <code>-H</code> option, using the security token provided by the Anypoint Platform Runtime Manager cloud console. Communication with either type of Anypoint Runtime Manager console is via web sockets, and will be configured as a WebSockets transport in the <code>$MULE_HOME/conf/mule-agent.yml</code> file.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="combining-monitoring-console-options"><a class="anchor" href="#combining-monitoring-console-options"></a>Combining Monitoring Console Options</h3>
+<div class="paragraph">
+<p>You can also configure a Runtime Manager Agent to communicate with other management consoles via one or more REST transports. These options are supported by the <code>-I</code>, <code>-S</code> options.</p>
+</div>
+<div class="paragraph">
+<p>If you run <code>amc_setup</code> with one of these options, your previous <code>$MULE_HOME/conf/mule-agent.yml</code> file will be completely replaced.</p>
+</div>
+<div class="paragraph">
+<p>In addition to using the <code>amc_setup</code> command, you can also backup various configuration options and manually edit the <code>$MULE_HOME/conf/mule-agent.yml</code>. Also, there are other configuration options that are not possible using the <code>amc_setup</code> command, such as extending JMX monitoring to other external services, so these options must be manually added to the <code>$MULE_HOME/conf/mule-agent.yml</code> file.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-jmx-monitoring-publication-services"><a class="anchor" href="#configuring-jmx-monitoring-publication-services"></a>Configuring JMX Monitoring Publication Services</h3>
+<div class="paragraph">
+<p>MuleSoft provides several OpenSource JMX monitoring publishing modules for Cloudwatch, Graphite, Nagios, and Zabbix. The Nagios module is already included in Mule runtime.</p>
+</div>
+<div class="paragraph">
+<p>Cloudwatch publishers: allows users to send JMX metrics to Amazon Cloudwatch.</p>
+</div>
+<div class="paragraph">
+<p>Graphite: provides Graphite JMX metrics integration.</p>
+</div>
+<div class="paragraph">
+<p>Nagios: provides integration with Nagios.</p>
+</div>
+<div class="paragraph">
+<p>Zabbix: module to send metrics to Zabbix instances.</p>
+</div>
+<div class="paragraph">
+<p>For further information, please check the JMX section in Mule Agent documentation.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="amc_setup-parameters"><a class="anchor" href="#amc_setup-parameters"></a>amc_setup Parameters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>amc_setup</code> command has various parameters to fulfill various use cases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Register a Mule runtime with a Runtime Manager console</p>
+</li>
+<li>
+<p>Manage a Mule runtime via the local Runtime Manager Agent REST API interface, either via HTTP or HTTPS</p>
+</li>
+<li>
+<p>Update the Runtime Manager Agent software</p>
+</li>
+<li>
+<p>Get Help</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The required arguments differ depending on if you&#8217;re registering your server to be managed via the cloud console of Runtime Manager, or to be managed by the Anypoint Platform Private Cloud Edition.</p>
+</div>
+<div class="paragraph">
+<p>The following tables provide details about the parameters you use for these different use cases.</p>
+</div>
+<div class="sect2">
+<h3 id="general-amc_setup-parameters"><a class="anchor" href="#general-amc_setup-parameters"></a>General amc_setup Parameters</h3>
+<div class="paragraph">
+<p>These arguments work in CloudHub and Anypoint Platform Private Cloud Edition.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>--help</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>See a help listing print out to the command-line.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>-U</code></p>
+</div>
+<div class="paragraph">
+<p><code>--update</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Update the Runtime Manager Agent software. Preserves the existing mule-agent.yml configuration.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>-E</code></p>
+</div>
+<div class="paragraph">
+<p><code>--encrypt</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Utility to encrypt the passwords used on the mule-agent.yml file.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>--mule-home</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The location of the <code>$MULE_HOME</code> directory. Use this option if you are not running the installation script from <code>$MULE_HOME/bin</code>. The mule-agent.yml file is read from <code>../conf</code>, relative to this <code>--mule-home</code> location.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>--skip-gateway-clientid</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Skip Anypoint API Gateway client_id and client_secret configuration.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="hybrid-runtime-manager-management"><a class="anchor" href="#hybrid-runtime-manager-management"></a>Hybrid Runtime Manager Management</h3>
+<div class="paragraph">
+<p>Configures the Runtime Manager Agent to create a hybrid management connection with a Runtime Manager. The connection is to a specific environment for a specific business group. The business group can exist in an account in the MuleSoft managed (cloud-based) Anypoint Platform, or in an Anypoint Platform Private Cloud Edition installation which you are responsible for managing.</p>
+</div>
+<div class="paragraph">
+<p>The simplest way to manage a Mule runtime is to register the Mule runtime with the MuleSoft managed Anypoint Platform Runtime Manager console.
+This option, configurable on the installation command through the '-H' argument, configures the Runtime Manager Agent to connect to the Runtime Manager. This option requires a token (provided by the Runtime Manager console) and an instance name. For details, see <a href="../../anypoint-platform/runtime-manager/managing-servers.html#add-a-server">Managing Servers</a>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>-H</code> parameter is required to register a Mule runtime with Runtime Manager. You must provide a valid registration token to this parameter. The registraiton token is generated by the Runtime Manager console, for a specific environment within a specific business group. The Mule runtime will then be managed within this particular Anypoint Platform business group&#8217;s environment.  The term <strong>hybrid</strong> indicates that the same <code>-H</code> parameter is used for both types of Runtime Manager installations: MuleSoft managed (cloud-based) Anypoint Platform accounts, and Anypoint Platform Private Cloud Editions accounts.</p>
+</div>
+<div class="paragraph">
+<p>In the Runtime Manager console, you can see a full example of the code you need to run by clicking the <a href="../../anypoint-platform/runtime-manager/managing-servers.html#add-a-server">Add Server</a> button. This example command already includes the registration token with you specific organization&#8217;s ID and the current environment, so it is ready to use in case you don&#8217;t need to configure anything beyond the default settings.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>-H &lt;token&gt; &lt;server-name&gt;</code></p>
+</div>
+<div class="paragraph">
+<p><code>--hybrid &lt;token&gt; &lt;server-name&gt;</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Configures the Runtime Manager Agent to create a hybrid management connection with a Runtime Manager. The connection is to a specific environment for a specific business group in Anypoint Platform. The same command is used for all types of Runtime Manager installations: MuleSoft managed (cloud-based) Anypoint Platform accounts, and Anypoint Platform Private Cloud Editions accounts.</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;token&gt;</code> is a base64 encoded string that specifies the exact business group and environment with which to register the Mule runtime with the Runtime Manager. You obtain this token using the <strong>Add Server</strong> button in a Runtime Manager console, and the token is generated by Runtime Manager.</p>
+</div>
+<div class="paragraph">
+<p><code>&lt;server-name&gt;</code> is the instance name with which to label the Mule runtime in the Runtime Manager console. This name must be unique within the business group&#8217;s environment.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="obtaining-a-registration-token"><a class="anchor" href="#obtaining-a-registration-token"></a>Obtaining a Registration Token</h4>
+<div class="paragraph">
+<p>The <code>-H</code> parameter is required to register a Mule runtime with Runtime Manager. You must provide a valid registration token to this parameter. The access_token is copied from the Runtime Manager console, for a specific environment within a specific business group. The Mule runtime will then be managed within this particular Anypoint Platform business group&#8217;s environment.  The <code>-H</code> is used for both regular (cloud-based) Anypoint Platform and Anypoint Platform Private Cloud Editions.</p>
+</div>
+<div class="paragraph">
+<p>To obtain the registration token, you need to use the <strong>Add Server</strong> option in the Runtime Manager. This presents a complete command to register the Mule runtime in the format <code>./amc_setup -H &lt;token&gt; &lt;server-name&gt;</code>. Once you have the command with the registration token, copy-paste it into the <code>$MULE_HOME/bin</code> folder for each Mule runtime you wish to register. Make sure to change the instance name <code>server-name</code> to the unique instance name you wish to use to label this Mule runtime in the Runtime Manager console.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can use the same copied registration command for multiple Mule runtimes, but make sure to change the default instance name <code>server-name</code> to a different and unique instance name for each Mule runtime.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Here is an example <code>mule-agent.yml</code> file generated by the <code>-H</code> option:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">transports:
+  rest.agent.transport:
+    enabled: false
+  websocket.transport:
+    consoleUri: wss://mule-manager.anypoint.mulesoft.com:443/mule
+    handshake:
+      enabled: true
+      body:
+globalConfiguration:
+  security:
+    keyStorePassword: 42d9515f-3ca9-4ef4-87c0-586bd786b08b
+    keyStoreAlias: agent
+    keyStoreAliasPassword: 42d9515f-3ca9-4ef4-87c0-586bd786b08b
+  authenticationProxy:
+    endpoint: https://arm-auth-proxy.prod.cloudhub.io</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It is not supported to register a Mule runtime with multiple Runtime Manager business groups or environments.</p>
+</div>
+<div class="paragraph">
+<p>It is also not supported to register a Mule runtime with both an older <a href="../../mule-management-console/index.html">Mule Management Console (MMC)</a> and Runtime Manager. If the Mule runtime is currently managed in MMC, you should first unregister the Mule runtime with MMC before running the <code>amc_setup -H</code> script.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>MuleSoft support can provide you with some migration scripts to help you migrate from MMC to Runtime Manager.</p>
+</div>
+<div class="paragraph">
+<p>For details, see <a href="../../anypoint-platform/runtime-manager/managing-servers.html#add-a-server">Managing Servers</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="registering-with-an-anypoint-platform-private-cloud-edition-runtime-manager"><a class="anchor" href="#registering-with-an-anypoint-platform-private-cloud-edition-runtime-manager"></a>Registering with an Anypoint Platform Private Cloud Edition Runtime Manager</h4>
+<div class="paragraph">
+<p>With Anypoint Platform Private Cloud Edition, all the Runtime Manager related services run on-prem rather than in a MuleSoft hosted cloud environment.</p>
+</div>
+<div class="paragraph">
+<p>The steps to register a Mule runtime with an on-prem Runtime Manager are similar to how you register a Mule runtime with a MuleSoft managed (cloud-based) Anypoint Platform Runtime Manager, with some additional finals steps.</p>
+</div>
+<div class="paragraph">
+<p>The steps are:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log into an Anypoint Platform Private Cloud Edition account.</p>
+</li>
+<li>
+<p>Ensure that you have correctly setup the DNS entry for your platfom. See <a href="../../anypoint-platform/access-management/private-cloud-edition-features.html#dns-or-ip">DNS or IP</a></p>
+</li>
+<li>
+<p>Select a business group and environment into which you want to register the Mule runtime.</p>
+</li>
+<li>
+<p>Within this particular environment, select <strong>servers</strong> from the left side navigation menu, then click the <strong>Add Server</strong> button.</p>
+</li>
+<li>
+<p>Copy the registration command and paste it into the $MULE_HOME/bin folder of the Mule runtime you wish to register with this Runtime Manager environment. The registration command will have the syntax <code>./amc_setup -H &lt;token&gt; <em>server-name</em></code>.</p>
+</li>
+<li>
+<p>Replace <code><em>server-name</em></code> with the name you would like to label this Mule runtime in the Runtime Manager console.</p>
+</li>
+<li>
+<p>Add additional parameters to specify the URL of required Anypoint Platform services.</p>
+<div class="paragraph">
+<p>The registration command will have the same format <code>./amc_setup -H &lt;token&gt; <em>server-name</em></code> as with the MuleSoft managed Anypoint Platform Runtime Manager, but the registration token will not work in the MuleSoft managed Anypoint Platform. At this point, you need to append some additional parameters to the registration command (after the server name). These parameters specify the URLs for the various services used by Runtime Manager to manage your Mule runtimes.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The help fo these additional parameters says they are optional, but you will need to supply all the correct values in order to properly register the Mule runtime with the on-prem Runtime Manager. All of these parameters are only used to append the <code>-H</code> parameter. They are not used with the <code>-I</code> nor with the <code>S</code> parameter to configure non Runtime Manager REST API connections.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="specifying-urls-of-on-premises-services"><a class="anchor" href="#specifying-urls-of-on-premises-services"></a>Specifying URLs of On-Premises Services</h4>
+<div class="paragraph">
+<p>This table describes all the additional parameters you will need to append to the <code>./amc_setup -H &lt;token&gt; &lt;server-name&gt;</code> command to register a Mule runtime with an Anypoint Platform Private Cloud Edition Runtime Manager.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>-A &lt;AMC_HOST&gt;</code></p>
+</div>
+<div class="paragraph">
+<p><code>--amc-host &lt;AMC_HOST&gt;</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Service URL location of your local instance of Runtime Manager, e.g. <code><a href="https://10.0.0.1:8080/hybrid/v1" class="bare">https://10.0.0.1:8080/hybrid/v1</a></code>. You can test the service is avaiable at <code>&lt;AMC_HOST&gt;/hybrid/v1</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>-W &lt;MCM_HOST&gt;</code></p>
+</div>
+<div class="paragraph">
+<p><code>--mcm-host &lt;MCM_HOST&gt;</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Service URL location of your local instance of MCM, e.g. <code>wss://10.0.0.2:443/mule</code>. You can test the service is
+available at <code>&lt;MCM_HOST&gt;/mule</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>-C &lt;CORE_SERVICES_HOST&gt;</code></p>
+</div>
+<div class="paragraph">
+<p><code>--cs-host &lt;CORE_SERVICES_HOST&gt;</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Service URL of your local instance of Access Management, e.g. <code><a href="https://10.0.0.3:8080/accounts" class="bare">https://10.0.0.3:8080/accounts</a></code>.
+You can test the service is available at  <code>&lt;CORE_SERVICES_HOST&gt;/accounts</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>-D &lt;CONTRACT_CACHING_SERVICE_HOST&gt;</code></p>
+</div>
+<div class="paragraph">
+<p><code>--contract-caching-service-host &lt;CONTRACT_CACHING_SERVICE_HOST&gt;</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Service URL location of your local instance of Contract Caching Service, i.e.: <a href="https://10.0.0.4:8080" class="bare">https://10.0.0.4:8080</a>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>-F &lt;API_PLATFORM_HOST&gt;</code></p>
+</div>
+<div class="paragraph">
+<p><code>--api-platform-host &lt;API_PLATFORM_HOST&gt;</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Service URL location of your local instance of API Manager, e.g. <code><a href="https://10.0.0.5:8080/apiplatform" class="bare">https://10.0.0.5:8080/apiplatform</a></code>. I
+You can test the service is available at <code>&lt;API_PLATFORM_HOST&gt;/apiplatform</code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>-Z &lt;AUTH_PROXY_SERVICE_HOST&gt;</code></p>
+</div>
+<div class="paragraph">
+<p><code>--auth-proxy-host &lt;AUTH_PROXY_SERVICE_HOST&gt;</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Service URL location of your Auth Proxy, i.e.: <a href="https://10.0.0.3:8080" class="bare">https://10.0.0.3:8080</a>.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Full sample command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">./amc_setup -H &lt;token&gt; &lt;server-name&gt; -A http://$DOCKER_IP_ADDRESS:8080/hybrid/api/v1 -W "wss://&lt;Anypoint Platform host&gt;:8443/mule" -C https://&lt;AnypointPlatform host&gt;/accounts -F https://&lt;Anypoint Platform host&gt;/apiplatform</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rest-connection-amc_setup-parameters"><a class="anchor" href="#rest-connection-amc_setup-parameters"></a>REST Connection amc_setup Parameters</h3>
+<div class="paragraph">
+<p>These arguments work in both versions of Anypoint Platform (cloud and on-prem), to allow direct REST connections between the Mule runtime and any external client. This allows external clients to access and manage a Mule runtime directly via the <a href="runtime-manager-agent-api.html">Runtime Manager Agent&#8217;s REST API</a>.</p>
+</div>
+<div class="paragraph">
+<p>You can configure the Runtime Manager Agent to allow either insecure or secure connections.</p>
+</div>
+<div class="paragraph">
+<p>With a secure REST configuration, you need to configure the Runtime Manager Agent with a valid digital certificate. The insecure REST configuration option allows you to skip this step.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>-I</code></p>
+</div>
+<div class="paragraph">
+<p><code>--insecure</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Configures the Runtime Manager Agent to use an unencrypted connection. It is valid for the REST transport only. You can interact with the API using a browser or other tool for making HTTP requests. The default TCP port is 9999, so you can connect to the Runtime Manager Agent at the base URL <code><a href="https://localhost:9999/mule/agent/" class="bare">https://localhost:9999/mule/agent/</a></code>.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>-S</code></p>
+</div>
+<div class="paragraph">
+<p><code>--secure</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Configures the Runtime Manager Agent to establish a TLS connection with an on-premises administration console. You need to provide the truststore and keystore in JKS format. This option enables a TLS channel for REST communications only. See <a href="#secure-connection-channel">Secure Connection Channel</a>. Note that this is for manually managing the Agent (i.e. not using ARM cloud-console to manage the Agent)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>-P &lt;PROXY_HOST&gt; &lt;PROXY_PORT&gt; &lt;PROXY_USER&gt; &lt;PROXY_PASSWORD&gt;</code></p>
+</div>
+<div class="paragraph">
+<p><code>--proxy &lt;PROXY_HOST&gt; &lt;PROXY_PORT&gt; &lt;PROXY_USER&gt; &lt;PROXY_PASSWORD&gt;</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Proxy configuration to use when registering with the connection. This option defines proxy details. See <a href="#installation-via-proxy">Installation Via Proxy</a>.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="insecure-connection-channel"><a class="anchor" href="#insecure-connection-channel"></a>Insecure Connection Channel</h3>
+<div class="paragraph">
+<p>This option, configurable on the installation command through the '-I' parameter, configures the Runtime Manager Agent to use an unencrypted connection. It is valid for the REST transport only. You can interact with the API using a browser or other tool for making HTTP requests.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example <code>mule-agent.yml</code> file generated by the <code>-I</code> parameter:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">transports:
+  websocket.transport:
+    enabled: false
+
+  rest.agent.transport:
+    port: 9999
+
+services:
+  mule.agent.jmx.publisher.service:
+    enabled: true
+    frequency: 15
+    frequencyTimeUnit: MINUTES</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="secure-connection-channel"><a class="anchor" href="#secure-connection-channel"></a>Secure Connection Channel</h3>
+<div class="paragraph">
+<p>This option, configurable on the installation command through the '-S' argument, configures the Runtime Manager Agent to establish a TLS connection with an on-premises administration console.</p>
+</div>
+<div class="paragraph">
+<p>You need to provide the truststore and keystore in JKS format. This option enables a TLS channel for REST communications only. Once you select the Secure connection Channel mode, you see the following menu:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">The communication channel for the agent will be encrypted using
+public/private key certificates. In the following steps you
+will be asked to provide the keystore and truststore.
+Both keystore and truststore format must be JKS.
+
+Keystore location (?):
+Truststore location (?):
+Keystore Password (?):
+Keystore Alias (?):
+Keystore Alias Password (?):
+INFO: Mule agent was successfully configured to use a TLS channel for REST communications.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>Keystore location</em></p>
+</div>
+<div class="paragraph">
+<p>The location of the keystore file to encrypt the communication channel. The keystore must be in JKS format. It is mandatory to provide one.</p>
+</div>
+<div class="paragraph">
+<p><em>Truststore location</em></p>
+</div>
+<div class="paragraph">
+<p>The location where of the truststore file to accept incoming requests from the administration console. The truststore must be in JKS format and must not have a password.</p>
+</div>
+<div class="paragraph">
+<p><em>Keystore Password</em></p>
+</div>
+<div class="paragraph">
+<p>The password to read the keystore. The password is used by the agent to open the keystore.</p>
+</div>
+<div class="paragraph">
+<p><em>Keystore Alias</em></p>
+</div>
+<div class="paragraph">
+<p>The alias of the key stored in the keystore.</p>
+</div>
+<div class="paragraph">
+<p><em>Keystore Alias Password</em></p>
+</div>
+<div class="paragraph">
+<p>The alias password in the keystore.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example <code>mule-agent.yml</code> file generated by the <code>-S</code> parameter:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">transports:
+  websocket.transport:
+    enabled: false
+
+  rest.agent.transport:
+    restSecurity:
+      keyStoreFile: server.jks
+      keystorePassword: P@ssword
+      keyStoreAlias: serverkey
+      keyStoreAliasPassword: P@ssword
+    port: 9999
+
+services:
+  mule.agent.jmx.publisher.service:
+    enabled: true
+    frequency: 15
+    frequencyTimeUnit: MINUTES</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-a-mule-runtime-for-2-way-tls"><a class="anchor" href="#configuring-a-mule-runtime-for-2-way-tls"></a>Configuring a Mule Runtime for 2-way TLS</h3>
+<div class="paragraph">
+<p>Here is an example of configuring 2-way TLS with the <code>amc_setup -S</code> option.</p>
+</div>
+<div class="paragraph">
+<p>The steps to configure TLS are:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Generate a keystore (public/private key pair) to identify the Runtime Manager Agent (server). Set the CN to match the Runtime Manager Agent&#8217;s hostname or IP Address.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">echo "Generate a new keystore to identify the Runtime Manager Agent. Use CN=localhost"
+
+keytool -keystore rmakeystore.jks -keypass mulesoft -storepass mulesoft  -genkey -keypass mulesoft -noprompt \
+-alias rma \
+-dname "CN=localhost, OU=Runtime Manager Agent, O=MuleSoft, L=San Francisco, S=Califorina, C=US"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Export the Runtime Manager Agent&#8217;s certificate (only the public key) to a DES formatted certificate file</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">echo "Export the rma alias' certificate from the rmakeystore.jks key store"
+keytool -export -alias rma -file rma.crt -keystore rmakeystore.jks -storepass mulesoft</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>For each REST client that will connect to the Runtime Manager Agent, generate a keystore (public/private key pair) to identify the REST client.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">echo "Generate a new keystore to be used by client requestors. Use CN=localhost"
+keytool -keystore clientkeystore.jks -storepass mulesoft -genkey -keypass mulesoft -noprompt \
+-alias client \
+-dname "CN=localhost, OU=RMA Client, O=MuleSoft, L=San Francisco, S=California, C=US"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Export the REST client&#8217;s certificate (the public key only) to a DES formatted certificate file.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">echo "Export the client alias' certificate from the clientkeystore.jks key store"
+keytool -export -alias client -file client.crt -keystore clientkeystore.jks -storepass mulesoft</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Because these are self-signed certificate files, create a truststore file containing both the client and rma certificates (public keys). This emmulates a Certificate Authority (CA) signing both of these certificates. In a more real world scenario, the server and client certificates would both be signed by a trusted CA, then published or shared with the client and server machines.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">echo "Import client and server public keys into a common cacerts.jks truststore file"
+
+keytool -import -v -trustcacerts -alias rma -file rma.crt -keystore cacerts.jks -keypass mulesoft -storepass mulesoft -noprompt
+
+keytool -import -v -trustcacerts -alias client -file client.crt -keystore cacerts.jks -keypass mulesoft -storepass mulesoft -noprompt</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure the Mule runtime with the rmakeystore.jks file and the cacerts.jks truststore. From the $MULE_HOME/bin folder run the command <code>./amc_setup -S</code>. For example, if you just ran all the previous commands in the <code>/security</code> folder, you would enter the values:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">-&gt; Mule Agent Unpacked
+
+
+
+
+The communication channel for the agent will be encrypted using public/private key certificates.
+In the following steps you will be asked to provide the keystore and truststore. Both keystore and
+truststore format must be JKS.
+
+
+Keystore location (?):/security/rmakeystore.jks
+Keystore Password (?): mulesoft
+Truststore location (?):/security/cacerts.jks
+Keystore Alias (?):rma
+Keystore Alias Password (?): mulesoft
+
+        INFO: Mule agent was successfully configured to use a TLS channel for REST communications.
+
+
+c:\APOpsOnPrem\max\bin&gt;more ..\conf\mule-agent.yml
+
+transports:
+  websocket.transport:
+    enabled: false
+
+  rest.agent.transport:
+    restSecurity:
+      keyStoreFile: clientkeystore.jks
+      keystorePassword: mulesoft
+      keyStoreAlias: client
+      keyStoreAliasPassword: mulesoft
+    port: 9999
+
+services:
+  mule.agent.jmx.publisher.service:
+    enabled: true
+    frequency: 15
+    frequencyTimeUnit: MINUTES</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note: The <code>/security/cacerts.jks</code> truststore file will be imported into the <code>$MULE_HOME/conf</code> folder and renamed as <code>truststore.jks</code>.</p>
+</div>
+</li>
+<li>
+<p>Restart the Mule runtime, and verify the Runtime Manager Agent REST interface starts up successfully. Add SSL debugging to the Mule runtime logging. <code>./mule -M-Djavax.net.debug=all</code></p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="submitting-2-way-tls-rest-requests"><a class="anchor" href="#submitting-2-way-tls-rest-requests"></a>Submitting 2-Way TLS REST Requests</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Convert the JKS keystore to a P12 keystore.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">echo "Export client keystore PKCS12 format from JKS"
+keytool -importkeystore -srckeystore clientkeystore.jks -srcstoretype JKS -srcstorepass mulesoft \
+-destkeystore clientkeystore.p12 -deststoretype PKCS12 -deststorepass mulesoft \
+-srcalias client -destalias client</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Use the <code>openssl</code> tool to export a base64 encoded text file of the full client certificate (public and private keys):</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">echo "Export full PEM (public and private keys) for use by client requests (cURL)"
+openssl pkcs12 -in clientkeystore.p12 -passin pass:mulesoft \
+-out clientkeystore.pem -passout pass:mulesoft</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can view the clientkeystore.pem file to verify both the public and private keys were exported to this file.</p>
+</div>
+</li>
+<li>
+<p>Submit a REST request from the client host to the Runtime Manager Agent host. Verify you do not see any SSL errors and you get a response back from the Runtime Manager Agent. Also use the <code>--insecure</code> option (or equivalently <code>-k</code>) to skip verifying the server (Runtime Manager Agent&#8217;s) certificate.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ curl -X GET https://localhost:9999/mule/agent/components --cert clientkeystore.pem --insecure
+
+Enter PEM pass phrase:
+
+[{"componentId":"components.configure.request.handler","enabled":true},{"componentId":"clustering.request.handler","enab
+led":true},{"componentId":"applications.request.handler","enabled":true},{"componentId":"domains.request.handler","enabl
+ed":true},{"componentId":"flows.request.handler","enabled":true},{"componentId":"installer.request.handler","enabled":tr
+ue},{"componentId":"logging.request.handler","enabled":true},{"componentId":"monitoring.request.handler","enabled":true}
+,{"componentId":"properties.request.handler","enabled":true},{"componentId":"tracking.request.handler","enabled":true},{
+"componentId":"application.deployment.notification.internal.message.handler","enabled":true},{"componentId":"domain.depl
+oyment.notification.internal.message.handler","enabled":true},{"componentId":"flow.status.notification.internal.message.
+handler","enabled":true},{"componentId":"membership.change.notification.internal.message.handler","enabled":true},{"comp
+onentId":"primary.node.notification.internal.message.handler","enabled":true},{"componentId":"tracking.notification.inte
+rnal.message.handler","enabled":false},{"componentId":"mule.agent.tracking.handler.log","enabled":false},{"componentId":
+"mule.agent.gw.http.handler.log","enabled":false},{"componentId":"mule.agent.nagios.jmx.internal.handler","enabled":fals
+e},{"componentId":"mule.agent.tracking.handler.splunk","enabled":false},{"componentId":"mule.agent.gw.http.handler.splun
+k","enabled":false},{"componentId":"mule.agent.application.service","enabled":true},{"componentId":"mule.agent.clusterin
+g.service","enabled":true},{"componentId":"mule.agent.domain.service","enabled":true},{"componentId":"mule.agent.gw.http
+.service","enabled":false},{"componentId":"mule.agent.installer.service","enabled":true},{"componentId":"mule.agent.logg
+ing.service","enabled":true},{"componentId":"mule.agent.application.metrics.publisher.service","enabled":true},{"compone
+ntId":"mule.agent.jmx.publisher.service","enabled":true},{"componentId":"mule.agent.properties.service","enabled":true},
+{"componentId":"mule.agent.tracking.service","enabled":true}]</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installation-via-proxy"><a class="anchor" href="#installation-via-proxy"></a>Installation Via Proxy</h3>
+<div class="paragraph">
+<p>This option, configurable on the installation command through the '-P' argument, configures the Runtime Manager Agent to connect to the Runtime Manager via a proxy. User and password are optional and may be omitted if the proxy doesn&#8217;t require authentication.</p>
+</div>
+<div class="paragraph">
+<p>Format: -P &lt;Proxy Host&gt; &lt;Proxy Port&gt; [&lt;Proxy User&gt; &lt;Proxy Password&gt;]</p>
+</div>
+<div class="paragraph">
+<p>Where:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>Proxy Host</em> - The host of the desired proxy.</p>
+</li>
+<li>
+<p><em>Proxy Port</em> - The port of the desired proxy.</p>
+</li>
+<li>
+<p><em>Proxy User</em> - The user with which to authenticate against the proxy.</p>
+</li>
+<li>
+<p><em>Proxy Password</em> - The password with which to authenticate against the proxy.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you have already installed the Runtime Manager Agent and want to change its configuration to use a proxy, you can do so by editing the <code>wrapper.conf</code> file. For details, see <a href="#setting-up-a-proxy">Setting up a Proxy</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-the-agent"><a class="anchor" href="#configuring-the-agent"></a>Configuring the Agent</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The sections that follow provide additional configuration details for Runtime Manager Agent.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you wish to use the Agent to send data from the Runtime Manager to Splunk, an ELK stack or other external software, then you must configure it in a different way from the one described below. See <a href="../../anypoint-platform/runtime-manager/sending-data-from-arm-to-external-analytics-software.html">Sending Data from the Runtime Manager to External Analytics Software</a> for details.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="configuring-mule-agent-yml"><a class="anchor" href="#configuring-mule-agent-yml"></a>Configuring mule-agent.yml</h3>
+<div class="paragraph">
+<p>At startup, the Runtime Manager Agent reads its configuration from the file <code>$MULE_HOME/conf/mule-agent.yml</code>. You must manually add, then edit this file with your installation&#8217;s configuration parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">muleInstanceUniqueId: validId
+organizationId: organizationId
+
+transports:
+    rest.agent.transport:
+        security:
+            keyStorePassword: rmakeystore.jks
+            keyStoreAlias: rma
+            keyStoreAliasPassword: mulesoft
+        port: 9997
+
+services:
+    mule.agent.application.service:
+        enabled: true
+
+    mule.agent.domain.service:
+        enabled: true
+
+    mule.agent.jmx.publisher.service:
+        enabled: true
+        frequency: 15
+        frequencyTimeUnit: MINUTES
+        beans:
+            -   beanQueryPattern: java.lang:type=Runtime
+                attribute: Uptime
+                monitorMessage: Monitoring memory up-time
+            -   beanQueryPattern: java.lang:type=MemoryPool,*
+                attribute: Usage.used
+                monitorMessage" : Used Memory
+
+internalHandlers:
+    domaindeploymentnotification.internal.message.handler:
+        enabled: false
+
+    applicationdeploymentnotification.internal.message.handler:
+        enabled: false</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuration-file-structure"><a class="anchor" href="#configuration-file-structure"></a>Configuration File Structure</h4>
+<div class="paragraph">
+<p>The <code>mule-agent.yml</code> file is structured in three levels:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>First level: Component types: transports, services, internalHandlers, and externalHanders.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Second level: Component name, for example, <code>mule.agent.jmx.publisher.service</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Third level: Component configuration. A component can have complex object configurations, including more than one recursive level.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To learn more on how to configure the Runtime Manager Agent, refer to the documentation of each component.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuring-log-location"><a class="anchor" href="#configuring-log-location"></a>Configuring Log Location</h4>
+<div class="paragraph">
+<p>You can log your Runtime Manager Agent state in a separate file from the other Mule log info, to set this up, see <a href="../../mule-runtime/3.8/debug/logging-in-mule.html#configuring-logs-for-runtime-manager-agent">Logging in Mule</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This is only supported in version 1.5.2 or later of the Runtime Manager agent.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configuring-during-runtime"><a class="anchor" href="#configuring-during-runtime"></a>Configuring During Runtime</h4>
+<div class="paragraph">
+<p>Some agent components allow you to configure them during runtime. For further information, see <a href="administration-service.html">Administration Service</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="enabling-rest-agent-transport-and-websocket-transport"><a class="anchor" href="#enabling-rest-agent-transport-and-websocket-transport"></a>Enabling REST Agent Transport and Websocket Transport</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you register a Mule runtime in the Runtime Manager, the generated <code>mule-agent.yml</code> disables the REST agent Transport (it replaces any existing configuration).</p>
+</div>
+<div class="paragraph">
+<p>Conversely, if you run <code>./amc_setup -I</code>, you enable the REST agent Transport and disable the WebSocket Transport (it replaces any existing WebSocket Transport configuration used to connect to Runtime Manager).</p>
+</div>
+<div class="paragraph">
+<p>To run both transports, modify the <code>mule-agent.yml</code> file with the following pattern:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">transports:
+  websocket.transport:
+    consoleUri: wss://mule-manager.anypoint.mulesoft.com:443/mule
+    security:
+      keyStorePassword: &lt;password&gt;
+      keyStoreAlias: agent
+      keyStoreAliasPassword: &lt;password&gt;
+      handshake:
+        enabled: true
+        body:
+          agentVersion: 1.1.0
+          muleVersion: 3.7.0
+          gatewayVersion: 2.0.2
+  rest.agent.transport:
+    port: 8888
+
+services:
+  mule.agent.jmx.publisher.service:
+    enabled: true
+    frequency: 15
+    frequencyTimeUnit: MINUTES</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ports-ips-and-hostnames-to-whitelist"><a class="anchor" href="#ports-ips-and-hostnames-to-whitelist"></a>Ports IPs and hostnames to Whitelist</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you need to whitelist the ports or IPs/hostnames for the communication between the Runtime Manager Agent and the Runtime Manager console please add the ones in the tables below:</p>
+</div>
+<div class="paragraph">
+<p><strong>Ports</strong></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>anypoint.mulesoft.com</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>443</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>mule-manager.anypoint.mulesoft.com</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>443</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>analytics-ingest.anypoint.mulesoft.com</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>443</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>arm-auth-proxy.prod.cloudhub.io</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>443</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Static IPs</strong></p>
+</div>
+<div class="paragraph">
+<p>There are two Static IPs that needs to be whitelisted for mule-manager.anypoint.mulesoft.com hostname.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">IP Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>mule-manager.anypoint.mulesoft.com</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>52.201.174.72</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>mule-manager.anypoint.mulesoft.com</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>52.201.67.218</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Dynamic IPs</strong></p>
+</div>
+<div class="paragraph">
+<p>Some of the IP addresses used by Anypoint services are assigned automatically by the underlying cloud infrastructure, and hence we can&#8217;t guarantee that they are not going to change in the future.</p>
+</div>
+<div class="paragraph">
+<p>For this reason, you should not implement a whitelist based on the specific IP addresses being assigned to Anypoint services.</p>
+</div>
+<div class="paragraph">
+<p>Nowadays, many firewall devices allow you define Layer 7 Firewall Rules, where you could be able to filter by destination name or application type.</p>
+</div>
+<div class="paragraph">
+<p>The hostnames that you should include in your Layer 7 Firewall rules include:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Hostname</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>anypoint.mulesoft.com</strong></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>analytics-ingest.anypoint.mulesoft.com</strong></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><strong>arm-auth-proxy.prod.cloudhub.io</strong></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-up-a-proxy"><a class="anchor" href="#setting-up-a-proxy"></a>Setting up a Proxy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can configure the Runtime Manager Agent to send websocket messages through an HTTP proxy.</p>
+</div>
+<div class="paragraph">
+<p>The Runtime Manager Agent reads its proxy configuration from the <code>wrapper.conf</code> file, located under Mule&#8217;s <code>conf/</code> directory.</p>
+</div>
+<div class="sect2">
+<h3 id="default-wrapper-conf-file"><a class="anchor" href="#default-wrapper-conf-file"></a>Default wrapper.conf File</h3>
+<div class="paragraph">
+<p><code>$MULE_HOME/conf/wrapper.conf</code>.</p>
+</div>
+<div class="paragraph">
+<p>In this file the properties that define proxy configuration are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>anypoint.platform.proxy_host</code></p>
+</li>
+<li>
+<p><code>anypoint.platform.proxy_port</code></p>
+</li>
+<li>
+<p><code>anypoint.platform.proxy_username</code></p>
+</li>
+<li>
+<p><code>anypoint.platform.proxy_password</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To send the insights and monitoring information, the Runtime Manager Agent calls the auth-proxy service. To connect to this service, the Runtime Manager Agent reads the proxy configuration from the file <code>mule-agent.yml</code>, in the <code>conf/</code> directory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="agent-specific-mule-agent-yml-file"><a class="anchor" href="#agent-specific-mule-agent-yml-file"></a>Agent-specific mule-agent.yml File</h3>
+<div class="paragraph">
+<p><code>$MULE_HOME/conf/mule-agent.yml</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">globalConfiguration:
+  proxyConfiguration:
+    host: "http://exampleHost"
+    port: 9999
+    user: "exampleUser"
+    password: "examplePassword"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See Also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../../anypoint-platform/api-manager/configuring-an-api-gateway.html">Configuring an API Gateway</a></p>
+</li>
+<li>
+<p><a href="runtime-manager-agent-architecture.html">Runtime Manager Agent Architecture</a></p>
+</li>
+<li>
+<p><a href="event-tracking.html">Event Tracking</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  </article>
+</main>
+<footer class="footer"><div class="footer__wrapper">
+      <div class="footer__top">
+              </div>
+      <div class="footer-bottom-wrapper">
+        <!--<a href="/" title="Home" rel="home" class="header__logo" id="logo"><img src="/sites/all/themes/muletheme/images/mule_logo.svg" alt="Home" class="header__logo-image" /></a>-->
+        <div class="connect-footer">
+          <p>Sign up for our Dev newsletter</p>
+          <div class="connect-footer">
+
+</div>
+  </div>
+        <div class="terms-conditions temp">
+          <div id="block-menu-menu-footer-bottom-menu" class="block block-menu contextual-links-region first last odd" role="navigation">
+            <ul class="menu"><li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/" class="menu__link">MuleSoft.com</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://blogs.mulesoft.com/" class="menu__link">Blog</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/content/terms-service" class="menu__link">Terms</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/privacy-policy" class="menu__link">Privacy</a></li>
+              <li class="menu__item is-leaf leaf"><a href="https://www.mulesoft.com/contact" class="menu__link">Contact</a></li>
+            </ul></div>
+                    <div class="default-terms-conditions">
+          </div>
+          MuleSoft provides a widely used <a href="https://www.mulesoft.com/platform/enterprise-integration">integration platform</a> for connecting SaaS and enterprise applications in the cloud and on-premise. Delivered as a unified integration experience, <a href="https://www.mulesoft.com/platform/saas/cloudhub-ipaas-cloud-based-integration">CloudHub&trade;</a> and <a href="https://www.mulesoft.com/platform/soa/mule-esb-open-source-esb">Mule ESB&trade;</a> (Enterprise Service Bus) are built on proven open source technology for fast and reliable on-premise and cloud integration without vendor lock-in.
+
+
+        </div>
+      </div>
+      <div class="footer-end">
+        <div class="footer-logo-wrapper">
+          <a href="https://developer.mulesoft.com/" class="footer-logo"></a>
+        </div>
+        <ul class="social-links"><li><a href="https://www.mulesoft.com/lp/contact" target="_blank" class="icon-muletheme-phone"></a></li>
+          <li><a href="https://www.linkedin.com/company/mulesoft" target="_blank" class="icon-muletheme-linkedin"></a></li>
+          <li><a href="https://twitter.com/muledev" target="_blank" class="icon-muletheme-twitter"></a></li>
+          <li><a href="https://www.facebook.com/MuleSoft" target="_blank" class="icon-muletheme-facebook"></a></li>
+          <li><a href="mailto:info@mulesoft.com" target="_blank" class="icon-muletheme-email"></a></li>
+          <li><a href="https://videos.mulesoft.com/" target="_blank" class="icon-muletheme-youtube"></a></li>
+        </ul><p class="copyright"><span>&copy;2017</span> MuleSoft, INC.</p>
+      </div>
+    </div>
+    </footer><script src="../../_theme/scripts/menu.js"></script>
+<script src="../../_theme/scripts/highlight.pack.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>
